@@ -10,7 +10,7 @@ yellow = "\033[1;33m"
 %: %.pdf
 
 %.pdf: %.tex
-	@echo $(green)"===Starting to build$<==="$(reset)
+	@echo $(green)"===Starting to build $<==="$(reset)
 	@echo $(green)"    Compiling document twice"$(reset)
 	@echo $(yellow)"    Compilation log writen into build/compile.log"$(reset)
 	@echo $(red)"    If compilation lasts too long, hit control + D"$(reset)
@@ -31,7 +31,7 @@ yellow = "\033[1;33m"
 	@echo $(green)"    Build complete."$(reset)
 
 .PHONY : all
-all : manual.pdf
+all : manual.pdf manual_en.pdf
 
 
 
