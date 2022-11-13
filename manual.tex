@@ -563,7 +563,10 @@ y en Linux con barras inclinadas normales(\verb!/!).
 Cada unidad en Windows suele ser un
 disco físico: un pendrive, un disco duro mecánico, un SSD... En Linux, cuando
 insertas una unidad o disco, simplemente se \textbf{monta} en un
-directorio que cuelga del raíz.
+directorio que cuelga del raíz. Montar simplemente significa que el sistema de
+ficheros del disco que hemos añadido (todas sus carpetas y contenido) se
+<<enganchan>> a los directorios que ya teníamos en un punto (en un directorio)
+como si fueran contenido de una carpeta.
 
 Estos directorios funcionan como una serie de puntos unidos por conexiones.
 Cada directorio o archivo es un punto, conectado al directorio de los que
@@ -593,7 +596,8 @@ ruta desde el directorio raíz hasta uno concreto, por ejemplo:
 \verb!/home/john/music/Beethoven_symphony.mp4! sería una ruta absoluta.
 \item Rutas relativas: Son aquéllas cuyo inicio no es la raíz, sino el
 directorio de trabajo. Por ejemplo: \verb!music/Beethoven_symphony.mp4! es una
-ruta relativa que sólo será válida si en el directorio de trabajo actual existe
+ruta relativa que sólo apuntará a un archivo que existe
+si en el directorio de trabajo actual existe
 un directorio llamado \verb!music! y, dentro de éste, un archivo llamado
 \verb!Beethoven_symphony.mp4!.
 \end{enumerate}
@@ -604,7 +608,8 @@ estás (en mi caso: <<DESKTOP-U8OA808>>) y después el directorio de trabajo, si
 cabe. Yo voy a sustituir el \textit{prompt} por únicamente
 el símbolo del dólar en
 los ejemplos que te muestre, para que quepa el texto mejor.
-Al principio mostraba una virgulilla (\verb!~!) porque ese es un alias de tu
+La primera vez que abriste la terminal, ésta mostraba una virgulilla (\verb!~!)
+porque ese es un alias de tu
 directorio \textit{home}, que es una ruta de los sistemas Linux donde el usuario
 almacena sus archivos personales. En general esa ruta está en
 \verb!/home/<nombre de usuario>!.
@@ -718,7 +723,8 @@ Vamos a navegar a esa carpeta que tienes en tu escritorio, las unidades de tu
 ordenador (los <<discos>> C, D, E...) se presentan en tu WSL en los
 directorios dentro de
 \verb!/mnt/!, así, \verb!C:! sería: \verb!/mnt/c!. A continuación te dejo el
-ejemplo.
+ejemplo de cómo navegar en Linux a una carpeta llamada \verb!hola_mundo! en
+tu escritorio de Windows. Puedes crearla ahora.
 
 
 \noindent
@@ -765,7 +771,11 @@ Te aclaro que la línea que sale desplazada a la derecha es porque tiene
 espacios delante, puedes poner dos, cuatro u ocho, yo recomiendo cuatro en
 términos generales.
 Después guárdalo, y acude a la terminal, deberías tener el fichero en el
-directorio. Haz un \verb!ls! para comprobarlo. Ahora vamos a compilar nuestro
+directorio. Haz un \verb!ls! para comprobarlo. Te recuerdo que si has
+cambiado de directorio de trabajo o has cerrado la terminal y vuelto a abrirla,
+deberás volver a navegar a este directorio para poder ver sus archivos y
+trabajar con él.
+Ahora vamos a compilar nuestro
 primer programa. Para eso, estando en el directorio que hemos creado
 (\verb!hola_mundo!) invocaremos a gcc. Debería verse así:
 
@@ -818,7 +828,9 @@ nuestro programa: gcc es, como ya te dije, el compilador de C, la opción
 \texttt{o} (recuerda que te expliqué lo que eran las opciones cuando te expliqué
 cómo usar \verb!ls!) indica que lo que viene a continuación es el nombre del
 programa que queremos crear y, finalmente, el nombre de nuestro fichero de
-código fuente.
+código fuente. Si detrás de la opción \verb!-o! escribieras otro nombre, el
+programa resultante se llamaría así, de aquí en adelante la mayoría de los
+ejemplos se compilarán como \verb!main.exe!.
 
 \subsection{Editor de texto}
 Tu primer programa lo has abierto con el Bloc de notas, pero editar código
@@ -1027,7 +1039,7 @@ debería salirte algo como esto:
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=terminalStyle]
-\$ ./main.exe
+\$ ./main.elf
 a vale: 3
 b vale: 10 y a vale lo mismo, es decir: 10
 b vale: 22, a sigue valiendo 10
@@ -1128,7 +1140,7 @@ explícitamente.
 Entre programadores se llama imprimir a escribir cosas en ficheros y,
 especialmente, por pantalla, como tu primer programa que escribía en pantalla
 <<¡Hola, mundo!>>. No quiero adelantar más de lo necesario, porque detrás de
-lo que usamos para imprimir pantalla hay varios conceptos, pero necesito que
+lo que usamos para imprimir por pantalla hay varios conceptos, pero necesito que
 sepas imprimir cosas para que puedar probar tus propios programas.
 
 Para imprimir algo en pantalla debes usar la palabra \texttt{printf}. Con una
@@ -1519,7 +1531,7 @@ Además, el programa cuenta con un problema, sólo resuelve \textbf{una} ecuaci�
 para que resuelva otra, o para cambiar algunos de los valores,
 debemos cambiar el
 programa y recompilarlo. Eso no es práctico, y los programas de verdad no
-funcionan así. De momento la mayoría de nuestro programas serán así, porque
+funcionan así. De momento la mayoría de nuestros programas serán así, porque
 quiero enseñarte primero otras cosas más fundamentales. Hasta ahora, los
 programas que hemos escrito se comportan de manera muy \textit{aburrida}, sólo
 ejecutan una serie de instrucciones una detrás de otra. Pero en la vida real
@@ -4922,8 +4934,8 @@ unidimensional.
 \multicolumn{1}{|Y|}{\textbf{Decimal}}& \multicolumn{1}{Y|}{\textbf{Binario}} & \multicolumn{1}{Y|}{\textbf{Hexadecimal}} \\\hline
 73&  &  \\\hline
    &00100110& \\\hline
-&&0x12F       \\\hline  
-128&&         \\\hline   
+&&0x12F       \\\hline
+128&&         \\\hline
 \end{tabularx}
 \end{table}
 \item Vuelve al ejercicio noveno y reproduce los contenidos de la pila en cada
@@ -5928,7 +5940,7 @@ int main(int argc, char const *argv[]) {
 
 Como puedes ver, el programa es muy sencillo, llamo a \verb!remove! con el
 primer argumento (después del nombre del programa) y compruebo si ha funcionado
-o no. 
+o no.
 
 \subsection{Ejercicios de la sección}
 \begin{exercises}[resume*]
@@ -5954,7 +5966,7 @@ números antes de utilizarlos, etc.
 y que sólo deje de leer cuando se introduzca <<!!>> como palabra. Después, debe
 imprimir dichas palabras en orden aleatorio. La función \verb!rand! devuelve
 un número aleatorio entre cero y el máximo entero positivo. Si quieres que
-devuelva números aleatorios \textbf{distintos} cada vez debes ejecutar 
+devuelva números aleatorios \textbf{distintos} cada vez debes ejecutar
 \verb!srand(time(NULL));! al inicio de la función \verb!main!. Debes incluir la
 cabecera \verb!time.h!.
 
@@ -8471,7 +8483,7 @@ int main(void) {
 \end{lstlisting}
 \end{minipage}
 
-La función es sencilla, pero repetimos argumentos, como he introducido antes, 
+La función es sencilla, pero repetimos argumentos, como he introducido antes,
 eso no sólo no es eficiente, sino que puede inducir a errores, porque tienes
 que ir contando los argumentos. Cuando hay pocos, unos cinco o menos, es
 factible, si son muchos más y además hay repeticiones, es sencillo perderse,
@@ -8515,8 +8527,8 @@ int main(void) {
 \end{lstlisting}
 \end{minipage}
 
-El primer cambio es que ahora los dos últimos especificadores son especiales, 
-un especificador posicional empieza como todos, con un signo de porcentaje, 
+El primer cambio es que ahora los dos últimos especificadores son especiales,
+un especificador posicional empieza como todos, con un signo de porcentaje,
 después la posición en forma de número, un símbolo de dolar y el indicador
 del tipo, en este caso, una ese, de \textit{string}. Como puedes ver, nos
 ahorramos la repetición de los argumentos.
@@ -8581,7 +8593,7 @@ de cómo saber qué funciones utilizan esta variable global y cuáles no, y qué
 valores hay. Para esto se utiliza el \textbf{manual}. Esta es una función de
 los sistemas operativos Linux en la que puedes invocar el comando \verb!man!
 para encontrar información sobre una función o cabecera. Por ejemplo, prueba
-a escribir en una terminal 
+a escribir en una terminal
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -8621,7 +8633,7 @@ pulsando la tecla q. Si quieres saber el contenido de cualquier cabecera
 (funciones, variables...) o la \textit{signature} de cualquier función, sólo
 debes escribir \verb!man! seguido del nombre de la cabecera o función. Si
 consigues resultados que no son lo que buscabas, ejecuta \verb!man 3 <nombre>!
-en su lugar. El manual tiene información sobre otras cosas (como comandos), 
+en su lugar. El manual tiene información sobre otras cosas (como comandos),
 pero la sección tres es la que habla de funciones de C.
 
 
@@ -8897,7 +8909,7 @@ los explicamos, a un enumerado le puedes explicitar el valor numérico de cada
 valor, aquí utilizamos el operador de desplazamiento a la izquierda para
 crear valores que sólo tengan un bit a uno, en posiciones distintas. Podría
 haberles asignado a mano los valores 1, 2 y 4, pero con el desplazamiento veo
-mejor y no me equivoco al calcular porque sé que siempre tiene que salir 
+mejor y no me equivoco al calcular porque sé que siempre tiene que salir
 \verb!1 <<! y después el número consecutivo.
 
 Después está la difinición de la estructura persona, que no tiene nada
@@ -10578,7 +10590,7 @@ cabecera. Si las necesitamos en las implementaciones (en las declaraciones de
 esctructuras, en las definiciones de funciones...), será en el archivo de
 código fuente (en el \verb!.c!) donde las incluiremos.
 
-El siguiente archivo es, precisamente, este archivo de código fuente: 
+El siguiente archivo es, precisamente, este archivo de código fuente:
 \verb|person.c|. Es bastante largo, así que vamos a incluirlo en tres secciones:
 la sección de declaración de tipos (que sólo contendrá uno), las funciones de
 manipulación del contenido de la estructura y, finalmente, la de recuperación
@@ -10762,7 +10774,7 @@ Aquí se puede ver cómo se utilizan estructuras con este patrón de diseño.
 Primero la reservas, después la usas, la puedes manipular y, finalmente, la
 liberas, todo ello con las funciones proporcionadas junto con el tipo de dato.
 Con este patrón, el usuario de la funcionalidad que hemos programado tiene
-menos capacidad para <<hacer algo mal>>. 
+menos capacidad para <<hacer algo mal>>.
 
 Ahora, vamos a ver rápidamente cómo se podría compilar, para recordarlo. Primero
 lo haremos utilizando el código objeto y, después, crearemos una biblioteca
@@ -10825,7 +10837,7 @@ Para la biblioteca, seguiremos estos pasos:
 \$ gcc -shared -o libperson.so person.o
 \end{lstlisting}
 \end{minipage}
-\item Crear el código objeto de \verb!main.c! 
+\item Crear el código objeto de \verb!main.c!
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -10878,7 +10890,7 @@ si ya se ha leído antes con detenimiento.
 %    \begin{itemize}
 %    \item Deberá poderse modificar un polígono añadiendo o eliminando puntos
 %    al final.
-%    \item Deberá poderse insertar un punto en una posición dada de un polígono. 
+%    \item Deberá poderse insertar un punto en una posición dada de un polígono.
 %    \item Deberá poderse calcular el centro del polígono como la media de las
 %    coordenadas de un punto.
 %    \end{itemize}
@@ -10903,7 +10915,7 @@ si ya se ha leído antes con detenimiento.
 \begin{exercises}
 \item Escribe un programa y declara en él una estructura que defina un círculo
 en dos dimensiones (su centro y su radio). Y haz que el programa declare una
-variable de ese tipo y calcule su área. 
+variable de ese tipo y calcule su área.
 
 
 \noindent
@@ -11280,8 +11292,8 @@ int main(void)
 \multicolumn{1}{|Y|}{\textbf{Decimal}}& \multicolumn{1}{Y|}{\textbf{Binario}} & \multicolumn{1}{Y|}{\textbf{Hexadecimal}} \\\hline
 73& 0100~1001 & 0x049 \\\hline
  38&0010~0110&0x026 \\\hline
-303&0001~0010~1111&0x12F       \\\hline  
-128&1000~0000&0x080 \\\hline   
+303&0001~0010~1111&0x12F       \\\hline
+128&1000~0000&0x080 \\\hline
 \end{tabularx}
 \end{table}
 \item Vuelve al ejercicio noveno y reproduce los contenidos de la pila en cada
@@ -11473,7 +11485,7 @@ int main(int argc, char const *argv[]) {
 y que sólo deje de leer cuando se introduzca <<!!>> como palabra. Después, debe
 imprimir dichas palabras en orden aleatorio. La función \verb!rand! devuelve
 un número aleatorio entre cero y el máximo entero positivo. Si quieres que
-devuelva números aleatorios \textbf{distintos} cada vez debes ejecutar 
+devuelva números aleatorios \textbf{distintos} cada vez debes ejecutar
 \verb!srand(time(NULL));! al inicio de la función \verb!main!. Debes incluir la
 cabecera \verb!time.h!.
 
@@ -11803,7 +11815,7 @@ int main(int argc, char const *argv[]) {
 \end{minipage}
 
 Aquí hemos utilizado dos funciones diferentes para poner a mayúscula y
-minúscula, otra opción sería utilizar un parámetro lógico (o incluso un 
+minúscula, otra opción sería utilizar un parámetro lógico (o incluso un
 enumerado) para indicar qué tipo de letras se quiere y llamar a una función
 que reciba ese parámetro y actúe en consecuencia. Puedes implementarlo así
 como ejercicio extra.

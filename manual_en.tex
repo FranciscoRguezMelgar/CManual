@@ -244,7 +244,7 @@
 \renewcommand{\footrulewidth}{0.5pt}
 
 \section{Introduction}
-In this document I want to be able to explain, at least, the basic fundamentals
+In this document I hope to be able to explain, at least, the basic fundamentals
 of the C programming language. Also, I hope to offer reasons to learn in and
 I will try to communicate to the reader part of the beauty I find in it.
 Under this first header I will explain first what is programming, which kinds
@@ -255,17 +255,17 @@ document.
 \subsection{What is programming?}
 Being this a not very advanced manual, it is possible you have never had any
 experience programming. Is this is the case, I will explain shallowly what
-``programming'' is. Programming is, according to Oxford dictionary: ``the
+``programming'' is. Programming is, according to the Oxford dictionary: ``the
 process of writting and testing computer programs''. I am a simple guy and
 have not put a foot in Oxford University but, perhaps naively, I expected a more
-enlighting definition. It allows is to start, though, programming is to write
+enlightening definition. It allows us to start, though, programming is to write
 programs, therefore, to know what programming is, we need to know what a program
 is.
 
 A program is the set of instructions that a computer follows to perform a
 concrete task. As an example, if you were a computer, and we made a program to
-make you buy a coffee in a vending machine, the program that you, as living
-computer, would follow would be something like this:
+make you buy a coffee in a vending machine, the program that you as living
+computer would follow would be something like this:
 
 \begin{enumerate}
     \item Get up, if you're sit
@@ -282,7 +282,7 @@ Put that way, it would be wonderful to tell to your computer, or to any
 computer, something like ``solve this differential equation'' or ``predict the
 weather of tomorrow.'' Sadly, this is where the craftiness of the programmer
 comes in. Computers do not understand the language of humans. They do not know
-what weather is nor what a coffe is. Computer only understand mathematical
+what weather is nor what a coffe is. Computers only understand mathematical
 operations (and not a lot) and logic operations (if you do not know what logic
 is, as a science, do not worry). The programmer must be able to turn a complex
 task into a set of instructions a computer understands.
@@ -298,11 +298,11 @@ language in terms of simple tasks that a computer understands''.
 Now we know that \textbf{what} programming is, let's see how it is done, in
 general terms. Following the methaphor I used before, a ``program'', as we
 understand it, is a text file (or several) where those instruction the computer
-needs to do something. As I said before, computers understand a somewhat small
-number of instructions, and, as a matter of fact, they only understand binary
-code. A computer stores in its memory (what is commonly known by RAM memory)
-the instructions that it must execute. That memory only stores bits, values
-in a numeric system that contains only two figures: zero and one.
+needs to do something are. As I said before, computers understand a somewhat
+small number of instructions, and, as a matter of fact, they only understand
+binary code. A computer stores in its memory (what is commonly known
+by RAM memory) the instructions that it must execute. That memory only stores
+bits, digits in a numeric system that contains only two figures: zero and one.
 
 If we apply the definition of the last chapter, to program, we must write
 programs in zeroes and ones. To understand the magnitude of this, the program
@@ -311,16 +311,16 @@ million of bytes. A byte is eight bits. This means that the programmer that,
 supposedly, wrote Firefox would have had to write a continous file of four
 millions of zeroes and ones. It is only logical to think this is not the case.
 
-Since the first times of computer science and software development people have
-come up with \textbf{formal languages} that explain in a comprehensible way to
-the human being how a program must be, but that allow us to make a program
-composed of those zeroes and ones. This is where the different languages you may
-have heard of come in: C, C++, C\#, Java, Rust...
-All those languages, differ in that they're different ways (each one with its
+Since the earliest times of computer science and software development
+people have come up with \textbf{formal languages} that explain in a
+comprehensible way to the human being how a program must be, but that allow us
+to make a program composed of those zeroes and ones. This is where the different
+languages you may have heard of come in: C, C++, C\#, Java, Rust...
+All those languages differ in that they're different ways (each one with its
 pros and cons) to compose a program that, after a process, the computer is able
 to understand. This process is \textbf{compilation}. To compile a program is
 turning it from that language humans can understand (and that you are going to
-learn to write, I hope with my help) into a purely computers language. The code
+learn to write, I hope with my help) into a pure computers' language. The code
 writen in those languages is called \textbf{source code} because it is the
 source from which we will obtain (compile) our programs. In general, I am not
 going to make a distinction between the program (compiled program) and the
@@ -353,7 +353,7 @@ therefore the preparation you will need to do to program in C is a little bit
 more complex that if you used other languages. So let's go little by little.
 
 \subsection{Operating system}
-If you're reasing this manual, or this part, I understand didn't explore
+If you're reading this manual, or this part, I understand you didn't explore
 programming before. Let's start by the beginning. Since C is a language
 computers understand more easily, we must know which operating system we have.
 If you have not altered your computer in any way, the most probable thing is
@@ -364,9 +364,9 @@ Linux.
 Since explaining all the alternatives would make this manual very long and also
 would force me to make distinctions in each one of the following sections, I am
 going to suppose you are using the Windows subsystem for Linux, or WSL. The
-first step is to intall the Windows characteristic of Windows that allows us to
-do that. Hit the Windows key and the letter R. Write in the little Window that
-pops up write \verb!optionalfeatures! and hit enter. A windows will pop up
+first step is to intall the Windows characteristic that allows us to
+do that. Hit the Windows key and the letter R. Write in the little window that
+pops up \verb!optionalfeatures! and hit enter. A window will pop up
 where you should look for the element ``Windows subsystem for Linux'', check the
 box in the left of the option and push accept. Restart when it is asked for it.
 After it, you will go to the Microsoft Store app and will look for ``Ubuntu''.
@@ -380,126 +380,127 @@ the username and password. When you are done, you will looking at a black screen
 with a text that will read \verb!{user}@{machine_name}:~$!. Congratulations,
 you have installed a Linux you can use in Windows.
 
-Esta ventana negra que sólo contiene letras se llama terminal, y es una manera
-de interactuar con el ordenador que se lleva usando desde hace décadas. En vez
-de hacer clic en iconos, escribirás comandos en la terminal y le darás a enter.
-Te voy a dar una serie de comandos básicos y de conceptos para que sepas cómo
-utilizarla. En una terminal está en todo momento en un <<directorio de trabajo>>,
-por ejemplo, si escribes \verb!pwd! y le das a enter, te dirá en qué
-directorio (carpeta) estás ahora mismo. A continuación te muestro un ejemplo
-de cómo se vería:
-
+This black window that only contains letters is called a terminal, and it is
+a way to interact with the computer that has been in use since decades ago.
+Instead of clicking icons, you will write commands in the terminal and you
+will hit enter. I am going to give you a series of basic commands and
+concepts so you can use it. In a terminal, at any given moment you are in a
+\textbf{work directory}, for example, if you write \verb!pwd! and you hit enter,
+it will tell you in which directory you are in. Directory is just a fancy word
+computer people use to say what we call folder when using computers, a place
+where other files and folders may be put.
+I will show you an example of how it will look.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=terminalStyle]
-usuario@DESKTOP-U8OA808:~\$ pwd
-/home/usuario
+john@DESKTOP-U8OA808:~\$ pwd
+/home/john
 \end{lstlisting}
 \end{minipage}
 
-Con el comando \verb!cd! te mueves de directorio de trabajo. Todo directorio
-tiene dentro dos directorios especiales, el directorio punto (\verb!.!) y el
-punto punto (\verb!..!). El primero simboliza el mismo directorio, es decir,
-si haces \verb!cd .! nunca harás nada, y el segundo el directorio superior,
-por ejemplo:
+With the command \verb!cd! you move your work directory. Every directory has two
+special directories inside, the dot directory (\verb!.!) and dot-dot
+(\verb!..!). The first one is the same directory, that is: if you perform
+\verb!cd .! you will stay in the same directory. The second is the parent
+directory, for example:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=terminalStyle]
-usuario@DESKTOP-U8OA808:~\$ pwd
-/home/usuario
-usuario@DESKTOP-U8OA808:~\$ cd ..
-usuario@DESKTOP-U8OA808:/home\$ pwd
+john@DESKTOP-U8OA808:~\$ pwd
+/home/john
+john@DESKTOP-U8OA808:~\$ cd ..
+john@DESKTOP-U8OA808:/home\$ pwd
 /home
-usuario@DESKTOP-U8OA808:/home\$
+john@DESKTOP-U8OA808:/home\$
 \end{lstlisting}
 \end{minipage}
 
-Para que te de quede una idea más sólida de lo que es un sistema de ficheros,
-voy a explicártelo más detenidamente. En Windows, todos tus archivos y
-directorios están en unidades que tienen asignadas letras y acaban en dos
-puntos: (\verb!:!). Por ejemplo, la ruta más habitual para el escritorio es
-\verb!C:\users\<nombre de usuario>\Escritorio! en sistemas Windows en español.
-Por otro
-lado, en Linux esto no es así, en este sistema todos los directorios nacen
-desde el directorio raíz (\verb!/!). Nota, si no lo has hecho ya, que en Windows
-las rutas de los directorios se simboliza mediante barras invertidas (\verb!\!)
-y en Linux con barras inclinadas normales(\verb!/!).
-Cada unidad en Windows suele ser un
-disco físico: un pendrive, un disco duro mecánico, un SSD... En Linux, cuando
-insertas una unidad o disco, simplemente se \textbf{monta} en un
-directorio que cuelga del raíz.
+In order to give you a better idea of what a filesystem is, I am going to
+explain it to you more thoroughly. In Windows, all your files and directories
+are in drives, which have letters assigned and end with a colon (\verb!:!).
+For example, the most common path for the desktop is
+\verb!C:\users\userName\Desktop! (userName being the name of the user whose
+dekstop we're talking about, let's say John). On the contrary, in Linux this is
+not this way, all directories come from the root directory (\verb!/!). Note: if
+you haven't noticed yet, in Windows directory paths are written with backslashes
+(\verb!\!) and in Linux with forward slashes (\verb!/!). Each unit in Windows
+tends to be a physical drive: a memory stick, a hard disk, and SSD... In Linux,
+when you insert a drive or disk, it will simply \textbf{mount} in a directory
+like any other. That is: the files and directories of the new disk will be put
+in one point of the directory tree we already had.
 
-Estos directorios funcionan como una serie de puntos unidos por conexiones.
-Cada directorio o archivo es un punto, conectado al directorio de los que
-cuelga y teniendo conectados a él los directorios y archivos que están en él.
-Esto se suele representar en un dibujo como este que te presento ahora:
+These directories work like a series of dots joined by connections. Each
+directory or file is a dot, connected to the directory it hangs from, and
+having all the directories it has inside hanging from it. This may be drawn
+like I'm going to show you now:
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{filesystems}
-    \caption{Ejemplo de sistema de ficheros}
+    \caption{Example of a filesystem}
     \label{img:extensions}
 \end{figure}
 
-En esta figura, cada directorio tiene enlazados aquéllos dentro de él, y todos
-ellos muestran a dónde enlaza el directorio \verb!..! que está dentro de ellos.
-Como puedes ver, para llegar a una ruta como \verb!/usr/games! sólo tenemos
-que ir dando <<saltos>> desde un directorio al siguiente. Si quisiéramos
-volver hacia atrás, podemos usar los directorios ficticios que apuntan al padre
-de cada uno. El caso del raíz es especial, porque su directorio padre es él
-mismo. En Windows el sistema es igual, pero no existe una raíz, sino varias,
-siendo éstas las unidades de disco. Por otro lado, no tenemos por qué hacer
-\verb!cd! directorio a directorio, podemos introducir rutas completas. Una ruta,
-si no lo has deducido ya, es simplemente la sucesión de directorios que llevan,
-desde uno dado, a otro. Hay dos tipos de rutas:
+In this figure, each directory has linked to it those inside it, and all of them
+show where the directory \verb!..! which is inside them goes. As you can see, to
+reach a path like \verb!/usr/games! we only have to ``hop'' from a directory to
+the next. If we wanted to come back, we can use the fictional directories that
+point to the father of the directory we're in (\verb!..!).
+
+The case of the root
+directory is special, because its parent directory is the same directory. In
+Windows the system is the same, but there is not only one root, there are
+several. Those being the different storage drives we have. Also, we do not need
+to be all the time hoping in one level jumps, we can use complete paths to
+navigate from a place to the other. If you haven't figured it out yet by the
+context, a path is simply the succession of directories that go from one to
+another. There are two types of paths:
 \begin{enumerate}
-\item Rutas absolutas: Empiezan por barra inclinada (\verb!/!) e indican una
-ruta desde el directorio raíz hasta uno concreto, por ejemplo:
-\verb!/home/john/music/Beethoven_symphony.mp4! sería una ruta absoluta.
-\item Rutas relativas: Son aquéllas cuyo inicio no es la raíz, sino el
-directorio de trabajo. Por ejemplo: \verb!music/Beethoven_symphony.mp4! es una
-ruta relativa que sólo será válida si en el directorio de trabajo actual existe
-un directorio llamado \verb!music! y, dentro de éste, un archivo llamado
-\verb!Beethoven_symphony.mp4!.
+    \item Absolute paths: Those are the ones that start by slash, and they
+    indicate a path from the root directory to a concrete directory or file.
+    For example: \verb!/home/john/music/Beethoven_symphony.mp4! would be and
+    absolute path.
+    \item Relative paths: they are those that do not start from the root
+    directory, but from the work directory. For example:
+    \verb!music/Beethoven_symphony.mp4! is relative path that will point to
+    an existing file only if inside the current work directory there is a
+    directory called \verb!music! and, inside it, a file named
+    \verb!Beethoven_symphony.mp4!.
 \end{enumerate}
 
-Eso que sale cada vez que pulsas enter se llama \textit{prompt}, y en general
-te muestra tu nombre de usuario (en mi caso: <<usuario>>), la máquina donde
-estás (en mi caso: <<DESKTOP-U8OA808>>) y después el directorio de trabajo, si
-cabe. Yo voy a sustituir el \textit{prompt} por únicamente
-el símbolo del dólar en
-los ejemplos que te muestre, para que quepa el texto mejor.
-Al principio mostraba una virgulilla (\verb!~!) porque ese es un alias de tu
-directorio \textit{home}, que es una ruta de los sistemas Linux donde el usuario
-almacena sus archivos personales. En general esa ruta está en
-\verb!/home/<nombre de usuario>!.
+The text it shows up everytime you hit enter is called a prompt and, in general,
+it shows you your username, the machine where you are and after that, your
+working directory, if it fits in the screen. I am going to substitute the prompt
+just for a dollar sign in the examples I show you, so it fits better the page.
+When you first started your terminal it showed a tilde (\verb!~!) because that's
+an alias of your home directory, which is a route in Linux systems where the
+user stores his personal files. Generally speaking, that route is in
+\verb!/home/<username>! for example \verb!/home/john!.
 
-Ahora vamos a aprender a ver lo que hay en un directorio, el comando que hace
-eso se llama \verb!ls!, si lo tecleas y pulsas enter, verás que... que no sale
-nada. Eso es porque no hemos creado ningún archivo ni directorio en nuestra
-\emph{home}, el comando que crea archivos es \verb!touch!, escribe
-\verb!touch prueba.txt! y pulsa enter, si haces \verb!ls!, verás que ahora
-aparece.
-
+Now we are going to learn what is inside a directory, the command that allows us
+to do so is \verb!ls!, if you type it and hit enter you'd see... nothing. That's
+because we have not created any file in our home directory, the command to
+create files is called \verb"touch". Write \verb!touch test.txt! and hit enter,
+if you now perform \verb!ls!, you would see it will show up.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=terminalStyle]
-\$ touch prueba.txt
+\$ touch test.txt
 \$ ls
-prueba.txt
+test.txt
 \$
 \end{lstlisting}
 \end{minipage}
 
-\verb!ls! tiene muchas opciones, las opciones en comandos de Linux se ponen
-con un guion delante, así que si te dicen que debes escribir, <<\verb!ls!
-con las opciones a y l>>, debes escribir \verb!ls -l -a! o, juntando todas
-las opciones en el mismo guion: \verb!ls -la!. Debería pasar algo como esto:
+\verb!ls! has a lot of options, options of Linux commands are set with a dash
+infront of them, so, if you're told ``\verb!ls! with th options a and l'' you
+must write \verb!ls -l -a! or, joining all them in the same dash: \verb!ls -la!
+Something like this should show in the screen.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -507,55 +508,60 @@ las opciones en el mismo guion: \verb!ls -la!. Debería pasar algo como esto:
 \begin{lstlisting}[style=terminalStyle]
 \$ ls -la
 total 8
-drwxr-xr-x 1 usuario usuario  512 Jul  8 19:05 .
-drwxr-xr-x 1 root    root     512 Jul  7 22:37 ..
--rw-r--r-- 1 usuario usuario  220 Jul  7 22:37 .bash_logout
--rw-r--r-- 1 usuario usuario 3771 Jul  7 22:37 .bashrc
-drwxr-xr-x 1 usuario usuario  512 Jul  7 22:37 .landscape
--rw-rw-rw- 1 usuario usuario    0 Jul  8 18:25 .motd_shown
--rw-r--r-- 1 usuario usuario  807 Jul  7 22:37 .profile
--rw-rw-rw- 1 usuario usuario    0 Jul  8 19:05 prueba.txt
+drwxr-xr-x 1 john john  512 Jul  8 19:05 .
+drwxr-xr-x 1 root root  512 Jul  7 22:37 ..
+-rw-r--r-- 1 john john  220 Jul  7 22:37 .bash_logout
+-rw-r--r-- 1 john john 3771 Jul  7 22:37 .bashrc
+drwxr-xr-x 1 john john  512 Jul  7 22:37 .landscape
+-rw-rw-rw- 1 john john    0 Jul  8 18:25 .motd_shown
+-rw-r--r-- 1 john john  807 Jul  7 22:37 .profile
+-rw-rw-rw- 1 john john    0 Jul  8 19:05 test.txt
 \end{lstlisting}
 \end{minipage}
 
+% Como verás, hay muchos archivos que tú no has creado. Esto es porque la opción
+% \verb!a! hace que \verb!ls! nos muestre \textbf{todos los archivos}, incluidos
+% los ocultos, que son los que empiezan por punto (\verb!.!). Y la opción \verb!l!
+% hace que salgan en una lista, y con información sobre ellos. Los directorios
+% ocultos empiezan con punto, y esto provoca que cuando haces un \verb!ls! normal
+% no aparezcan, convenientemente, los directorios punto y punto-punto.
+% Si esto te intimida, no te preocupes, es normal, y tengo buenas noticias, el WSL
+% ve los directorios que tienes en tu sistema Windows, así que puedes crear una
+% carpeta en tu escritorio y trabajar con el explorador de Windows, para crear
+% o eliminar los archivos.
 
+As you can see, there are many files you have not created. This is because the
+\verb!a! option makes \verb!ls! to show us \textbf{all the files}, including the
+hidden ones, which are hidden because their name starts with a dot. The option
+\verb!l! makes the command to show the files in a list, with more information
+about them. If this is a bit intimidating to you, it is normal, and I have good
+news. WSL sees the directories you have in you Windows system, so you can create
+a folder in your desktop and work with the Windows explorer, to create or delete
+files.
 
-Como verás, hay muchos archivos que tú no has creado. Esto es porque la opción
-\verb!a! hace que \verb!ls! nos muestre \textbf{todos los archivos}, incluidos
-los ocultos, que son los que empiezan por punto (\verb!.!). Y la opción \verb!l!
-hace que salgan en una lista, y con información sobre ellos. Los directorios
-ocultos empiezan con punto, y esto provoca que cuando haces un \verb!ls! normal
-no aparezcan, convenientemente, los directorios punto y punto-punto.
-Si esto te intimida, no te preocupes, es normal, y tengo buenas noticias, el WSL
-ve los directorios que tienes en tu sistema Windows, así que puedes crear una
-carpeta en tu escritorio y trabajar con el explorador de Windows, para crear
-o eliminar los archivos.
-
-\subsection{Instalar el compilador}
-Ahora que ya has instalado una distribución de Linux que puedes usar, vamos
-a instalar el compilador. Para ello ejecuta los comandos que salen a
-continuación y, si te preguntan si quieres continuar, di que sí.
+\subsection{Installing the compiler}
+Now we already have a Linux installed in the computer, let's install the
+compiler. To do that, we are going to execute the commands the are shown next.
+If while executing any of them you are asked if you want to go ahead, answer
+yes.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=terminalStyle]
 $ sudo apt update
-#Aquí saldrá mucho texto, ignóralo.
+#Lots of text will be shown here, don't mind it.
 $ sudo apt install build-essential
-.......
+........
 After this operation, 189 MB of additional disk space will be used.
 Do you want to continue? [Y/n] y
 ........
 \end{lstlisting}
 \end{minipage}
 
-
-
-Ahora ya deberías tener instalado el compilador de C, que se llama GCC (por
-sus siglas en inglés: \textit{GNU Compiler Collection}).
-Para ver si es cierto, haz lo que sale a continuación.
-
+Now you should have the compiler installed, it is called GCC, it is an achronym
+meaning GNU Compiler Collection. To see if that is the case, type the following
+command. And check the output is similar to the one shown here.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -574,49 +580,44 @@ gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04)
 \end{lstlisting}
 \end{minipage}
 
+If you get a similar text, congratulations, you have installed the C compiler.
+Now we are going to, finally, start learning the concepts of the language.
 
-Si te sale un texto parecido, enhorabuena, ya has instalado el compilador de C.
-Ahora vamos, (por fin, estarás pensando) a empezar a aprender los conceptos del
-lenguaje.
+\section{Your first program; say hello to the world!}
 
-
-\section{Tu primer programa; ¡dile hola al mundo!}
-
-Vamos a navegar a esa carpeta que tienes en tu escritorio, las unidades de tu
-ordenador (los <<discos>> C, D, E...) se presentan en tu WSL en los
-directorios dentro de
-\verb!/mnt/!, así, \verb!C:! sería: \verb!/mnt/c!. A continuación te dejo el
-ejemplo.
-
+Let's navigate into that folder you have in the desktop, units of your Windows
+computer (the drives C, D, E...) are presented in the WSL as directories inside
+the path \verb!/mnt!. So, \verb!C:! will be under \verb!/mnt/c!. I leave next an
+example on how to navigate to a folder called \verb!hello_world! in your Windows
+desktop. You can create it as you're used to now.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=terminalStyle]
-\$ cd /mnt/c/Users/Usuario/Desktop/
-\$ cd hola_mundo
+\$ cd /mnt/c/Users/John/Desktop/
+\$ cd hello_word
 \$ pwd
-/mnt/c/Users/Usuario/Desktop/hola_mundo
+/mnt/c/Users/John/Desktop/hello_world
 \$
 \end{lstlisting}
 \end{minipage}
 
-
-Ahora que ya estás en la carpeta, ábrela en el explorador de Windows, porque
-nos queda una última configuración, en la ventana del explorador de archivos,
-arriba, pincha en la pestaña <<vista>> y marca la casilla donde pone
-<<extensiones de nombre de archivo>>. Te dejo una foto de cómo debe quedar:
+Now you are already in the folder, open it in the files explorer, because we
+have the last configuration left. In the Windows file explorer, in the top of
+the window, click on the View tab and check the box next to ``show extensions
+of knows file types''. Next there is a picture of how it looks.
 
 \begin{figure}[H]
-    \includegraphics[width=\linewidth]{extensions}
-    \caption{Configurar ver las extensiones}
+    \includegraphics[width=\linewidth]{extensions_en}
+    \caption{Configure how to see the extensions of known file types}
     \label{img:extensions}
 \end{figure}
 
-Ahora, con el método que prefieras (la terminal o el ratón), crea en esa
-carpeta un archivo llamado \verb!hola_mundo.c!. Y ábrelo con el bloc de notas
-de Windows, y cuando digo el bloc de notas, no me refiero ni al wordPad ni a
-Word, sino al bloc de notas. En ese documento vamos a escribir esto:
+Now, in the way you like the most (the terminal or the mouse), create a file
+in that folder called \verb!hello_world.c!. Open it with the Windows Notepad,
+and I mean the Notepad, I do not mean WordPad, or Word. In that document we are
+going to write the following.
 
 \begin{figure}[H]
 \begin{verbatim}
@@ -624,168 +625,183 @@ Word, sino al bloc de notas. En ese documento vamos a escribir esto:
 
 int main(void)
 {
-        printf("¡Hola, mundo!\n");
+        printf("Hello, world!\n");
 }
 \end{verbatim}
 \end{figure}
 
-Te aclaro que la línea que sale desplazada a la derecha es porque tiene
-espacios delante, puedes poner dos, cuatro u ocho, yo recomiendo cuatro en
-términos generales.
-Después guárdalo, y acude a la terminal, deberías tener el fichero en el
-directorio. Haz un \verb!ls! para comprobarlo. Ahora vamos a compilar nuestro
-primer programa. Para eso, estando en el directorio que hemos creado
-(\verb!hola_mundo!) invocaremos a gcc. Debería verse así:
-
+I want to clarify that the line that is displaced to the right is so because it
+has spaces in the left side. You can write two, four or eight, I recommend four
+as a general rule. Save the file, and go back to the terminal. You should have
+the file in the directory. Make \verb!ls! to check it is in. Also, remember you
+need to navigate to the folder if you closed the terminal or changed work
+directory. Now we are going to compile our first program. To do that, we will
+invoke GCC. I will list the commands and their expected output next.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=terminalStyle]
 \$ ls
-hola_mundo.c
-\$ gcc -o hola_mundo.elf hola_mundo.c
+hello_world.c
+\$ gcc -o hello_world.elf hello_world.c
 \end{lstlisting}
 \end{minipage}
 
-
-Al hacer esto, habrá aparecido un archivo llamado \verb!hola_mundo.elf! en la
-carpeta. ¡Enhorabuena!, ese es tu primer programa en C. ¿Qué hace? Imprime
-<<¡Hola, mundo!>>. Si haces doble clic en él verás que Windows no sabe abrirlo,
-porque es un ejecutable para Linux, por ello, en la terminal, escribe
-\verb!./hola_mundo.elf!. Si recuerdas lo que dije antes, una ruta que no empieza
-en el directorio raíz (\verb!/!) es una ruta relativa, y el directorio punto
-\textbf{es el directorio de trabajo}. Cuando a una terminal le indicas un
-comando y pulsas enter, busca un programa con ese nombre en unos directorios
-que vienen configurados en tu sistema operativo. Si quieres ejecutar cualquier
-otro programa (u otras cosas que se pueden ejecutar, pero no vienen al caso
-ahora) debes indicar una ruta, relativa o absoluta. Para que la terminal
-sepa que estamos introduciendo una ruta y no un comando, la empezamos por
-\verb!.!, es decir, este mismo directorio. Cuando escribas la orden y le des
-a enter, debería verse lo siguiente:
+When doing this, a new file will appear in the directory, called
+\verb!hello_world.elf!. Congratulations! that is your first program in C. What
+does it do? It prints ``Hello, world!''. If you make double click on it, you
+will see that Windows does not know how to open it. That is because it is a
+Linux executable. Because of that, in the terminal, write
+\verb!./hello_world.elf!. If you remember what I told you before, a path that
+does not start with the root directory is a relative path, and the directory
+dot \verb!.! is a relative path. When the terminal gets a command from the user,
+it looks for a program with that name in a series of directories that are
+configured in your operating system. If you want to execute any other program
+(or other things you can execute, but I won't get tangled on them now) you must
+indicate a path, relative or absolute. To make the terminal understand we are
+introducing a path and not a command, we start it by dot, that is, this very
+directory. When you hit enter, you should see something like this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=terminalStyle]
-\$ ./hola_mundo.elf
-¡Hola, mundo!
+\$ ./hello_world.elf
+Hello, world!
 \end{lstlisting}
 \end{minipage}
 
+You you have compiled your first program, may be you are a bit disappointed,
+since you do not understand what it does, or how it does it. Hence it is the
+moment we adquire a compromise with each other. That is, if you do not
+understand something that appears in the programs we are going to see together,
+you will trust I will clarify eventually when the moment arrives, from my side,
+my compromise is that I will do it the earliest I can, so you have to put the
+least amount of effort in ignoring things you don't know.
 
-Ahora que ya has compilado tu primer programa, quizás te hayas quedado un poco
-frío, porque no entiendes qué hace, y es el momento en que yo adquiera un
-compromiso contigo, el lector, y tú conmigo. Ese compromiso es que, por tu
-parte, cuando no entiendas algo que aparece en los programas, confíes en que
-en algún momento explicaré qué es. Por mi parte, mi compromiso es que procuraré
-hacerlo lo antes posible.
+For now, I will explain what the command we have issued before is, gcc is, as
+I said before, the C compiler, the option \verb!o! (remember that I explain
+what options were when I expalined you how to use \verb!ls!) indicates that the
+next thing we are going to write is the name of the program we want to create
+and, finally, the name of our source code file. If you put \verb!main.elf! the
+resulting file would be called that, or anything you wanted, I'll be compiling
+my programs as to files called \verb!main.exe! mainly.
 
-De momento, te voy a explicar qué es el comando que hemos usado para compilar
-nuestro programa: gcc es, como ya te dije, el compilador de C, la opción
-\texttt{o} (recuerda que te expliqué lo que eran las opciones cuando te expliqué
-cómo usar \verb!ls!) indica que lo que viene a continuación es el nombre del
-programa que queremos crear y, finalmente, el nombre de nuestro fichero de
-código fuente.
+\subsection{Text editor}
+% Tu primer programa lo has abierto con el Bloc de notas, pero editar código
+% fuente con eso es bastante insufrible. En parte porque como verás más adelante
+% lo normal es editar archivos de código fuente con un editor que coloree las
+% palabras más importantes (más adelante verás cuáles) y te ayude con cosas como
+% saber dónde terminan las llaves o paréntesis que has abierto. Si quieres
+% editar tu código, hay una gran variedad de editores para ello, aquí te dejo
+% una lista. En el manual no haré referencia a comandos específicos del editor.
+% Algunos editores que puedes usar son:
+% \begin{enumerate}
+% \item Visual Studio Code.
+% \item Atom.
+% \item Sublime Text.
+% \item Notepad++.
+% \end{enumerate}
 
-\subsection{Editor de texto}
-Tu primer programa lo has abierto con el Bloc de notas, pero editar código
-fuente con eso es bastante insufrible. En parte porque como verás más adelante
-lo normal es editar archivos de código fuente con un editor que coloree las
-palabras más importantes (más adelante verás cuáles) y te ayude con cosas como
-saber dónde terminan las llaves o paréntesis que has abierto. Si quieres
-editar tu código, hay una gran variedad de editores para ello, aquí te dejo
-una lista. En el manual no haré referencia a comandos específicos del editor.
-Algunos editores que puedes usar son:
+You edited your first program with the notepad, but editing code in that way
+if a bit unbearable. Partially this is so because it is usual to use specialized
+editors that colorize the words that are important in the concrete programming
+language you are using and help you with things like knowing where the braces
+that close the one your looking at now end. I am going to leave here a list of
+some common editors used with C code. I will not assume you are using any
+concrete one, so choose the one you like. I use the first one, but may be for
+your first steps you may stick to Notepad++ which is simpler, and jump
+to another one when you feel more comfortable writting more complex programs.
 \begin{enumerate}
-\item Visual Studio Code.
-\item Atom.
-\item Sublime Text.
-\item Notepad++.
+    \item Visual Studio Code.
+    \item Atom.
+    \item Sublime text
+    \item Notepad++
 \end{enumerate}
 
-\section{Primeros pasos}
+\section{First steps}
 
-Ahora que ya sabes lo que es un fichero de código fuente te voy a presentar
-cómo vamos a incluir los fragmentos de código fuente en el manual.
-Revisitemos el programa \verb!hola_mundo.c!.
+Now you already know what a source code file is I am going to show you how we
+are going to include code fragments in the manual. Let's revisit the program
+\verb!hello_world.c!.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, caption={Hola Mundo en C},
+\begin{lstlisting}[style=C, caption={Hello World in C},
 label={lst:helloWorld}]
 #include <stdio.h>
 int main(void)
 {
-    printf("¡Hola, mundo!\n");
+    printf("Hello, world!\n");
 }
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, las líneas están numeradas, y hay palabras que salen en color
-azul, y otras en rojo. Las palabras que salen en azul son las llamadas palabras
-clave, (en inglés \textit{key words}), de momento, quédate con que todos tus
-programas deben contener las líneas 1, 2, 3 y 5, y que entre la 3 y la 5
-escribirás las instrucciones que compondrán tus archivos de código.
-\subsection{Variables}
-¡Por fin empieza lo bueno! Una de las primeras cosas que hacen falta en un
-programa son \textbf{variables}, una variable simboliza un espacio en la
-memoria del ordenador en que guardamos cosas. Cuando creamos una variable, le
-decimos al ordenador <<reserva espacio en tu memoria para guardar un dato>>.
-C es un lenguaje de los que se llaman tipados, es decir, que cada variable
-tiene un tipo, y éste no puede cambiar una vez que esa variable se crea. En C
-hay una serie de tipos básicos que te presento en una práctica tabla.
+As you can see, the lines are numbered, and there are words in blue, and others
+in red. The blue word are the ones called key words, for now, remember that
+all your programs must contain the lines 1, 2, 3 and 5 and that, between the
+lines 3 and and 5 you will write the instructions that will make up your source
+code files.
 
+\subsection{Variables}
+
+We are getting into business, at last! One of the first things that are needed
+in a program are \textbf{variables}, a variable is an abstraction to design a
+space in the memory of the computer in which we store things. When we create a
+variable we say to the computer: ``save this space in your memory to store
+data''. C is a language of the kind we call typed, that is, each variable has a
+type and cannot change that type after it is created. In C there is a set of
+basic types that I will show you in a handy table.
 
 \begin{table}[H]
     \centering
     \begin{tabularx}{\linewidth}{|c|c|c|Y|}
         \hline
-        \textbf{Nombre} &\textbf{Tamaño} (en bytes)&\textbf{Rango}&\textbf{Uso} \\\hline
-        \texttt{char} & 1 & $[-128, 127]\vphantom{\matrix{1\cr1\cr1\cr}}$ & Un carácter de texto o un byte\\\hline
-        \texttt{short}& 2 & $[-32\,768, 32\,767]\vphantom{\matrix{1\cr1\cr1\cr}}$& Números en ese rango (generalmente puertos de red)\\\hline
-        \texttt{int}&   4  & $[-2\,147\,483\,648, 2\,147\,483\,647]\vphantom{\matrix{1\cr1\cr1\cr}}$&Tipo general para números enteros\\\hline
-        \texttt{float}& 4 & $[\pm3.4\cdot{}10^{-38}, \pm3.4\cdot{}10^{38}]\vphantom{\matrix{1\cr1\cr1\cr}}$ & Números decimales de precisión simple\\\hline
-        \texttt{double}&8 &$[\pm1.79\cdot{}10^{-308}, \pm1.79\cdot{}10^{308}] \vphantom{\matrix{1\cr1\cr1\cr}}$ & Números decimales de precisión doble\\\hline
+        \textbf{Name} &\textbf{Size} (in bytes)&\textbf{Range}&\textbf{Ussage} \\\hline
+        \texttt{char} & 1 & $[-128, 127]\vphantom{\matrix{1\cr1\cr1\cr}}$ & One text character or a byte\\\hline
+        \texttt{short}& 2 & $[-32\,768, 32\,767]\vphantom{\matrix{1\cr1\cr1\cr}}$& Number in that range (generally network ports)\\\hline
+        \texttt{int}&   4  & $[-2\,147\,483\,648, 2\,147\,483\,647]\vphantom{\matrix{1\cr1\cr1\cr}}$&General type for integer numbers\\\hline
+        \texttt{float}& 4 & $[\pm3.4\cdot{}10^{-38}, \pm3.4\cdot{}10^{38}]\vphantom{\matrix{1\cr1\cr1\cr}}$ & Simple precision decimal numbers\\\hline
+        \texttt{double}&8 &$[\pm1.79\cdot{}10^{-308}, \pm1.79\cdot{}10^{308}] \vphantom{\matrix{1\cr1\cr1\cr}}$ & Double precision decimal numbers\\\hline
     \end{tabularx}
-    \caption{Tipos básicos de C}
+    \caption{Basic types of C}
     \label{tab:basicTypes}
 \end{table}
 
-Una tabla así puede ser abrumadora, pero es sencillo. Cuando declaramos
-(creamos) una variable, debemos decir de qué tipo es. Me gusta decir que las
-variables son como cajas y que, según su tipo, en esa caja entran unas cosas
-u otras. Para declarar una variable, debes poner su tipo, y un nombre, ¡y no
-olvides terminar la línea en punto y coma (;)! Además de declararlas, debemos
-aprender a darles un valor. Eso se llama <<asignar un valor>> y se hace con el
-símbolo de igual (\verb!=!). Para darle un valor se pone el nombre de la
-variable, el símbolo de igual y el valor, veamos unos ejemplos, y te explico
-algunas salvedades.
+A table like that may be intimidating at first, but it is simple. When we
+declare (create) a variable, we must say what type it has. I like to say that
+variables are like boxes and that, according to their type, inside that box
+some things fit and some others do not. To declare a variable, you write its
+type and a name, and do not forget to end the line with a semicolon (;)! Apart
+from declaring them, we must learn to give them a value. That is called ``assign
+a value'', and it is done with the equal sign (\verb!=!). To give it a value you
+write the name of the variable, the equal sign and the value, let's see some
+examples and I'll get into some caveats.
 
-A propósito del nombre: el nombre
-de una variable se compone de letras, números y guiones bajos.
-El nombre de una variable no debería estar escrita en mayúsculas, pero puede
-contenerlas.
-No puede empezar por número y \textbf{no deberías empezarla por un guion bajo}.
-En general, puedes usar dos notaciones para escribir nombres en C
-(y en cualquier lenguaje de programación):
+Regarding the name: the name of a variable is made out of letters, numbers and
+underscores. The name of a variable must not be writen all in uppercase, but
+it can contain some. I cannot start by a number, and \textbf{you should not start
+it with an underscore}. In general, you can use two notations to write variable
+names in C (and in any programming language):
 \begin{enumerate}
-\item \emph{Camel Case}: Si un nombre contiene varias palabras, se deben
-escribir juntas, con la primera palabra de cada una en mayúscula. Por ejemplo:
-\verb!betterValue! o \verb!targetNumber!. Se llama así porque esas mayúsculas
-recuerdan a las jorobas de un camello.
-\item \emph{Snake Case}: Las palabras aparecen separadas por guiones bajos,
-en minúscula totalmente, por ejemplo: \verb!better_value! o
-\verb!target_number!. Se llama así porque la forma de los nombres escritos en
-este modo recuerda a una serpiente que ha comido animales y tiene bultos en su
-cuerpo.
+    \item \textbf{Camel case}: if a name contains several words, they must be
+    writen together, with the first letter of each word in uppercase,
+    exclusing the first. For example: \verb!betterValue! or \verb!targetNumber!.
+    It is called like this
+    because the uppercase letters remind to the humps of a camel.
+    \item \textbf{Snake Case}: The words are separated by underscores, all in
+    lowercase, for example: \\ \verb!better_value! or \verb!target_number!. It is
+    called like that because the shape of the names writen in this fashion
+    remind to a snake that had eaten animals and has bulges in its body.
 \end{enumerate}
+
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, caption={Creación y asignación de variables},
+\begin{lstlisting}[style=C, caption={Declaration and assignment of variables},
 label={lst:variableAsignation}]
 #include <stdio.h>
 int main(void)
@@ -803,47 +819,41 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Los ordenadores no entienden de letras, sólo de números, así que, en el fondo,
-cuando le dices que \verb!letter! es igual a \verb!'a'!, le dices que es igual
-al número que significa esa letra. Nota que para poner el valor de un
-\texttt{char} debes usar comillas simples, en el teclado español, es lo que
-sale al pulsar la tecla de la interrogación de cierre.
-La correspondencia entre letras y números está escrita en la tabla ASCII, si
-quieres leerla, te dejo un \href{https://elcodigoascii.com.ar/}{enlace}
-a un sitio donde la puedes consultar.
-Si miras allí, verás que la letra a es el valor
-97. Después asignamos a otro \verb!char!
-un valor numérico, en la línea 7 puedes ver que declaramos una variable sin
-darle un valor. Esto es perfectamente correcto, pero, ¡cuidado!,
-\textbf{una variable a la que no le das valor tiene un valor aleatorio}.
-Por este motivo muchos profesores te dirán que siempre que declares
-una variable le des un valor inmediatamente.
+Computers do not understand about letters, only numbers, therefore, when you
+tell the computer that \verb!letter! is equal to \verb!'a'!, you tell it it's
+equal to the number that letter has assigned. Mind that the to tell the value
+of a \verb!char! you must use simple straight quotes. The correspondency between
+letters and numbers is writen in the ASCII table, is you want to read it, I
+leave this \href{https://www.ascii-code.com/}{link} to a site where u can
+check it up. If you look there, you will see that the letter a has the value
+97. After that, we assign to other char a numeric value, in line 7 you can see
+we declare a variable without assigning a value to it. That is totally okay, but
+beware!, \textbf{a variable to which you have not assigned a value has a random
+value}. This is why many techaers would advice you that everytime you declare a
+variable you should give it a value immediately.
 
-En las líneas 11 y 12 le damos
-valor a variables que hemos declarado anteriormente, y quiero detenerme en el
-caso de la línea 12. Al principio puede parece que al escribir
-\verb!shorty = 5520;! estamos enunciando una igualdad matemática, es decir,
-que eso siempre será así, pero en C no trabajamos con <<leyes>>, sino con
-instrucciones, así que no debes leer esa línea como <<\verb!shorty! es igual a
-5520>> sino como <<He asignado a \verb!shorty! el valor 5520>>. Es decir, has
-metido en esa <<caja>> un 5520, pero nada te impide sacar ese valor y meter
-otro número como estamos haciendo.
+In lines 11 and 12 we give value to variables that we have declared before,
+and I want to take some time talking about line 12. At first, it could seems
+that when writing \verb!shorty = 5520;! we are enunciating a mathematical
+equality, that that is always going to be the same, but in C we do not work with
+``laws'', but with instructions, so you shall not read that line as ``the value
+of shorty is 5520'' but ``I have assigned the value the value 5520''. That is:
+you have put into the ``box'' a 5520, but nothing avoids you to pull that
+value out and put another one in as we do in line 12.
 
-Los valores que escribe el programador en el código se llaman <<literales>>.
-Creo que el nombre no necesita explicación. Cada literal tiene un tipo
-determinado, al igual que las variables. Más adelante veremos por qué eso es
-importante. De momento, recuerda que se llama literal a los valores de
-variables que el programador escribe en el código explícitamente, escribiendo
-su valor.
-Además de literales, podemos asignarle a una
-variable el valor de una \textbf{expresión}, una expresión es cualquier
-texto escrito en lenguaje C que tenga un valor. De momento, nos vamos a limitar
-a asignar unas variables a otras. Por ejemplo:
+The values a programmer writes in the source code are called ``literals''. I
+think that the name is pretty much self explanatory. Each literal has a type,
+in the same way variables have. Later we will see why that's important. For now,
+remember that literal is the name of values of variables the programmer writes
+explicitly in the code. Apart from literals, we can assign to a variable the
+value of an \textbf{expression}, a expression is any text writen in the C
+language that has a value. For now, we are going to limit ourselves to assign
+one variable to other variables.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, caption={Asignación de variables entre ellas},
+\begin{lstlisting}[style=C, caption={Assigning variables to other variables},
 label={lst:variableAsignationBetween}]
 #include <stdio.h>
 int main(void)
@@ -856,71 +866,65 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-
-En la línea 7 podemos ver como asigno a la variable \verb!a! el valor de
-\verb!b!, es decir, ahora \verb!a! valdrá 2. Como ver esto así es difícil, voy a
-incluir en el siguiente
-ejemplo una serie de líneas que contienen la palabra \verb!printf!, te sonará
-porque la usamos en nuestro primer ejemplo, sirve para que el programa escriba
-cosas en tu terminal. Después te enseñaré a usarla.
-De momento, simplemente copia el
-siguiente programa en tu archivo de código fuente y compila como lo hicimos
-antes. (Copiar desde un PDF suele ser mala idea, teclea a mano, así practicarás)
+In line 7 we can see how I assign to the variable \verb"a" the value of the
+variable \verb!b!, therefore, it will have a value of 2, now. Since seeing this
+is difficult, I am going to include in the next example a series of lines with
+the word \verb!printf! in them, you may remember it from our first program.
+Later on, I will teach you to use it, but, at the moment, simply copy this
+program in your file of source code and compila as we did before. (Copying
+things from a PDF tends to be cumbersome, therefore type it yourself, also, it
+will serve as typing practice.)
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, caption={Ejemplo final de variables},
+\begin{lstlisting}[style=C, caption={Final example of variable using},
 label={lst:variableFinalExample}]
 #include <stdio.h>
 int main(void)
 {
     int a = 3;
     int b = 10;
-    printf("a vale: %d\n", a);
+    printf("a is equal to: %d\n", a);
     a = b;
-    printf("b vale: %d y a vale lo mismo, es decir: %d\n", b, a);
+    printf("b is equal to: %d and a is the same, that is: %d\n", b, a);
     b = 22;
-    printf("b vale: %d, a sigue valiendo %d\n", b, a);
+    printf("b is equal to: %d, a still is %d\n", b, a);
 }
 \end{lstlisting}
 \end{minipage}
 
-
-Si tecleas este programa, lo compilas y lo ejecutas
-debería salirte algo como esto:
-
+If you type this program, compile it and execute it, you should see something
+like this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=terminalStyle]
-\$ ./main.exe
-a vale: 3
-b vale: 10 y a vale lo mismo, es decir: 10
-b vale: 22, a sigue valiendo 10
+\$ ./main.elf
+a is equal to: 3
+b is equal to: 10 and a is the same, that is: 10
+b is equal to: 22, a still is 10
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, cuando se escribe \verb!a = b!,
-\textbf{los valores de \texttt{a} y \texttt{b} no quedan ligados}. Pero al
-asignar cualquier valor (tanto literal como de una expresión) a una variable
-hay que tener cuidado. Volviendo a la metáfora de las cajas, en una caja caben
-objetos de determinadas formas y tamaños, si un dato es,
-por ejemplo, un número decimal (ya sea éste \textit{float} o \textit{double})
-al ser asignado a una variable entera, perderá su parte decimal. Pero hay más,
-si aplicas la lógica, ¿qué pasaría si asignas un número como 1203 a un
-\texttt{char}? Si acudes a la tabla \ref{tab:basicTypes}:
-\nameref{tab:basicTypes}, verás que 1203 está fuera del rango del
-char. Bien, lo que pasa es que no sabes lo que pasa. La manera elegante de decir
-esto es: <<comportamiento no definido>> o <<\textit{undefined behaviour}>>.
-El siguiente programa es un ejemplo de esto:
+As you can see, when \verb!a = b! is writen, \textbf{the values of a and b are
+not linked together}. Nevertheless, when assigning any value to a variable, you
+must be careful. Going back to the methaphor of the boxes, in a box you can fit
+things of a certain set of shapes and sizes. If a data is, for instance, a
+decimal number (wether it is a float or a double) if it is assigned to an
+integer variable it will lose its decimal part. But there is more, if you apply
+this logic, what would happen if you assign a number such as 1203 to a
+\verb!char!? If you go to the table \ref{tab:basicTypes}:
+\nameref{tab:basicTypes}, you will see that 1203 is outside the range of
+\verb!char!. What happens is... you do not know what happens. The elegant way of
+saying this is: ``undefined behaviour''. The next program is an example of that.
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, caption={Asignaciones inválidas},
+\begin{lstlisting}[style=C, caption={Erroneous assignments},
 label={lst:invalidAssignations}]
 #include <stdio.h>
 int main(void)
@@ -936,14 +940,13 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-
-Si lo compilas, el compilador te dará una serie de mensajes llamados
-\textit{warnings}. Advertencias de que algo que has escrito, si bien es
-<<correcto>>, no tiene pinta de <<estar bien>>. Si por ejemplo escribieras
-en español: <<¡Mas me duele a mí!>>, aunque es una frase correcta, es probable
-que quisieras escribir <<¡Más me duele a mí!>>, y no significan lo mismo. Si
-compilamos y ejecutamos, en la terminal debería aparecer algo así:
-
+If you compile it, the compiler will throw a series of messages called warnings.
+Those warnings warn you that, while something is correct, it seems it contains
+some error. For example, if you wrote ``I did not know your Belgian'' the
+sentence would be technically correct, it would mean you didn't know a Belgian
+person related in some way to the person you're talking to, regardless, more
+probably, you wanted to say  ``I did not know you're Belgian ''. If we compile
+and execute, something like the following should appear in the terminal.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -964,89 +967,84 @@ f: inf
 \end{lstlisting}
 \end{minipage}
 
+As you can see, neither the \texttt{char} is equal to 1,500 nor the
+\texttt{short} is 5,555,555, because they cannot be. The compiler does not say
+anything about the \texttt{float} or the \texttt{double}, the reason is that both
+data types have an special value called infinity, which symbolizes infinity.
+This is because, as we will see later on, they do not represent numbers in a
+totally correct way, and that's why they can be positive and negative infinity.
 
-Como puedes ver, ni el \texttt{char} vale 1.500 (porque no puede), ni el
-\texttt{short} vale 5.555.555, porque tampoco puede. Pero el compilador no dice
-nada sobre el \texttt{float}, al que le hemos asignado un literal fuera de
-rango. El motivo es que los \texttt{float} y \texttt{double} en C tienen un
-valor especial llamado \textit{infinity}, que simboliza el infinito. Esto es
-porque, como veremos a continuación, no representan los números de manera
-totalmente correcta, y por eso pueden valer más y menos infinito.
+Let's take some time for the problem of decimal numbers. If you know how binary
+code works, you would know that a binary number of $n$ bits you can represent
+$2^n$ numbers. In the case of decimal numbers, we use one complex system called
+IEEE  754. I am not going to go into detail here, but the main problem of this
+way of representing numbers is that it is not only not exact (for example,
+the number 0.1 cannot be represented exactly), but its precissions is not
+constant. What does this mean? That if, near the zero the float may distinguish
+between 1.10 and 1.11, it is possible they cannot distinguish 10000000.10 from
+10000000.11. Be careful about that when you use decimal numbers.
 
-Detengámonos en el problema de los números decimales. Si sabes cómo funciona
-el código binario, sabrás que en un número binario de $n$ bit se pueden
-representar $2^n$ valores. En el caso de los números decimales, usamos un
-sistema complejo denominado IEEE 754. No voy a entrar en detalles, pero el
-principal problema de esta manera de representar los números decimales es que
-no sólo no es exacta (por ejemplo, el número 0,1 no se puede representar
-exactamente) sino que además su precisión \textbf{varía} según el rango en que
-esté el número representado. ¿Qué quiere decir esto? Que si cerca del cero los
-\textit{float} pueden distinguir entre 1,10 y 1,11, a lo mejor no pueden
-distinguir entre 1000000,10 y 1000000,11. Ten esto en cuenta si haces
-programas que utilicen números decimales.
+As you have seen here, there are allowed assignments and forbidden ones. The
+allowed ones (those the compiler does not see as something bad), are called
+implicit conversions, their names comes from the fact you do not need to do
+anything to make them happen, for example, assigning a char value to an integer
+variable. Later on I will teach you to perform conversions between data types
+explicitly.
 
-Como has visto aquí, hay asignaciones permitidas y prohibidas entre
-tipos, las permitidas (las que el compilador no ve como algo malo), se llaman
-conversiones implícitas, su nombre viene de que tú no tienes que hacer nada
-para que ocurran, por ejemplo, como hemos visto, asignando un \verb!char!
-a un entero. Posteriormente te enseñaré a hacer conversiones entre tipos
-explícitamente.
+\subsection{Printing things}
+Programmers call ``print'' to write things into files and, specially, to the
+screen, like your first program that wrote ``Hello, world!''. I do not want to
+get ahead of myself, because there are several concepts behind what we use to
+print things on the screen, nevertheless, I need you to be able to show things
+on the screen to be able to test your own programs.
 
-\subsection{Imprimir cosas}
-Entre programadores se llama imprimir a escribir cosas en ficheros y,
-especialmente, por pantalla, como tu primer programa que escribía en pantalla
-<<¡Hola, mundo!>>. No quiero adelantar más de lo necesario, porque detrás de
-lo que usamos para imprimir pantalla hay varios conceptos, pero necesito que
-sepas imprimir cosas para que puedar probar tus propios programas.
-
-Para imprimir algo en pantalla debes usar la palabra \texttt{printf}. Con una
-sintaxis que es un poco complicada. Debes poner \texttt{printf}, un paréntesis y
-una cosa llamada <<formato>>. El formato es el texto que se va a imprimir,
-rodeado de comillas dobles (\texttt{"}). Para incluir variables en esa
-impresión, debes poner los llamados <<especificadores>>, que son textos
-especiales que indican \textbf{el tipo} de las variables que quieres imprimir.
-Después del formato, pondremos las variables que vayamos a imprimir, separadas
-por comas, en el orden en que pusimos sus especificadores. Además, hay ciertos
-caracteres que se deben poner de manera especial, los saltos de línea y
-los tabuladores. Esto es un poco confuso, así que te dejo dos tablas donde
-puedes ver los especificadores y los caracteres especiales.
+To print things on the screen you must use the word \texttt{printf}. With a
+syntax (syntax just means the way things are suppossed to be writen) a little
+bit difficult. You must write \texttt{printf}, an opening parenthesis and a thing
+called ``format'' which is the text that is going to be printed, surrounded by
+double straight quotes (\texttt{"}). To include variables in that printing, you
+must put ``specifiers'', which are special texts that signal \textbf{the type}
+of the variables you want to print. After the format, we will write the
+variables we are going to print, separated by commas, in the order we wrote
+their specifiers. Also, there are some special characters you must write in a
+special manner: the new lines and the tabulators. This is a bit confusing, so
+I will show you two tables where you can see the specifiers and the special
+characters.
 
 \begin{table}[H]
 \centering
 \begin{tabularx}{\linewidth}{|c|Y|}
 \hline
-\textbf{Especificador} & \textbf{Tipo que imprime}                       \\ \hline
-\texttt{\%d}& Enteros (\texttt{int})                                     \\ \hline
-\texttt{\%f}& Decimales (tanto \texttt{float} como \texttt{double})      \\ \hline
-\texttt{\%hd}& \texttt{short}                                            \\ \hline
-\texttt{\%c}& \texttt{char} como letras (no números)                     \\ \hline
-\texttt{\%s}& Texto, escrito como \texttt{\textquotedbl Un texto\textquotedbl}, comillas incluidas. \\ \hline
-\texttt{\%p}& Punteros, son una cosa avanzada y la explicaré varias secciones más adelante \\ \hline
+\textbf{Especificador} & \textbf{Tipo que imprime}                                              \\ \hline
+\texttt{\%d}& Integers (\texttt{int})                                                           \\ \hline
+\texttt{\%f}& Decimals (\texttt{float} and \texttt{double})                                     \\ \hline
+\texttt{\%hd}& \texttt{short}                                                                   \\ \hline
+\texttt{\%c}& \texttt{char} as characters (no numbers)                                          \\ \hline
+\texttt{\%s}& Text, writen as \texttt{\textquotedbl A text\textquotedbl}, quotes included.      \\ \hline
+\texttt{\%p}& Pointers, they are an advanced feature of the language, I will explain them later \\ \hline
 \end{tabularx}
-\caption{Especificadores de formato en C}
+\caption{Format specifiers in C}
 \label{tab:formatSpecifierC}
 \end{table}
 
-Por otro lado, los caracteres especiales son éstos, y se ponen con una barra
-inclinada invertida (\textbackslash{}) delante. En la tabla incluyo ya la barra
-inclinada invertida correspondiente.
+On the other hand, the special characters are these, and are written with a
+backwards slashes (\textbackslash{}) in front of them. In the table I already
+include the backward slash.
 
 \begin{table}[H]
 \centering
 \begin{tabularx}{\linewidth}{|c|Y|}
 \hline
-\textbf{Secuencia} & \textbf{Carácter impreso} \\\hline
-\texttt{\textbackslash{}\textbackslash{}} & Barra inclinada inversa            \\\hline
-\texttt{\textbackslash{}n}& Nueva línea                         \\\hline
-\texttt{\textbackslash{}t}& Tabulador (imprime espacios hasta que se alinea a una columna de 4 espacios)   \\\hline
+\textbf{Secuencia} & \textbf{Carácter impreso}                                                           \\\hline
+\texttt{\textbackslash{}\textbackslash{}} & Barra inclinada inversa                                      \\\hline
+\texttt{\textbackslash{}n}& Nueva línea                                                                  \\\hline
+\texttt{\textbackslash{}t}& Tabulador (imprime espacios hasta que se alinea a una columna de 4 espacios) \\\hline
 \end{tabularx}
-\caption{Imprimir caracteres especiales en C}
+\caption{Print special characters in C}
 \label{tab:specialCharsC}
 \end{table}
 
-Esto es muy pedregoso, así que vamos a ver un ejemplo.
-
-
+This is a bit dry, let's see an example.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -1056,93 +1054,103 @@ label={lst:decimalvsintergerDivision}]
 #include <stdio.h>
 int main(void)
 {
-    int entero = 654654;
+    int integer = 654654;
     short shorty = 25254;
     char charty = 'a';
     double decimal = 2.3;
-    printf("El entero vale:\t%d\nEl short vale:\t%hd\nEl char es la letra:\t%c\nEl decimal vale:\t%f\n", entero, shorty, charty, decimal);
+    printf("The integer is:\t%d\nThe short is:\t%hd\nThe char is the letter:\t%c\nThe decimal number is:\t%f\n", integer, shorty, charty, decimal);
 }
 \end{lstlisting}
 \end{minipage}
 
-
-La línea es muy larga y en esta página se escribe como varias, pero tú deberías
-escribirlo todo como una sola línea. (Si te fijas, sólo hay un número, eso
-indica que es la misma línea pero partida para que quepa) El programa, una vez
-compilado, debería arrojar este resultado:
-
-
+The line is very long and in this page is it written as many, but you should
+write it as a single line. If you look closely, there is only one line number,
+that indicates that it's the same line but it is broken so it fits in the page.
+The program, once compiled and executed, should print something like this.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=terminalStyle]
 \$ ./main.exe
-El entero vale: 654654
-El short vale:  25254
-El char es la letra:    a
-El decimal vale:        2.300000
+The integer is: 654654
+The short is:   25254
+The char is the letter: a
+The decimal number is:  2.300000
 \end{lstlisting}
 \end{minipage}
 
+As a bottom line: \texttt{printf} does not add anything you do not put in it,
+like new lines, so if you want to print the next thing in a new line, remember
+to write \verb!\n! at the end of the format. Also, it is good that your program
+prints the a new line character as the last thing, if not, it could leave things
+unprinted. That's because the terminal forces itself to print everything you
+have ordered it to print when it finds a new line.
 
-Corolario final: \texttt{printf} no añade nada que tú no le pongas, incluidos
-saltos de línea, así que si quieres imprimir lo siguiente en una línea distinta,
-acuérdate de poner \verb!\n! al final del formato. Además, siempre es
-recomendable que lo último que imprima tu programa sea un salto de línea, si no,
-podría dejarse cosas sin imprimir, porque la terminal se fuerza a imprimir las
-cosas cuando recibe una línea nueva.
+\subsection{Operators}
+% Jugar a los trileros con los valores de las variables que declaras en
+% tu programa es... aburrido, lo sé, por ello, vamos a aprender a hacer
+% operaciones con ellas.
+% En C (y en cualquier lenguaje de programación) existen los llamados
+% \textbf{operadores}. Son símbolos que nos permiten realizar un cálculo.
+% Los operadores son un concepto matemático, y se aplican a una
+% serie de argumentos, o, mejor dicho, operandos. En
+% matemáticas, los símbolos $+$, $-$, $\times$, y $/$ son
+% operadores para la suma, la resta, la multiplicación y la división,
+% respectivamente.
+% Del mismo modo que hemos hecho con los tipos básicos, te los
+% voy a presentar en una tabla y después veremos ejemplos de cómo se usan.
 
-\subsection{Operadores}
-Jugar a los trileros con los valores de las variables que declaras en
-tu programa es... aburrido, lo sé, por ello, vamos a aprender a hacer
-operaciones con ellas.
-En C (y en cualquier lenguaje de programación) existen los llamados
-\textbf{operadores}. Son símbolos que nos permiten realizar un cálculo.
-Los operadores son un concepto matemático, y se aplican a una
-serie de argumentos, o, mejor dicho, operandos. En
-matemáticas, los símbolos $+$, $-$, $\times$, y $/$ son
-operadores para la suma, la resta, la multiplicación y la división,
-respectivamente.
-Del mismo modo que hemos hecho con los tipos básicos, te los
-voy a presentar en una tabla y después veremos ejemplos de cómo se usan.
+Playing a shell game with the values of the variables you declare in a program
+is boring, I know, therefore we are going to learn to perform operations with
+them. In C (and in any other programming language) there are the so called
+\textbf{operators}. They are symbols that allow us to perform calculations.
+Operator are a mathematical concept, and are applied to a set of arguments, or
+better put, operands. In math, the symbols $+$, $-$, $\times$ and $\div$ are
+mathmetical operators for addition, substraction, multiplication and division,
+respectively. In the same way we have done with the basic types, I will present
+the operators in a table and later on we will see examples on how to use them.
 
 \begin{table}[H]
 \centering
 \begin{tabularx}{\linewidth}{|c|Y|}
 \hline
-\bf Operador & \bf Descripción \\ \hline
-\tt + & Suma. Suma tanto números enteros como decimales y entre ellos. \\\hline
-\tt - & Resta. Sustrae del operando de a su izquierda el valor del operando a su derecha. \\\hline
-\tt / & División. Devuelve el resultado de la división del operando izquierdo entre el derecho. Nótese que, \textbf{si ambos operandos son enteros}, el operador realiza la división entera, es decir, \textbf{sin decimales}. \\\hline
-\tt * & Multiplicación. El asterisco hace muchas cosas en C, pero de momento esta la primera de sus funciones que descubrirás. \\\hline
-\tt ++ & Incremento. Hace que un número (decimal o no) aumente en una unidad. Puede ser prefijo (delante del número) o postfijo (detrás del número). \\\hline
-\tt -{}- & Decremento. Funciona como el incremento, pero disminuye el número en una unidad. \\\hline
-\tt \% & Módulo. Es un operador que devuelve el resto (o residuo) de la división entera entre el operando izquierdo y el derecho. \\\hline
+\bf Operator & \bf Description \\ \hline
+\tt + & Addition. Adds integers and decimals together and between them. \\\hline
+\tt - & Substraction. Substracts from the left operand the value of the right operand. \\\hline
+\tt / & Division. Return the result of the division of the left operand by the right one. Note that, \textbf{if both operands are integers}, the operator performs integer operation, that is, \textbf{without decimals}. \\\hline
+\tt * & Multiply. Asterisk has many functions in C, but this is the first of them you will discover. \\\hline
+\tt ++ & Increment. Makes a number (either integer or decimal) go up one unit, it can be prefix (before the operand) or postfix (after the operand).\\\hline
+\tt -{}- & Decrement. Works as the increment, but it makes the number to go down one unit. \\\hline
+\tt \% & Module. Is an operator that return the residue of the division of the left operand by the right operand. \\\hline
 \end{tabularx}
-\caption{Operadores matemáticos básicos de C}
+\caption{Basic math operators in C}
 \label{tab:mathOperators}
 \end{table}
 
-En la sección anterior te dije que a una variable le podíamos asignar un valor.
-También dije que una expresión es un fragmento de código C con un valor, y que
-el nombre de una variable, sola, es una expresión. Ahora que tenemos operadores
-podemos realizar expresiones más complejas, por ejemplo, \verb!a+b! sería una
-expresión cuyo valor sería la suma de \verb!a! y \verb!b!. ¡Ya podemos hacer
-cálculos!
+In the last section I told you that we could assign a value to a variable.
+I also told you that an expression is a fragment of C code with a value, and
+that the name of a variable alone is an expression. Now we have operators, we
+can perform more complex espressions, for example \verb!a+b! would be an
+expression whose value would be the addition of a and B.
+We can make calculation now!
 
-Hay que tener cuidado, porque, como ya te dije, toda expresión en C tiene
-\textbf{un tipo}, y, como vimos en la sección anterior, asignar un valor de
-un tipo incorrecto a una variable resulta en errores. Por ejemplo, el operador
-de la división se comporta distintamente si sus operandos (los números
-divididos) son enteros o decimales. Veamos un ejemplo:
+% Hay que tener cuidado, porque, como ya te dije, toda expresión en C tiene
+% \textbf{un tipo}, y, como vimos en la sección anterior, asignar un valor de
+% un tipo incorrecto a una variable resulta en errores. Por ejemplo, el operador
+% de la división se comporta distintamente si sus operandos (los números
+% divididos) son enteros o decimales. Veamos un ejemplo:
 
+You must be careful, though, because, as I said before, all expression in C has
+a \textbf{type} and, as we saw in the last section, assign a value of
+incorrect type to a variable is error prone. For example, the operator division
+behaves differently if the operands (the numbers we're dividing) are integer or
+decimal. Let's see and example.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, caption={División entera contra división
-decimal},
+\begin{lstlisting}[style=C, caption={Integer division vs decimal division},
 label={lst:decimalvsintergerDivision}]
 #include <stdio.h>
 int main(void)
@@ -1156,9 +1164,7 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-
-Si compilas y ejecutas el programa verás que sale este resultado:
-
+If you compile and execute the problem you will see this result:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -1170,32 +1176,43 @@ d2: 0.333333
 \end{lstlisting}
 \end{minipage}
 
+What would look like the same operation give totally different results, and this
+is because the \textbf{type} of the operands was different. In C, a literal
+value is an \texttt{int}, and the division operator when it is operating on two
+integers, has an integer type. Nevertheless, when \textbf{any of the two}
+operands is decimal, the operator performs the decimal division, and its type
+is \texttt{double}.
 
+% Los operadores \verb!++! y \verb!--! son especiales, porque son operadores
+% unarios. Un operador unario es aquél que sólo se aplica a un operando. Por
+% ejemplo, en matemáticas existe el operador raíz cuadrada, denotado por el
+% símbolo $\sqrt{\phantom{2}}$ que, aplicado a un único número, nos da
+% el número (o números) que elevado al cuadrado nos dan el operando.
+% Los operadores incremento y decremento son unarios, y, además, se
+% pueden escribir delante o detrás de su operando. Estos operadores son
+% especiales porque no sólo dan un valor, sino que \textbf{cambian el valor
+% del operando al que se aplican}. Simplemente: si \verb!a! vale tres y realizamos
+% \verb!a++!, \verb!a! pasará a valer cuatro, pero si asignamos el valor de la
+% operación a otra variable, esa variable tendrá un valor determinado.
+% Veámoslo en código.
 
-Lo que parecen operaciones iguales, dan resultados distintos, y esto es porque
-el \textbf{tipo} de los operandos es distinto. En C, un valor literal entero
-es un \verb!int!, y el operador división, cuando opera dos enteros, tiene tipo
-entero. Sin embargo, cuando \textbf{cualquiera de los dos} operadores es
-decimal, realiza la operación decimal, y su tipo es \verb!double!.
-
-Los operadores \verb!++! y \verb!--! son especiales, porque son operadores
-unarios. Un operador unario es aquél que sólo se aplica a un operando. Por
-ejemplo, en matemáticas existe el operador raíz cuadrada, denotado por el
-símbolo $\sqrt{\phantom{2}}$ que, aplicado a un único número, nos da
-el número (o números) que elevado al cuadrado nos dan el operando.
-Los operadores incremento y decremento son unarios, y, además, se
-pueden escribir delante o detrás de su operando. Estos operadores son
-especiales porque no sólo dan un valor, sino que \textbf{cambian el valor
-del operando al que se aplican}. Simplemente: si \verb!a! vale tres y realizamos
-\verb!a++!, \verb!a! pasará a valer cuatro, pero si asignamos el valor de la
-operación a otra variable, esa variable tendrá un valor determinado.
-Veámoslo en código.
+Operators \verb!++! and \verb!--! are special, because they are unary operators.
+An unary operator is an operator that is applied only to one operand. For
+example, in mathematic you have the operator square root, whose symbol is
+$\sqrt{\phantom{2}}$ which, applied to just one number, gives us the number
+(or numbers) that squared give us the operand. The operators increment and
+decrement are unary and, also, can be writen infront of behind the operand.
+These are special operantors that do not only give us a value, but also
+\textbf{affect the value of the operand they act on}. Simply: if \verb!a! is
+equal to three and we make \verb!a++!, \verb!a! will be four, but if we assign
+the value of the operation to other variable, that other variable will have
+a concrete value, let's see it in the code.
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, caption={Operadores de incremento y decremento},
+\begin{lstlisting}[style=C, caption={Increment and decrement operators},
 label={lst:prefixAndPostfixOperators}]
 #include <stdio.h>
 int main(void)
@@ -1210,9 +1227,7 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-
-Si lo ejecutas saldrá lo siguiente:
-
+If you execute it, you'll see the following.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -1224,51 +1239,44 @@ a: 4; c: 3
 \end{lstlisting}
 \end{minipage}
 
+I want you to understand precisely what is happening here: always we apply
+the operand increment to a variable, that variable will increment
+its value in one unit. Nevertheless; depending on if we write it as prefix
+(infront the variable) or postfix (after it) the expression itself will have one
+value or another. If we do it prefix, the value
+of the expression of the operation
+would be the value of \verb!a! \textbf{after} it increments its value, if we
+do it as a postfix operator, the value will be \textbf{without the increment}.
 
-Quiero que entiendas bien lo que ocurre aquí: siempre que apliquemos el
-operador incremento a una variable, ésta aumentará de valor en una unidad.
-No obstante;
-dependiendo de si lo hacemos prefijo o postfijo, el valor \textbf{de la
-expresión} cambia. En el caso del operador prefijo, el valor de la expresión es
-el valor de la variable \textbf{con el incremento aplicado} y si lo hacemos
-postfijo, ese valor es el de la variable \textbf{antes de aplicar el operador}.
-Te preguntarás qué necesidad hay de que haya un operador para esto. Bueno,
-existe porque contar, tanto hacia delante como hacia atrás, es una operación
-muy común. Así que para ahorrarnos líneas, en vez de escribir
-\lstinline[style=C]!int b = a; a = a + 1;! podemos escribirlo como ya has
-visto.
+Following the line of increment and decrement operators, there are also
+operators that put together the assignment with other mathematical operation,
+that is, substituting for example \lstinline[style=C]!a = a * 3;! by
+\lstinline[style=C]!a *= 2;!. The same style of operators exists for substraction,
+addition, division and module.
 
-Siguiendo la línea de los operadores incremento y decremento, también hay
-operadores que aúnan la asignación con alguna operación matemática, es decir,
-sustituir \lstinline[style=C]!a = a * 3;! por
-\lstinline[style=C]!a *= 3;!. Existen los mismos operadores para suma, resta,
-división y módulo.
+Finally, we simply must tell that the \textbf{priority} of the operations
+is the same than in mathematics: the first expressions to be evaluated are those
+inside parenthesis, after them division and multiplication, both have
+the same priority, so in case you have several mixed, you will execute them
+from left to right. After that, addition and substraction that are, again,
+executed from left to right.
 
-Finalmente, decirte que la \textbf{prioridad} de las operaciones es la misma
-que en matemáticas: primero se ejecutan divisiones y multiplicaciones, después
-restas y sumas. Las operaciones con la misma prioridad se ejecutan de izquierda
-a derecha. El módulo está al mismo nivel que la multiplicación, y los operadores
-de incremento y decremento siempre van los primeros. De todos modos, si tienes
-dudas, pon paréntesis en lo que quieras que se ejecute primero.
-
-\subsubsection{Cásting: conversiones explícitas}
-Es normal que necesites que un tipo se convierta en otro, por ejemplo, en el
-caso anterior, si los divisores fueran enteros,
-tendrías que <<forzar>> a que uno fuera decimal para conseguir la división decimal.
-También suele pasar que una variable que es un entero
-deba ser <<metida>> en un \verb!char! porque sabes que es del rango correcto.
-Para esto existe la herramienta del \textit{casting}, que en inglés es
-<<moldear>> como quien vierte metal líquido en un molde. Con él, podemos
-transformar un tipo en otro. Pero no es la panacea, las leyes de la lógica se
-siguen aplicando, un \verb"char" no puede valer más de 127, aunque hagas
-cástings. Veamos un ejemplo:
-
-
+\subsubsection{Casting: explicit conversions}
+It is usual that one needs to convert one typ einto another, for example, in the
+case we saw before with the division, if you wanted to decimal division, you
+would need to make one of them decimal to get the result you want. It is also
+common than a variable that is an \texttt{int} gets assigned to a \texttt{char}
+because you know its result is inside the range of values a \texttt{char} can
+hold. Casting is a word that means the process of putting molten metals inside
+a shaped container what will make the metal to retain that shape when it
+solidifies. Nevertheless, it has its limits, laws of logic still apply, and you
+cannot make a \texttt{char} to hold more than 127, for example, regardless of
+casting.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, caption={Ejemplo de cásting},
+\begin{lstlisting}[style=C, caption={Casting example},
 label={lst:castingExample}]
 #include <stdio.h>
 int main(void)
@@ -1280,55 +1288,51 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-
-
-En la línea 6 necesitamos que al menos unos de los operadores sea decimal
-(ya sea \texttt{float} o \texttt{double}). Así que realizamos el cásting
-a ese tipo del primer operando. La sintaxis del cásting es sencilla, pero
-voy a explicarla detenidamente: debes poner el nombre del tipo al que quieres
-hacer cásting entre paréntesis, y justo a su lado la expresión a la que quieres
-hacérselo. Te dejo algunos ejemplos:
+In line 6 we need one of the operands to be decimal (either \texttt{float} or
+\texttt{double}). We perform cast to that type on the first operand. The syntax
+is easy, but I am going to explain it in detail. You must write the the name
+of the type you want to convert the value to between parenthesis and next to it
+the expression you want to cast. I'll leave you a couple examples:
 \begin{enumerate}
-\item \lstinline[style=C]!(int) (decimal_number / other_decimal)!: Aquí
-estamos haciendo cásting a entero del resultado de una división, como puedes
-ver, necesitamos encerrar en paréntesis la división para que el cásting se haga
-a esa expresión y no sólo al primer elemento.
-\item \lstinline[style=C]!(char) (number % 128)! aquí estamos viendo uno
-de los casos en que hacer cásting a un tipo más pequeño es bueno, si
-\texttt{number} es un entero, al hacerle cásting a \verb!char!
-podría haber problemas,
-pero como hemos hecho módulo a 128, el resultado de la expresión siempre será
-un número entre 0 y 127, que entra en el rango del \texttt{char}.
+\item \lstinline[style=C]!(int) (decimal_number / other_decimal)!: here we are
+casting to an integer type the result of a division, as you can see, we need
+to enclose the whole division in parenthesis so the casting is not applied only
+to the first element.
+\item \lstinline[style=C]!(char) (number % 128)!: Here you can see one of the
+instances in which casting some integer type to another smaller one is ok. If
+\texttt{number} is an integer, by casting it to \verb!char! there could be
+problems but since we have performed module on 128, the result of the expression
+is going to be between 0 and 127, therefore we know it is going to be in range
+of the \texttt{char}.
 \end{enumerate}
-A continuación te dejo una tabla de
-conversiones válidas entre tipos básicos:
+Next there is a table that will tell you which conversions are allowed and which
+are not possible.
 
 \begin{table}[H]
 \begin{tabularx}{\linewidth}{|c|c|Y|Y|Y|Y|Y|}
 \cline{3-7}
-\multicolumn{2}{c|}{}&\multicolumn{5}{c|}{\textbf{Tipo de destino}}\\\cline{3-7}
+\multicolumn{2}{c|}{}&\multicolumn{5}{c|}{\textbf{Destiny type}}\\\cline{3-7}
 \multicolumn{2}{c|}{}& \texttt{char}&\texttt{short}&\texttt{int}&\texttt{float}&\texttt{double} \\\cline{1-7}
-\multirow{5}{*}[-5em]{\begin{sideways}\textbf{Tipo de origen}\end{sideways}}&\texttt{char} &OK&OK &OK &OK &OK \\\cline{2-7}
-&\texttt{short} &Cásting (desbordamiento)&OK&OK&OK&OK \\\cline{2-7}
-&\texttt{int} &Cásting (desbordamiento) &Cásting (desbordamiento)& OK&OK (precisión) & OK (precisión)\\\cline{2-7}
-&\texttt{float} &Cásting (redondeo, desbordamiento)& Cásting (redondeo, desbordamiento)& Cásting (redondeo, desbordamiento)& OK& OK \\\cline{2-7}
-&\texttt{double} &Cásting (redondeo, desbordamiento)& Cásting (redondeo, desbordamiento)& Cásting (redondeo, desbordamiento)& Cásting (redondeo, desbordamiento)&OK \\\cline{1-7}
+\multirow{5}{*}[-5em]{\begin{sideways}\textbf{Source type}\end{sideways}}&\texttt{char} &OK&OK &OK &OK &OK \\\cline{2-7}
+&\texttt{short} &Casting (overflow)&OK&OK&OK&OK \\\cline{2-7}
+&\texttt{int} &Casting (overflow) &Casting (overflow)& OK&OK (precission) & OK (precission)\\\cline{2-7}
+&\texttt{float} &Casting (rounding, overflow)& Casting (rounding, overflow)& Casting (rounding, overflow)& OK& OK \\\cline{2-7}
+&\texttt{double} &Casting (rounding, overflow)& Casting (rounding, overflow)& Casting (rounding, overflow)& Casting (rounding, overflow)&OK \\\cline{1-7}
 \end{tabularx}
-\caption{Conversiones de tipos en C}
+\caption{Type conversions in C}
 \label{tab:conversions}
 \end{table}
 
-Donde pongo <<OK>> quiero decir que se produce una conversión implícita, pero
-hay que tener cuidado. El rango del entero es muy grande, y puede ocurrir que
-la precisión de un \texttt{float} o un \texttt{double} no llegue a la unidad
-en los extremos del rango del entero. Te seré sincero, en el rango de los miles
-de millones al que llega el entero, el \verb!float! (y más el \verb!double!)
-es perfectamente capaz de
-contener valores enteros con precisión, pero lo incluyo para que no se te
-olvide el problema de la precisión. Donde pongo cásting e indico que puede
-haber desbordamiento es porque estás convirtiendo un tipo más grande (en bytes)
-a otro más pequeño, quien debe controlar si eso está bien hecho es el
-programador, es decir, tú.
+Where I write ``ok'' I mean that there is an implicit conversion, but you must
+be careful, the range of the integer is big and you may find that the precission
+of a \texttt{float} is not good enough in the bigger values to have
+problems distinguishing one unit from the next. I am going to be sincere with
+you, this does not happen, the \texttt{float} is precise enough in the limits
+of the integer to tell whole units apart, but I write it in the table to remind
+you that you may look at the precission of the integers. Where I write casting
+and I precise there can be an overflow I mean you're performing cast from
+a bigger type to a smaller one, so that is not generally acceptable unless you
+check urself that the value of the casted expression fits into the new type.
 
 \subsubsection{Ejemplo final de programa con operadores}
 Habiendo visto todo esto, podemos hacer nuestro primer programa que haga
