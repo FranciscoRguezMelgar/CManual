@@ -245,16 +245,16 @@
 
 \section{Introduction}
 In this document I hope to be able to explain, at least, the basic fundamentals
-of the C programming language. Also, I hope to offer reasons to learn in and
+of the C programming language. Also, I hope to offer reasons to learn it and
 I will try to communicate to the reader part of the beauty I find in it.
-Under this first header I will explain first what is programming, which kinds
+Under this first header I will explain what is programming, which kinds
 of languages do exist and offer an explanation about how we will structure this
 document.
 
 \label{section:queEsLaProgramacion}
 \subsection{What is programming?}
-Being this a not very advanced manual, it is possible you have never had any
-experience programming. Is this is the case, I will explain shallowly what
+Since this is a not very advanced manual, it is possible you have never had any
+experience programming. If this is the case, I will explain shallowly what
 ``programming'' is. Programming is, according to the Oxford dictionary: ``the
 process of writting and testing computer programs''. I am a simple guy and
 have not put a foot in Oxford University but, perhaps naively, I expected a more
@@ -283,25 +283,22 @@ computer, something like ``solve this differential equation'' or ``predict the
 weather of tomorrow.'' Sadly, this is where the craftiness of the programmer
 comes in. Computers do not understand the language of humans. They do not know
 what weather is nor what a coffe is. Computers only understand mathematical
-operations (and not a lot) and logic operations (if you do not know what logic
-is, as a science, do not worry). The programmer must be able to turn a complex
+operations (and not a lot) and logic operations. If you do not know what logic
+is, as a science, do not worry, we will talk about it later.
+The programmer must be able to turn a complex
 task into a set of instructions a computer understands.
-
-% Así que, finalmente, podríamos decir que programar es: <<expresar tareas
-% complejas expresadas en lenguaje humano en términos de
-% tareas simples que un ordenador pueda entender>>.
 
 Finally, we could say that programming is ``articulate complex tasks in human
 language in terms of simple tasks that a computer understands''.
 
 \subsection{How does one program?}
-Now we know that \textbf{what} programming is, let's see how it is done, in
+Now we know \textbf{what} programming is, let's see how it is done, in
 general terms. Following the methaphor I used before, a ``program'', as we
 understand it, is a text file (or several) where those instruction the computer
 needs to do something are. As I said before, computers understand a somewhat
 small number of instructions, and, as a matter of fact, they only understand
 binary code. A computer stores in its memory (what is commonly known
-by RAM memory) the instructions that it must execute. That memory only stores
+as RAM memory) the instructions that it must execute. That memory only stores
 bits, digits in a numeric system that contains only two figures: zero and one.
 
 If we apply the definition of the last chapter, to program, we must write
@@ -331,19 +328,8 @@ programming is: ``to write a file in a programming language that can be
 compiled into a program the computer can execute directly''.
 
 \section{Environment set up}
-
-% Quizás estás ya impaciente, o quizás hace mucho que dejaste de leer, pero creo
-% que esa introducción era pertinente, al menos para quien no supiera lo que era
-% programar en el nivel más básico. Ahora vamos a hablar de cómo preparar
-% un \textbf{entorno} para programar. El entorno es el conjunto de herramientas
-% que vamos a utilizar para escribir y compilar nuestros programas.
-% El problema de C es que es un lenguaje muy <<cercano al ordenador>>, ¿qué quiere
-% decir esto? Que es más difícil de entender y de escribir para las personas, por
-% lo que la preparación que vas a tener que hacer para programar en C es un poco
-% más complicada que si usaras otros lenguajes. Así que vamos por partes.
-
-May be you're already impatient, or perhaps you stopped reading a long time
-ago. But I think that introduction was needed, at least for those that do not
+Maybe you're already impatient, or perhaps you stopped reading a long time
+ago, But I think that introduction was needed, at least for those that do not
 know what programming is at the most basic level. Now we are going to talk about
 how to prepare an \textbf{environment} to program. The environment is the set of
 tools we are going to use to write and compile our programs.
@@ -358,13 +344,13 @@ programming before. Let's start by the beginning. Since C is a language
 computers understand more easily, we must know which operating system we have.
 If you have not altered your computer in any way, the most probable thing is
 that you have a computer with Windows. Ideally you should install Linux, or
-create a virtual machine with it, or that you use the Windows subsystem for
+create a virtual machine with it, or use the Windows subsystem for
 Linux.
 
 Since explaining all the alternatives would make this manual very long and also
 would force me to make distinctions in each one of the following sections, I am
 going to suppose you are using the Windows subsystem for Linux, or WSL. The
-first step is to intall the Windows characteristic that allows us to
+first step is to install the Windows characteristic that allows us to
 do that. Hit the Windows key and the letter R. Write in the little window that
 pops up \verb!optionalfeatures! and hit enter. A window will pop up
 where you should look for the element ``Windows subsystem for Linux'', check the
@@ -389,7 +375,7 @@ concepts so you can use it. In a terminal, at any given moment you are in a
 it will tell you in which directory you are in. Directory is just a fancy word
 computer people use to say what we call folder when using computers, a place
 where other files and folders may be put.
-I will show you an example of how it will look.
+I will show you an example of how it would look.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -427,8 +413,8 @@ For example, the most common path for the desktop is
 dekstop we're talking about, let's say John). On the contrary, in Linux this is
 not this way, all directories come from the root directory (\verb!/!). Note: if
 you haven't noticed yet, in Windows directory paths are written with backslashes
-(\verb!\!) and in Linux with forward slashes (\verb!/!). Each unit in Windows
-tends to be a physical drive: a memory stick, a hard disk, and SSD... In Linux,
+(\verb!\!) and in Linux with forward slashes (\verb!/!). Each drive in Windows
+tends to be a physical drive: a memory stick, a hard disk, an SSD... In Linux,
 when you insert a drive or disk, it will simply \textbf{mount} in a directory
 like any other. That is: the files and directories of the new disk will be put
 in one point of the directory tree we already had.
@@ -480,11 +466,11 @@ an alias of your home directory, which is a route in Linux systems where the
 user stores his personal files. Generally speaking, that route is in
 \verb!/home/<username>! for example \verb!/home/john!.
 
-Now we are going to learn what is inside a directory, the command that allows us
-to do so is \verb!ls!, if you type it and hit enter you'd see... nothing. That's
-because we have not created any file in our home directory, the command to
-create files is called \verb"touch". Write \verb!touch test.txt! and hit enter,
-if you now perform \verb!ls!, you would see it will show up.
+Now we are going to learn to see what is inside a directory, the command that
+allows us to do so is \verb!ls!, if you type it and hit enter you'd see...
+nothing. That's because we have not created any file in our home directory,
+the command to create files is called \verb"touch". Write \verb!touch test.txt!
+and hit enter, if you now perform \verb!ls!, you would see it will show up.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -498,9 +484,9 @@ test.txt
 \end{minipage}
 
 \verb!ls! has a lot of options, options of Linux commands are set with a dash
-infront of them, so, if you're told ``\verb!ls! with th options a and l'' you
+infront of them, so, if you're told ``\verb!ls! with the options a and l'' you
 must write \verb!ls -l -a! or, joining all them in the same dash: \verb!ls -la!
-Something like this should show in the screen.
+Something like this should appear on the screen.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -518,17 +504,6 @@ drwxr-xr-x 1 john john  512 Jul  7 22:37 .landscape
 -rw-rw-rw- 1 john john    0 Jul  8 19:05 test.txt
 \end{lstlisting}
 \end{minipage}
-
-% Como verás, hay muchos archivos que tú no has creado. Esto es porque la opción
-% \verb!a! hace que \verb!ls! nos muestre \textbf{todos los archivos}, incluidos
-% los ocultos, que son los que empiezan por punto (\verb!.!). Y la opción \verb!l!
-% hace que salgan en una lista, y con información sobre ellos. Los directorios
-% ocultos empiezan con punto, y esto provoca que cuando haces un \verb!ls! normal
-% no aparezcan, convenientemente, los directorios punto y punto-punto.
-% Si esto te intimida, no te preocupes, es normal, y tengo buenas noticias, el WSL
-% ve los directorios que tienes en tu sistema Windows, así que puedes crear una
-% carpeta en tu escritorio y trabajar con el explorador de Windows, para crear
-% o eliminar los archivos.
 
 As you can see, there are many files you have not created. This is because the
 \verb!a! option makes \verb!ls! to show us \textbf{all the files}, including the
@@ -585,7 +560,7 @@ Now we are going to, finally, start learning the concepts of the language.
 
 \section{Your first program; say hello to the world!}
 
-Let's navigate into that folder you have in the desktop, units of your Windows
+Let's navigate into that folder you have in the desktop. Units of your Windows
 computer (the drives C, D, E...) are presented in the WSL as directories inside
 the path \verb!/mnt!. So, \verb!C:! will be under \verb!/mnt/c!. I leave next an
 example on how to navigate to a folder called \verb!hello_world! in your Windows
@@ -625,7 +600,7 @@ going to write the following.
 
 int main(void)
 {
-        printf("Hello, world!\n");
+    printf("Hello, world!\n");
 }
 \end{verbatim}
 \end{figure}
@@ -682,36 +657,21 @@ least amount of effort in ignoring things you don't know.
 
 For now, I will explain what the command we have issued before is, gcc is, as
 I said before, the C compiler, the option \verb!o! (remember that I explain
-what options were when I expalined you how to use \verb!ls!) indicates that the
+what options were when I explained you how to use \verb!ls!) indicates that the
 next thing we are going to write is the name of the program we want to create
 and, finally, the name of our source code file. If you put \verb!main.elf! the
 resulting file would be called that, or anything you wanted, I'll be compiling
 my programs as to files called \verb!main.exe! mainly.
 
 \subsection{Text editor}
-% Tu primer programa lo has abierto con el Bloc de notas, pero editar código
-% fuente con eso es bastante insufrible. En parte porque como verás más adelante
-% lo normal es editar archivos de código fuente con un editor que coloree las
-% palabras más importantes (más adelante verás cuáles) y te ayude con cosas como
-% saber dónde terminan las llaves o paréntesis que has abierto. Si quieres
-% editar tu código, hay una gran variedad de editores para ello, aquí te dejo
-% una lista. En el manual no haré referencia a comandos específicos del editor.
-% Algunos editores que puedes usar son:
-% \begin{enumerate}
-% \item Visual Studio Code.
-% \item Atom.
-% \item Sublime Text.
-% \item Notepad++.
-% \end{enumerate}
-
 You edited your first program with the notepad, but editing code in that way
 if a bit unbearable. Partially this is so because it is usual to use specialized
 editors that colorize the words that are important in the concrete programming
 language you are using and help you with things like knowing where the braces
-that close the one your looking at now end. I am going to leave here a list of
+that close the one your looking at now. I am going to leave here a list of
 some common editors used with C code. I will not assume you are using any
 concrete one, so choose the one you like. I use the first one, but may be for
-your first steps you may stick to Notepad++ which is simpler, and jump
+your first steps you may stick to Notepad++, which is simpler, and jump
 to another one when you feel more comfortable writting more complex programs.
 \begin{enumerate}
     \item Visual Studio Code.
@@ -748,7 +708,7 @@ code files.
 \subsection{Variables}
 
 We are getting into business, at last! One of the first things that are needed
-in a program are \textbf{variables}, a variable is an abstraction to design a
+in a program are \textbf{variables}, a variable is an abstraction to designate a
 space in the memory of the computer in which we store things. When we create a
 variable we say to the computer: ``save this space in your memory to store
 data''. C is a language of the kind we call typed, that is, each variable has a
@@ -782,19 +742,19 @@ examples and I'll get into some caveats.
 
 Regarding the name: the name of a variable is made out of letters, numbers and
 underscores. The name of a variable must not be writen all in uppercase, but
-it can contain some. I cannot start by a number, and \textbf{you should not start
+it can contain some. It cannot start by a number, and \textbf{you should not start
 it with an underscore}. In general, you can use two notations to write variable
 names in C (and in any programming language):
 \begin{enumerate}
     \item \textbf{Camel case}: if a name contains several words, they must be
     writen together, with the first letter of each word in uppercase,
-    exclusing the first. For example: \verb!betterValue! or \verb!targetNumber!.
+    excluding the first. For example: \verb!betterValue! or \verb!targetNumber!.
     It is called like this
-    because the uppercase letters remind to the humps of a camel.
+    because the uppercase letters remind of the humps of a camel.
     \item \textbf{Snake Case}: The words are separated by underscores, all in
-    lowercase, for example: \\ \verb!better_value! or \verb!target_number!. It is
+    lowercase, for example:  \texttt{better\_value} or \texttt{target\_number}. It is
     called like that because the shape of the names writen in this fashion
-    remind to a snake that had eaten animals and has bulges in its body.
+    remind of a snake that has eaten animals and has bulges in its body.
 \end{enumerate}
 
 
@@ -821,7 +781,7 @@ int main(void)
 
 Computers do not understand about letters, only numbers, therefore, when you
 tell the computer that \verb!letter! is equal to \verb!'a'!, you tell it it's
-equal to the number that letter has assigned. Mind that the to tell the value
+equal to the number that letter has assigned. Mind that to assign the value
 of a \verb!char! you must use simple straight quotes. The correspondency between
 letters and numbers is writen in the ASCII table, is you want to read it, I
 leave this \href{https://www.ascii-code.com/}{link} to a site where u can
@@ -833,7 +793,7 @@ value}. This is why many techaers would advice you that everytime you declare a
 variable you should give it a value immediately.
 
 In lines 11 and 12 we give value to variables that we have declared before,
-and I want to take some time talking about line 12. At first, it could seems
+and I want to take some time talking about line 12. At first, it could seem
 that when writing \verb!shorty = 5520;! we are enunciating a mathematical
 equality, that that is always going to be the same, but in C we do not work with
 ``laws'', but with instructions, so you shall not read that line as ``the value
@@ -871,7 +831,7 @@ variable \verb!b!, therefore, it will have a value of 2, now. Since seeing this
 is difficult, I am going to include in the next example a series of lines with
 the word \verb!printf! in them, you may remember it from our first program.
 Later on, I will teach you to use it, but, at the moment, simply copy this
-program in your file of source code and compila as we did before. (Copying
+program in your file of source code and compile it as we did before. (Copying
 things from a PDF tends to be cumbersome, therefore type it yourself, also, it
 will serve as typing practice.)
 
@@ -901,7 +861,7 @@ like this:
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=terminalStyle]
-\$ ./main.elf
+\$ ./main.exe
 a is equal to: 3
 b is equal to: 10 and a is the same, that is: 10
 b is equal to: 22, a still is 10
@@ -970,7 +930,7 @@ f: inf
 As you can see, neither the \texttt{char} is equal to 1,500 nor the
 \texttt{short} is 5,555,555, because they cannot be. The compiler does not say
 anything about the \texttt{float} or the \texttt{double}, the reason is that both
-data types have an special value called infinity, which symbolizes infinity.
+data types have a special value called infinity, which symbolizes infinity.
 This is because, as we will see later on, they do not represent numbers in a
 totally correct way, and that's why they can be positive and negative infinity.
 
@@ -979,8 +939,8 @@ code works, you would know that a binary number of $n$ bits you can represent
 $2^n$ numbers. In the case of decimal numbers, we use one complex system called
 IEEE  754. I am not going to go into detail here, but the main problem of this
 way of representing numbers is that it is not only not exact (for example,
-the number 0.1 cannot be represented exactly), but its precissions is not
-constant. What does this mean? That if, near the zero the float may distinguish
+the number 0.1 cannot be represented exactly), but its precission is not
+constant. What does this mean? That if near the zero the float may distinguish
 between 1.10 and 1.11, it is possible they cannot distinguish 10000000.10 from
 10000000.11. Be careful about that when you use decimal numbers.
 
@@ -1015,7 +975,7 @@ characters.
 \centering
 \begin{tabularx}{\linewidth}{|c|Y|}
 \hline
-\textbf{Especificador} & \textbf{Tipo que imprime}                                              \\ \hline
+\textbf{Specifier} & \textbf{Type it prints}                                              \\ \hline
 \texttt{\%d}& Integers (\texttt{int})                                                           \\ \hline
 \texttt{\%f}& Decimals (\texttt{float} and \texttt{double})                                     \\ \hline
 \texttt{\%hd}& \texttt{short}                                                                   \\ \hline
@@ -1023,24 +983,26 @@ characters.
 \texttt{\%s}& Text, writen as \texttt{\textquotedbl A text\textquotedbl}, quotes included.      \\ \hline
 \texttt{\%p}& Pointers, they are an advanced feature of the language, I will explain them later \\ \hline
 \end{tabularx}
-\caption{Format specifiers in C}
+\caption{Format specifiers}
 \label{tab:formatSpecifierC}
 \end{table}
 
 On the other hand, the special characters are these, and are written with a
 backwards slashes (\textbackslash{}) in front of them. In the table I already
-include the backward slash.
+include the backward slash. Also, since the specifiers are written starting with
+percentage symbol (\verb!%!), if you want to print it, you need to put it twice.
 
 \begin{table}[H]
 \centering
 \begin{tabularx}{\linewidth}{|c|Y|}
 \hline
-\textbf{Secuencia} & \textbf{Carácter impreso}                                                           \\\hline
-\texttt{\textbackslash{}\textbackslash{}} & Barra inclinada inversa                                      \\\hline
-\texttt{\textbackslash{}n}& Nueva línea                                                                  \\\hline
-\texttt{\textbackslash{}t}& Tabulador (imprime espacios hasta que se alinea a una columna de 4 espacios) \\\hline
+\textbf{Sequence} & \textbf{Printed character}                       \\\hline
+\texttt{\textbackslash{}\textbackslash{}} & Backwards slash          \\\hline
+\texttt{\textbackslash{}n}& New line                                 \\\hline
+\texttt{\textbackslash{}t}& Tabulator (prints spaces until the next character is aligned with four character column in the terminal) \\\hline
+\texttt{\%\%}& Will print just one percentage symbol.                \\\hline
 \end{tabularx}
-\caption{Print special characters in C}
+\caption{Sequences to print special characters}
 \label{tab:specialCharsC}
 \end{table}
 
@@ -1083,31 +1045,18 @@ The decimal number is:  2.300000
 As a bottom line: \texttt{printf} does not add anything you do not put in it,
 like new lines, so if you want to print the next thing in a new line, remember
 to write \verb!\n! at the end of the format. Also, it is good that your program
-prints the a new line character as the last thing, if not, it could leave things
+prints a new line character as the last thing, if not, it could leave things
 unprinted. That's because the terminal forces itself to print everything you
 have ordered it to print when it finds a new line.
 
 \subsection{Operators}
-% Jugar a los trileros con los valores de las variables que declaras en
-% tu programa es... aburrido, lo sé, por ello, vamos a aprender a hacer
-% operaciones con ellas.
-% En C (y en cualquier lenguaje de programación) existen los llamados
-% \textbf{operadores}. Son símbolos que nos permiten realizar un cálculo.
-% Los operadores son un concepto matemático, y se aplican a una
-% serie de argumentos, o, mejor dicho, operandos. En
-% matemáticas, los símbolos $+$, $-$, $\times$, y $/$ son
-% operadores para la suma, la resta, la multiplicación y la división,
-% respectivamente.
-% Del mismo modo que hemos hecho con los tipos básicos, te los
-% voy a presentar en una tabla y después veremos ejemplos de cómo se usan.
-
 Playing a shell game with the values of the variables you declare in a program
 is boring, I know, therefore we are going to learn to perform operations with
 them. In C (and in any other programming language) there are the so called
 \textbf{operators}. They are symbols that allow us to perform calculations.
-Operator are a mathematical concept, and are applied to a set of arguments, or
+Operators are a mathematical concept, and are applied to a set of arguments, or
 better put, operands. In math, the symbols $+$, $-$, $\times$ and $\div$ are
-mathmetical operators for addition, substraction, multiplication and division,
+mathemetical operators for addition, substraction, multiplication and division,
 respectively. In the same way we have done with the basic types, I will present
 the operators in a table and later on we will see examples on how to use them.
 
@@ -1119,7 +1068,7 @@ the operators in a table and later on we will see examples on how to use them.
 \tt + & Addition. Adds integers and decimals together and between them. \\\hline
 \tt - & Substraction. Substracts from the left operand the value of the right operand. \\\hline
 \tt / & Division. Return the result of the division of the left operand by the right one. Note that, \textbf{if both operands are integers}, the operator performs integer operation, that is, \textbf{without decimals}. \\\hline
-\tt * & Multiply. Asterisk has many functions in C, but this is the first of them you will discover. \\\hline
+\tt * & Multiply. Asterisk has many functions in C, but this is the first of them you will discover. The type of the multiplication of two integer is always a \textbf{double}.\\\hline
 \tt ++ & Increment. Makes a number (either integer or decimal) go up one unit, it can be prefix (before the operand) or postfix (after the operand).\\\hline
 \tt -{}- & Decrement. Works as the increment, but it makes the number to go down one unit. \\\hline
 \tt \% & Module. Is an operator that return the residue of the division of the left operand by the right operand. \\\hline
@@ -1131,18 +1080,12 @@ the operators in a table and later on we will see examples on how to use them.
 In the last section I told you that we could assign a value to a variable.
 I also told you that an expression is a fragment of C code with a value, and
 that the name of a variable alone is an expression. Now we have operators, we
-can perform more complex espressions, for example \verb!a+b! would be an
-expression whose value would be the addition of a and B.
-We can make calculation now!
-
-% Hay que tener cuidado, porque, como ya te dije, toda expresión en C tiene
-% \textbf{un tipo}, y, como vimos en la sección anterior, asignar un valor de
-% un tipo incorrecto a una variable resulta en errores. Por ejemplo, el operador
-% de la división se comporta distintamente si sus operandos (los números
-% divididos) son enteros o decimales. Veamos un ejemplo:
+can write more complex expressions, for example \verb!a+b! would be an
+expression whose value would be the addition of a and b.
+We can make calculations now!
 
 You must be careful, though, because, as I said before, all expression in C has
-a \textbf{type} and, as we saw in the last section, assign a value of
+a \textbf{type} and, as we saw in the last section, assigning a value of
 incorrect type to a variable is error prone. For example, the operator division
 behaves differently if the operands (the numbers we're dividing) are integer or
 decimal. Let's see and example.
@@ -1178,23 +1121,10 @@ d2: 0.333333
 
 What would look like the same operation give totally different results, and this
 is because the \textbf{type} of the operands was different. In C, a literal
-value is an \texttt{int}, and the division operator when it is operating on two
-integers, has an integer type. Nevertheless, when \textbf{any of the two}
-operands is decimal, the operator performs the decimal division, and its type
-is \texttt{double}.
-
-% Los operadores \verb!++! y \verb!--! son especiales, porque son operadores
-% unarios. Un operador unario es aquél que sólo se aplica a un operando. Por
-% ejemplo, en matemáticas existe el operador raíz cuadrada, denotado por el
-% símbolo $\sqrt{\phantom{2}}$ que, aplicado a un único número, nos da
-% el número (o números) que elevado al cuadrado nos dan el operando.
-% Los operadores incremento y decremento son unarios, y, además, se
-% pueden escribir delante o detrás de su operando. Estos operadores son
-% especiales porque no sólo dan un valor, sino que \textbf{cambian el valor
-% del operando al que se aplican}. Simplemente: si \verb!a! vale tres y realizamos
-% \verb!a++!, \verb!a! pasará a valer cuatro, pero si asignamos el valor de la
-% operación a otra variable, esa variable tendrá un valor determinado.
-% Veámoslo en código.
+integer number value is an \texttt{int}, and the division operator when it
+is operating on two integers, has an integer type. Nevertheless, when
+\textbf{any of the two} operands is decimal, the operator performs the decimal
+division, and its type is \texttt{double}.
 
 Operators \verb!++! and \verb!--! are special, because they are unary operators.
 An unary operator is an operator that is applied only to one operand. For
@@ -1206,7 +1136,8 @@ These are special operantors that do not only give us a value, but also
 \textbf{affect the value of the operand they act on}. Simply: if \verb!a! is
 equal to three and we make \verb!a++!, \verb!a! will be four, but if we assign
 the value of the operation to other variable, that other variable will have
-a concrete value, let's see it in the code.
+a different value depending on if we write it in the poastfix or prefix way,
+let's see it in the code.
 
 
 \noindent
@@ -1239,7 +1170,7 @@ a: 4; c: 3
 \end{lstlisting}
 \end{minipage}
 
-I want you to understand precisely what is happening here: always we apply
+I want you to understand precisely what is happening here: everytime we apply
 the operand increment to a variable, that variable will increment
 its value in one unit. Nevertheless; depending on if we write it as prefix
 (infront the variable) or postfix (after it) the expression itself will have one
@@ -1249,10 +1180,10 @@ would be the value of \verb!a! \textbf{after} it increments its value, if we
 do it as a postfix operator, the value will be \textbf{without the increment}.
 
 Following the line of increment and decrement operators, there are also
-operators that put together the assignment with other mathematical operation,
+operators that put together the assignment with other mathematical operations,
 that is, substituting for example \lstinline[style=C]!a = a * 3;! by
-\lstinline[style=C]!a *= 2;!. The same style of operators exists for substraction,
-addition, division and module.
+\lstinline[style=C]!a *= 3;!. The same style of operators exists for
+substraction, addition, division and module.
 
 Finally, we simply must tell that the \textbf{priority} of the operations
 is the same than in mathematics: the first expressions to be evaluated are those
@@ -1262,7 +1193,7 @@ from left to right. After that, addition and substraction that are, again,
 executed from left to right.
 
 \subsubsection{Casting: explicit conversions}
-It is usual that one needs to convert one typ einto another, for example, in the
+It is usual that one needs to convert one type into another, for example, in the
 case we saw before with the division, if you wanted to decimal division, you
 would need to make one of them decimal to get the result you want. It is also
 common than a variable that is an \texttt{int} gets assigned to a \texttt{char}
@@ -1290,7 +1221,7 @@ int main(void)
 
 In line 6 we need one of the operands to be decimal (either \texttt{float} or
 \texttt{double}). We perform cast to that type on the first operand. The syntax
-is easy, but I am going to explain it in detail. You must write the the name
+is easy, but I am going to explain it in detail. You must write the name
 of the type you want to convert the value to between parenthesis and next to it
 the expression you want to cast. I'll leave you a couple examples:
 \begin{enumerate}
@@ -1334,10 +1265,10 @@ and I precise there can be an overflow I mean you're performing cast from
 a bigger type to a smaller one, so that is not generally acceptable unless you
 check urself that the value of the casted expression fits into the new type.
 
-\subsubsection{Ejemplo final de programa con operadores}
-Habiendo visto todo esto, podemos hacer nuestro primer programa que haga
-<<algo>>, voy a darte como ejemplo un programa que calcula la
-solución a un sistema de ecuaciones lineales, es decir:
+\subsubsection{Final example of a program with operators}
+At this point, we can make our first program that makes ``something'', I am
+going to give you an example that calculates the solution to a system of
+linear equations, that is:
 
 $$
 \left\{\matrix{ax+by = c \cr
@@ -1345,8 +1276,7 @@ $$
 \right.
 $$
 
-Con un sistema así, podemos aplicar el método de sustitución:
-
+With a system like that, we can apply substitution:
 $$
 (1)\; ax+by=c \to x= \frac{c-by}{a}
 $$
@@ -1354,15 +1284,14 @@ $$
 (2)\; dx+ey=f \to x=\frac{f-ey}{d}
 $$
 $$
-(1) \;\mathrm{y} \; (2) \to \frac{c-by}{a} = \frac{f-ey}{d} \to
+(1) \;\mathrm{and} \; (2) \to \frac{c-by}{a} = \frac{f-ey}{d} \to
 y=\frac{af-dc}{ae-db} \to x=\frac{f-e\cdot\frac{af-dc}{ae-db}}{d}
 $$
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, caption={Cálculo de ecuación lineal},
+\begin{lstlisting}[style=C, caption={Linear equation system solving},
 label={lst:linealEquation}]
 #include <stdio.h>
 int main(void)
@@ -1384,29 +1313,24 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+If you copy this program, compile and execute it, you would see that I have
+explained about variables and expressions. Nevertheless, the program has a
+problem: it only solves one system of equations, to change the system, we need
+to change the source code and recompile. This is not practical, and the real
+programs do not work in this way. For now most of our programs would be like
+this one, because I want to explain more fundamental things first. Up until
+now our programs have been very boring, they are limited to execute a series of
+instructions one after the other. In real life, though, programs execute
+one set of instructions or other depending on conditions, or they repeat
+certain instructions several times, etc.
 
-Si copias este
-programa, verás aplicado lo que he explicado sobre variables y expresiones.
-Además, el programa cuenta con un problema, sólo resuelve \textbf{una} ecuación,
-para que resuelva otra, o para cambiar algunos de los valores,
-debemos cambiar el
-programa y recompilarlo. Eso no es práctico, y los programas de verdad no
-funcionan así. De momento la mayoría de nuestro programas serán así, porque
-quiero enseñarte primero otras cosas más fundamentales. Hasta ahora, los
-programas que hemos escrito se comportan de manera muy \textit{aburrida}, sólo
-ejecutan una serie de instrucciones una detrás de otra. Pero en la vida real
-los programas ejecutan instrucciones dependiendo de condiciones, o las ejecutan
-varias veces, etc.
-
-Otro de los problemas es que no podemos cambiar el comportamiento del programa
-en determinadas condiciones. Si cambias el valor de los números en el
-programa de ejemplo para que éste sea irresoluble, el programa fallará.
-Haz la prueba, cambia los valores de \texttt{a}, \texttt{b}
-y \texttt{c} a 1 y los de \texttt{d}, \texttt{e} y \texttt{f} a 2. Este
-sistema tiene infinitas soluciones y hará que el programa falle. Si lo compilas
-y lo ejecutas con los nuevos valores debería salir algo como esto:
-
-
+Other problem of this program is that we cannot change the behaviour of it
+in certain conditions. If you change the value of the numbers in the
+program in a way you make the system irresolvable the program will fail.
+Test it, change the values of \texttt{a}, \texttt{b} and \texttt{c} to 1 and
+\texttt{d}, \texttt{e} and \texttt{f} to 2. This system has infinite solutions
+and will make the program to fail. Is you compile and execute with they new
+values, you should get something like the following:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -1419,78 +1343,78 @@ x = -nan; y = -nan
 \end{lstlisting}
 \end{minipage}
 
-
-¿Qué rayos es nan? Es uno de los valores especiales de los números decimales en
-C (recuerda la IEEE 754), significa \textit{Not a Number}. Es decir, que el
-resultado de esa operación que hemos hecho no es un número. ¿Por qué? Porque
-hemos dividido entre cero. Y si sabes un poco de cálculo, sabrás que un número
-dividido entre cero es una indeterminación, es decir, no sabemos qué es. Así lo
-expresa C. Y tenemos suerte, si en vez de división flotante fuera división
-entera, el programa se vería obligado a cerrar inesperadamente. Sería
-interesante poder comprobar primero si el sistema tiene solución y después
-calcularla. Eso se hace con estructuras de control, que es el siguiente
-capítulo.
+What in tarnation is a nan? It is one of the special values that decimal numbers
+in C can hold (remember IEEE 754). It means ``Not and Number''.
+So, the result of that operation is not a number. How is that
+possible? Because we have divided by zero. If you know a little about calculus
+you'd know that a number divided by zero is an indetermination, that is, we do
+not know what it is. That's how C deals with that. And we are lucky, if instead
+of a decimal division it were an integer division, the program would simply
+close abruptly. It would be interesting to check if the system has a solution,
+and, if it had, then calculate it. This is done with control structures, which
+will be explained in the next chapter.
 
 \section{Alterando el flujo normal del programa}
-Como he introducido en la sección anterior, es conveniente poder hacer que el
-programa haga una cosa u otra según una condición. Además, es posible (de hecho
-es imprescindible) que el programa repita instrucciones basándose en
-condiciones. Esto se llama alterar el flujo del programa, porque en vez de
-ejecutar una línea después de la anterior, el ordenador podrá saltar de
-un sitio a otro del programa, tanto hacia delante como hacia atrás.
+As I introduced in the last section, it is convenient to be able to make the
+program do one thing or the other according to a condition. Also, it is possible
+(as a matter of fact it's essential) to repeat instructions according to
+conditions. This is called altering the flow of the program, because instead
+of execute one line after he next, the computer can jump to a place to another,
+either forwards or backwards.
 
-\subsection{Sentencias condicionales}
-Las sentencias condicionales son las que nos permiten hacer \textbf{diverger} el
-flujo del programa dependiendo de una condición. Lo vas a entender
-perfectamente con un diagrama que incluiré a continuación:
+\subsection{Conditional sentences}
+Conditional sentences are the ones that allow us to make the program flow
+to \textbf{diverge}. You are going to understand it easily with the next
+diagram.
+
 \begin{figure}[H]
 \centering
-% generated by Plantuml 1.2021.7
-\definecolor{plantucolor0000}{RGB}{0,0,0}
-\definecolor{plantucolor0001}{RGB}{254,254,206}
-\definecolor{plantucolor0002}{RGB}{168,0,54}
-\definecolor{plantucolor0003}{RGB}{255,255,255}
-\definecolor{plantucolor0004}{RGB}{127,127,127}
+% generated by Plantuml 1.2022.7
+\definecolor{plantucolor0000}{RGB}{34,34,34}
+\definecolor{plantucolor0001}{RGB}{241,241,241}
+\definecolor{plantucolor0002}{RGB}{24,24,24}
+\definecolor{plantucolor0003}{RGB}{0,0,0}
+\definecolor{plantucolor0004}{RGB}{17,17,17}
 \begin{tikzpicture}[yscale=-1
-,pstyle1/.style={color=plantucolor0002,fill=plantucolor0001,line width=1.5pt}
-,pstyle4/.style={color=plantucolor0002,line width=1.5pt}
+,pstyle1/.style={color=plantucolor0002,fill=plantucolor0001,line width=0.5pt}
+,pstyle4/.style={color=plantucolor0002,line width=1.0pt}
 ,pstyle5/.style={color=plantucolor0002,fill=plantucolor0002,line width=1.0pt}
 ]
-\draw[fill=black,line width=1.0pt] (206.6218pt,20pt) ellipse (10pt and 10pt);
-\draw[pstyle1] (159.4242pt,50pt) -- (253.8194pt,50pt) -- (265.8194pt,62pt) -- (253.8194pt,74pt) -- (159.4242pt,74pt) -- (147.4242pt,62pt) -- (159.4242pt,50pt) -- cycle;
-\node at (159.4242pt,55.0283pt)[below right,color=black]{(a * e - d * b) es 0};
-\node at (118.7279pt,48.0566pt)[below right,color=black]{cierto};
-\node at (265.8194pt,48.0566pt)[below right,color=black]{falso};
-\draw[pstyle1] (11pt,101.6055pt) arc (180:270:17.6055pt) -- (28.6055pt,84pt) -- (168.1022pt,84pt) arc (270:360:17.6055pt) -- (185.7077pt,101.6055pt) -- (185.7077pt,101.6055pt) arc (0:90:17.6055pt) -- (168.1022pt,119.2109pt) -- (28.6055pt,119.2109pt) arc (90:180:17.6055pt) -- (11pt,101.6055pt) -- cycle;
-\node at (21pt,94pt)[below right,color=black]{Imprimir: no tiene solución};
-\draw[pstyle1] (205.7077pt,101.6055pt) arc (180:270:17.6055pt) -- (223.3132pt,84pt) -- (406.4663pt,84pt) arc (270:360:17.6055pt) -- (424.0718pt,101.6055pt) -- (424.0718pt,101.6055pt) arc (0:90:17.6055pt) -- (406.4663pt,119.2109pt) -- (223.3132pt,119.2109pt) arc (90:180:17.6055pt) -- (205.7077pt,101.6055pt) -- cycle;
-\node at (215.7077pt,94pt)[below right,color=black]{y = ( a * f - d * c ) / ( a * e - d * b )};
-\draw[pstyle1] (245.7322pt,156.8164pt) arc (180:270:17.6055pt) -- (263.3376pt,139.2109pt) -- (366.4418pt,139.2109pt) arc (270:360:17.6055pt) -- (384.0473pt,156.8164pt) -- (384.0473pt,156.8164pt) arc (0:90:17.6055pt) -- (366.4418pt,174.4219pt) -- (263.3376pt,174.4219pt) arc (90:180:17.6055pt) -- (245.7322pt,156.8164pt) -- cycle;
-\node at (255.7322pt,149.2109pt)[below right,color=black]{x = ( f - e * y ) / ( d )};
-\draw[pstyle1] (206.6218pt,180.4219pt) -- (218.6218pt,192.4219pt) -- (206.6218pt,204.4219pt) -- (194.6218pt,192.4219pt) -- (206.6218pt,180.4219pt) -- cycle;
-\draw[color=black,fill=white,line width=1.0pt] (206.6218pt,235.4219pt) ellipse (11pt and 11pt);
-\draw[color=plantucolor0004,fill=black,line width=1.0pt] (206.6218pt,235.4219pt) ellipse (6pt and 6pt);
-\draw[pstyle4] (314.8897pt,119.2109pt) -- (314.8897pt,139.2109pt);
-\draw[pstyle5] (310.8897pt,129.2109pt) -- (314.8897pt,139.2109pt) -- (318.8897pt,129.2109pt) -- (314.8897pt,133.2109pt) -- cycle;
-\draw[pstyle4] (147.4242pt,62pt) -- (98.3538pt,62pt);
-\draw[pstyle4] (98.3538pt,62pt) -- (98.3538pt,84pt);
-\draw[pstyle5] (94.3538pt,74pt) -- (98.3538pt,84pt) -- (102.3538pt,74pt) -- (98.3538pt,78pt) -- cycle;
-\draw[pstyle4] (265.8194pt,62pt) -- (314.8897pt,62pt);
-\draw[pstyle4] (314.8897pt,62pt) -- (314.8897pt,84pt);
-\draw[pstyle5] (310.8897pt,74pt) -- (314.8897pt,84pt) -- (318.8897pt,74pt) -- (314.8897pt,78pt) -- cycle;
-\draw[pstyle4] (98.3538pt,119.2109pt) -- (98.3538pt,192.4219pt);
-\draw[pstyle4] (98.3538pt,192.4219pt) -- (194.6218pt,192.4219pt);
-\draw[pstyle5] (184.6218pt,188.4219pt) -- (194.6218pt,192.4219pt) -- (184.6218pt,196.4219pt) -- (188.6218pt,192.4219pt) -- cycle;
-\draw[pstyle4] (314.8897pt,174.4219pt) -- (314.8897pt,192.4219pt);
-\draw[pstyle4] (314.8897pt,192.4219pt) -- (218.6218pt,192.4219pt);
-\draw[pstyle5] (228.6218pt,188.4219pt) -- (218.6218pt,192.4219pt) -- (228.6218pt,196.4219pt) -- (224.6218pt,192.4219pt) -- cycle;
-\draw[pstyle4] (206.6218pt,30pt) -- (206.6218pt,50pt);
-\draw[pstyle5] (202.6218pt,40pt) -- (206.6218pt,50pt) -- (210.6218pt,40pt) -- (206.6218pt,44pt) -- cycle;
-\draw[pstyle4] (206.6218pt,204.4219pt) -- (206.6218pt,224.4219pt);
-\draw[pstyle5] (202.6218pt,214.4219pt) -- (206.6218pt,224.4219pt) -- (210.6218pt,214.4219pt) -- (206.6218pt,218.4219pt) -- cycle;
+\draw[color=plantucolor0000,fill=plantucolor0000,line width=1.0pt] (191.176pt,20pt) ellipse (10pt and 10pt);
+\draw[pstyle1] (143.9784pt,50pt) -- (238.3736pt,50pt) -- (250.3736pt,62pt) -- (238.3736pt,74pt) -- (143.9784pt,74pt) -- (131.9784pt,62pt) -- (143.9784pt,50pt) -- cycle;
+\node at (143.9784pt,55.0283pt)[below right,color=black]{(a * e - d * b) is 0};
+\node at (113.0451pt,48.0566pt)[below right,color=black]{true};
+\node at (250.3736pt,48.0566pt)[below right,color=black]{false};
+\draw[pstyle1] (11pt,101.6055pt) arc (180:270:17.6055pt) -- (28.6055pt,84pt) -- (147.5078pt,84pt) arc (270:360:17.6055pt) -- (165.1133pt,101.6055pt) -- (165.1133pt,101.6055pt) arc (0:90:17.6055pt) -- (147.5078pt,119.2109pt) -- (28.6055pt,119.2109pt) arc (90:180:17.6055pt) -- (11pt,101.6055pt) -- cycle;
+\node at (21pt,94pt)[below right,color=black]{Print: it has no solution};
+\draw[pstyle1] (185.1133pt,101.6055pt) arc (180:270:17.6055pt) -- (202.7187pt,84pt) -- (385.8719pt,84pt) arc (270:360:17.6055pt) -- (403.4773pt,101.6055pt) -- (403.4773pt,101.6055pt) arc (0:90:17.6055pt) -- (385.8719pt,119.2109pt) -- (202.7187pt,119.2109pt) arc (90:180:17.6055pt) -- (185.1133pt,101.6055pt) -- cycle;
+\node at (195.1133pt,94pt)[below right,color=black]{y = ( a * f - d * c ) / ( a * e - d * b )};
+\draw[pstyle1] (225.1377pt,156.8164pt) arc (180:270:17.6055pt) -- (242.7432pt,139.2109pt) -- (345.8474pt,139.2109pt) arc (270:360:17.6055pt) -- (363.4529pt,156.8164pt) -- (363.4529pt,156.8164pt) arc (0:90:17.6055pt) -- (345.8474pt,174.4219pt) -- (242.7432pt,174.4219pt) arc (90:180:17.6055pt) -- (225.1377pt,156.8164pt) -- cycle;
+\node at (235.1377pt,149.2109pt)[below right,color=black]{x = ( f - e * y ) / ( d )};
+\draw[pstyle1] (191.176pt,180.4219pt) -- (203.176pt,192.4219pt) -- (191.176pt,204.4219pt) -- (179.176pt,192.4219pt) -- (191.176pt,180.4219pt) -- cycle;
+\draw[color=plantucolor0000,line width=1.0pt] (191.176pt,235.4219pt) ellipse (11pt and 11pt);
+\draw[color=plantucolor0004,fill=plantucolor0000,line width=1.0pt] (191.176pt,235.4219pt) ellipse (6pt and 6pt);
+\draw[pstyle4] (294.2953pt,119.2109pt) -- (294.2953pt,139.2109pt);
+\draw[pstyle5] (290.2953pt,129.2109pt) -- (294.2953pt,139.2109pt) -- (298.2953pt,129.2109pt) -- (294.2953pt,133.2109pt) -- cycle;
+\draw[pstyle4] (131.9784pt,62pt) -- (88.0566pt,62pt);
+\draw[pstyle4] (88.0566pt,62pt) -- (88.0566pt,84pt);
+\draw[pstyle5] (84.0566pt,74pt) -- (88.0566pt,84pt) -- (92.0566pt,74pt) -- (88.0566pt,78pt) -- cycle;
+\draw[pstyle4] (250.3736pt,62pt) -- (294.2953pt,62pt);
+\draw[pstyle4] (294.2953pt,62pt) -- (294.2953pt,84pt);
+\draw[pstyle5] (290.2953pt,74pt) -- (294.2953pt,84pt) -- (298.2953pt,74pt) -- (294.2953pt,78pt) -- cycle;
+\draw[pstyle4] (88.0566pt,119.2109pt) -- (88.0566pt,192.4219pt);
+\draw[pstyle4] (88.0566pt,192.4219pt) -- (179.176pt,192.4219pt);
+\draw[pstyle5] (169.176pt,188.4219pt) -- (179.176pt,192.4219pt) -- (169.176pt,196.4219pt) -- (173.176pt,192.4219pt) -- cycle;
+\draw[pstyle4] (294.2953pt,174.4219pt) -- (294.2953pt,192.4219pt);
+\draw[pstyle4] (294.2953pt,192.4219pt) -- (203.176pt,192.4219pt);
+\draw[pstyle5] (213.176pt,188.4219pt) -- (203.176pt,192.4219pt) -- (213.176pt,196.4219pt) -- (209.176pt,192.4219pt) -- cycle;
+\draw[pstyle4] (191.176pt,30pt) -- (191.176pt,50pt);
+\draw[pstyle5] (187.176pt,40pt) -- (191.176pt,50pt) -- (195.176pt,40pt) -- (191.176pt,44pt) -- cycle;
+\draw[pstyle4] (191.176pt,204.4219pt) -- (191.176pt,224.4219pt);
+\draw[pstyle5] (187.176pt,214.4219pt) -- (191.176pt,224.4219pt) -- (195.176pt,214.4219pt) -- (191.176pt,218.4219pt) -- cycle;
 \end{tikzpicture}
 
-\caption{Diagrama de flujo: resolución de sistema de ecuaciones con condicional}
+\caption{Flow diagram: solving a equation system with a conditional}
 \label{img:fluxIgEq}
 \end{figure}
 
