@@ -790,7 +790,8 @@ check it up. If you look there, you will see that the letter a has the value
 we declare a variable without assigning a value to it. That is totally okay, but
 beware!, \textbf{a variable to which you have not assigned a value has a random
 value}. This is why many techaers would advice you that everytime you declare a
-variable you should give it a value immediately.
+variable you should give it a value immediately. This process (giving value to
+a variable for the first time) is called ``initialize'' a variable.
 
 In lines 11 and 12 we give value to variables that we have declared before,
 and I want to take some time talking about line 12. At first, it could seem
@@ -1354,7 +1355,7 @@ close abruptly. It would be interesting to check if the system has a solution,
 and, if it had, then calculate it. This is done with control structures, which
 will be explained in the next chapter.
 
-\section{Alterando el flujo normal del programa}
+\section{Changing the normal flow of the program}
 As I introduced in the last section, it is convenient to be able to make the
 program do one thing or the other according to a condition. Also, it is possible
 (as a matter of fact it's essential) to repeat instructions according to
@@ -1418,67 +1419,62 @@ diagram.
 \label{img:fluxIgEq}
 \end{figure}
 
-Lo que ves se llama diagrama del flujo, pero es muy sencillo de leer,
-empiezas en el punto negro que está justo arriba, y sigues la flecha, un
-hexágono significa una \textbf{decisión}, según
-lo que pase en esa decisión, sigue un camino u otro. Si lees el texto dentro
-de la decisión, verás que precisamente he escrito lo que hace que nuestro
-sistema sea \textbf{irresoluble}. Si lees las etiquetas de las flechas que salen
-del hexágono, verás que si $ae-db=0$, imprimiremos que el sistema no tiene
-solución, y finalizaremos normalmente. Si no es 0, seguiremos haciendo lo que
-estábamos haciendo hasta ahora.
+What you're seeing is called a flow diagram, despise the fancy name, it is very
+easy to read. You start in the black dot in the top of the diagram,
+and you follow the arrow, a diamond means a \textbf{decision}, according to what
+is inside the decision (a condition), one branch or the other will be taken.
+If you read the text of the condition inside the diamond, I have writen there
+what makes our system \textbf{irresolvable}. If you read the text next to the
+arrows that come out from the diamond, you will see that if $ae-db=0$, we will
+print that the system is not solvable and exit normally. If it is not zero,
+we will continue doing what we were doing before.
 
-\subsubsection{Operaciones lógicas}
-Esto del dibujo está estupendo, ahora vamos a ver cómo se hace en C. Pero para
-eso te tengo que presentar otro conjunto de operadores, llamados
-operadores booleanos u operadores lógicos. En la sección
-\ref{section:queEsLaProgramacion} te hablé de la lógica como ciencia.
-En concreto vamos a
-aplicar la lógica proposicional, o de primer orden. En esta lógica tenemos
-\textbf{hechos} que pueden ser únicamente \textbf{ciertos} o \textbf{falsos},
-y que se relacionan con tres operadores. Veamos un ejemplo, y después pasemos
-a la teoría.
+\subsubsection{Logic operations}
 
-Imagina un sistema antiincendios que funciona de este modo: <<Si la temperatura
-es mayor de 50\centigrade, saltarán los aspersores, si la temperatura es inferior,
-pero se detecta humo, también saltarán>>.
-Como esto es una ciencia, vamos a escribirlo de manera formal. Cada frase
-conceptualmente distinta es una \textbf{proposición}, y se suelen denotar por
-letras desde la p en adelante, veamos qué proposiciones tenemos:
+This drawing is nice, but let's see how we do that in C. Now I have to present
+to you another set of operators, called boolean operators or logic operators.
+In the section \ref{section:queEsLaProgramacion} I mentioned logic as a science.
+Concretely we are going to apply propositional logic, or first order logic.
+In this logic we have \textbf{facts} that can be only \textbf{true} or
+\textbf{false}, and they relate with each other with three operators. Let's see
+and example, and then we will hop to the theory.
+
+Imagine a fire extinguishing system that works in this manner: ``If the
+temperature is greater than 50\centigrade, the fire sprinklers will start
+working, if the temperature is lower, but the is smoke detected, the sprinklers
+will start working anyway''. Since this is a science, let's write it in a formal
+manner. Each sentence that is conceptually different is a \textbf{proposition},
+and they're generally named by letters of the alphabet from p onwards. Let's
+see which propositions we have:
+
 \begin{enumerate}
-\item La temperatura es mayor de 50\centigrade, la llamaremos $p$
-\item Se detecta humo, la llamaremos $q$
-\item Saltan los aspersores, la llamaremos $r$
+    \item Temperature is greater than 50 \centigrade, let's call it $p$.
+    \item Smoke is detected, let's call it $q$.
+    \item The sprinklers go off, let's call it $r$.
 \end{enumerate}
-
 
 
 \begin{table}[H]
 \begin{tabularx}{\linewidth}{|c|c|Y|}
 \hline
-$T>50\;{}^{\circ}\mathrm{C}(\mathbf{p})$&Humo$(\mathbf{q})$&Saltan los aspersores$(\mathbf{r})$\\\hline
-Cierto& Cierto & Cierto \\\hline
-Cierto& Falso  & Cierto \\\hline
-Falso & Cierto & Cierto \\\hline
-Falso & Falso  & Falso  \\\hline
+$T>50\;{}^{\circ}\mathrm{C}(\mathbf{p})$&Smoke$(\mathbf{q})$&Sprinklers go off$(\mathbf{r})$\\\hline
+True  & True  & True  \\\hline
+True  & False & True  \\\hline
+False & True  & True  \\\hline
+False & False & False \\\hline
 \end{tabularx}
-\caption{Ejemplo de operación lógica}
+\caption{Example of logic operations}
 \label{tab:logicOperationExample}%
 \end{table}
 
-En lógica hay tres operaciones básicas:
+In logic, there are thee basic operators:
 \begin{enumerate}
-\item La conjunción, coloquialmente llamada <<y>> o <<\textit{and}>>. Se denota
-con el símbolo $\wedge$.
-\item La disyunción u <<\textit{or}>>. Se denota con el símbolo $\lor$.
-\item La negación. Se denota por varios símbolos, por ejemplo: $\sim$ y $\lnot$, pero
-también se indica poniendo una barra encima de la expresión negada, por ejemplo:
-$\overline{p}$.
+\item Conjunction, commonly known as ``and''. It is writen with the symbol $\land$.
+\item Disjunction, common knows as ``or''. It is writen with the symbol $\lor$.
+\item Negation, commonly knows as ``not''. It is writen with several symbols,
+for example $\sim$ and $\lnot$, but it is writen also putting a bar over the
+negated expression, for example $\overline{p}$.
 \end{enumerate}
-Las dos primeras son operaciones binarias y la última es unaria. Se definen
-por una <<tabla de la verdad>>, que es una tabla que, dados los valores de la
-o las proposiciones operandos, te da el valor de la operación. Te presento las
-tablas a continuación:
 
 \begin{table}[H]
     \centering
@@ -1487,10 +1483,10 @@ tablas a continuación:
         \begin{tabular}{|c|c|c|}
         \hline
         $\mathbf{p}$&$\mathbf{q}$&$\mathbf{p\land q}$\\\hline
-        Falso & Falso  & Falso \\\hline
-        Falso & Cierto & Falso \\\hline
-        Cierto& Falso  & Falso \\\hline
-        Cierto& Cierto & Cierto\\\hline
+        False & False  & False \\\hline
+        False & True & False \\\hline
+        True& False  & False \\\hline
+        True& True & True\\\hline
         \end{tabular}
     \end{subfigure}%
     \begin{subfigure}{0.33333\linewidth}
@@ -1498,10 +1494,10 @@ tablas a continuación:
         \begin{tabular}{|c|c|c|}
         \hline
         $\mathbf{p}$&$\mathbf{q}$&$\mathbf{p \lor q}$\\\hline
-        Falso & Falso  & Falso \\\hline
-        Falso & Cierto & Cierto\\\hline
-        Cierto& Falso  & Cierto\\\hline
-        Cierto& Cierto & Cierto\\\hline
+        False & False  & False \\\hline
+        False & True & True\\\hline
+        True& False  & True\\\hline
+        True& True & True\\\hline
         \end{tabular}
     \end{subfigure}%
     \begin{subfigure}{0.33333\linewidth}
@@ -1509,41 +1505,45 @@ tablas a continuación:
         \begin{tabular}{|c|c|}
         \hline
         $\mathbf{p}$&$\mathbf{\sim\!p}, \mathbf{\lnot p}, \mathbf{\overline{p}}$\\\hline
-        Cierto & Falso  \\\hline
-        Falso & Cierto \\\hline
+        True & False  \\\hline
+        False & True \\\hline
         \multicolumn{2}{c}{\color{white}CIERTOFALSO\normalcolor}\\\arrayrulecolor{white}\hline
         \multicolumn{2}{c}{\color{white}CIERTOFALSO\normalcolor}\\\arrayrulecolor{white}\hline
         \end{tabular}
     \end{subfigure}
-\caption{Tablas de la verdad de las operaciones lógicas}
+\caption{Tables of truth of the basic logic operations}
 \label{tab:andTruthTable}
 \end{table}
 
-El significado conceptual de las operaciones es bastante intuitivo, pero te lo
-explico aquí para mencionar algunos detalles. La conjunción es cierta sólo
-cuando \textbf{ambos} de los miembros son ciertos, se corresponde con juntar
-dos proposiciones con <<y>> en español, como ya mencioné, por eso a veces se la
-llama así. <<Está lloviendo y hace frío>> sólo es cierto cuando llueve al mismo
-tiempo que hace frío. Por otro lado, la disyunción se corresponde con juntar
-dos proposiciones con una <<o>> en español. <<Me he roto el tobillo, o me lo
-he torcido>>, pero aquí hay un matiz: si miras su tabla de la verdad, verás que
-cuando \textbf{ambos miembros} son ciertos, la disyunción es cierta también.
-Esto es algo que no se corresponde siempre con el lenguaje hablado, y debes
-tenerlo en cuenta. Y, finalmente, la negación es cuando antepones <<no>> a una
-proposición o a una expresión, <<no llueve>> es cierto siempre que <<llueve>>
-sea falso.
+The conceptual meaning of the operation is intuitive, but I will explain it
+here to tell some details. The conjunctios is true only when \textbf{both}
+of the operand are true, and is like joining two propositions with ``and'' in
+English. ``It is raining and it's cold'' is true only if at the same time it's
+raining and it's cold. On the other hand, disjunction is when you join to
+propositions with ``or''. ``I have twisted my anckle or I have broken it'', but
+there is a caveat here, if you look at the truth table you will se than when
+\textbf{both members}  are true, the disjunction is true also. It is something
+that is not aligned with the spoken language, and you need to keep it in mind.
+Finally, negation is when you put ``not'' bedore the expression o preposition,
+``it is not raining'' is true only if ``it is raining'' is false.
 
-Y después de todo este rodeo lógico digno de Aristóteles, ¿qué? Ya llegamos,
-en C los operadores lógicos se escriben así:
+And, after this logical detour that would Aristotle proud, what? We're almost
+there, in C the logic operators are writen in this way:
 \begin{enumerate}
-\item La conjunción se escribe: \verb!&&!
-\item La disyunción se escribe \verb!||!
-\item La negación se escribe \verb"!"
+    \item Conjunction is writen: \verb!&&!.
+    \item Disjunction is writen: \verb!||!. (This symbols is called a pipe
+    symbol, in the American keyboard you get pushing the key over the enter and
+    shift.)
+    \item Negation is written: \verb"!".
 \end{enumerate}
 
-Si volvemos al ejemplo de los aspersores, vamos a hacer un programa que
-<<simule>> ese sistema, te lo escribo a continuación:
-
+If we go back to the example of the fire sprinklers, let's make a program that
+``simulates'' the system, I will write it now.
+Up until now I have talked about true and false values, in C that is represented
+with an integer type (any of those available). Zero is the false value, and
+\textbf{all the other values} are true. Generally the result of a logic
+operation will be one if it's true, but you cannot assume that when using
+an integer type to store logic values.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -1554,52 +1554,74 @@ label={lst:firstLogicProgram}]
 #include <stdio.h>
 int main(void)
 {
-    int temperatura_mayor_50 = 1;
-    int humo = 0;
-    int aspersores = temperatura_mayor_50 || humo;
+    int temperature:greater_than_50 = 1;
+    int smoke = 0;
+    int aspersores = temperatura_mayor_50 || smoke;
 }
 \end{lstlisting}
 \end{minipage}
 
 
-Sí, se parece a los programas aburridos que hacíamos antes, pero no te
-preocupes, la cuestión es que si vas a la tabla
-\ref{tab:logicOperationExample}: \nameref{tab:logicOperationExample} verás
-que se corresponde con la una disyunción, si hay humo, la temperatura es alta,
-o las dos a la vez, saltarán los aspersores. Sin embargo; esto sigue siendo
-algo inútil,
-no podemos comprobar si la temperatura es mayor o menor que 50, hemos tenido que
-inventárnoslo. Y esto me lleva a prensentarte otro conjunto de operadores, los
-operadores de comparación. Esto es fácil, en C podemos comprobar si una
-variable es igual, distinta, mayor o menor que otra. Escribo la tabla y
-mejoramos el programa que teníamos antes.
+% Sí, se parece a los programas aburridos que hacíamos antes, pero no te
+% preocupes, la cuestión es que si vas a la tabla
+% \ref{tab:logicOperationExample}: \nameref{tab:logicOperationExample} verás
+% que se corresponde con la una disyunción, si hay humo, la temperatura es alta,
+% o las dos a la vez, saltarán los aspersores. Sin embargo; esto sigue siendo
+% algo inútil,
+% no podemos comprobar si la temperatura es mayor o menor que 50, hemos tenido que
+% inventárnoslo. Y esto me lleva a prensentarte otro conjunto de operadores, los
+% operadores de comparación. Esto es fácil, en C podemos comprobar si una
+% variable es igual, distinta, mayor o menor que otra. Escribo la tabla y
+% mejoramos el programa que teníamos antes.
+% \begin{table}[H]
+% \centering
+% \begin{tabularx}{\linewidth}{|c|Y|}
+% \hline
+% \bf Operador & \bf Descripción \\ \hline
+% \tt < &   Cierto si el operando izquierdo es menor que el derecho, falso en otro caso.\\\hline
+% \tt > &   Cierto si el operando izquierdo es mayor que el derecho, falso en otro caso.\\\hline
+% \tt <= &  Cierto si el operando izquierdo es menor o igual que el derecho, falso en otro caso. \\\hline
+% \tt >= &  Cierto si el operando izquierdo es mayor o igual que el derecho, falso en otro caso. \\\hline
+% \tt == &  Cierto si los valores son iguales, falso en otro caso.\\\hline
+% \tt != &  Cierto si los valores son distintos, falso en otro caso. \\\hline
+% \end{tabularx}
+% \caption{Operadores de comparación de C}
+% \label{tab:logicOperators}
+% \end{table}
+
+Yes, it looks like the boring programs we were doing up until now, do not worry,
+the matter is: if you go back to \ref{tab:logicOperationExample}:
+\nameref{tab:logicOperationExample} you're going to see that the program is just
+a disjunction, if there is smoke, or the temperature is high, or both, the
+sprinklers will go off. Nevertheless, this program is still a bit useless. We
+cannot check is the temperature is greater or lower than 50 \centigrade, we have
+had to make it up. This leads me to present another set of operators to you,
+the comparison operators. This is easy, in C we can check is one variable
+(or expression) is equals, greater or less than than another. I will write the
+table and let's improve the program we had before.
 \begin{table}[H]
 \centering
 \begin{tabularx}{\linewidth}{|c|Y|}
 \hline
-\bf Operador & \bf Descripción \\ \hline
-\tt < &   Cierto si el operando izquierdo es menor que el derecho, falso en otro caso.\\\hline
-\tt > &   Cierto si el operando izquierdo es mayor que el derecho, falso en otro caso.\\\hline
-\tt <= &  Cierto si el operando izquierdo es menor o igual que el derecho, falso en otro caso. \\\hline
-\tt >= &  Cierto si el operando izquierdo es mayor o igual que el derecho, falso en otro caso. \\\hline
-\tt == &  Cierto si los valores son iguales, falso en otro caso.\\\hline
-\tt != &  Cierto si los valores son distintos, falso en otro caso. \\\hline
+\bf Operator & \bf Description \\ \hline
+\tt < &   True is the left operand is less than the right one, false otherwise.\\\hline
+\tt > &   True is the left operand is greater than the right one, false otherwise.\\\hline
+\tt <= &  True is the left operand is less than or equal to the right one, false otherwise. \\\hline
+\tt >= &  True is the left operand is greater than or equal to the right one, false otherwise. \\\hline
+\tt == &  True is both operands are equal, false otherwise. \\\hline
+\tt != &   True is both operands are different, false otherwise. \\\hline
 \end{tabularx}
-\caption{Operadores de comparación de C}
+\caption{Comparison operators}
 \label{tab:logicOperators}
 \end{table}
 
-Hasta ahora, siempre que he hablado de valores lógicos he estado hablando de
-<<cierto>> y <<falso>>, en C eso se representa mediante un tipo entero, el que
-desees. El cero es el valor falso, y \textbf{todos} los demás son verdaderos.
-\textbf{En general} el resultado de una operación lógica cierta es 1, como en
-el código binario, pero a veces no es así, así que asume que siempre que
-trabajes con tipos enteros como valores lógicos, los valores ciertos pueden ser
-cualquiera.
+% Ahora que ya conoces los operadores de comparación y los lógicos, vamos a hacer
+% un programa que compruebe si un número está en el intervalo $\left(a, b\right]$,
+% es decir: entre $a$ y $b$, incluyendo $b$, pero sin incluir $a$.
 
-Ahora que ya conoces los operadores de comparación y los lógicos, vamos a hacer
-un programa que compruebe si un número está en el intervalo $\left(a, b\right]$,
-es decir: entre $a$ y $b$, incluyendo $b$, pero sin incluir $a$.
+Now you know comparison operators, let's make a program that checks is a given
+value is in the interval $\left(a, b\right]$, that is, between $a$ and $b$,
+including $b$, without including $a$.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -1622,58 +1644,63 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+As you can see, there is no need for parenthesis, comparations are executed
+before logic operations. I'll take advantage of the fact that I have already
+presented three set of operands (mathematical, logical and comparison) to tell
+you that there is nothing wrong with declaring variables along the program
+to hold partial values of what you want to calculate, specially if a given
+expression becomes too big. I would even advise you to do that when you feel
+like it and then remove the intermediate variables as an exercise, at least in
+your first programs.
 
-Como puedes ver, no hace falta poner paréntesis, las comparaciones se ejecutan
-antes que las operaciones lógicas. Aprovecho que ya te he presentado tres
-conjuntos de operadores (matemáticos, lógicos y de comparación) para decirte
-que no pasa nada por declarar variables intermedias para recoger valores de
-parte de la operación si ves que una expresión se vuelve muy grande. Incluso
-te recomendaría que al principio lo hicieras y después probaras a prescindir de
-esas variables, como ejercicio inicial, en tus programas.
+\subsubsection{Diverging the flow: the \texttt{if}}
+% Ahora que ya sabemos cómo crear condiciones lógicas (proposiciones) que sean
+% ciertas o falsas, podemos crear nuestra primera sentencia condicional. En C,
+% una sentencia condicional se crea con la palabra clave \lstinline!if!. A
+% continuación te presento la estructura básica de un \texttt{if}, pero esto
+% \textbf{no} es un programa correcto en C.
 
-\subsubsection{Bifurcando el programa: el \texttt{if}}
-Ahora que ya sabemos cómo crear condiciones lógicas (proposiciones) que sean
-ciertas o falsas, podemos crear nuestra primera sentencia condicional. En C,
-una sentencia condicional se crea con la palabra clave \lstinline!if!. A
-continuación te presento la estructura básica de un \texttt{if}, pero esto
-\textbf{no} es un programa correcto en C.
+Now we know how to create logic conditions (propositions) that can be either
+true or false, we can create our first conditional sentence. In C, a conditional
+sentence is made with the key word \lstinline[style=C]!if!. A will present to
+you now the basic structure of an \texttt{if}, but this is \textbf{not}  a
+valid C program.
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Esquema básico de instrucción \texttt{if}},
+caption={Basic structure of \texttt{if} sentence},
 label={lst:ifStructure}]
-if(/*condición*/)
+if(/*condition*/)
 {
-    //Esto se ejecuta sólo si la condición es cierta
+    //Executes only if condition is true.
 }
 else
 {
-    //Esto se ejecuta sólo si la condición es falsa
+    //Executes only if condition is false.
 }
 \end{lstlisting}
 \end{minipage}
 
-
-¡Ahora podemos mejorar nuestro programa que simula el sistema de aspersores!
-Vamos a añadir operadores de comparación y lógicos:
+Now we can improve our first program that simulates the sprinkler system!
+Let's add the comparison and logical operators.
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Programa del aspersor con operadores lógicos y de comparación},
+caption={Fire sprinkler program with logic and comparison operators},
 label={lst:sprinklerLogicComp}]
 #include <stdio.h>
 int main(void)
 {
     int temperature = 25;
-    int humo = 0;
+    int smoke = 0;
 
-    if (temperature > 50 || humo)
+    if (temperature > 50 || smoke)
     {
         printf("Aspersores activados.\n");
     }
@@ -1686,20 +1713,28 @@ int main(void)
 \end{minipage}
 
 
-Como nos ha venido pasando, cada vez que cambies algún valor deberás recompilar
-y ejecutar. Cambia los valores de las variables \texttt{humo} y
-\texttt{temperature} para que cambie el resultado del condicional. Finalmente,
-podemos mejorar nuestro programa de resolución de ecuaciones
-lineales, antes de hacer cualquiera de las operaciones, debemos comprobar que
-el divisor no es cero. Para ello simplemente declararemos más variables y
-después dividiremos por ellas.
+% Como nos ha venido pasando, cada vez que cambies algún valor deberás recompilar
+% y ejecutar. Cambia los valores de las variables \texttt{humo} y
+% \texttt{temperature} para que cambie el resultado del condicional. Finalmente,
+% podemos mejorar nuestro programa de resolución de ecuaciones
+% lineales, antes de hacer cualquiera de las operaciones, debemos comprobar que
+% el divisor no es cero. Para ello simplemente declararemos más variables y
+% después dividiremos por ellas.
+
+As we have been suffering before, each time you change any value you will have
+to recompile and execute. Change the values of the variable \texttt{smoke} and
+\texttt{temperature} to make the result of the conditional change. Finally,
+we can improgram of resolution of linear equations, before performing any of the
+calculations we will check if the system has a solution. To do that, we need to
+check that the divider is not zero. To do that we simply declare more
+variables and then divide by them.
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Programa de resolución de ecuaciones lineales con condicionales},
+caption={Linear equation resolution program with conditional},
 label={lst:linealSystemConditional}]
 #include <stdio.h>
 int main(void)
@@ -1711,15 +1746,15 @@ int main(void)
     int e = 2;
     int f = 2;
 
-    double divisor = (a * e - d * b);
+    double divider = (a * e - d * b);
 
-    if (divisor == 0 || d == 0)
+    if (divider == 0 || d == 0)
     {
-        printf("El sistema es irresoluble.\n");
+        printf("The system is irresolvable.\n");
     }
     else
     {
-        double y = (a * f - d * c) / divisor;
+        double y = (a * f - d * c) / divider;
         double x = (f - e * y) / (d);
         printf(" %dx+ %dy= %d\n", a, b, c);
         printf(" %dx+ %dy= %d\n", d, e, f);
@@ -1729,73 +1764,84 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+% Esto ya se parece algo más a un programa <<de verdad>>, podríamos decir que ya
+% estamos metidos en harina. Pero el condicional aún tiene más desarrollo: se
+% puede encadenar. A veces queremos comprobar una cadena de condiciones una
+% detrás de otra y ejecutar sólo las instrucciones correspondientes a la primera
+% que se cumpla. Imagina un programa que recibe la temperatura ambiente y, en
+% función de ella, da un mensaje sobre el tiempo, por ejemplo:
+% \begin{enumerate}
+% \item Si hay  40\centigrade{} o más, imprimir <<Hace mucho calor.>>
+% \item Si hay  35\centigrade{} o más, imprimir <<Hace calor.>>
+% \item Si hay  25\centigrade{} o más, imprimir <<Hace un buen día.>>
+% \item Si hay  10\centigrade{} o más, imprimir <<Hace fresquito.>>
+% \item Si hay menos de 10\centigrade{} imprimir <<Hace mucho frío.>>
+% \end{enumerate}
 
-Esto ya se parece algo más a un programa <<de verdad>>, podríamos decir que ya
-estamos metidos en harina. Pero el condicional aún tiene más desarrollo: se
-puede encadenar. A veces queremos comprobar una cadena de condiciones una
-detrás de otra y ejecutar sólo las instrucciones correspondientes a la primera
-que se cumpla. Imagina un programa que recibe la temperatura ambiente y, en
-función de ella, da un mensaje sobre el tiempo, por ejemplo:
+This is more alike to a ``real'' program, we could say that we are already
+hands down on the matter. But the conditional has more things to it. You can
+chain them. Sometimes we want to check a chain of conditions one after the
+other and execute the instructions related to the first true condition. Imagine
+a program that receives the temperature and, depending on what it is, throws a
+message about the weather.
 \begin{enumerate}
-\item Si hay  40\centigrade{} o más, imprimir <<Hace mucho calor.>>
-\item Si hay  35\centigrade{} o más, imprimir <<Hace calor.>>
-\item Si hay  25\centigrade{} o más, imprimir <<Hace un buen día.>>
-\item Si hay  10\centigrade{} o más, imprimir <<Hace fresquito.>>
-\item Si hay menos de 10\centigrade{} imprimir <<Hace mucho frío.>>
+\item If it's 40\centigrade{} or more, print ``It's hot.''
+\item If it's 35\centigrade{} or more, print ``It's warm.''
+\item If it's 25\centigrade{} or more, print ``It's a nice day.''
+\item If it's 10\centigrade{} or more, print ``It's a little bit chilly here.''
+\item If it's less than 10\centigrade{}, print ``It's very cold.''
 \end{enumerate}
 
-He escrito las frases así a propósito, para que te des cuenta de que, aunque
-cuarenta grados es más que 10, no queremos imprimir que hace mucho calor, que
-hace un buen día y que hace fresquito, sólo la condición que llegue antes. Para
-eso el lenguaje C ofrece la estructura \texttt{else-if}, en que <<enganchamos>>
-una cláusula \texttt{if} al \texttt{else} de otro condicional. Así, sólo si
-no se ha cumplido la condición anterior, se evaluará esta nueva, y si se cumple
-se ejecutarán las instrucciones que haya dentro, veámoslos con un ejemplo de
-código que implementa lo que he descrito antes.
+I have writen the sentences in that way purposely so you realize that, even when
+forty degrees is more than ten, we don't want to print that it's hot, it's a
+nice day and it's a little bit chilly here, only the condition that arrives
+first. To do so C gives us the \texttt{if-else} sentence, in which we ``chain''
+an \texttt{if} statement to the \texttt{else} of the other conditional. In
+that way, only if the condition before was false, the next one will be checked
+and, if it is true, the instructions inside that \texttt{if-else} will be
+executed, let's see it with an example.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Programa ejemplo de estructura \texttt{if-else}},
+caption={Example program for \texttt{if-else}},
 label={lst:ifelse}]
 #include <stdio.h>
 int main(void)
 {
-
     int temp = 10;
     if (temp >= 40) {
-        printf("Hace mucho calor.\n");
+        printf("It's hot.\n");
     }
     else if (temp >= 35) {
-        printf("Hace calor\n");
+        printf("It's warm.\n");
     }
     else if (temp >= 25) {
-        printf("Hace un buen día.\n");
+        printf("It's a nice day.\n");
     }
     else if (temp >= 10) {
-        printf("Hace fresquito\n");
+        printf("It's a little bit chilly here.\n");
     }
     else {
-        printf("Hace mucho frío\n");
+        printf("It's very cold.\n");
     }
 }
 \end{lstlisting}
 \end{minipage}
 
+As you can see, we have finished the chain of \texttt{if-else} with an
+\texttt{else}, this means that in case no condition is true in the chain,
+the instructions inside the else will be executed. In this case, print
+``It's very cold''.
 
-Como puedes ver, hemos terminado la cadena de \texttt{if-else} con un
-\texttt{else}, esto quiere decir que si no se cumple ninguna condición de las
-anteriores, hará eso, en este caso, imprimir <<Hace mucho frío>>. Pero no es
-obligatorio, puedes terminar la cadena en un \texttt{if-else}.
-
-Ahora que ya conocemos bien los condicionales, podemos revisitar
-el programa que resuelve nuestro sistema de ecuaciones. Si recuerdas, en la
-última versión (\nameref{lst:linealSystemConditional}) dábamos el problema como
-irresoluble si $d=0$. Sin embargo; si recuerdas un poco del álgebra que
-aprendiste en el instituto, y repasas la ecuación, verás que si $d=0$, no
-es que el sistema sea irresoluble, es que tenemos que despejar la $y$, no la
-$x$, en ambas ecuaciones para aplicar sustitución. Es decir:
+Now we have seen conditionals, we can revisit our program that solves linear
+equation systems. If you remember, in the last revision
+(\nameref{lst:linealSystemConditional}) we deemed the problem as insolvable if
+$d=0$. Nevertheless, if you remember a little of algebra from high school and
+you come back to the equation, you will see that $d$ being equal to zero does
+not mean the problem has no solution, but that we should solve for $y$ in both
+equations and not $x$. That is:
 
 \begin{figure}[H]
 $$
@@ -1805,67 +1851,57 @@ $$
 (2)\; dx+ey=f \to y = \frac{f-dx}{e}
 $$
 $$
-(1) \;\mathrm{y} \; (2) \to \frac{c-ax}{b}=\frac{f-dx}{e}\to
-x = ec - eax = bf-bdx \to \frac{bf-ec}{bd-ea}
+(1) \;\mathrm{and} \; (2) \to \frac{c-ax}{b}=\frac{f-dx}{e}\to
+ec - eax = bf-bdx \to x = \frac{bf-ec}{bd-ea}\to y=\frac{c-a\cdot{}\frac{bf-ec}{bd-ea}}{b}
 $$
 \end{figure}
-En caso de que esto no fuera posible, quiere decir que ni la $x$ ni la $y$
-están en ambas ecuaciones, es decir, tenemos una ecuación que sirve para
-despejar $x$ y otra para $y$. O bien tenemos
-$\left\{\matrix{ax=c\cr ey=f}\right.$
-o tenemos $\left\{\matrix{by=c\cr dx=f}\right.$. Simplemente con comprobar
-si $a=0$ ya sabremos qué caso tenemos y podremos dar una solución.
-Finalmente, podría darse el caso de que tuviéramos sólo una ecuación, si
-los términos que multiplican a $x$ e $y$ en una de ellas fueran cero, pero en
-ese caso, esto no es un sistema y es imposible dar valores para $x$ e $y$.
-Si implementamos estas condiciones en código, veamos qué ocurre:
 
+In case this is not possible, it means that nor $x$ or $y$ are in both
+equations, that is, we have one equations that solves for $x$ and other for $y$.
+Either we have$\left\{\matrix{ax=c\cr ey=f}\right.$ or we have
+$\left\{\matrix{by=c\cr dx=f}\right.$. Simply checking if $a=0$ we will know in
+which case we are. Finally, we could be in the case that we had just one
+equation, if the terms that multiply $x$ or $y$ in any of them were zero, but
+in this case this is not a system and it is not possible to give values to
+$x$ and $y$. If we write the code, let's see how it would look.
+
+\newpage
 \begin{lstlisting}[style=C,
-caption={Programa de resolución de ecuaciones lineales con condicionales},
+caption={Program solving a linear equations system with conditionals},
 label={lst:linealSystemFinal}]
 #include <stdio.h>
 int main(void)
 {
-    int a = 12;
-    int b = 2;
-    int c = 10;
-    int d = 50;
-    int e = 11;
-    int f = 17;
-
-    double divisor;
-    double x;
-    double y;
-
-    int irresoluble = 0;
-
+    int a = 12, b = 2, c = 10, d = 50, e = 11, f = 17;
+    int irresolvable = 0;
+    double divider, x, y;
     if (a != 0 && d != 0) {
-        divisor = (a * e - d * b);
-        if (divisor == 0)
+        divider = (a * e - d * b);
+        if (divider == 0)
         {
-            printf("El sistema es irresoluble.\n");
-            irresoluble = 1;
+            printf("The system is irresolvable.\n");
+            irresolvable = 1;
         }
         else
         {
-            y = (a * f - d * c) / divisor;
+            y = (a * f - d * c) / divider;
             x = (f - e * y) / (d);
         }
     }
     else if (b != 0 && e != 0) {
-        divisor = (b * d - e * a);
-        if (divisor == 0) {
-            printf("El sistema es irresoluble.\n");
-            irresoluble = 1;
+        divider = (b * d - e * a);
+        if (divider == 0) {
+            printf("The system is irresolvable.\n");
+            irresolvable = 1;
         }
         else {
-            x = (b * f - e * c) / divisor;
+            x = (b * f - e * c) / divider;
             y = (c - a * x) / b;
         }
     }
     else if (a == 0 && b == 0 || d == 0 && e == 0) {
-        printf("Esto no es un sistema\n");
-        irresoluble = 1;
+        printf("This is not a system.\n");
+        irresolvable = 1;
     }
     else {
         if (a != 0) {
@@ -1877,69 +1913,80 @@ int main(void)
             y = (double)c / b;
         }
     }
-    if (!irresoluble) {
+    if (!irresolvable) {
         printf(" %dx+ %dy= %d\n", a, b, c);
         printf(" %dx+ %dy= %d\n", d, e, f);
         printf("x = %f; y = %f\n", x, y);
     }
-
 }
 \end{lstlisting}
 
+This program is a little long, but I am going to go conditional by conditional.
+First of all, let's circle back and rethink which possibilities we have
+according to the system. We can be in one of these four cases:
+\begin{itemize}
+\item $x$ is present in both equations, therefore, we can solve for it in both
+equations as we did the first time we solved the problem. In this case, if
+the divider we calculated is zero, the problem is not solvable.
+\item $y$ is present in both equations, we can solve for it as we did just
+before showing this version program.
+\item In one of the equations, both $x$ and $y$ are multiplied by zero,
+therefore this is not a system, and we cannot solve it.
+\item We can be in the case we can't solve both equations for one unknown,
+because one of them is present in the first equation, and the other in the
+second one.
+\end{itemize}
 
-Aquí hay muchas cosas, pero no te preocupes, vamos a analizarlo poco a poco y despacio.
-La variable \verb!irresoluble!  es una variable booleana que me ayudará a
-controlar si podemos resolver el sistema de ecuaciones. El primer condicional
-comprueba si podemos resolver por $x$ (el primer método que te presenté cuando
-te puse el ejemplo), para ellos comprobamos que la $x$ va multiplicada por un
-número distinto de cero en ambas ecuaciones. Si eso no es así, intentamos
-despejar por $y$, comprobamos que los términos que multiplican a $y$ no son
-nulos en ninguna ecuación. En ambos casos (ya despejemos por $x$ o por $y$)
-comprobamos que el divisor de la fórmula no es igual a cero.
-Como podrás ver, estamos anidando (metiendo unos dentro de otros)
-condicionales. Eso es válido y de hecho
-es común. Pero si te ves anidando cuatro niveles de condicionales o más... quizá
-deberías plantearte si hay una manera más sencilla de formular el programa.
+In the first lines of the problem I am declaring a bunch of variables, I am
+sorry because I didn't teach you to do it in this abbreviated way, but I wanted
+the program to fit in one page. We will explain it later. I just declare
+the same values as before, and a logic variable called irresolvable, that will
+allow me to know if I have solved the problem at the end of it to
+print the solutions.
+The cases listed before are  present in my program, in the first \texttt{if}
+we check if the coefficients that multiply $x$ in both equations are different
+from zero. In this case, we try the first solving method: calculate the value
+of the divider and applying it. Inside this condition, if the divider is zero,
+the system is not solvable, else, we simply solve the system with it.
+As you can see, you can put conditionals inside conditionals.
 
-Si no podemos despejar por $x$ ni por $y$, debemos comprobar que tenemos dos
-ecuaciones, es decir, que no se da que los dos términos que multiplican a $x$ e
-$y$ sean cero en la misma ecuación.
-Si eso no es así, estamos en la situación en que $x$ aparace en una
-sola en una ecuación e $y$ en la otra. Ese es el caso del \verb!else! de la
-línea 45.
-Dentro de él hay dos casos, si la primera ecuación define $x$, $a$
-no es igual a cero, si $a$ es igual a cero, es la segunda la que define $x$.
+In the next \texttt{if-else} we are checking if the can solve for $y$ in both
+equations. This case is basically the same than the other, but applying the
+other set of formulas. We calculate the divider of the value of $x$ in this
+case, if it is zero, we cannot solve it.
+The next conditional checks if in any of the equations the coefficients of
+both unknowns are zero. In this case, as we said, this is not a system and we
+cannot solve it.
+Finally, if we are not in any of the aforementioned cases, that means we're in
+the last one: $x$ is in one equation and $y$ in the other. We check if $a$ is
+zero, if it is not, we know the first equation gives us the value of $x$ and
+the second the value of $y$.
 
-Después de esa cadena de condicionales tengo otro condicional, separado, que
-comprueba si he marcado el sistema como irresoluble. Si no, imprime la solución
-que se haya calculado. Es un patrón muy común tener una variable booleana
-que simbolice una condición que quieres calcular mientras recorres una cadena
-de condicionales como esta, para después hacer algo en consecuencia.
-\subsection{Bloques de código y alcance}
-Ahora que ya conocemos la primera de las estructuras de control, debo hablarte
-de una cosa llamada \textbf{bloque de código}, un bloque de código es el
-fragmento del código fuente que está entre dos llaves (\{...\}). La principal
-implicación de <<encerrar>> código entre llaves es que las variables declaradas
-en él no son visibles fuera, pero las de fuera sí que son visibles dentro.
-Si recuerdas
-la estructura básica del condicional, verás que incluye llaves, además, en el
-primer programa que te presenté te dije que siempre tendrías que poner una serie
-de líneas, éstas líneas incluyen un único bloque de código, dentro del cual
-hemos puesto todas nuestras instrucciones. Pero ahora que hay condicionales,
-tenemos bloques anidados (unos dentro de otros).
+At the end, we simply check the variable irresolvable, that tells us if we have
+marked the program as so. If we haven't it means we have solutions, so we just
+print them.
 
-Toda variable declarada en C tiene un
-\textbf{alcance}, que es la porción del
-código fuente donde la variable puede ser vista, el alcance de una variable es
-el del bloque de código donde fue declarada y todos los definidos en su
-interior.
+\subsection{Code blocks and scopes}
+Now you know the first control structure, I must talk to you about \textbf{code
+blocks}, a code block is the piece of code that is between two braces (\{...\}).
+The main implication of enclosing code between braces in a block is that the
+variables declared inside it are not visible outside, but those declared outside
+are visible inside the block.
+If you remember the basic structure of the conditional, you will see it includes
+braces, also, in the first program that I presented to you I told you will
+always have to write a series of lines, those include a single code block.
+Inside that block we have put all the instructions in all our programs. Now
+we have conditionals, we hace nested blocks (blocks inside blocks).
 
+All variable declared in C has a \textbf{scope}, that is the portion of the code
+in which the variable can be seen, the scope of a variable is the block in qhich
+it's been declared and all those block inside that one.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de alcance de variables declaradas},
+caption={Example of scope of declared variables},
 label={lst:scopeVar}]
 #include <stdio.h>
 int main(void)
@@ -1947,25 +1994,23 @@ int main(void)
     int exterior = 0;
     if (exterior == 0) {
         double inner = 1.3;
-        exterior = 120; // OK: variable de un bloque exterior
+        exterior = 120; // OK: variable from an outter block
     }
-    inner = 10.3; // Error: variable no definida
+    inner = 10.3; // Error: variable not defined
 }
 \end{lstlisting}
 \end{minipage}
 
-
-Si intentas compilar el código que te acabo de incluir, verás que el compilador
-dice que la variable \texttt{inner} no está declarada, aunque la hayas
-declarado <<antes>>. Otro de los efectos secundarios es que puedes definir
-variables que ya existieran en bloques superiores, veamos otro ejemplo:
-
+If you try to compile the code I just shown, you will se the compile says the
+variable \texttt{inner} is not declared, even when you declared it ``before''.
+Another of the side effects of blocks is that you can define variables that
+already existen in outter blocks. Let's see an example.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de redifinición de variable},
+caption={Example of redefinition of variable},
 label={lst:varRedefinition}]
 #include <stdio.h>
 int main(void)
@@ -1981,31 +2026,29 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+If you compile an execute this program, you'll see it prints firstly 10 and
+later 3. This is because there two variables with the same name. How is this
+possible? How does C to which variable are you referencing? Simply those
+variables that are local (those declared in the block you're in) have priority
+over those declared in more external blocks. This means you cannot access
+external variables if you have declared any with the same name in an inner
+block.
 
-Si compilas y ejecutas este programa, verás que imprime primero 10 y después
-3. Esto es porque hay dos variables con el mismo nombre. ¿Y cómo sabe el
-programa a cuál te refieres? Simplemente las variables locales (aquéllas
-definidas en el bloque en que estás) tienen prioridad sobre las más exteriores,
-así que no puedes acceder a la variable definida fuera desde el bloque
-interno si en este has definido una con el mismo nombre.
-
-Y ahora que ya sabes lo que es el alcance, vamos a explicar un poco de esas
-cosas que no te había podido explicar antes. Lo primero es decirte que fuera
-de las llaves de nuestro primer programa puedes escribir cosas. En concreto,
-de momento, te voy a decir que se pueden declarar variables, que se llaman
-\textbf{variables globales}. Se llaman así porque, al estar declaradas fuera
-de todos los alcances, tienen un alcance <<global>>. Es decir, cualquier
-instrucción de tu programa tiene acceso a ellas (salvo que hayas declarado
-otra con el mismo nombre como hemos visto antes). No me voy a detener mucho
-más en ellas porque, de momento, no nos son útiles, pero te voy a poner un
-ejemplo rápidamente de cómo luciría un programa con una variable global.
+Now that you know that the scope is, let's explain some things of those I
+couldn't explain before. Firstly I want to tell you that outside the braces of
+our first program we can write things. Concretely, we can declare variables,
+which are called \textbf{global variables}. They are called like that because
+they have a ``global'' scope. That is: any other instruction in your program
+have access to them (unless they declared a variable with the same name). I am
+not going to take much time in them, at the moment, they're not useful to us,
+but I am going to show you an example of how a program with them would look.
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de programa con una variable global},
+caption={Example of a program with a global variable},
 label={lst:globalVar}]
 #include <stdio.h>
 
@@ -2018,35 +2061,33 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+The rule is that variables must be declared at the start of the block. This is
+not mandatory, but it is a good practice. I leave it to your election but I
+would encourage it.
+Also, you must declare them in the most inner block in which you can, for
+example in the program \ref{lst:linealSystemConditional} we have declared
+the variables \texttt{x} and \texttt{y} in the only block we needed them, we
+could have declared them at the start of the program, or as global variables,
+but, since it was not necessary, we didn't do it.
 
-La regla para la declaración de variables es que deben declararse al inicio
-de su bloque. Esto no es obligatorio, es una buena práctica que se suele
-utilizar en el lenguaje C, aunque hay quien dice que no es necesario. Lo dejo
-a tu discreción.
-Además, debes declararlas en el bloque más interno que te sea
-posible. Por ejemplo, en el programa \ref{lst:linealSystemConditional}
-hemos declarado
-las variables \texttt{x} e \texttt{y} en el único bloque en que nos hacían
-falta, podríamos haberlas declarado al inicio del programa, o como globales,
-pero como no hacía falta, no lo hemos hecho.
 
-\subsection{Otras instrucciones de salto: \texttt{switch} y \texttt{goto}}
-Ya conoces las maneras más importante de alterar el flujo del programa,
-pero hay dos que aún
-quedan que tienen cierta utilidad, ya las he nombrado en el epígrafe:
-\verb!switch! and \verb!goto!. La primera es una instrucción que se comporta
-como un distribuidor del flujo del programa, dada una variable, examina su valor
-y lo compara con una serie de casos, según el caso, salta a esa línea de código.
-Podríamos imaginar el \verb!switch! como un operario de fábrica que clasifica
-productos que salen de una línea de montaje, según el estado del producto, hace
-una cosa u otra. Veamos un ejemplo.
+\subsection{Other jump onstructions: \texttt{switch} and \texttt{goto}}
+
+You know the most important way to make the flow of the program diverge, but
+there are other two that still have some utility, I have already named them in
+the title: \texttt{switch} and \texttt{goto}. The first one behaves like a
+distributor of the flow of the program, given a variable it examines the value
+and compares it with a series of cases, according to the case, it jump that
+line. We could imagine the \texttt{switch} like a factory worker that classifies
+products that go out an assembly line, according to the state of the product it
+does a thing or another.
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de programa con un \texttt{switch}},
+caption={Example of a program with a \texttt{switch}},
 label={lst:switchExample}]
 #include <stdio.h>
 
@@ -2056,175 +2097,195 @@ int main(void)
 
     switch (day) {
         case 0:
-        printf("Hoy es: lunes\n");
+        printf("Todays is: Monday\n");
         break;
         case 1:
-        printf("Hoy es: martes\n");
+        printf("Todays is: Tuesday\n");
         break;
         case 2:
-        printf("Hoy es: miércoles\n");
+        printf("Todays is: Wednesday\n");
         break;
         case 3:
-        printf("Hoy es: jueves\n");
+        printf("Todays is: Thursday\n");
         break;
         case 4:
-        printf("Hoy es: viernes\n");
+        printf("Todays is: Friday\n");
         break;
         case 5:
-        printf("Hoy es: sábado\n");
+        printf("Todays is: Saturday\n");
         break;
         case 6:
-        printf("Hoy es: domingo\n");
+        printf("Todays is: Sunday\n");
         break;
         default:
-        printf("¡Ese número no es ningún día!\n");
+        printf("That number is not any day!\n");
         break;
     }
 }
 \end{lstlisting}
 \end{minipage}
 
-Si miras el programa de ejemplo, un switch empieza de manera similar a un
-\verb!if!, pero dentro de los paréntesis no va una condición, sino una variable.
-Esa variable tiene que ser de un tipo entero. Después, en el cuerpo del
-\verb!switch! hay una serie de líneas que empiezan con \verb!case!, después va
-un valor (no puede ser una variable) y después las instrucciones
-correspondientes a ese caso. Esas instrucciones acaban o no con la instrucción
-especial \lstinline[style=C]!break;!. Ésta impide que las
-instrucciones siguientes se ejecuten. Eso es un poco confuso, pero lo vas a
-entender en seguida, cuando se evalúa un \verb!switch!, se \textbf{salta} al
-caso que cumpla la condición, pero después \textbf{sigue}. Usamos el \verb!break!
-para decirle que salga del cuerpo del \verb!switch!. Si compilas y ejecutas el
-programa como está escrito, imprimirá sólo <<Hoy es: jueves>>, pero si quitas
-todas las líneas donde pone \verb!break;!, imprimirá todos los días después del
-jueves.
+If you look the example program, a \texttt{switch} starts in a similar way to
+a \verb!if!, but inside the parenthesis there is not a condition, but always a
+variable. That variables must be an integer type. After that, in the body
+of the \texttt{switch} there is a set of lines that start with \verb!case!,
+after that you must write a literal value (it cannot be a variable) and then
+the lines you want to execute in case the the variable in the switch has the
+value of this case. That set of instructions can end or not with an special
+instruction called \lstinline[style=C]!break;!. This instructions makes the
+flow of the program to exit the switch. We need this because if we didn't put
+it, the instructions in the following cases would execute also. If you execute
+the problem as it is writen, it will print only the message of the Thursday, but
+if you remove the breaks and recompile, it will print all days from Thursday on.
 
-Verás que existe un caso que no es un \verb!case!, sino que se ha creado
-con la palabra \verb!default!. Esto es porque esta palabra clave nos permite
-indicar qué pasará si el valor de la variable comprobada en el \verb!switch!
-no concuerde con ningún caso anterior. En este ejemplo imprimeremos que el
-número no es un día.
-Quizás hayas notado, o quizás no, que un \verb!switch! con \verb!break! en todos
-sus casos es básicamente un \verb!if-else!. Es cierto, un \verb!switch! siempre
-puede ser sustituido por un una cadena de condicionales, y tanto es así que hay
-lenguajes donde esta estructura no existe, pero veremos más adelante un patrón
-de código donde se usa intensivamente. Cuando se produce esta equivalencia entre
-cadena de \verb!else-if! y un \verb!switch!, el caso \verb!default! es el
-equivalente a terminar la cadena de condicionales en un \verb!else!.
+You would see there is a line that is not a \texttt{case}, but has been created
+with the instruction \texttt{default}. This is because this keyword allows us
+to tell what would happen if the value does not match any other case. In this
+example we will print the number is not assigned to any day. You may have
+noticed, or not, that a \texttt{switch} with \texttt{break} in all the cases
+is basically a chain of \texttt{if-else}. This is true, a \texttt{switch} can be
+always replaced with a chain of \texttt{if-else} (if it has break in every
+line). In this case, the code associated with the default would be the code
+in the \texttt{else} at the end of the chain.
 
-El \verb!switch! es un ejemplo de salto a una etiqueta. Una etiqueta es algo
-especial, porque establece un punto en el código al que puedes saltar con o sin
-una condición, la instrucción para saltar allí es el \verb!goto!, veamos un
-ejemplo muy simple y, después, explicaré su uso más común y pondré otro código
-de ejemplo de cómo se utiliza, pero deberá esperar a otra sección.
+The \texttt{switch} is an example of jumping to a label. A label is something
+special because it stablishes a point in the to which you can jump with or
+without a condition. The instruction to jump to a label is \texttt{goto}, let's
+see a simple example and, later, I will explain its most common use case.
+The code example for that code will be introduced in a later section, because
+it will be difficult to understand without advancing more in the contents of
+the language.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de programa con un \texttt{goto}},
+caption={Example of a program with \texttt{goto}},
 label={lst:gotoExample}]
 #include <stdio.h>
 
 int main(void)
 {
-    printf("Hola, este es el inicio del programa.\n");
+    printf("Hello, this is the start of the program.\n");
 
     goto final;
 
-    printf("Yo soy una línea que no debería salir.\n");
+    printf("I am a line that should not be printed.\n");
 
     final:
-    printf("Hemos terminado el programa.\n");
+    printf("We have ended the program.\n");
 
 }
 \end{lstlisting}
 \end{minipage}
 
-Si compilas y ejecutas esto, verás que imprimer la primera y la última línea,
-pero no la segunda. Esto es así porque hemos usado la instrucción \verb!goto!
-para saltar a un punto posterior del programa. El \verb!goto! es una instrucción
-muy peligrosa, en el sentido de que si en tu programa hay un número ligeramente
-elevado de ellos, es señal de que o no has pensado bien tu proceso, o te faltan
-herramientas para programarlo de una manera más apropiada. Así que, hasta que no
-veamos otras secciones del este manual, te recomiendo que reserves los
-\verb!goto! como una curiosidad más que como algo que debas usar.
+% Si compilas y ejecutas esto, verás que imprimer la primera y la última línea,
+% pero no la segunda. Esto es así porque hemos usado la instrucción \verb!goto!
+% para saltar a un punto posterior del programa. El \verb!goto! es una instrucción
+% muy peligrosa, en el sentido de que si en tu programa hay un número ligeramente
+% elevado de ellos, es señal de que o no has pensado bien tu proceso, o te faltan
+% herramientas para programarlo de una manera más apropiada. Así que, hasta que no
+% veamos otras secciones del este manual, te recomiendo que reserves los
+% \verb!goto! como una curiosidad más que como algo que debas usar.
 
-\subsection{Repetir instrucciones: bucles}
-Al inicio de esta sección te expliqué que hacer que el ordenador repita
-operaciones es algo imprescindible para los programas funcionen, y aquí vamos
-a aprender cómo: con los bucles, o en inglés: \textit{loops}. Hay dos tipos
-principales de bucles en C: el \lstinline[style=C]!while! y el
-\lstinline[style=C]!for!.
-Del mismo modo que
-hicimos con el condicional, vamos a ver primero la estructura del flujo del
-programa, después cómo se escribe en C y finalmente veremos ejemplos de cómo
-se utilizaría en algunos programas.
+If you compile the program and execute it, you would see that it prints the
+first and last line, but not the second. This is so because we have used the
+\texttt{goto} instruction to jump to a later point in the program. The use
+of \texttt{goto} is very dangerous, in the sense that it shows you haven't
+thought properly your program or you lack tools to make it in a better way.
+Therefore, until we haven't gone through other sections of this manual, I
+would discourage its ussage. I advise you to save gotos as a novelty more
+than a common-use tool.
 
-\subsubsection{El bucle \texttt{while}}
-Este es el tipo de bucle más sencillo y por eso lo vamos a explicar primero,
-básicamente declara una serie de instrucciones que se repetirán mientras se
-cumpla una condición. Imagínate que quisieras imprimir todos los números de 1
-al cien. Podrías escribir 100 líneas que imprimiesen cada número o podrías
-decirle al ordenador que imprima una variable, le sume uno, y vuelva a
-imprimirla durante cien veces.
+\subsection{Repeat instructions: loops}
+% Al inicio de esta sección te expliqué que hacer que el ordenador repita
+% operaciones es algo imprescindible para los programas funcionen, y aquí vamos
+% a aprender cómo: con los bucles, o en inglés: \textit{loops}. Hay dos tipos
+% principales de bucles en C: el \lstinline[style=C]!while! y el
+% \lstinline[style=C]!for!.
+% Del mismo modo que
+% hicimos con el condicional, vamos a ver primero la estructura del flujo del
+% programa, después cómo se escribe en C y finalmente veremos ejemplos de cómo
+% se utilizaría en algunos programas.
+
+At the start of this section I expalined to you that making the computer to
+repeat instructions is necessary to make programs work, and here we're going
+to learn how: with \textbf{loops}. There two main kinds of loops:
+\lstinline[style=C]!while! and \lstinline[style=C]!for!.
+In the same fashion we did with the conditional, we will see firstly the flow
+structure of the program, later how it is writen in C and finally example on
+how to use the loops in some programs.
+
+\subsubsection{The \texttt{while} loop}
+% Este es el tipo de bucle más sencillo y por eso lo vamos a explicar primero,
+% básicamente declara una serie de instrucciones que se repetirán mientras se
+% cumpla una condición. Imagínate que quisieras imprimir todos los números de 1
+% al cien. Podrías escribir 100 líneas que imprimiesen cada número o podrías
+% decirle al ordenador que imprima una variable, le sume uno, y vuelva a
+% imprimirla durante cien veces.
+
+This is the most basic kind of loop, and that's why we're going to explain it
+firtly, simply sets a series of instructions that will be executed as long
+(while) a condition is true. Imagine you wanted to print all numbers from
+one to 100. You could write 100 lines that print every number or you could
+tell the computer to print a variable, add one to it, and then print it again
+while it is less than 100.
 
 \begin{figure}[H]
 \centering
-% generated by Plantuml 1.2021.7
-\definecolor{plantucolor0000}{RGB}{0,0,0}
-\definecolor{plantucolor0001}{RGB}{254,254,206}
-\definecolor{plantucolor0002}{RGB}{168,0,54}
-\definecolor{plantucolor0003}{RGB}{255,255,255}
-\definecolor{plantucolor0004}{RGB}{127,127,127}
+% generated by Plantuml 1.2022.7
+\definecolor{plantucolor0000}{RGB}{34,34,34}
+\definecolor{plantucolor0001}{RGB}{241,241,241}
+\definecolor{plantucolor0002}{RGB}{24,24,24}
+\definecolor{plantucolor0003}{RGB}{0,0,0}
+\definecolor{plantucolor0004}{RGB}{17,17,17}
 \begin{tikzpicture}[yscale=-1
-,pstyle1/.style={color=plantucolor0002,fill=plantucolor0001,line width=1.5pt}
-,pstyle4/.style={color=plantucolor0002,line width=1.5pt}
+,pstyle1/.style={color=plantucolor0002,fill=plantucolor0001,line width=0.5pt}
+,pstyle4/.style={color=plantucolor0002,line width=1.0pt}
 ,pstyle5/.style={color=plantucolor0002,fill=plantucolor0002,line width=1.0pt}
 ]
-\draw[fill=black,line width=1.0pt] (143.8576pt,20pt) ellipse (10pt and 10pt);
-\draw[pstyle1] (100.7576pt,67.6055pt) arc (180:270:17.6055pt) -- (118.3631pt,50pt) -- (169.3521pt,50pt) arc (270:360:17.6055pt) -- (186.9576pt,67.6055pt) -- (186.9576pt,67.6055pt) arc (0:90:17.6055pt) -- (169.3521pt,85.2109pt) -- (118.3631pt,85.2109pt) arc (90:180:17.6055pt) -- (100.7576pt,67.6055pt) -- cycle;
-\node at (110.7576pt,60pt)[below right,color=black]{variable = 0};
-\draw[pstyle1] (104.1988pt,166.8164pt) arc (180:270:17.6055pt) -- (121.8042pt,149.2109pt) -- (165.9109pt,149.2109pt) arc (270:360:17.6055pt) -- (183.5164pt,166.8164pt) -- (183.5164pt,166.8164pt) arc (0:90:17.6055pt) -- (165.9109pt,184.4219pt) -- (121.8042pt,184.4219pt) arc (90:180:17.6055pt) -- (104.1988pt,166.8164pt) -- cycle;
-\node at (114.1988pt,159.2109pt)[below right,color=black]{variable++};
-\draw[pstyle1] (91.102pt,237.0273pt) arc (180:270:17.6055pt) -- (108.7075pt,219.4219pt) -- (179.0077pt,219.4219pt) arc (270:360:17.6055pt) -- (196.6131pt,237.0273pt) -- (196.6131pt,237.0273pt) arc (0:90:17.6055pt) -- (179.0077pt,254.6328pt) -- (108.7075pt,254.6328pt) arc (90:180:17.6055pt) -- (91.102pt,237.0273pt) -- cycle;
-\node at (101.102pt,229.4219pt)[below right,color=black]{print (variable)};
-\draw[pstyle1] (103.5111pt,105.2109pt) -- (184.2041pt,105.2109pt) -- (196.2041pt,117.2109pt) -- (184.2041pt,129.2109pt) -- (103.5111pt,129.2109pt) -- (91.5111pt,117.2109pt) -- (103.5111pt,105.2109pt) -- cycle;
-\node at (103.5111pt,110.2393pt)[below right,color=black]{variable \textless  100?};
-\node at (10pt,103.2676pt)[below right,color=black]{variable == 100};
-\draw[color=black,fill=white,line width=1.0pt] (68.102pt,160.2109pt) ellipse (11pt and 11pt);
-\draw[color=plantucolor0004,fill=black,line width=1.0pt] (68.102pt,160.2109pt) ellipse (6pt and 6pt);
-\draw[pstyle4] (143.8576pt,30pt) -- (143.8576pt,50pt);
-\draw[pstyle5] (139.8576pt,40pt) -- (143.8576pt,50pt) -- (147.8576pt,40pt) -- (143.8576pt,44pt) -- cycle;
-\draw[pstyle4] (143.8576pt,184.4219pt) -- (143.8576pt,219.4219pt);
-\draw[pstyle5] (139.8576pt,209.4219pt) -- (143.8576pt,219.4219pt) -- (147.8576pt,209.4219pt) -- (143.8576pt,213.4219pt) -- cycle;
-\draw[pstyle4] (143.8576pt,129.2109pt) -- (143.8576pt,149.2109pt);
-\draw[pstyle5] (139.8576pt,139.2109pt) -- (143.8576pt,149.2109pt) -- (147.8576pt,139.2109pt) -- (143.8576pt,143.2109pt) -- cycle;
-\draw[pstyle4] (143.8576pt,254.6328pt) -- (143.8576pt,264.6328pt);
-\draw[pstyle4] (143.8576pt,264.6328pt) -- (208.6131pt,264.6328pt);
-\draw[color=plantucolor0002,fill=plantucolor0002,line width=1.5pt] (204.6131pt,199.9219pt) -- (208.6131pt,189.9219pt) -- (212.6131pt,199.9219pt) -- (208.6131pt,195.9219pt) -- cycle;
-\draw[pstyle4] (208.6131pt,117.2109pt) -- (208.6131pt,264.6328pt);
-\draw[pstyle4] (208.6131pt,117.2109pt) -- (196.2041pt,117.2109pt);
-\draw[pstyle5] (206.2041pt,113.2109pt) -- (196.2041pt,117.2109pt) -- (206.2041pt,121.2109pt) -- (202.2041pt,117.2109pt) -- cycle;
-\draw[pstyle4] (91.5111pt,117.2109pt) -- (68.102pt,117.2109pt);
-\draw[pstyle4] (68.102pt,117.2109pt) -- (68.102pt,149.2109pt);
-\draw[pstyle5] (64.102pt,139.2109pt) -- (68.102pt,149.2109pt) -- (72.102pt,139.2109pt) -- (68.102pt,143.2109pt) -- cycle;
-\draw[pstyle4] (143.8576pt,85.2109pt) -- (143.8576pt,105.2109pt);
-\draw[pstyle5] (139.8576pt,95.2109pt) -- (143.8576pt,105.2109pt) -- (147.8576pt,95.2109pt) -- (143.8576pt,99.2109pt) -- cycle;
+\draw[color=plantucolor0000,fill=plantucolor0000,line width=1.0pt] (99.7556pt,20pt) ellipse (10pt and 10pt);
+\draw[pstyle1] (56.6556pt,67.6055pt) arc (180:270:17.6055pt) -- (74.261pt,50pt) -- (125.2501pt,50pt) arc (270:360:17.6055pt) -- (142.8556pt,67.6055pt) -- (142.8556pt,67.6055pt) arc (0:90:17.6055pt) -- (125.2501pt,85.2109pt) -- (74.261pt,85.2109pt) arc (90:180:17.6055pt) -- (56.6556pt,67.6055pt) -- cycle;
+\node at (66.6556pt,60pt)[below right,color=black]{variable = 0};
+\draw[pstyle1] (60.0967pt,184.7598pt) arc (180:270:17.6055pt) -- (77.7022pt,167.1543pt) -- (121.8089pt,167.1543pt) arc (270:360:17.6055pt) -- (139.4144pt,184.7598pt) -- (139.4144pt,184.7598pt) arc (0:90:17.6055pt) -- (121.8089pt,202.3652pt) -- (77.7022pt,202.3652pt) arc (90:180:17.6055pt) -- (60.0967pt,184.7598pt) -- cycle;
+\node at (70.0967pt,177.1543pt)[below right,color=black]{variable++};
+\draw[pstyle1] (47pt,248.499pt) arc (180:270:17.6055pt) -- (64.6055pt,230.8936pt) -- (134.9056pt,230.8936pt) arc (270:360:17.6055pt) -- (152.5111pt,248.499pt) -- (152.5111pt,248.499pt) arc (0:90:17.6055pt) -- (134.9056pt,266.1045pt) -- (64.6055pt,266.1045pt) arc (90:180:17.6055pt) -- (47pt,248.499pt) -- cycle;
+\node at (57pt,240.8936pt)[below right,color=black]{print (variable)};
+\draw[pstyle1] (62.5798pt,105.2109pt) -- (136.9313pt,105.2109pt) -- (148.9313pt,117.2109pt) -- (136.9313pt,129.2109pt) -- (62.5798pt,129.2109pt) -- (50.5798pt,117.2109pt) -- (62.5798pt,105.2109pt) -- cycle;
+\node at (103.7556pt,129.2109pt)[below right,color=black]{true};
+\node at (62.5798pt,110.2393pt)[below right,color=black]{variable \textless  100};
+\node at (29.1893pt,103.2676pt)[below right,color=black]{false};
+\draw[color=plantucolor0000,line width=1.0pt] (24pt,164.2109pt) ellipse (11pt and 11pt);
+\draw[color=plantucolor0004,fill=plantucolor0000,line width=1.0pt] (24pt,164.2109pt) ellipse (6pt and 6pt);
+\draw[pstyle4] (99.7556pt,30pt) -- (99.7556pt,50pt);
+\draw[pstyle5] (95.7556pt,40pt) -- (99.7556pt,50pt) -- (103.7556pt,40pt) -- (99.7556pt,44pt) -- cycle;
+\draw[pstyle4] (99.7556pt,202.3652pt) -- (99.7556pt,230.8936pt);
+\draw[pstyle5] (95.7556pt,220.8936pt) -- (99.7556pt,230.8936pt) -- (103.7556pt,220.8936pt) -- (99.7556pt,224.8936pt) -- cycle;
+\draw[pstyle4] (99.7556pt,129.2109pt) -- (99.7556pt,167.1543pt);
+\draw[pstyle5] (95.7556pt,157.1543pt) -- (99.7556pt,167.1543pt) -- (103.7556pt,157.1543pt) -- (99.7556pt,161.1543pt) -- cycle;
+\draw[pstyle4] (99.7556pt,266.1045pt) -- (99.7556pt,276.1045pt);
+\draw[pstyle4] (99.7556pt,276.1045pt) -- (164.5111pt,276.1045pt);
+\draw[pstyle5] (160.5111pt,210.8936pt) -- (164.5111pt,200.8936pt) -- (168.5111pt,210.8936pt) -- (164.5111pt,206.8936pt) -- cycle;
+\draw[pstyle4] (164.5111pt,117.2109pt) -- (164.5111pt,276.1045pt);
+\draw[pstyle4] (164.5111pt,117.2109pt) -- (148.9313pt,117.2109pt);
+\draw[pstyle5] (158.9313pt,113.2109pt) -- (148.9313pt,117.2109pt) -- (158.9313pt,121.2109pt) -- (154.9313pt,117.2109pt) -- cycle;
+\draw[pstyle4] (50.5798pt,117.2109pt) -- (24pt,117.2109pt);
+\draw[pstyle4] (24pt,117.2109pt) -- (24pt,153.2109pt);
+\draw[pstyle5] (20pt,143.2109pt) -- (24pt,153.2109pt) -- (28pt,143.2109pt) -- (24pt,147.2109pt) -- cycle;
+\draw[pstyle4] (99.7556pt,85.2109pt) -- (99.7556pt,105.2109pt);
+\draw[pstyle5] (95.7556pt,95.2109pt) -- (99.7556pt,105.2109pt) -- (103.7556pt,95.2109pt) -- (99.7556pt,99.2109pt) -- cycle;
 \end{tikzpicture}
-
-\caption{Diagrama de flujo: programa que imprime los números del uno al cien}
+\caption{Flow diagram: program that prints the numbers from 1 to 100}
 \label{img:whileFlux}
 \end{figure}
 
-Como siempre, a continuación te indico cómo se escribiría ese programa.
-
+As always, I leave you the code that would produce this result.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de programa con un bucle \texttt{while}},
+caption={Example with a \texttt{while} loop},
 label={lst:whilePrint}]
 #include <stdio.h>
 int main(void)
@@ -2239,21 +2300,21 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+The \texttt{while} loop is the simplest of them, as you can see. The
+instructions that are in the code are executed only in the condition is true.
+This has two implications: is the condition is \textbf{not} true when you arrive
+to the \texttt{while} instruction, the loop will never be executed, not even
+once. The other is that if there is nothing that changes the value of the
+condition of the loop inside it, the loop will execute forever. For example in
+this loop we change the value of variable so it reaches 100 and the loop ends.
 
-El bucle \texttt{while} es el más simple, como puedes ver, las instrucciones que
-hay en él se ejecutan sólo si la condición es cierta. Esto tiene dos
-implicaciones: si la condición \textbf{no es cierta} cuando se llega a la
-instrucción \texttt{while}, el bucle no es ejecutará nunca. La otra implicación
-es que si no hay nada dentro del bucle \texttt{while} que cambie la condición
-evaluada, ese bucle se ejecutará infinitamente, por ejemplo, en nuestro
-programa, dentro del bucle, incrementamos la variable para que se llegue a cien y
-se salga del bucle.
+% Hay un tipo especial de bucle \texttt{while} que ejecutará las instrucciones
+% siempre \textbf{al menos una vez}, porque la primera ejecución la hace antes de
+% evaluar la condición. Veamos un ejemplo:
 
-Hay un tipo especial de bucle \texttt{while} que ejecutará las instrucciones
-siempre \textbf{al menos una vez}, porque la primera ejecución la hace antes de
-evaluar la condición. Veamos un ejemplo:
-
-
+There is a special kind of loop \texttt{while} that will execute the
+instructions always \texttt{at least once}, because the first execution will be
+done before evaluating the condition. Let's see an example.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2274,67 +2335,65 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+This program generales a random number (you must believe it until I explain more
+concepts) and prints it, then, if the numbers is not 10, prints it again and
+changes the varuable value to another random value. Why would we need to use
+\texttt{do-while}? because with it we do not need to initialize the variable
+outside the loop, and all the ocurrences of the use a \texttt{rand} will be
+inside. This lopp is much less used than \texttt{while} and shares with the
+switch that is it something that doesn't get used much, but when it does, it's
+due to be used, it makes things to be easier.
 
-Este programa genera un número aleatorio (tendrás que creerme en esto hasta
-que te explique otra cosa), lo imprime, y después si ese número
-no es diez, vuelve a imprimirlo después de cambiar la variable por otro aleatorio.
-¿Por qué necesitamos usar el \texttt{do-while}? Porque así no necesitamos
-inicializar la variable fuera del bucle, y todas las iteraciones de las llamadas
-a \verb!rand! se harán dentro de él.
-Este bucle es mucho menos usado que los demás, comparte
-con el \verb!switch! esta cualidad de ser un artefacto del lenguaje usado en
-patrones de código muy concretos, pero que facilita bastante.
+\subsubsection{The \texttt{for} loop}
 
-\subsubsection{El bucle \texttt{for}}
-
-El bucle \texttt{for} es un bucle que funciona como el bucle while, pero que
-hace dos cosas más: ejecuta una instrucción \textbf{antes de empezar el bucle}
-y otra \textbf{al final de cada vuelta}. Veamos un diagrama de flujo y pasemos
-a ver cómo se escribe:
+The \texttt{for} loop is a loop that works as while, but that does two things
+more: it executes an instruction \textbf{before executing anything inside the
+loop} and other \textbf{at the end of each repetition}. Let's see the flow
+diagram and how it's writen.
 \begin{figure}[H]
 \centering
-% generated by Plantuml 1.2021.7
-\definecolor{plantucolor0000}{RGB}{0,0,0}
-\definecolor{plantucolor0001}{RGB}{254,254,206}
-\definecolor{plantucolor0002}{RGB}{168,0,54}
-\definecolor{plantucolor0003}{RGB}{255,255,255}
-\definecolor{plantucolor0004}{RGB}{127,127,127}
+% generated by Plantuml 1.2022.7
+\definecolor{plantucolor0000}{RGB}{34,34,34}
+\definecolor{plantucolor0001}{RGB}{241,241,241}
+\definecolor{plantucolor0002}{RGB}{24,24,24}
+\definecolor{plantucolor0003}{RGB}{0,0,0}
+\definecolor{plantucolor0004}{RGB}{17,17,17}
 \begin{tikzpicture}[yscale=-1
-,pstyle1/.style={color=plantucolor0002,fill=plantucolor0001,line width=1.5pt}
-,pstyle4/.style={color=plantucolor0002,line width=1.5pt}
+,pstyle1/.style={color=plantucolor0002,fill=plantucolor0001,line width=0.5pt}
+,pstyle4/.style={color=plantucolor0002,line width=1.0pt}
 ,pstyle5/.style={color=plantucolor0002,fill=plantucolor0002,line width=1.0pt}
 ]
-\draw[fill=black,line width=1.0pt] (136.7284pt,20pt) ellipse (10pt and 10pt);
-\draw[pstyle1] (97.7366pt,67.6055pt) arc (180:270:17.6055pt) -- (115.342pt,50pt) -- (158.1148pt,50pt) arc (270:360:17.6055pt) -- (175.7202pt,67.6055pt) -- (175.7202pt,67.6055pt) arc (0:90:17.6055pt) -- (158.1148pt,85.2109pt) -- (115.342pt,85.2109pt) arc (90:180:17.6055pt) -- (97.7366pt,67.6055pt) -- cycle;
-\node at (107.7366pt,60pt)[below right,color=black]{asignación};
-\draw[pstyle1] (90.0713pt,166.8164pt) arc (180:270:17.6055pt) -- (107.6767pt,149.2109pt) -- (165.7801pt,149.2109pt) arc (270:360:17.6055pt) -- (183.3855pt,166.8164pt) -- (183.3855pt,166.8164pt) arc (0:90:17.6055pt) -- (165.7801pt,184.4219pt) -- (107.6767pt,184.4219pt) arc (90:180:17.6055pt) -- (90.0713pt,166.8164pt) -- cycle;
-\node at (100.0713pt,159.2109pt)[below right,color=black]{instrucciones};
-\draw[pstyle1] (79.5816pt,237.0273pt) arc (180:270:17.6055pt) -- (97.187pt,219.4219pt) -- (176.2698pt,219.4219pt) arc (270:360:17.6055pt) -- (193.8752pt,237.0273pt) -- (193.8752pt,237.0273pt) arc (0:90:17.6055pt) -- (176.2698pt,254.6328pt) -- (97.187pt,254.6328pt) arc (90:180:17.6055pt) -- (79.5816pt,237.0273pt) -- cycle;
-\node at (89.5816pt,229.4219pt)[below right,color=black]{final de iteración};
-\draw[pstyle1] (111.5951pt,105.2109pt) -- (161.8617pt,105.2109pt) -- (173.8617pt,117.2109pt) -- (161.8617pt,129.2109pt) -- (111.5951pt,129.2109pt) -- (99.5951pt,117.2109pt) -- (111.5951pt,105.2109pt) -- cycle;
-\node at (111.5951pt,110.2393pt)[below right,color=black]{condición};
-\node at (10pt,103.2676pt)[below right,color=black]{condición es falsa};
-\draw[color=black,fill=white,line width=1.0pt] (56.5816pt,160.2109pt) ellipse (11pt and 11pt);
-\draw[color=plantucolor0004,fill=black,line width=1.0pt] (56.5816pt,160.2109pt) ellipse (6pt and 6pt);
-\draw[pstyle4] (136.7284pt,30pt) -- (136.7284pt,50pt);
-\draw[pstyle5] (132.7284pt,40pt) -- (136.7284pt,50pt) -- (140.7284pt,40pt) -- (136.7284pt,44pt) -- cycle;
-\draw[pstyle4] (136.7284pt,184.4219pt) -- (136.7284pt,219.4219pt);
-\draw[pstyle5] (132.7284pt,209.4219pt) -- (136.7284pt,219.4219pt) -- (140.7284pt,209.4219pt) -- (136.7284pt,213.4219pt) -- cycle;
-\draw[pstyle4] (136.7284pt,129.2109pt) -- (136.7284pt,149.2109pt);
-\draw[pstyle5] (132.7284pt,139.2109pt) -- (136.7284pt,149.2109pt) -- (140.7284pt,139.2109pt) -- (136.7284pt,143.2109pt) -- cycle;
-\draw[pstyle4] (136.7284pt,254.6328pt) -- (136.7284pt,264.6328pt);
-\draw[pstyle4] (136.7284pt,264.6328pt) -- (205.8752pt,264.6328pt);
-\draw[color=plantucolor0002,fill=plantucolor0002,line width=1.5pt] (201.8752pt,199.9219pt) -- (205.8752pt,189.9219pt) -- (209.8752pt,199.9219pt) -- (205.8752pt,195.9219pt) -- cycle;
-\draw[pstyle4] (205.8752pt,117.2109pt) -- (205.8752pt,264.6328pt);
-\draw[pstyle4] (205.8752pt,117.2109pt) -- (173.8617pt,117.2109pt);
-\draw[pstyle5] (183.8617pt,113.2109pt) -- (173.8617pt,117.2109pt) -- (183.8617pt,121.2109pt) -- (179.8617pt,117.2109pt) -- cycle;
-\draw[pstyle4] (99.5951pt,117.2109pt) -- (56.5816pt,117.2109pt);
-\draw[pstyle4] (56.5816pt,117.2109pt) -- (56.5816pt,149.2109pt);
-\draw[pstyle5] (52.5816pt,139.2109pt) -- (56.5816pt,149.2109pt) -- (60.5816pt,139.2109pt) -- (56.5816pt,143.2109pt) -- cycle;
-\draw[pstyle4] (136.7284pt,85.2109pt) -- (136.7284pt,105.2109pt);
-\draw[pstyle5] (132.7284pt,95.2109pt) -- (136.7284pt,105.2109pt) -- (140.7284pt,95.2109pt) -- (136.7284pt,99.2109pt) -- cycle;
+\draw[color=plantucolor0000,fill=plantucolor0000,line width=1.0pt] (133.4242pt,20pt) ellipse (10pt and 10pt);
+\draw[pstyle1] (92.379pt,67.6055pt) arc (180:270:17.6055pt) -- (109.9844pt,50pt) -- (156.8641pt,50pt) arc (270:360:17.6055pt) -- (174.4695pt,67.6055pt) -- (174.4695pt,67.6055pt) arc (0:90:17.6055pt) -- (156.8641pt,85.2109pt) -- (109.9844pt,85.2109pt) arc (90:180:17.6055pt) -- (92.379pt,67.6055pt) -- cycle;
+\node at (102.379pt,60pt)[below right,color=black]{assignment};
+\draw[pstyle1] (90.2769pt,166.8164pt) arc (180:270:17.6055pt) -- (107.8823pt,149.2109pt) -- (158.9661pt,149.2109pt) arc (270:360:17.6055pt) -- (176.5716pt,166.8164pt) -- (176.5716pt,166.8164pt) arc (0:90:17.6055pt) -- (158.9661pt,184.4219pt) -- (107.8823pt,184.4219pt) arc (90:180:17.6055pt) -- (90.2769pt,166.8164pt) -- cycle;
+\node at (100.2769pt,159.2109pt)[below right,color=black]{instructions};
+\draw[pstyle1] (69.066pt,237.0273pt) arc (180:270:17.6055pt) -- (86.6715pt,219.4219pt) -- (180.177pt,219.4219pt) arc (270:360:17.6055pt) -- (197.7825pt,237.0273pt) -- (197.7825pt,237.0273pt) arc (0:90:17.6055pt) -- (180.177pt,254.6328pt) -- (86.6715pt,254.6328pt) arc (90:180:17.6055pt) -- (69.066pt,237.0273pt) -- cycle;
+\node at (79.066pt,229.4219pt)[below right,color=black]{end of the iteration};
+\draw[pstyle1] (108.9333pt,105.2109pt) -- (157.9152pt,105.2109pt) -- (169.9152pt,117.2109pt) -- (157.9152pt,129.2109pt) -- (108.9333pt,129.2109pt) -- (96.9333pt,117.2109pt) -- (108.9333pt,105.2109pt) -- cycle;
+\node at (108.9333pt,110.2393pt)[below right,color=black]{condition};
+\node at (10pt,103.2676pt)[below right,color=black]{condition is false};
+\draw[color=plantucolor0000,line width=1.0pt] (46.066pt,160.2109pt) ellipse (11pt and 11pt);
+\draw[color=plantucolor0004,fill=plantucolor0000,line width=1.0pt] (46.066pt,160.2109pt) ellipse (6pt and 6pt);
+\draw[pstyle4] (133.4242pt,30pt) -- (133.4242pt,50pt);
+\draw[pstyle5] (129.4242pt,40pt) -- (133.4242pt,50pt) -- (137.4242pt,40pt) -- (133.4242pt,44pt) -- cycle;
+\draw[pstyle4] (133.4242pt,184.4219pt) -- (133.4242pt,219.4219pt);
+\draw[pstyle5] (129.4242pt,209.4219pt) -- (133.4242pt,219.4219pt) -- (137.4242pt,209.4219pt) -- (133.4242pt,213.4219pt) -- cycle;
+\draw[pstyle4] (133.4242pt,129.2109pt) -- (133.4242pt,149.2109pt);
+\draw[pstyle5] (129.4242pt,139.2109pt) -- (133.4242pt,149.2109pt) -- (137.4242pt,139.2109pt) -- (133.4242pt,143.2109pt) -- cycle;
+\draw[pstyle4] (133.4242pt,254.6328pt) -- (133.4242pt,264.6328pt);
+\draw[pstyle4] (133.4242pt,264.6328pt) -- (209.7825pt,264.6328pt);
+\draw[pstyle5] (205.7825pt,199.9219pt) -- (209.7825pt,189.9219pt) -- (213.7825pt,199.9219pt) -- (209.7825pt,195.9219pt) -- cycle;
+\draw[pstyle4] (209.7825pt,117.2109pt) -- (209.7825pt,264.6328pt);
+\draw[pstyle4] (209.7825pt,117.2109pt) -- (169.9152pt,117.2109pt);
+\draw[pstyle5] (179.9152pt,113.2109pt) -- (169.9152pt,117.2109pt) -- (179.9152pt,121.2109pt) -- (175.9152pt,117.2109pt) -- cycle;
+\draw[pstyle4] (96.9333pt,117.2109pt) -- (46.066pt,117.2109pt);
+\draw[pstyle4] (46.066pt,117.2109pt) -- (46.066pt,149.2109pt);
+\draw[pstyle5] (42.066pt,139.2109pt) -- (46.066pt,149.2109pt) -- (50.066pt,139.2109pt) -- (46.066pt,143.2109pt) -- cycle;
+\draw[pstyle4] (133.4242pt,85.2109pt) -- (133.4242pt,105.2109pt);
+\draw[pstyle5] (129.4242pt,95.2109pt) -- (133.4242pt,105.2109pt) -- (137.4242pt,95.2109pt) -- (133.4242pt,99.2109pt) -- cycle;
 \end{tikzpicture}
-\caption{Estructura de un bucle for}
+\caption{Flow diagram of a \texttt{for} loop}
 \label{img:forLoop}
 \end{figure}
 
@@ -2342,36 +2401,31 @@ a ver cómo se escribe:
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Estructura de un bucle \texttt{for}},
+caption={Structure of a \texttt{for} loop},
 label={lst:doWhile}]
 #include <stdio.h>
 int main(void)
 {
-    for (/*Asignación*/;/*Condición*/;/*Final de iteración*/) {
-        /*Instrucciones*/
+    for (/*Assignment*/;/*Condition*/;/*End of iteration*/) {
+        /*Instructions*/
     }
 }
 \end{lstlisting}
 \end{minipage}
 
-
-Donde pongo asignación es porque en esa parte del bucle debe ir una asignación
-a una variable (o una declaración con asignación). En donde pone condición debe
-ponerse una condición que se comporta como la condición del bucle
-\texttt{while}, se seguirán ejecutando las operaciones dentro del bucle mientras
-esa condición sea cierta. Al final de cada <<vuelta>> (formalmente una vuelta
-a un bucle se llama iteración, del verbo iterar, que significa, simplemente:
-repetir) se ejecutará la
-instrucción que pongas en donde he puesto <<final de la iteración>>. Se lee
-mucho mejor en un ejemplo.
-
-
+Where I write assignment is because in that part of the loop you must write
+an assignment to a variable, or an assignment and declaration in the same
+place. Where I write condition you must write the condition that will control
+when the loop will stop executing (or if it executes at all). At the end of
+every repetition of the loop (formally we call iterations to the repetitions of
+the loop) the instruction you wrote where I wrote end of iteration will be
+executed. It's much clearer in the example.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de programa con un bucle \texttt{for}},
+caption={Example of a program with a \texttt{for} loop},
 label={lst:forStructure}]
 #include <stdio.h>
 int main(void)
@@ -2383,61 +2437,52 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+This program performs the same task that we did with the \texttt{while} loop.
+As you can see, we declare and initialize a variable called \texttt{ii}, with
+value one, execute the body of the loop (the body is the block of code that
+will repeat itself) and, at the end to every iteration the varuable will be
+incremented in one. This kind of loop tend to be very used along something
+called arrays, which we will see later.
 
-Este programa realiza la misma tarea que el ejemplo que pusimos del
-\texttt{while}. Como puedes ver, creamos e inicializamos una variable llamada
-\texttt{ii}, le asignamos el valor uno, ejecutamos el cuerpo del bucle (lo que
-va entre llaves) y al final de cada vuelta incrementamos la variable en
-una unidad. Este
-bucle suele usarse cuando se usa una cosa llamada arrays, que
-veremos posteriormente.
-
-\subsection{Interrupción de bucles}
-Es bastante común querer terminar un bucle sin completar la iteración en la que
-estamos inmersos, por ejemplo, imagina que, dado un número, queremos
-saber cuál es la potencia de diez más alta en la que cabe dicho número. Es
-decir: el número 102 sólo cabe en potencias de diez iguales o superiores a tres
-(1.000). Este es un ejemplo de cuándo nos interesa parar la ejecución en una
-instrucción que no es la última. El código que calcularía esto podría ser:
+\subsection{Loop interruption}
+Sometimes we want to end an execution of a loop in the middle of an iteration,
+in this case we are going to write a program that calculates the power of two
+that id greater or equal than a target.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de interrupción de un bucle con una variable auxiliar},
+caption={Example of interruption of a loop with an auxiliary variable},
 label={lst:loopInterruption}]
 #include <stdio.h>
+int main(void) {
+    int steps     = 0;
+    int max_steps = 20;
+    int number    = 1;
+    int target    = 1024;
 
-int main(void)
-{
-    int number = 100;
-    int bigger = 0;
-    int ii = 0;
-    while (!bigger) {
-        int aux = 1;
-        for (int jj = 0; jj < ii; ++jj) {
-            aux *= 10;
-            bigger = aux >= number;
-        }
-        ++ii;
+    while (steps < max_steps && number < target) {
+        steps++;
+        number *= 2;
     }
-    --ii;
-    printf("El número %d cabe en %d cifras.\n", number, ii);
+    printf("2 to the %d is greater or equal than %d\n", steps, target);
 }
 \end{lstlisting}
 \end{minipage}
 
-Como ves, si bien no es mala solución, nos obliga a declarar una variable
-extra (\verb!bigger!),
-utilizar esa variable en la condición del bucle y como la última instrucción del
-\verb!while! siempre se ejecuta, hay que restarle una unidad a \verb!ii! cuando
-salimos del bucle. Por eso, podemos utilizar
-la instrucción \verb!break! que te presenté cuando hablamos del \verb!goto!.
-Esta instrucción sirve para salir de la ejecución de un nivel de bucle, es decir,
-si se ejecuta, interrumpe el bucle \textbf{sin completar la iteración}, es
-decir, no ejecutará las instrucciones después de \verb!break!
-(en este caso: \verb!++ii!).
-Reescribamos el programa con esta instrucción.
+This program calculates the lowest power of 2 that is equal or greater than a
+target. We also make sure not to calculate any longer than the max number of
+steps that we want.
+The variables we need are: the counter of the steps we have done
+(\texttt{steps}) (the power we
+are testing), the maximun number of steps we are allowed to test
+(\texttt{max\_steps}), then a
+variable called \texttt{number} that allows us to keep multiplying it by two
+and, finally, the \texttt{target} we want to check.
+So, basically we have a \texttt{while} with this condition:
+as long as the steps we have done are less than the max, and number is less than
+our target, we multiply number by two and increase the counter of steps.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2446,56 +2491,65 @@ Reescribamos el programa con esta instrucción.
 caption={Interrupción de un bucle con la instrucción \texttt{break}},
 label={lst:breakExample}]
 #include <stdio.h>
+int main(void) {
+    int steps     = 0;
+    int max_steps = 20;
+    int number    = 1;
+    int target    = 1025;
 
-int main(void)
-{
-    int number = 101;
-    int ii = 0;
-    while (1) {
-        int aux = 1;
-        for (int jj = 0; jj < ii; ++jj) {
-            aux *= 10;
-        }
-        if (aux >= number) {
+    while (steps < max_steps) {
+        steps++;
+        number *= 2;
+        if (number >= target) {
             break;
         }
-        ++ii;
     }
-    printf("El número %d cabe en %d cifras.\n", number, ii);
+    printf("2 to the %d is greater or equal than %d\n", steps, target);
 }
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, se lee un poco mejor, porque toda la lógica de cuándo se
-termina el bucle está en el mismo sitio, en el condicional que está dentro de
-él. Además, no tenemos por qué restarle una unidad fuera del bucle a \verb!ii!,
-porque al salir de la iteración exactamente cuando encontramos el número,
-éste no se incrementa, mientras que con la otra solución, sí. Aprovecho
-para decirte que, como puedes ver, la condición de este bucle es un uno,
-es decir, siempre es cierta. Simplemente no necesitamos condición porque vamos
-a salir mediante el \verb!break;!.
+In this case we have moved half of our condition to a conditional inside the
+loop, that checks if the number is greater or equal than the target.
+Note that we have had to \textbf{invert} the condition. Before, we checked if
+number was strictly less than target, because it was the condition to
+\textbf{keep computing}, here we are checking the opposite, if number is greater
+or equal than the target, because this new condition \textbf{ends} the
+computation.
+If the breaking condition is true,
+we execute a \texttt{break}, exiting from the loop, printing the result
+and ending the program.
 
-Además: \verb!break! tiene una contraparte, que es \verb!continue!. Esta
-instrucción se salta \textbf{lo que quede de esta iteración}, yendo directamente
-a la siguiente. Imagina, por ejemplo, que queremos imprimir si los años
-en un determinado rango de números son bisiestos. Un año es bisiesto si:
+This way of writting loops is discouraged, ideally all
+the conditions that affect a loop termination should be in the loop, or in a
+variable that gets cheked in the loop itself. Hence this is not a good practice
+in programming, but this is not a manual about that, but to learn the language,
+I put this example to allow you to understand this if you see code where it
+appears.
+
+Also: \texttt{break} has its counterpart, which is \texttt{continue}. This
+instruction omits \textbf{what is left of this iteration} and jumps directly to
+the next. Imagine, for example, we want to print if the years from 1 to 2021 are
+leap years or not. A year is a leap year given these conditions.
 \begin{enumerate}
-\item Es divisible entre cuatro.
-\item Pero no entre cien.
-\item Pero sí lo es si es divisible entre 400.
+    \item It is divisible by four.
+    \item It is not divisible by one hundred.
+    \item It is, in any case, if it is divisible by four hundred.
 \end{enumerate}
 
-Si una de las condiciones no se cumple, no tiene sentido que comprobemos
-las siguientes, veamos cómo se implementaría sin \verb!continue!.
+% Si una de las condiciones no se cumple, no tiene sentido que comprobemos
+% las siguientes, veamos cómo se implementaría sin \verb!continue!.
+
+If one of those conditions is not true, there is no reason to check any other
+one, let's see how it will be writen without \texttt{continue}.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de algoritmo de año bisiesto},
+caption={Example of algorithm of leap year},
 label={lst:lapExample}]
 #include <stdio.h>
-
 int main(void)
 {
     for(int ii = 0; ii < 2021; ++ii){
@@ -2509,13 +2563,13 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Se crea una condición un tanto compleja, pero si lo hacemos con \verb!continue!:
+A somewhat complex condition pops up, but if we write it with \texttt{continue}:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de algoritmo con continue},
+caption={Example of algorithm with continue},
 label={lst:continueExample}]
 #include <stdio.h>
 
@@ -2536,35 +2590,38 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Utiliza más líneas, pero se lee mejor, dado que se podría leer como <<si no
-es divisible entre cuatro, pasa al siguiente número si es divisible entre 100,
-pero no entre 400, pasa al siguiente también>>.
-Como puedes ver, podemos poner la impresión en el bucle sin un condicinal
-porque, si se llega a esa línea, es porque se han cumplido las condiciones para
-que sea bisiesto.
+It uses more lines, but some people may argue it is easier to read, you could
+read it as ``if it is not divisible by four, go to the next number, if it is
+divisible by one hundred but not by four hundred, go to the next too''.
+Also, te printing order is not in a conditional, because if we reach the line,
+we already know the number is a leap year.
 
-\section{Estructuras de datos}
-Las estructuras de datos son una de las cosas más importantes en programación
-y en informática, hasta ahora la única manera que tenías almacenar datos eran
-variables, cada una de un tipo y con un nombre. Esta es la estructura de datos
-más simple, pero a veces necesitamos estructuras más complejas, en esta sección
-veremos dos estructuras de datos simples que te proporciona el lenguaje C, la
-primera es el array y la segunda el \textit{struct}, o estructura, en español.
+As it happened with \texttt{break}, this is not a better way to write a program,
+but I needed to invent some example with the limited content I have shown
+now. Again, take \texttt{continue} as a novelty more than something that will
+be used most often than not.
+\section{Data structures}
+Data structures are one of the most important things in programming and
+in computer science, until now the only structure you know were variables, each
+one of a type and with a different name. This is the structure más simple, but
+very often we need more complex structures, in this section we will see two
+simple data structures that C provides to the programmer: the array and
+the struct, or structure. Structure has a generic meaning as the one I used in
+the title, and the sepecific one of being the artifact of the C language I am
+going to show you.
 
-\subsection{El array}
-A veces queremos hacer paquetes de datos, estos paquetes se llaman
-\textit{arrays}. Un array es
-una estructura en que declaramos un espacio para varias variables, a las que
-referenciaremos por el nombre del array y su posición en él. Es decir,
-referenciamos los datos en un array por <<el quinto elemento del array a>>.
-Veamos cómo se declaran y se usan.
-
+\subsection{The array}
+Sometimes we want to pack data of the same type together, those packets are
+called arrays. An array is an structure in which we declare space for several
+variables, which we will reference by the name of the array and its position
+inside it. That is: we reference data in the array by ``the fifth element in
+array a''. Let's see how they're declared and used.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de declaración de array},
+caption={Example of declaration of array},
 label={lst:arrayDeclaration}]
 #include <stdio.h>
 int main(void)
@@ -2574,22 +2631,22 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-
-En el ejemplo hemos declarado un array de diez posiciones de tipo entero. Y aquí
-viene la primera cosa importante: los array no se empiezan a contar desde el
-uno, sino desde el cero. Eso quiere decir que un array de diez posiciones
-como este no tiene una posición diez, sino posiciones del cero al nueve.
-Para acceder a un elemento
-del array debemos poner el nombre del mismo y, entre corchetes (\verb![]!), la
-posición a la que queremos acceder. Dentro de los corchetes puede haber
-cualquier expresión con un valor, incluidas variables, que es lo más común.
+In the example we have declared and array with ten position of type
+\texttt{int}. And here there is the first important thing: the elements in an
+array do not start from one, but from zero. That means that an array like this
+one with ten positions hasn't got a position number ten, but positions from
+zero to nine.
+To access any element in an array we must write the name of it and, between
+square braces (\verb![]!), the position we want to access. Inside the braces
+there may be any expresion with an integer value, variables included, which
+is the most common.
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de uso de array},
+caption={Example of ussage of an array},
 label={lst:arrayUse}]
 #include <stdio.h>
 int main(void)
@@ -2602,20 +2659,18 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-
-En este programa estamos declarando el array, asignándole un valor a su primera
-posición, y después usando ese valor para asignárselo a una variable. Recuerda
-que, cuando hacemos esto, del mismo modo que cuando asignamos un valor a una
-variable, los valores de la primera posición del array y la variable no han
-quedado ligados. Si recuerdas lo que dije en la última sección, utilizaremos
-mucho los bucles \texttt{for} junto con estas estructuras de datos.
+In this program we are declaring the array, assigning a value to the first
+possition and then using that value to assignt hat possition to another
+variable, the values of the first position of the array and the variable
+are not linked. If you remember what I said in the last section, we will
+use a lot of \texttt{for} loops alongside arrays.
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de uso de array},
+caption={Example of how to use an array},
 label={lst:arrayIteration}]
 #include <stdio.h>
 int main(void)
@@ -2628,22 +2683,26 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+We must make several considerations, the variable you have declared in a
+\texttt{for} loop when you access an array tend to be called \texttt{i}.
+It is just a personal habit of mine to call it \texttt{ii}, you can do it as
+you wish, but if you want other programmers to read your code easily, I would
+encourage you to use any of those two alternatives; secondly: look carefully
+the loop, \texttt{ii} takes values from 0 to 9, which are the positions of
+the array, and it assigns to them the values of the variable we are using
+to access the array, so we wad number in it values 0, 1... to 9.
 
-Varias consideraciones: primero, la variable que se declara en los bucles
-\texttt{for} cuando se accede a un bucle suele llamarse \verb!i!.
-Es una manía personal
-mía llamarla \texttt{ii}, queda a tu discreción, pero si quieres que otros
-programadores lean tu código cómodamente, recomendaría usar uno de los dos
-nombres; segundo: mira bien el bucle \texttt{for}, \texttt{ii} toma valores
-desde 0 hasta 9, que son las posiciones del array, y les asigna el valor
-que hay en \verb!ii!, así que tendríamos un array de números con los valores
-0, 1... hasta 9.
+% Pero los arrays pueden tener más de una dimensión, es decir, si ahora tenemos
+% arrays de datos, podemos tener matrices, o cubos, o incluso
+% estructuras de dimensiones ilimitadas. En general, el ser humano tiene
+% dificultad manejando más de dos o tres dimensiones, así que te pondré el ejemplo
+% de cómo usar un array de dos dimensiones.
 
-Pero los arrays pueden tener más de una dimensión, es decir, si ahora tenemos
-arrays de datos, podemos tener matrices, o cubos, o incluso
-estructuras de dimensiones ilimitadas. En general, el ser humano tiene
-dificultad manejando más de dos o tres dimensiones, así que te pondré el ejemplo
-de cómo usar un array de dos dimensiones.
+But arrays can have more than one dimension, that is, if we now have arrays of
+data. we can have matrixes, or cubes, or even structures of unlimited
+dimensions. In general, human beings have problems managing more than two or
+three dimensions, so I will show you an example on how to use a bi-dimensional
+array.
 
 
 \noindent
@@ -2671,48 +2730,47 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+The first dimension of the array, in this case 5, says to you how many rows
+it will have, the second, the columns. You can think of array with two
+dimensions as an ``array of arrays''. This is expandable to all the dimensions,
+as we said before. You must be careful, if you try to access to an position of
+the array that does not exist it is very probable that your program ends
+abruptly. If you use nested loops with arrays of several dimensions, the
+custom is that the variables that go in the inner loops after \texttt{i} are
+called with the next letters (j, k...). This is a mathematical reminiscence,
+where big operator like summations or products of series use indexes with
+these letters.
 
-La primera dimensión del array (en este caso 5) indica las filas que éste
-tendrá, la segunda, las columnas. Puedes pensar en esto como un <<array de
-arrays>>. Esto es extrapolable a todas las dimensiones, como ya hemos dicho.
-Debes tener cuidado, si intentas acceder a una posición del array que no existe,
-lo más probable que es tu programa termine de manera abrupta. Y, si utilizas
-bucles anidados con arrays de varias dimensiones, la convención es que las
-variables después de \verb!i! suelen llamarse con letras sucesivas. Esto
-es una reminiscencia matemática, donde operadores grandes como sumatorios
-o productorios se indexan por estas letras.
+\subsection{The struct}
+In C a struct is a ``pack'' of data from different type that has a name. It
+would be like groupping a series of variables and refer to them as a set.
+Which advantage has this got? We can create new types sticking together the
+basic ones. If you think about that, it's something very natural, a struct
+allows us to use the basic construction blocks of the language, basic types,
+and create new concepts with them. In general, we want all the parts of our code
+to be able to see these new types, so we will declare them outside all code
+blocks, in tye same way I told you a global variable is declared.
 
-\subsection{La estructura}
-En C un \textit{struct} -o estructura, en español-
-es un <<paquete>> de datos de distintos tipos que
-tienen un nombre. Sería como agrupar una serie de variables y poder referirnos
-a ellas como un conjunto. ¿Qué ventaja tiene esto? Que podemos crear nuevos
-tipos juntando los tipos básicos. Si lo piensas, es algo bastante natural, una
-estructura nos permite utilizar los ladrillos básicos del lenguaje, los
-tipos básicos, para crear nuevos conceptos.
-Cuando declaras una estructura estás creando un tipo
-nuevo. En general,
-queremos que todas las partes de nuestro programa puedan ver esos tipos, así
-que la declaración de la estructura se hace fuera de todos los bloques
-de código, como cuando te expliqué qué eran las variables globales.
+% Cuando creamos una variable de este tipo, estamos \textbf{instanciando} un
+% \textit{struct}. En informática instanciar es crear una variable de un tipo
+% determinado. Por ejemplo, podríamos haber dicho <<instancias un entero>>, pero
+% se suele aplicar a tipos compuestos, no básicos. Así que primero debemos crear
+% el tipo y después variables de ese tipo.
 
-Cuando creamos una variable de este tipo, estamos \textbf{instanciando} un
-\textit{struct}. En informática instanciar es crear una variable de un tipo
-determinado. Por ejemplo, podríamos haber dicho <<instancias un entero>>, pero
-se suele aplicar a tipos compuestos, no básicos. Así que primero debemos crear
-el tipo y después variables de ese tipo.
+When we create a variable of this new type, we are \textbf{instantiating} a
+struct. In computer science instantiate is creating a variable of a given type.
+We could say ``instantiating an integer'' but it is only applied to composed
+types, not basic ones. So, firstly we must create our new type and then
+variables of said type.
 
-
-A continuación
-te presento la sintaxis para declarar un \textit{struct}, para crear una
-variable de su tipo y para utilizarlo.
-
+Now I present you the syntax to declare a struct, to create a variable
+of that type and use it.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Declaración, instanciación y uso de un \textit{struct}},
+caption={Declaration, instantiation and use of a \textit{struct}},
 label={lst:structUse}]
 #include <stdio.h>
 struct my_struct {
@@ -2732,60 +2790,55 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+The data that are inside a struct are called \textbf{fields}, and they are
+accessed with a dot. If you're thinking that makes the point an operator,
+you're right, dot is an operator that accesses to the fields in an struct.
+Notice that to declare a variables of the new struct type you need to
+put the keyword \lstinline[style=C]"struct" before, not only the name you gave
+to it.
 
-Los datos que van dentro de una estructura se llaman \textbf{campos}, y
-se accede a ellos con un punto. Si estás pensando que eso hace que el punto
-sea un operador, estás en lo cierto, el punto es un operador que accede a los
-\textbf{miembros} -o campos- de los \textit{structs}. Nota que para declarar
-una instancia -una variable de tipo estructura-, no sólo debes poner su nombre
-sino la palabra reservada
-\lstinline[style=C]{struct} delante.
-
-
-Veamos un ejemplo de la utilidad de esto. Imagínate que queremos hacer un
-programa que calcule la distancia entre dos puntos, podríamos hacerlo así:
-
+Let's see an example of an use case of this. Imagine we want to make a program
+that calculates the distance between two points, we could do it this way:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de resolución de distancia entre puntos},
+caption={Example of calculation of distance between points in a plane},
 label={lst:pointNoStruct}]
 #include <stdio.h>
 #include <math.h>
 int main(void)
 {
-    double punto1_x = 1.1;
-    double punto1_y = 3.2;
-    double punto2_x = 2.3;
-    double punto2_y = 5.4;
+    double point1_x = 1.1;
+    double point1_y = 3.2;
+    double point2_x = 2.3;
+    double point2_y = 5.4;
 
-    double diff_x = punto1_x - punto2_x;
-    double diff_y = punto1_y - punto2_y;
-    double distancia = sqrt(diff_x*diff_x + diff_y*diff_y);
+    double diff_x = point1_x - point2_x;
+    double diff_y = point1_y - point2_y;
+    double distance = sqrt(diff_x*diff_x + diff_y*diff_y);
 
-    printf("P1 : [%f, %f]\n", punto1_x, punto1_y);
-    printf("P1 : [%f, %f]\n", punto2_x, punto2_y);
-    printf("Distance: %f\n", distancia);
+    printf("P1 : [%f, %f]\n", point1_x, point1_y);
+    printf("P2 : [%f, %f]\n", point2_x, point2_y);
+    printf("Distance: %f\n", distance);
 }
 \end{lstlisting}
 \end{minipage}
 
-
-Como puedes ver, el programa funciona y hace lo que tiene que hacer... pero
-es muy confuso, lo único que <<une>> las dos coordenadas de un punto es el
-nombre de la variable, y además hay que declarar muchas variables. Creo que
-puedes ver que, en cuanto utilicemos algunos puntos más, esto podría convertirse
-en algo indescifrable. Veamos qué pasa si usamos nuestro flamante conocimiento
-de las estructuras.
+As you can see, the program works and does what it is suppossed to do... but
+it is quite confusing, the only thing that ``joins'' together the coordinates
+of any point is the name of the variable, also, you need to declare many
+variables . I think you can see that the very moment we start managing many
+points in a program, this could be something very difficult to understand.
+Let's see what would come out of using our new knowledge of the structures.
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de resolución de distancia entre puntos usando estructuras},
+caption={Calculating the distance between two points using structures},
 label={lst:pointStruct}]
 #include <stdio.h>
 #include <math.h>
@@ -2816,29 +2869,27 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+As you can see, the program is much more cleaner. Also, I do not have to rely in
+the name of the varuables to signify that something is a point, but I can
+rely in the tools the language offers me.
 
-Como puedes ver, el programa queda mucho más limpio. Además de que
-no tengo que confiar en el nombre de la variable para indicar que algo es un
-punto, sino que puedo usar una restricción del lenguaje.
+Note: These two programs use a library (we will speak about them later on)
+and need to be compile with an special option, simply add \texttt{-lm} to the
+line you have been using to compile until now, it would end like:
+``\texttt{gcc -o main.elf main.c -lm}'' (without the quotes).
 
-Nota: Estos dos programas usan una biblioteca -más adelante hablaremos de ellas-
-y necesitan ser compilados con una opción especial, simplemente agrega
-\texttt{-lm} a la línea que has venido usando para compilar hasta ahora,
-quedaría así: <<\texttt{gcc -o main.exe main.c -lm}>> (sin las comillas).
 
-\subsection{Listas de inicialización}
-
-Tanto los arrays como las estructuras tienen una manera abreviada de
-inicializarse. Si recuerdas el capítulo sobre variables, inicializar es darle
-valor por primera vez a una variable. Esta manera abreviada es la
-lista de inicialización o, simplemente, inicializadores. Veamos un ejemplo:
-
+\subsection{Initialization lists}
+Both array an structures have a way to initialize them in a concise way. If you
+remember the chaper about variables, initializing a variables is give it
+value for the first time. This way of doing so to arrays an structs is the
+initialization list. Let's see an example.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Inicialización con llaves},
+caption={Initializing with braces},
 label={lst:initializationLists}]
 #include <stdio.h>
 struct point_s {
@@ -2853,29 +2904,25 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-
-En el caso del \textit{struct}, los miembros del mismo se inicializan por orden,
-así que el campo \verb!x! de nuestro struct sería 1,1 y el campo \verb!y!
-2,3. En el
-caso del array, hemos rellenado todas las posiciones, pero podrías elegir
-rellenar sólo algunas, el resto se rellenarían a cero. Ten cuidado, porque los
-inicializadores con llaves como estos sólo valen para inicializar, si a nuestro
-programa agregaras \lstinline[style=C]!punto1 = {2.2, 4.6}! en la línea
-siguiente el compilador no te dejaría compilar. Lo mismo para el array.
-Pero con los \textit{struct} podemos hacer una cosa, inicializar sólo los
-miembros que nos interese, saltándonos algunos, etc. Esto se hace con una
-sintaxis un poco confusa del lenguaje. Vamos a usar de ejemplo un programa con
-un \textit{struct} que indica la fecha. Una de sus variables es lógica, indica
-si es un año bisiesto. Es algo que podemos calcular, pero no es extraño guardar
-datos calculados de un struct en él mismo para no tener que calcularlo todo el
-rato.
-
+In the case of the struct, the members are initialized in the order we declared
+when creating the new struct type. So in the example the x coordinate will be
+1.1 and the second 2.3. In the case of the array we have filled all the
+positions, if we put only some, they will be initialized to zero. Be careful,
+because the initializers with braces are good only to initialize, if we added to
+the program a line such as: \lstinline[style=C]!punto1 = {2.2, 4.6}! the
+compiler wouldn't let you compile. The same would happen with the array. With
+the struct we can do something, initialize only the fields we want, omitting
+some, etc. This is done with a little confusing syntax. Let's use an example
+with an struct that stores a date. One of its variables is logic, tells if it
+is a leap year. It's something we can calculate, but it is not unusual to
+store data calculated of an struct on itself so you don't have to do it
+all the time.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Inicialización con llaves de struct con selección de campos},
+caption={Initializing a struct with braces and field selection},
 label={lst:dateStruct}]
 #include <stdio.h>
 struct date_s {
@@ -2892,17 +2939,25 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+% Como puedes ver, primero hemos inicializado los campos que queríamos y después
+% hemos calculado lo que nos interesaba con ellos. Nota, además, que como hemos
+% indicado en el inicializador el campo al que corresponde cada valor, ni siquiera
+% hemos de preocuparnos del orden.
+% (La regla para saber si un año
+% es bisiesto es más compleja, pero esto es sólo un ejemplo).
 
-Como puedes ver, primero hemos inicializado los campos que queríamos y después
-hemos calculado lo que nos interesaba con ellos. Nota, además, que como hemos
-indicado en el inicializador el campo al que corresponde cada valor, ni siquiera
-hemos de preocuparnos del orden.
-(La regla para saber si un año
-es bisiesto es más compleja, pero esto es sólo un ejemplo).
+As you can see, firstly we hace initialized the fields we wanted and later we
+calculated what we wanted. Since we have said whose fields we wanted to assign
+values to in the initialization list, we didn't even have to worry about the
+order. As we saw before the rule to know if a year is a leap year is more
+complex but this is just an example.
 
-Quiero añadir como colorario final que es posible (y común) declarar arrays de
-\textit{structs} y estructuras con arrays como miembros. Ejemplo:
 
+% Quiero añadir como colorario final que es posible (y común) declarar arrays de
+% \textit{structs} y estructuras con arrays como miembros. Ejemplo:
+
+I want to add as a conclusion that it is posible (and common) to declare arrays
+of struct and have struct that have arrays as fields. For example.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2928,13 +2983,11 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Presta atención a la lista de inicialización de la línea 12, en ella las llaves
-más externas sirven para indicar que estás inicializando la estructura
-\verb!triangly!, después, hay otro nivel de llaves que abarca todo lo que hay
-dentro de la lista, que simboliza que estás inicializando el campo
-\verb!points! y, finalmente, para cada elemento de este array de tres puntos,
-usamos una lista de inicialización de un \emph{struct} punto. Una manera más
-clara, aunque más larga, de escribirla sería:
+Pay attention to the initialization list in line 12, in it the most external
+braces indicate that we are initializing the struct \texttt{triangly}, after it,
+there is another level of braces because we're initializing the member points,
+which is an array and, finally, for each element of that array we use an
+initialization list for each point. A clearer but longer would be:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2945,48 +2998,43 @@ struct triangle_s triangly = { .points = {{.x = 1.1, .y = 2.2},
 \end{lstlisting}
 \end{minipage}
 
-He de advertirte una cosa, cuando se inicializa un array con una lista de
-inicialización no puedes indicar su dimensión con una variable, es decir,
-debes hacerlo con un valor literal. Esto tiene un motivo muy entendible, si
-yo inicializo un array con una dimensión variable, por ejemplo
-\verb!int array[var] = {1,2};! la lista indica que el array
-tiene, al menos, dos elementos, pero no sabemos cuánto vale \verb!var!, si
-vale más, no pasa nada, el resto serán cero, pero si vale uno, o incluso cero...
-¿a quién le hace caso el lenguaje, a la lista o a la variable? Ten en cuenta
-que el compilador no puede predecir el valor que ninguna variable tendrá
-mientras el programa se ejecuta. Pensarás que en programas simples podría,
-y de hecho
-es así, pero sería horrible tener una regla como esta que fuera válida sólo
-cuando el compilador pudiera predecir lo que vale una variable, cosa muy
-difícil en programas serios, imposible, de hecho.
-Así que ten esto en cuenta, si quieres un array que tenga un tamaño determinado
-por una variable, no lo inicialices con una lista. De todos modos, el compilador
-te advertiría.
+I have to warn you about one thing, when you initialize an array with an
+initialization list you cannot define its size with a variable, that is:
+you must do it with a literal value. This has a very clear reason: if you
+initialize an array with a variable as dimension, for example:
+\verb!int array[var] = {1,2};!, the list will indicate that the array is, at
+least two positions long, but the compiler does not know how much var will be.
+If it's two or more, it is ok, but if it's less, what would the compiler do?
+Make an array of that length indicated by \verb"var" and drop values from the
+list or ignore \verb!var! and use the elements on the list? Mind you that
+the compiler cannot predict the value of a variable until the program is
+executed. You may think that in simple programs it may do it, and yes, it could,
+but even then, it would be very chaotic to have a rule about how to create
+arrays that applies only in certain conditions that are not clear. So, keep this
+in mind, if you want an array with a concrete size, determined by a variable,
+do not initialize it with an initialization list. In any case, the compiler
+would tell you that it's wrong.
 
-\subsection{Ejercicios de la sección}
-Ahora que ya tienes una serie de conocimientos, te propondré un conjunto de
-ejercicios que requerirán haberlos asimilado.
+
+\subsection{Exercises of the section}
+Now you already have significant knowledge I will propose some exercises to you
+to check you understood the concepts presented so far.
 \begin{exercises}
-\item Escribe un programa y declara en él una estructura que defina un círculo
-en dos dimensiones (su centro y su radio). Y haz que el programa declare una
-variable de ese tipo y calcule su área.
-\item Haz un programa que, basándose en el \emph{struct} punto presentado en el
-ejemplo, declare e inicialice un array de ellos y vaya diciendo las direcciones
-que hay que seguir para ir de uno a otro, por ejemplo, si los puntos fueran:
-$(1, 2), (3, 4), (2,5), (2, 1)$ , se imprimiría:
-
-
-
+\item Write a program that declared a struct that defined a circle in two
+dimensions (center and radious). Make a program that declares a variable of
+that type and calculates its area.
+\item Write a program that, using the struct point presented in the example,
+declares an initializes an array of them and prints the directions you must
+follow from a point to the next, for example, if the points were:
+$(1, 2), (3, 4), (2,5), (2, 1)$ this will be printed:
 \begin{verbatim}
-Derecha, Arriba
-Izquierda, Arriba
-Quieto, Abajo
+Right, Up
+Left, Up
+Still, Down
 \end{verbatim}
 
-\item Haz un programa que declare un array bidimensional y calcule la suma de
-sus filas y sus columnas y lo imprima de este modo:
-
-
+\item Make a program that declares a bidimensional array and prints the
+sum of its rows and columns in this way:
 
 \begin{verbatim}
 1 2 3 = 6
@@ -2997,16 +3045,14 @@ sus filas y sus columnas y lo imprima de este modo:
 
 \end{verbatim}
 
-Ten en cuenta que si pones números de cifras distintas quedarán desalineadas las
-columnas, esto no tienes que arreglarlo. (Pista: puedes declarar más arrays)
-\item Haz un programa que haga lo siguiente para los números del uno al cien ambos
-incluidos: si el número es divisible entre dos, debe imprimirse por pantalla
-<<fizz>>, si es divisible entre cinco, <<buzz>>, y si es divisible entre los dos,
-<<fizzbuzz>>, no imprimir nada en otro caso.
-Te presento un ejemplo de los primeros diez números:
+If you put numbers with a different length the columns will be
+misaligned, you haven't got to worry about this.
 
-
-
+\item Write a program that does the following for the number from one to 100,
+both included: if the number is divisible between two, you must print ``fizz'',
+if it is divisible by five, ``buzz'', and if its divisible between the two:
+``fizzbuzz'', it shall not print anything otherwise.
+I leave here an example with the first ten numbers.
 \begin{verbatim}
 fizz
 fizz
@@ -3015,115 +3061,124 @@ fizz
 fizz
 fizzbuzz
 \end{verbatim}
-
 \end{exercises}
 
-\section{Funciones}
+\section{Functions}
 \label{funciones}
-Llegamos a una de las partes más importantes del manual. Como habrás leído en el
-título de la sección, vamos a ver lo que es una función. En programación, una
-función es la traducción casi directa de lo que es una función en matemáticas.
-Empecemos por ahí, pues. En matemáticas una función es un objeto que recibe una
-serie de argumentos de determinados dominios y da un resultado que pertenece
-a un codominio (es decir, a un tipo de objetos matemáticos determinados).
-Formalmente:
+We are arriving to one of the most important parts of the manual. As you have
+have read in the title of the section, we are going to talk about functions.
+In programming, a function is almost a direct translation of what a function
+is in mathematics. Let's start there, in mathematics a function is an object
+that receives a series of arguments from certian domains and gives a result
+that is in some codomain. In other words, it receives a set of mathematical
+objects each from a type (numbers, vectors, matrixes...) and gives you a result
+of some type of mathematical things.
 $$
-f(x) : \mathbb{R} \longrightarrow \mathbb{R}
+f(x) : \mathbb{R} \longrightarrow \mathbb{R}_{\ge 0}
 $$
 $$
 x \to x^2
 $$
 
-Eso de arriba es básicamente una manera muy formal de escribir $f(x) = x^2$ y
-$x$ es un número real. Hemos definido el dominio (todos los números reales),
-su codominio (lo mismo) y la transformación que se hace de la entrada. Bien, pues
-en C una función es lo mismo, es un fragmento de código que recibe una serie
-de argumentos y <<devuelve>> un resultado. Pero aún voy a explicártelo de otro
-modo, una función es una <<caja negra>> que recibe ingredientes y nos entrega
-lo que queremos, sin tener por qué saber lo que pasa por dentro.
+That thing up there is basically a very formal way of writting $f(x) = x^2$
+and $x$ is a real number. We have defined the domain (the real numbers) and the
+codomain (the \textbf{possitive} real numbers) and the transformation you need
+to make to the arguments to get the result. A function in C is the same, it is
+a piece of code that receives a series of arguments and ``returns'' a result.
+I am going to explain it in yet another way: a function is like a ``black box''
+that receives ingredients and gives us a result, without the need to know what
+is inside.
 
-Después de esta introducción, veamos cómo se declara, define y usa una función
-en C. La declaración de una función es como sigue:
+% Después de esta introducción, veamos cómo se declara, define y usa una función
+% en C. La declaración de una función es como sigue:
+% \begin{enumerate}
+% \item Tipo de retorno de la función, es decir, el codominio, el tipo de dato
+% que la función nos va a devolver. Por ejemplo, \lstinline[style=C]{double}.
+% \item Nombre de la función, al igual que las variables, las funciones han de
+% tener nombre. Por ejemplo, \verb!power!.
+% \item Paréntesis de apertura.
+% \item Lista de argumentos con su tipo separados por comas. Por ejemplo: dos
+% enteros llamados \verb!base! y \verb!power!.
+% \item Cierre de paréntesis.
+% \item Como siempre, final de la línea punto y coma.
+% \end{enumerate}
+
+After that introduction, let's see how they are declared, defined and used.
+The declaration is writen as it follows:
 \begin{enumerate}
-\item Tipo de retorno de la función, es decir, el codominio, el tipo de dato
-que la función nos va a devolver. Por ejemplo, \lstinline[style=C]{double}.
-\item Nombre de la función, al igual que las variables, las funciones han de
-tener nombre. Por ejemplo, \verb!power!.
-\item Paréntesis de apertura.
-\item Lista de argumentos con su tipo separados por comas. Por ejemplo: dos
-enteros llamados \verb!base! y \verb!power!.
-\item Cierre de paréntesis.
-\item Como siempre, final de la línea punto y coma.
+\item Data type of return of the function, that is, the codomain, el data type
+the function is going to give us. For example, \lstinline[style=C]{double}.
+\item Name of the function, in the same fashion than variables, functions have
+to have a name. For example: \verb!power!
+\item Opening parenthesis (\texttt{(})
+\item List of parameters (arguments) of the function, with their type, separated
+by a comma each one. In this case as example, two integers: \verb!base! and
+\verb!exponent!.
+\item Closing parenthesis (\texttt{(})
+\item As always, end the line with semicolon.
 \end{enumerate}
 
-Siguiendo los ejemplos que hemos puesto, quedaría tal que:
-
+Following the examples we set before, it would be like:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:functionDeclaration},
-caption={Declaración de una función en C}]
+caption={Function declaration in C}]
 double power(int base, int power);
 \end{lstlisting}
 \end{minipage}
 
-
-Pero esta función aún \textbf{no se puede usar}. Porque no la hemos definido.
-Definir una función es como darle un valor a una variable (aunque sólo se puede
-hacer una vez). Y es decir \textbf{qué} hace la función. Para esto copiamos
-de nuevo la declaración (sin el punto y coma), y ponemos un bloque de código
-(abrimos y cerramos llaves) justo después. Es decir, con el ejemplo anterior
-quedaría:
-
+But this function cannot be used, because we haven't defined it. Define a
+function is in a way like initializing a variable. And it is saying
+\textbf{what the functions actually does}. To do that, we copy the definition of
+the function (without the semicolon) and we write a block of code. Which would
+look like this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:functionDefinition},
-caption={Definición de una función en C}]
-double power(int base, int power)
+caption={Definition of a function in C}]
+double power(int base, int exponent)
 {
-    //Aquí pondremos instrucciones
+    //Here you would put instructions
 }
 \end{lstlisting}
 \end{minipage}
 
-Si has estado avispado, habrás visto una similitud entre este último fragmento
-de código y el programa básico que te presenté al principio del manual. Esto
-no es casual, cuando ponías \verb!int main(void)!... lo que estabas haciendo era
-\textbf{declarar y definir} una función llamada \verb!main!. Y tú te
-preguntarás por qué esto es así, pues porque en el sistema operativo Linux (y en
-la mayoría de sistemas) los programas en C se empiezan llamando a la
-función \verb!main!. Por eso tuve que hacerte escribir su definición antes de
-explicarte qué era una función. Finalmente, en cuanto a terminología, la
-<<forma>> de una función (el trío de tipo de retorno, nombre y argumentos) se
-llama habitualmente con la palabra en inglés \emph{signature}.
+If you have been attentive, you may have seen a similarity between that last
+fragment of code and the first program we wrote. This is not by chance, when
+you wrote \verb!int main(void)!... what you were doing was \textbf{declare and
+define} a function called \verb!main!. What you may be wondering now is why.
+This is because in the Linux operating system and in most operating systems
+the way programs start is by the operating system calling their \texttt!main!
+function. That is why I had to make you write all those lines without telling
+you what they were. Finally, the ``shape'' of a function (return type and
+type of arguments) is called signature of a function.
 
-Volvamos a la función \verb!power!, ahora que ya tenemos la función lista
-para ser escrita, podemos definir su comportamiento. En una función, el bloque
-de código que va después de la lista de argumentos se llama \textbf{cuerpo} de
-la función. Dentro del cuerpo de la función los argumentos de la lista de
-argumentos se pueden usar como variables locales.
-Con ello puedes calcular el valor
-que quieres que la función \textbf{devuelva} y ordenar a C que lo devuelva con
-la palabra clave \lstinline[style=C]{return}. Cuando se usa esta palabra,
-la función termina (se sale de ella). Veamos cómo podemos implementar la
-función de ejemplo que, si no lo has adivinado por nombre, calculará la potencia
-de \verb!base! elevado a \verb!power!. Quedaría de este modo:
+Let's come back to the function \verb!power!, now we have ready to be written,
+we can define its behaviour. In a function, the block of code that goes after
+the argument list is called \textbf{body}. Inside the body the arguments can
+be used as local variables. With this you can calculate the value you want the
+function to \textbf{return} and make C do so with the
+\lstinline[style=C]{return} (makes sense, doesn't it?). When you use this word,
+the function ends executing (you go out of it). Let's see how we can implement
+the function of the example that, if you didn't guess it by the name, calculates
+the power \verb!base! to \verb!exponent!. It would end up like this:
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:functionExample},
-caption={Ejemplo de función en C}]
-double power(int base, int power)
+caption={Example of a function in C}]
+double power(int base, int exponent)
 {
     double res = 1;
     int ii = 0;
-    while (ii != power) {
-        if (power < 0) {
+    while (ii != exponent) {
+        if (exponent < 0) {
             res /= base;
             ii--;
         }
@@ -3137,18 +3192,18 @@ double power(int base, int power)
 \end{lstlisting}
 \end{minipage}
 
+The function does this: declares a variable called \verb!res! which will be were
+we will save the power we calculate. After that, we will use a \verb!while!
+loop to multiply of divide (according to if the exponent is possitive or
+negative) as many times as it's needed. At the end, we will return the result.
 
-La función hace lo siguiente: declara una variable llamada \verb!res! que será
-donde guardemos la potencia calculada. Después, utilizamos un bucle \verb!while!
-para multiplicar o dividir (según la potencia sea positiva o negativa) tantas
-veces como haga falta. Al final, devolvemos (también se dice retornar, por la
-palabra \verb!return!) el resultado.
-
-Bien, ahora que ya hemos definido la función veamos cómo se usa. Para usar una
-función ésta se <<invoca>>. Para invocarla simplemente pones su nombre y los
-argumentos que necesita. Veamos un ejemplo, suponiendo que más atrás en el
-programa tenemos definida nuestra función \verb!power!,
-este fragmento de código imprimirá varias potencias:
+All right, now we have defined the function let's see how you use it. To use
+a function you will ``invoke'' it. To do so we will simply write its name and the
+arguments it needs. Let's see an example, if before in our program we we have
+defined the function, this fragment of code will print several powers. If you
+think about this, using a function in a programming language is like writting
+the concrete value of a function in mathematics, if $f(x) = x^2$ then you
+know writting $f(3)$ is the name as writting a nine.
 
 
 \noindent
@@ -3156,6 +3211,8 @@ este fragmento de código imprimirá varias potencias:
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:functionInvocation},
 caption={Invocación de función en C}]
+#include <stdio.h>
+// Paste here definition of power
 int main(void)
 {
     double powers[3];
@@ -3169,39 +3226,33 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+As you can see, the values returned by functions are used as those returned by
+operators, you can save them in arrays or assign them to variables. And, now
+we're here, let's expalin another thing, as you may have already guessed,
+\verb!printf! is a function. What is particular about it is that it's an special
+function, its first argument (the format) is a pointer, which a new type I
+haven't explained to you before. At this level, all the functions we write will
+have a fixed number of arguments, which is the more common thing.
 
-Como puedes ver, se usan como valores que crean los operadores,
-se pueden guardar en arrays o en otras
-variables. Y ya que estamos, terminemos de explicar otra cosa, \verb!printf!,
-como ya habrás podido adivinar, es una función. Lo que pasa con ella es que
-es una función especial, su primer argumento (el formato) es de un tipo que
-aún no te he explicado llamado <<puntero>>. Y además \verb!printf! es un
-tipo de función especial que recibe \textbf{un número variable de argumentos}.
-De momento, todas las funciones que hagamos nosotros tendrán un número de
-argumentos fijo, que es lo más habitual.
+And, lastly, the keyword \lstinline[style=C]{void}. Void means and empty space.
+This is the word we use when we want to indicate that a function doesn't need
+any argument, for example, \verb!main!, or that it does not return any value.
+One second, what is a function that doesn't return anything good for? Well,
+while functions in C are very much like mathematical functions, they're not
+exactly the same, because functions in C can manipulate other thing the are not
+their arguments, the global variables. The most common example is \verb!printf!,
+that does a thing which is not returning anything, but manipulate the terminal,
+which is symbolized as a global variable of a concrete type. I told you when I
+mentioned them that they weren't useful for us ``yet''. When you have several
+functions, sometimes you need to use global variables because they will be
+available in all the functions, but, as I told you, it is not the best thing to
+do.
 
-Y, por último, la palabra clave \lstinline[style=C]{void}. \textit{Void} en
-inglés significa vacío. Es la palabra que usamos cuando queremos indicar que
-una función no recibe ningún argumento (como \verb!main!) o que no devuelve
-ningún valor. Un momento, ¿y para qué vale una función que no devuelve ningún
-valor? Bien, aunque las funciones en C se parecen mucho a las funciones en
-matemáticas, no son exactamente iguales, porque las funciones en C pueden
-manipular otras cosas además de sus argumentos y el valor que devuelven:
-las variables globales.
-El ejemplo más claro es la propia \verb!printf!, que hace una cosa que no es
-devolver un valor, sino que manipula la terminal, que está simbolizada como una
-variable global de un tipo concreto. Te dije cuando las mencioné por primera vez
-que éstas no nos eran útiles <<aún>>. Cuando uno tiene varias funciones, a veces
-necesita utilizar variables globales porque estarán disponibles en todas las
-funciones, aunque, como ya te dije, no es la mejor de las prácticas.
-
-Finalmente, una precisión: te he dicho que dentro del cuerpo de la función
-los argumentos se comportan como variables locales, y esto puede haberte
-llevado a hacerte la pregunta de: si cambio el valor de un argumento de la
-función, ¿queda esa variable cambiada siempre? No, los argumentos que las
-funciones reciben son \textbf{copias} de los que se les proporcionó cuando se
-las invocó. Veámoslo con un ejemplo:
-
+Finally, one precission: I have said to you that inside the body of the function
+the arguments behave like local variables, and that may have led you to this
+question: if you change the value of any argument, is that variable changed
+outside the function? No, the arguments of a function are \textbf{copies} of
+those that were given to them when invoking it. Let's see it with an example:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -3223,106 +3274,114 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Si compilas y ejecutas este programa verás ambas veces el programa imprime el
-número 3. Esto es porque, como te he dicho, lo que la función manipula dentro
-de sí misma es una copia de \texttt{number}.
+If you compile and execute this you'd see that both times the program prints
+a three. This is because, as I said, the arguments are copies of the ones
+you passed them.
 
-\subsection{Separación entre declaración y definición}
-Te he explicado cómo declarar y cómo definir una función por separado, pero
-en los ejemplos siempre he incluido únicamente la definición. Esto es porque en
-la definición incluimos la declaración. Hay dos motivos por los que puedes
-separar ambas cosas, el primero es que quieras separar tu código en varios
-archivos, cosa que te explicaré más adelante, pero el segundo es que necesites
-definir todas las funciones porque se usan unas a otras, veamos un ejemplo
-de dos funciones, cuyo objetivo es imprimir siempre <<Temporada de patos>> y
-<<Temporada de conejos>>, dependiendo de a cuál llames primero, el orden será
-uno u otro. El código sería el siguiente:
+\subsection{Separation between declaration and definition}
+% Te he explicado cómo declarar y cómo definir una función por separado, pero
+% en los ejemplos siempre he incluido únicamente la definición. Esto es porque en
+% la definición incluimos la declaración. Hay dos motivos por los que puedes
+% separar ambas cosas, el primero es que quieras separar tu código en varios
+% archivos, cosa que te explicaré más adelante, pero el segundo es que necesites
+% definir todas las funciones porque se usan unas a otras, veamos un ejemplo
+% de dos funciones, cuyo objetivo es imprimir siempre <<Temporada de patos>> y
+% <<Temporada de conejos>>, dependiendo de a cuál llames primero, el orden será
+% uno u otro. El código sería el siguiente:
 
-
-\noindent
-\begin{minipage}[H]{\linewidth}
-\mbox{}
-\begin{lstlisting}[style=C, label={lst:cyclicFunctions},
-caption={Declaración separa de definición}]
-#include <stdio.h>
-
-void patos(void){
-    printf("Temporada de patos\n");
-    conejos();
-}
-
-void conejos(void){
-    printf("Temporada de conejos\n");
-    patos();
-}
-
-int main(void)
-{
-    patos();
-}
-\end{lstlisting}
-\end{minipage}
-
-
-Pero si intentas compilar esto, el compilador dirá que la función \verb!conejos!
-no está definida cuando la quieres usar dentro de la función \verb!patos!, y,
-como puedes ver, no lo está, porque está definida más abajo. El programa, sin
-embargo, funcionaría, pero no es, de nuevo, recomendable, utilizar funciones
-sin definirlas.
-¿Cómo solucionamos
-esto? Poniendo la declaración de ambas funciones \textbf{antes} de sus
-definiciones. Es decir:
+I have already explained to you how to declare and define a function
+separatedly, but in all the example I have always included only the definition.
+This is because in the definition we include the declaration. There are to
+reasons to do both things separatedly, the first one is that you want to
+separate your code in several files, thing we will do later on, but the second
+is that you need to define all the functions because they use each other, let's
+see and example of two functions, whose target is to print always
+``Duck season'', and ``Rabbit season'', depending on which was called first,
+the order will be one or the other. The code would be something like this:
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:cyclicFunctions},
-caption={Declaración separa de definición}]
+caption={Declaration not separated from definition}]
 #include <stdio.h>
 
-void patos(void);
-void conejos(void);
-
-void patos(void){
-    printf("Temporada de patos\n");
-    conejos();
+void ducks(void){
+    printf("Duck season!\n");
+    rabbits();
 }
 
-void conejos(void){
-    printf("Temporada de conejos\n");
-    patos();
+void rabbits(void){
+    printf("Rabbit season!\n");
+    ducks();
 }
 
 int main(void)
 {
-    patos();
+    ducks();
 }
 \end{lstlisting}
 \end{minipage}
 
+But if you try to compile this, the compiler will say that the function
+\verb!rabbits! is not declared when you use it inside the function \verb!ducks!,
+and, as you can see, it is not, because it is defined below that point. The
+program, nevertheless, works, but it is not, again, sensible, using functions
+without defining them before.
+How could we solve this? Putting the declaration of both functions
+\textbf{before} of their definitions. That is:
 
-Si ejecutas esto, tu programa se ejecutará para siempre, así que pulsa la tecla
-control y la letra C a la vez para terminarlo.
 
-\subsection{Las funciones y los arrays}
-Los arrays son una cuestión especial cuando se trata de funciones por dos
-motivos: cuando a una función le pasas un array, \textbf{sí que puedes modificar
-sus elementos}. Esto es porque los arrays cuando se pasan a una función se
-convierten en \textbf{punteros}. Como ves, ya los he mencionado varias veces.
-Son uno de los conceptos más centrales de este lenguaje y donde reside su
-potencia, por lo que lo explicaré más adelante, pero su presencia impregna
-de manera invisible todo lo que te he contado hasta ahora, como verás cuando
-lleguemos a ese punto. De momento, quédate con que un array que pases a una
-función te permite modificar sus elementos, veamos un ejemplo de dos funciones
-que reciben un array, una modifica los elementos y otra no.
+\noindent
+\begin{minipage}[H]{\linewidth}
+\mbox{}
+\begin{lstlisting}[style=C, label={lst:cyclicFunctions},
+caption={Declaration separated of definition}]
+#include <stdio.h>
+
+void ducks(void);
+void rabbits(void);
+
+void ducks(void){
+    printf("Duck season!\n");
+    rabbits();
+}
+
+void rabbits(void){
+    printf("Rabbit season!\n");
+    ducks();
+}
+
+int main(void)
+{
+    ducks();
+}
+\end{lstlisting}
+\end{minipage}
+
+If you execute this, your program will be executing forever, so hit control key
+and C at the same time to end it.
+
+\subsection{The functions and the arrays}
+The arrays are a special question when they're mixed with functions for two
+reasons: when you pass an array as an argument to a function, \textbf{you can
+modify the contents of it}. This is because arrays that are passed to a function
+turn into \textbf{pointers}. As you can see, I have mentioned them several
+times. They're one of the most central elements of the language and where its
+power is, hence I will explain them later on, but its presence is felt
+in an invisible way all we are learning up until now, as you will see when we
+reach that point. At the moment, just remember that when an array is an argument
+of a function, you can modify its elements. Let's see an example of two
+functions, one modifies the elements of an array passed ar argument and the
+other does not.
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:arraysAndFunctions},
-caption={Uso de arrays en funciones}]
+caption={Array use with functions}]
 #include <stdio.h>
 
 void print_array(int array[], int array_size) {
@@ -3348,42 +3407,44 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+As you can see, if you execute this, you would print first the original array
+and later the array with its elements incremented in one. This shows you that
+elements in an array can be modified by functions. May be you wonder if you can
+modify structures. \textbf{No}, you cannot modify struct fields when you pass
+them as arguments. I also want you to see that when you pass an array to a
+function in the list of arguments you must write: \verb!type name[]!, for
+example in both functions shown before: \verb!int array[]!. Also, a function
+\textbf{cannot return an array}, this is for reasons I will explain when we go
+deeply into topics of pointers. Finally, functions cannot receive bisimensional
+pointer, for similar reasons.
 
-Como puedes ver, si ejecutas esto, primero imprimirás el array original y
-después el array con todos sus elementos incrementados en uno. Esto te demuestra
-que los elementos de un array se pueden modificar en funciones. Quizás te
-preguntes si las estructuras también se pueden modificar. \textbf{No}, no
-puedes modificar los campos de una estructura cuando se la pasas a una función.
-Quiero que veas también que para pasarle a una función un array, en la lista
-de argumentos debes escribir \verb!tipo nombre[]!, por ejemplo, en ambas
-funciones del último fragmento \verb!int array[]!. Como otra precisión, una
-función \textbf{no puede devolver un array}, esto es por causas que te
-explicaré cuando entremos en profundidad en el tema de los punteros. Finalmente,
-a una función no se le pueden pasar arrays de dos dimensiones, por motivos
-similares.
 
-\subsection{Ejercicios de la sección}
-En esta sección te pediré que escribas varias funciones, cabe mencionar que
-aunque no se pide, es recomendable, para comprobar que lo has hecho bien, que
-\textbf{pruebes} estas funciones llamándolas en tu función \verb!main! con
-valores  imprimiendo los resultados si fuera necesario.
+\subsection{Exercises of the section}
+% En esta sección te pediré que escribas varias funciones, cabe mencionar que
+% aunque no se pide, es recomendable, para comprobar que lo has hecho bien, que
+% \textbf{pruebes} estas funciones llamándolas en tu función \verb!main! con
+% valores  imprimiendo los resultados si fuera necesario.
+In this section I will ask you to write several functions, needed to say that,
+even when it is not asked for in every exercise, you should check
+you have done it right, \textbf{testing} the functions calling them in your
+function \verb!main! with values printing the results.
+
 \begin{exercises}[resume*]
-\item Escribe una función que calcule si un número es primo o no. Nota: un
-número
-es primo si sólo es divisible por sí mismo y por la unidad; el uno no es primo ni
-compuesto (no primo).
-\item Escribe una función que calcule la distancia entre dos estructuras punto
-de las usadas en la sección anterior. Para calcular la raíz cuadrada debes usar
-la función \verb!sqrt!, para poder usarla debes incluir al principio de tu
-programa (justo debajo de \verb!#include <stdio.h>!) la línea
-\verb!#include <math.h>! y agregar \verb!-lm! al comando de compilación,
-quedando \\
-\verb!gcc -o main.elf main.c -lm!.
-\item Escribe una función que reciba un array de enteros y un caracter separador
-que imprima los elementos del array separados por ese caracter. Por ejemplo,
-para el array \verb!{1,2,3,4}! y el carácter \verb!'\n'!, imprimiría:
+\item Write a functions that tells if a number is prime or composed. Note: a
+number is prime only if it is divisible only by itself and the unit (1). One
+itself is not composed nor prime.
 
-\noindent
+\item Write a function that calculates the distance between two point structures
+in the last section. To calculate the square root of a number you must use
+the function \verb!sqrt!, to be able to use it you should include at the
+begining of your program (just right under the line that says:
+\verb!#include zstdio.h>!) the line \verb!#include <math.h>! and all \verb!-lm!
+to the command to compile the programs, that would be:
+\verb!gcc -o main.elf main.c -lm!
+\item Write a function that receives an array of integers and a separator char
+that will print the elements in the array separated by that char, for example,
+to the array \verb!{1,2,3,4}! and the char \verb!'\n'!, it will print:
+
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{verbatim}
@@ -3393,46 +3454,49 @@ para el array \verb!{1,2,3,4}! y el carácter \verb!'\n'!, imprimiría:
 4
 \end{verbatim}
 \end{minipage}
-\item Escribe una función que encapsule el programa
-\ref{lst:linealSystemFinal}: \nameref{lst:linealSystemFinal}.
-La función debe recibir los coeficientes de las ecuaciones
-($a$, $b$, $c$, $d$, $e$ y $f$). Puede recibirlos por separado o en un array.
-Para devolver el resultado puedes crear una estructura que simplemente tenga
-dos \verb!double!.
-\item Escribe una función que normalice los elementos de un array de
-\verb!double!. Normalizar es poner todos los elementos en términos de la unidad,
-así que para normalizarlo deberás dividir todos los elementos por el elemento
-más grande.
+
+\item Write a function that encapsulates the program
+\ref{lst:linealSystemFinal}: \nameref{lst:linealSystemFinal}. The function must
+receive the coefficients if the equations ($a$, $b$, $c$, $d$, $e$ y $f$). It
+can receive them separatedly of in an array. To return the result you can create
+a struct that has two \verb"doubles".
+\item Write a function that normalizes the elements of an array of
+\verb!double!. Normalize is express all the elements in terms of the unit,
+so to normalize it you must divide all elements by the biggest element
 \end{exercises}
-\section{La memoria}
-Llega una de las secciones más importantes del manual. Aunque éste es sobre
-programación en C, es muy difícil, si no imposible, programar en C de manera
-solvente sin entender cómo funciona, al menos en parte, la memoria de un
-ordenador. Hasta ahora te he dicho que las variables que declares, tanto
-de tipos básicos como de arrays o estructuras se almacenan en <<memoria>>,
-pero, ¿qué es exactamente la memoria de un ordenador? Bueno, empecemos por
-lo más prosaico, cómo se ve dicha memoria:
+
+\section{The Memory}
+This is one of the most important sections of the manual. Even when this is a
+manual about C programming, it is very difficult, if not impossible, to program
+in C in a sophisticated way without understanding, at least partially, the
+memory of a computer. Up until now I have said that the variables that you
+declare, both of basic types and arrays or structs are stores in ``memory'',
+but, what is exactly a computers memory? Well, let's start from the most
+evident thing, how does it look?
 \begin{figure}[H]
-\includegraphics[width=\linewidth]{ram}
-\caption{Módulo de memoria RAM}
-\label{img:ram}
+    \includegraphics[width=\linewidth]{ram}
+    \caption{RAM memory module}
+    \label{img:ram}
 \end{figure}
 
-Aquí puedes ver un módulo de memoria de un ordenador. Este módulo es una placa
-de circuitos con chips soldados encima. Los chips son los rectángulos negros.
-En ellos se guarda la información en código binario. Una memoria es un sistema
-al que le pides una porción de información y ésta deposita el valor de esos
-datos en una serie de <<cables>> que hay en el ordenador, desde los cuales
-esos valores viajan a la CPU, al procesador, donde éste los  utiliza en los
-cálculos oportunos. Para poder pedir los datos, la memoria está
-\textbf{direccionada}. Esto quiere decir que cada porción de la memoria está
-referenciada por un número.
+Here you can see a module of memory of a computer. This module is a circuit
+board soldered to it. The chips are the black rentangles. In them it is stored
+the information in binaty code. A memory is a system from which you ask fro a
+portion of information and it deposits the value in a set of ``cables'' that
+are in the computer, from which the values travel to the CPU, the processor,
+the memory is \textbf{addressed}. This means that each portion of the memory
+is referenced by a number.
 
-Utilizando una analogía, imagina que la memoria
-fuera un cuaderno con una cuadrícula, en cada cuadrado digamos que cabe una
-cifra o una letra, para poder rellenar o leer el cuaderno, lo que haremos
-es numerar las cuadrículas. Empezaremos con la cuadrícula cero, después la uno,
-y así sucesivamente.
+% Utilizando una analogía, imagina que la memoria
+% fuera un cuaderno con una cuadrícula, en cada cuadrado digamos que cabe una
+% cifra o una letra, para poder rellenar o leer el cuaderno, lo que haremos
+% es numerar las cuadrículas. Empezaremos con la cuadrícula cero, después la uno,
+% y así sucesivamente.
+
+Using an analogy, imagine that the memory is a notebook with a grid, in each
+cell you can store a figure or a letter, to be able to fill or read the
+cell, what we will do is assign a number to each one a number. We will start
+with the number zero and after that the one, two...
 
 
 \begin{table}[H]
@@ -3450,48 +3514,76 @@ F&Z&Q&x&w&Q&2&R&Q&0&D&R&J&K&R\\\hline
 E&T&P&V&z&x&l&F&r&X&L&8&b&7&m\\\hline
 t&K&L&H&I&G&h&I&h&5&J&u&W&c&F\\\hline
     \end{tabular}
-    \caption{Ejemplo de una cuadrícula con valores}
+    \caption{Example of a grid with values}
     \label{tab:notebookSimulation}
 \end{table}
 
-En la tabla anterior puedes ver una simulación de este cuaderno, imagina que te
-digo: <<dime qué está escrito en la casilla 24>>. Teniendo en cuenta que es una
-tabla de 15 columnas y que \textbf{empezamos a contar desde el 0}, tendrías que
-decirme <<S>>, porque la \textbf{dirección} 24 se corresponde con la novena
-posición de la segunda fila. En general, las memorias
-de los ordenadores están \textbf{direccionadas por \textit{bytes}}, esto quiere
-decir que a cada byte le corresponde un número, una dirección. Quizás te hayas
-percatado de que es absurdo pintar esto en una tabla si estamos asignando
-simplemente números, debería ser una lista continua, una tabla de una columna.
-Si has pensado eso, tienes razón, porque es así como se suele representar la
-memoria.
+In the table you can see an emulation of this notebook, imagine that I tell
+you ``tell me what is in the cell number 24''. Keeping in mind that it is
+a table of 15 columns and that \textbf{we start counting from zero}, you'd have
+to say ``S'', because the \textbf{address} 24 is the nineth position of the
+second row. In general, computer memories are \textbf{addressed by bytes}, this
+means that for each byte there is a number (an address). You may have noted that
+it is absurd to draw this in a table if we are assigning simply numbers, this
+should be a continous list, a table of a single columns. If you have thought
+that, you're right, because that's how memory is usually represented.
 
-En resumen: la memoria de los ordenadores es una sucesión continua de bytes
-numerados desde el 0 en adelante, a los que podemos referenciar por ese número
-tanto para leer como para escribir en ellos.
+% En resumen: la memoria de los ordenadores es una sucesión continua de bytes
+% numerados desde el 0 en adelante, a los que podemos referenciar por ese número
+% tanto para leer como para escribir en ellos.
 
-\subsection{Sistemas numéricos posicionales: decimal, binario y hexadecimal}
+To sum it up: the memory in computers is a continous succession of bytes
+numerated from zero and on, to which we can reference by that number
+both to read and write.
+
+\subsection{Positional numerical systems: decimal, binary, hexadecimal}
 \label{numericSystems}
-Como ya dijimos en la introducción, el ordenador sólo entiende código binario,
-y esto es aplicable tanto a las direcciones de la memoria como a su contenido.
-Debido a esto, me veo compelido, pues, a
-darte una pequeña clase sobre cómo funciona el código binario. El código binario
-es un sistema numérico posicional. Un sistema posicional es aquél en que los
-números se componen de cifras, cada una de las cuales tiene un valor dependiendo
-de su \textbf{posición} dentro del número. Cuanto más a la izquierda están las
-cifras en un número, más valen. Recuerda cuando aprendiste cómo funcionaban los
-números: había unidades, decenas, centenas, millares... y así sucesivamente,
-el sistema que usamos es posicional, y es decimal, porque tenemos 10 cifras para
-representar números, desde el 0 al 9. Pues en binario funciona igual, pero sólo
-disponemos de dos cifras.
+% Como ya dijimos en la introducción, el ordenador sólo entiende código binario,
+% y esto es aplicable tanto a las direcciones de la memoria como a su contenido.
+% Debido a esto, me veo compelido, pues, a
+% darte una pequeña clase sobre cómo funciona el código binario. El código binario
+% es un sistema numérico posicional. Un sistema posicional es aquél en que los
+% números se componen de cifras, cada una de las cuales tiene un valor dependiendo
+% de su \textbf{posición} dentro del número. Cuanto más a la izquierda están las
+% cifras en un número, más valen. Recuerda cuando aprendiste cómo funcionaban los
+% números: había unidades, decenas, centenas, millares... y así sucesivamente,
+% el sistema que usamos es posicional, y es decimal, porque tenemos 10 cifras para
+% representar números, desde el 0 al 9. Pues en binario funciona igual, pero sólo
+% disponemos de dos cifras.
 
-Un sistema numérico posicional
-funciona de este modo: si la base numérica es $n$, cada cifra de un número vale
-el valor de la misma cifra multiplicado por $n$ elevado al número de posiciones
-que queden a la derecha del número. Como siempre, veámoslo con un ejemplo: si
-escribimos el número 34.789, el cálculo que usamos para saber cuánto vale es
-el siguiente:
-(Recuerda que un número elevado a 0 es 1)
+As we said in the introduction, the computer only understands binary code,
+and this is applicable both to the addresses of the memory and its contents.
+Due to this, I am compelled to teach you how the binary code works. The binary
+code is a positional numerical system. In a positional system numbers are
+composed by figures, each one of those figures has a value depending on which
+\textbf{position} they occupy in the number. The more to the left they are in
+the number, the more they add to it. Remember when we learnt how numbers work,
+you had units, tens, hundreds, thousands... and so on and so forth. The system
+we use to write numebrs is, therefore, positional, and decimal, because we have
+ten figures (from zero to nine). In binary it's the same, but with only two
+figures.
+
+% Un sistema numérico posicional
+% funciona de este modo: si la base numérica es $n$, cada cifra de un número vale
+% el valor de la misma cifra multiplicado por $n$ elevado al número de posiciones
+% que queden a la derecha del número. Como siempre, veámoslo con un ejemplo: si
+% escribimos el número 34.789, el cálculo que usamos para saber cuánto vale es
+% el siguiente:
+% (Recuerda que un número elevado a 0 es 1)
+% $$
+% 3\cdot10^4+4\cdot10^3+7\cdot10^2+8\cdot10^1+9\cdot10^0
+% $$
+% $$
+% 3\cdot10000+4\cdot1000+7\cdot100+8\cdot10+9\cdot1
+% $$
+
+A positional numerical system works in this way: if the numeric base (number of
+different figures available, in the case of our system, 10) is $n$, each figure
+adds to the number the value of the figure multiplied by $n$ to the power of
+how many figures are left to the right of this one. As always, let's see it with
+and example: is we write the number 34,789, the calculation we perform to
+know how much it adds up is this one (remember that any number that is not zero
+powered to the zero power is one):
 $$
 3\cdot10^4+4\cdot10^3+7\cdot10^2+8\cdot10^1+9\cdot10^0
 $$
@@ -3499,13 +3591,13 @@ $$
 3\cdot10000+4\cdot1000+7\cdot100+8\cdot10+9\cdot1
 $$
 
-De nuevo, podemos expresarlo en decenas, centenas, unidades... que son los
-nombres que le dimos a esas potencias de 10.
+Again, we can express it like tens, hundreds, unit... which are the names
+we have to those concrete powers of ten.
 
-Así que si tuvieras un número binario, harías el mismo cálculo, pero
-en vez de unidades, decenas, centenas, millares, etc. tendrías unidades, pares,
-cuartetos, octetos y grupos de 16 (lo siento, no existe una palabra para esto).
-Sea el número binario 1110101, el cálculo sería:
+So, if you had a binary number, you'd make the same calculation, but instead of
+unit, tens, hundreds and thousands, etc. you'd have to use units, couples,
+quartets, octets and groups of 16 (there is no word for that). Given the binary
+number 1110101, the calculation would be:
 $$
 1\cdot2^6+ 1\cdot2^5+1\cdot2^4+0\cdot2^3+1\cdot2^2+0\cdot2^1+1\cdot2^0
 $$
@@ -3513,19 +3605,21 @@ $$
 1\cdot64+ 1\cdot32+1\cdot16+0\cdot8+1\cdot4+0\cdot2+1\cdot1=117
 $$
 
-Ahora que ya sabes leer un número binario, hay que ver cómo se convierte un
-número decimal a binario. Para eso, se hace lo siguiente:
+Now you already know how to read a binary numbers, you need to see how a decimal
+numbers is converted to binary. To do so, you do the following:
 \begin{enumerate}
-\item Dividir el número entre 2, calculando el resto.
-\item Si la división es exacta, apuntas un cero a la izquierda del número, si
-tiene resto (que sólo puede ser 1), pones un uno.
-\item Repetir hasta que el \textbf{resultado} de la división sea 0.
+\item Divide the number by two, calculating the residue.
+\item If the division leaves no residue, you write a zero on the left side of
+the resulting number, if it has residue (it can only be one), you write one.
+\item Repeat until the \textbf{result} of the division is zero.
 \end{enumerate}
 
-Veamos un ejemplo de esto, sea el número 253, si aplicas el procedimiento,
-debería quedarte algo como lo de abajo.
-Si apuntas los restos de las divisiones en la dirección de la flecha inferior
-podrás componer el número en binario final, en este caso: 11111101.
+Let's see an example of this, given the number 253, if you apply the procedure,
+you should have something like the operations below. If you note the results of
+the divisions in the direction of the arrow in the bottom of the diagram you
+could compose finally the binary number: 11111101.
+
+
 $$
 \matrix{
 253                   &\division{2}                 &&&&&& \cr
@@ -3554,86 +3648,98 @@ $$
 }}}
 $$
 
-Si eres usuario de ordenadores, quizás hayas oído expresiones como <<este
-ordenador tiene un procesador de 32 bits>> o <<este ordenador es compatible
-con \textit{software} de 64 bits>>. Ese número de bits es el tamaño de, entre
-otras cosas,
-las direcciones de memoria. Un ordenador de 32 bits tiene direcciones de 32
-bits, por lo que puede direccionar 2\textsuperscript{32} bytes.
-Hoy en día la mayoría de
-ordenadores son de 64 bits, por lo que la mayoría de ordenadores pueden
-direccionar 2\textsuperscript{64} bytes de información en su memoria.
+If you are an user of computers, you may have heard sentences like
+``this computer has a 32 bit computer'' or ``this computer is compatible with
+64 bit software''. That numbers of bits is the size of, between other things,
+the memory addresses. A computer of 32 bits has 32 bit memory addresses, hence
+it can address 2\textsuperscript{32} bytes. Newadays most computers are 64 bit,
+so most of them can address 2\textsuperscript{64} bytes of information
+theoretically. Of course, a computer will be always limited by the actual amount
+of memory it has which in normal computers is usually of a handful of gigabytes.
 
-El problema es que 64 cifras binarias con muchas para leerse de manera
-sencilla, mira este número binario:
-1101001001010101001010100101101010101010101110100100111010010101. Es muy
-largo. Por ello, cuando se expresan direcciones de memoria se utiliza otro
-sistema numérico (soy consciente de que esto es un gran rodeo). Este sistema
-numérico es el \textbf{hexadecimal}. Es un sistema de base 16, con cifras del 0
-a la F. Sí, a la F, has leído bien. Como los números que usamos son de base 10,
-no tenemos símbolos para representar una cifra que valga 10, 11, 12... y así
-hasta 15, así que utilizamos letras del alfabeto latino. Por lo demás, funciona
-igual que el binario o el decimal. Un número hexadecimal se suele representar
-con <<0x>> delante para indicar que es ese tipo de número. Veamos un ejemplo,
-sea el número hexadecimal 0xF2A:
+
+% El problema es que 64 cifras binarias con muchas para leerse de manera
+% sencilla, mira este número binario:
+% 1101001001010101001010100101101010101010101110100100111010010101. Es muy
+% largo. Por ello, cuando se expresan direcciones de memoria se utiliza otro
+% sistema numérico (soy consciente de que esto es un gran rodeo). Este sistema
+% numérico es el \textbf{hexadecimal}. Es un sistema de base 16, con cifras del 0
+% a la F. Sí, a la F, has leído bien. Como los números que usamos son de base 10,
+% no tenemos símbolos para representar una cifra que valga 10, 11, 12... y así
+% hasta 15, así que utilizamos letras del alfabeto latino. Por lo demás, funciona
+% igual que el binario o el decimal. Un número hexadecimal se suele representar
+% con <<0x>> delante para indicar que es ese tipo de número. Veamos un ejemplo,
+% sea el número hexadecimal 0xF2A:
+
+The problem is that 64 binary digits are too many to be read easily, look at
+this binary numbers:
+1101001001010101001010100101101010101010101110100100111010010101. It's too long.
+Because of that, when memory addresses are writen, they are writen in a
+different numerical system. This numerical system is the \textbf{hexadecimal}.
+If a system with base 16, with figures from zero to F. Yes, to F, you have read it
+right. Since numbers in our normal system have base 10, we haven't got symbols
+to represent a figure that has value 10, 11, 12... up to 15, so we use letter of
+the latin alphabet. Otherwise, it works in the same way than binary or
+decimal. A hexadecimal numbers is usually written with ``0x'' infront of it
+to tell the reader that what follows is a number in that base. Let's see an
+example, given the hexadecimal number 0xF2A.
 $$
 \mathrm{0xF2A} = 15\cdot16^2 + 2\cdot16^1 + 10\cdot16^0 = 3882
 $$
 
-Para convertir un número en decimal a hexadecimal hay que hacer lo siguiente:
+To turn a decimal number into hexadecimal you must follow these steps:
 \begin{enumerate}
-\item Convertir el número a binario
-\item Dividir el número en grupos de cuatro bits
-\item Convertir cada grupo de 4 bits a decimal y escribir la cifra hexadecimal
-correspondiente.
+\item Convert the number to binary
+\item Divide the number in groups of four bytes \textbf{begining on the right
+side}.
+\item Turn each one of the groups to decimal and write the corresponding
+hexadecimal digit.
 \end{enumerate}
 
-Volvamos al ejemplo del número que convertimos a binario, el 253, en binario
-es 11111101, si quisiéramos convertirlo a hexadecimal debemos dividirlo
-en grupos de 4 bits: 1111~1101, el número 1111 es un 15, así que sería F,
-y el número 1101 es un 13, es decir, D, así que 253 sería igual a
-0xFD. Si el grupo más a la izquierda no es de 4 bits, debes
-añadir ceros a la izquierda. Por cierto, para convertir de hexadecimal a
-binario, simplemente coge cada dígito hexadecimal y conviértelo de nuevo a su
-valor en binario, pero, recuerda, cada dígito tiene cuatro bits, así que por
-ejemplo 0x33 sería 0011~0011, no 1111, que sería 0xF.
-Ya estás preparado para seguir entendiendo cómo
-funciona la memoria de un ordenador.
+Let's go back to the example of the number we converted to binary before, 253,
+in binary it is 11111101, if we wanted to convert it to hexadecimal we would
+need to divide it in groups of four: 1111~1101. the number 1111 is 15, so it'd
+be F, and the number 1101 is a 13, so it would be D, therefore 253 would be
+equal to 0xDF. If the leftmost group is not a 4 byte group, you must put zeroes
+on the left side. By the way, to convert to hexadecimal, to binary, simply take
+every hexadecimal digit and convert it to binary again but, remember, each digit
+is a four byte binary number, so 0x33 would be 0011~0011. no 1111, that would
+be a different number entirely. You're prepared to start learning how the memory
+of a computer works.
 
-\subsection{El mapa de memoria}
-Una de las maneras más habituales de representar la memoria de un ordenador
-es con un \textbf{mapa de memoria}, que es un dibujo en forma de columna en
-que se explican los contenidos de la misma, indicando al lado las direcciones
-relevantes. Mira la siguiente figura:
+\subsection{The memory map}
+One of the most common way to represent the memory of a computer is with a
+\textbf{memory map}, that is a drawing in the shape of a column in which the
+contents of the memory are explained, indicating on the side the relevant
+addresses. Look at the following figure:
 
 \begin{figure}[H]
-    % Lo centramos
     \center
     \includegraphics[width=0.5\linewidth]{emptyMemoryMap}
     \caption{Mapa de memoria vacío}
     \label{img:emptyMemoryMap}
 \end{figure}
-En ella hemos representado toda la memoria del ordenador en una columna, con
-las direcciones más bajas (cercanas a cero) arriba y las más altas (cercanas
-a 0xFF...) abajo. En general yo prefiero esta representación, pero en algunas
-fuentes verás el mapa invertido.
+In that figure we hace drawn the whole computer memory in a column, with
+the lower addresses (near zero) in the top and the higher ones (closes to
+0xFF...) in the bottom. Generally I like more this representation, but in
+many sources and literature you'd see the map drawn in the other direction.
 
-Si tus programas fueran el único \textit{software} que se ejecutara en el
-ordenador, tendrías disponible el mapa de memoria para ti solo y no tendrías
-que hacer nada para escribir en memoria, simplemente... hacerlo. Pero éste
-no es el caso, porque tus programas se ejecutan sobre el sistema operativo.
-El sistema operativo tiene muchas funciones: se encarga de coordinar los
-procesos que se ejecutan en la máquina, de manejar el sistema de ficheros,
-de permitir que el ordenador (la CPU) entienda a los dispositivos... pero
-una de sus funciones básicas es \textbf{la gestión de memoria}. El SO
-otorga a los procesos porciones de memoria en la que éstos pueden escribir
-o no, y \textbf{controla} que no se salgan de sus parcelas asignadas.
+If your programs were the only software that executed in the computer, you'd
+have the whole map available for you and you wouldn't have to do anything to
+write on memory, simply... do it. But this is not the case, because your
+programs are executed thanks to the operating system. The operating system has
+many functionalities: it coordinates the processes that are executed in the
+machine, manages file systems, allows the CPU to understand devices such as
+keyboards and controllers... but one of its most basic functions is \textbf{
+memory management}. The OS gives processes memory blocks on which these can
+write or not, and \textbf{ensures} that they do not go out of their assigned
+memory.
 
-En la sección en la que hablaba de los arrays te dije que si accedías a una
-parte de un array que no existía, tu programa terminaría abruptamente, pruébalo.
-Haz un programa que tan solo declare un array de, por ejemplo, 10 posiciones, y
-después escriba algo en la posición 2.500. Verás como el programa lanza un
-mensaje como éste al ser ejecutado:
+In the section in which I talked about array I told you that if you accessed to
+a position of an array that didn't exist, your program would end abruptly, test
+it. Make a program that declares an array of, for example, 10 positions and
+afterwards writes something in position 2,500. You'd see how the program writes
+a message like this one when executed:
 
 
 \noindent
@@ -3645,24 +3751,23 @@ Segmentation fault (core dumped)
 \end{lstlisting}
 \end{minipage}
 
+It is possible that it does not throw the message, due to how the computer
+manages the memory internally. Anyway, for a C programmer, memory management
+(and specially check that he does not write to or reads from memory blocks it
+shouldn't) is one of the most important tasks, if not the most. In this task,
+the operating system decieves our programs. To our program, you have an
+available memory that is the whole map (the 2\textsuperscript{64} bytes), even
+when the computer may have, for example, 8 GB which is several thousand times
+less. By the way, in general terms, each level in the prefixes of multiplication
+of 1,000 is not 1,000, but 2\textsuperscript{10}, 1,024, if we were exhaustive,
+we should write GiB, MiB and so on, which is the correct way to indicate those
+prefixes that multiply by 1,024. What the operating system does is to alocate
+what we ask from him in the \textbf{physical} memory and gives us addresses of
+that map of memory we think we have, and translates it. This process is the
+\textbf{memory virtualization}, and is one of the most important features of an
+operating system. Thanks to it, the programmer doesn't need to manage where the
+memory is physically allocated.
 
-Es posible que no lo lance, por cómo maneja el ordenador algo llamado
-memoria virtual. De todos
-modos, para un programador en C, la gestión de la memoria (y sobre todo
-saber que no escribe ni lee de regiones de memoria de las que no debería) es
-una de las tareas más importantes, si no la que más. En esta tarea, el sistema
-operativo engaña a nuestros programas. Para tu programa, tienes una memoria
-utilizable que equivale al mapa completo (los 2\textsuperscript{64} bytes),
-aunque el ordenador tenga, por ejemplo, 8 GB. Por cierto, en términos
-de informática, cada nivel en los prefijos de multiplicación no es 1.000,
-sino 2\textsuperscript{10}, 1.024, si fuéramos
-exhaustivos, deberíamos escribir GiB, que es como se indican
-esos múltiplos de 1.024. Lo que hace el sistema operativo es
-alojar lo que le pidamos en partes de la memoria \textbf{física} disponible
-y darnos direcciones de ese mapa que suponemos que tenemos, y las traduce.
-Este proceso es la \textbf{virtualización de memoria}, y es una de las
-funciones más importantes de un sistema operativo. Gracias a él, el programador
-no debe gestionar dónde se pone físicamente lo que él escribe.
 
 En este mapa de memoria virtualizado, que es efectivamente el que vamos a usar,
 el sistema operativo crea una serie de \textbf{regiones de memoria}, las cuales

@@ -960,6 +960,7 @@ Si miras allí, verás que la letra a es el valor
 un valor numérico, en la línea 7 puedes ver que declaramos una variable sin
 darle un valor. Esto es perfectamente correcto, pero, ¡cuidado!,
 \textbf{una variable a la que no le das valor tiene un valor aleatorio}.
+Darle valor a una variable por primera vez se llama <<inicializarla>>.
 Por este motivo muchos profesores te dirán que siempre que declares
 una variable le des un valor inmediatamente.
 
@@ -1740,7 +1741,7 @@ tablas a continuación:
 
 El significado conceptual de las operaciones es bastante intuitivo, pero te lo
 explico aquí para mencionar algunos detalles. La conjunción es cierta sólo
-cuando \textbf{ambos} de los miembros son ciertos, se corresponde con juntar
+cuando \textbf{ambos} miembros son ciertos, se corresponde con juntar
 dos proposiciones con <<y>> en español, como ya mencioné, por eso a veces se la
 llama así. <<Está lloviendo y hace frío>> sólo es cierto cuando llueve al mismo
 tiempo que hace frío. Por otro lado, la disyunción se corresponde con juntar
@@ -1756,7 +1757,8 @@ Y después de todo este rodeo lógico digno de Aristóteles, ¿qué? Ya llegamos
 en C los operadores lógicos se escriben así:
 \begin{enumerate}
 \item La conjunción se escribe: \verb!&&!
-\item La disyunción se escribe \verb!||!
+\item La disyunción se escribe \verb!||! (Este símbolo de un símbolo de tubería
+y en el teclado español se consigue pulsando alt derecho y la tecla uno.)
 \item La negación se escribe \verb"!"
 \end{enumerate}
 
@@ -2025,7 +2027,7 @@ $$
 $$
 $$
 (1) \;\mathrm{y} \; (2) \to \frac{c-ax}{b}=\frac{f-dx}{e}\to
-x = ec - eax = bf-bdx \to \frac{bf-ec}{bd-ea}
+ec - eax = bf-bdx \to x = \frac{bf-ec}{bd-ea}
 $$
 \end{figure}
 En caso de que esto no fuera posible, quiere decir que ni la $x$ ni la $y$
@@ -2045,19 +2047,9 @@ label={lst:linealSystemFinal}]
 #include <stdio.h>
 int main(void)
 {
-    int a = 12;
-    int b = 2;
-    int c = 10;
-    int d = 50;
-    int e = 11;
-    int f = 17;
-
-    double divisor;
-    double x;
-    double y;
-
+    int a = 12, b = 2, c = 10, d = 50, e = 11, f = 17;
     int irresoluble = 0;
-
+    double divisor, x, y;
     if (a != 0 && d != 0) {
         divisor = (a * e - d * b);
         if (divisor == 0)
@@ -2101,39 +2093,48 @@ int main(void)
         printf(" %dx+ %dy= %d\n", d, e, f);
         printf("x = %f; y = %f\n", x, y);
     }
-
 }
 \end{lstlisting}
 
+Vamos a repasar las posibles situaciones en las que podemos estar, son estas:
+\begin{enumerate}
+\item $x$ está presente en las dos ecuaciones. Si este es el caso, simplemente
+lo resolvemos como lo hicimos la primera vez: aplicamos las fórmulas que surgen
+de despejar $x$ en ambas ecuaciones, si el divisor de la fórmula para $y$ es
+cero, no tiene solución.
+\item $y$ está presente en ambas ecuaciones, este es el caso cuyas fórmulas
+he escrito hace poco, por lo que simplemente hacemos lo mismo, y si el divisor
+de esta fórmula es cero, el problema no tendría solución.
+\item Podría pasar que los coeficientes que multiplican a $x$ \textbf{e} $y$
+en cualquiera de las ecuaciones fuera cero. Esto no sería un sistema, así
+que simplemente no lo podemos resolver.
+\item Podría ser también que no podamos despejar por ninguna variable en las
+dos ecuaciones porque una de ellas está presente en la primera ecuación y la
+otra en la segunda.
+\end{enumerate}
 
-Aquí hay muchas cosas, pero no te preocupes, vamos a analizarlo poco a poco y despacio.
-La variable \verb!irresoluble!  es una variable booleana que me ayudará a
-controlar si podemos resolver el sistema de ecuaciones. El primer condicional
-comprueba si podemos resolver por $x$ (el primer método que te presenté cuando
-te puse el ejemplo), para ellos comprobamos que la $x$ va multiplicada por un
-número distinto de cero en ambas ecuaciones. Si eso no es así, intentamos
-despejar por $y$, comprobamos que los términos que multiplican a $y$ no son
-nulos en ninguna ecuación. En ambos casos (ya despejemos por $x$ o por $y$)
-comprobamos que el divisor de la fórmula no es igual a cero.
-Como podrás ver, estamos anidando (metiendo unos dentro de otros)
-condicionales. Eso es válido y de hecho
-es común. Pero si te ves anidando cuatro niveles de condicionales o más... quizá
-deberías plantearte si hay una manera más sencilla de formular el programa.
+El principio del programa es sencillo, simplemente declaro las mismas variables
+que antes y una más, llamada irresoluble, que es una variable lógica para
+controlar al final del programa si hemos resuelto el sistema. No hemos visto
+cómo declarar variables de este modo tan compacto aún, pero quería que el
+programa cupiese en una página.
+En el primer condicional compruebamos que $x$ esté presente en ambas ecuaciones,
+si esto es así, podemos utilizar el primer método, aplicamos las fórmulas que
+surgieron de despejar por $x$ en ambas ecuaciones. Dentro de esta condición, si
+el divisor de la fórmula es cero, el sistema es irresoluble y lo marcamos como
+tal. En caso de que esto no se dé, podría ser que despejáramos por $y$,
+y entonces podemos aplicar las fórmulas que escribí al inicio de este ejemplo.
+Esta parte del programa nos enseña que puedes poner condicionales dentro de
+condicionales.
 
-Si no podemos despejar por $x$ ni por $y$, debemos comprobar que tenemos dos
-ecuaciones, es decir, que no se da que los dos términos que multiplican a $x$ e
-$y$ sean cero en la misma ecuación.
-Si eso no es así, estamos en la situación en que $x$ aparace en una
-sola en una ecuación e $y$ en la otra. Ese es el caso del \verb!else! de la
-línea 45.
-Dentro de él hay dos casos, si la primera ecuación define $x$, $a$
-no es igual a cero, si $a$ es igual a cero, es la segunda la que define $x$.
-
-Después de esa cadena de condicionales tengo otro condicional, separado, que
-comprueba si he marcado el sistema como irresoluble. Si no, imprime la solución
-que se haya calculado. Es un patrón muy común tener una variable booleana
-que simbolice una condición que quieres calcular mientras recorres una cadena
-de condicionales como esta, para después hacer algo en consecuencia.
+Seguidamente, si no estamos en ninguno de los dos casos anteriores, podría darse
+el caso de que esto no sea un sistema, es decir: en una de las ecuaciones no
+existen ni $x$ ni $y$. Si se da este caso, esto no es un sistema y no lo podemos
+resolver.
+Finalmente, podría pasar que una incógnita esté en la primera ecuación y la otra
+en la segunda ecuación. Comprobamos si $x$ está presente en la primera ecuación
+(es decir, que $a$ no es cero). Si no es así, es el caso contrario, $y$ estaría
+en la primera solución y $x$ en la segunda. Se resuelve de manera sencilla.
 \subsection{Bloques de código y alcance}
 Ahora que ya conocemos la primera de las estructuras de control, debo hablarte
 de una cosa llamada \textbf{bloque de código}, un bloque de código es el
@@ -2250,9 +2251,8 @@ falta, podríamos haberlas declarado al inicio del programa, o como globales,
 pero como no hacía falta, no lo hemos hecho.
 
 \subsection{Otras instrucciones de salto: \texttt{switch} y \texttt{goto}}
-Ya conoces las maneras más importante de alterar el flujo del programa,
-pero hay dos que aún
-quedan que tienen cierta utilidad, ya las he nombrado en el epígrafe:
+Ya sabes la principal manera de bifurcar el flujo del programa, pero
+quedan dos que tienen cierta utilidad, ya las he nombrado en el epígrafe:
 \verb!switch! and \verb!goto!. La primera es una instrucción que se comporta
 como un distribuidor del flujo del programa, dada una variable, examina su valor
 y lo compara con una serie de casos, según el caso, salta a esa línea de código.
@@ -2325,7 +2325,8 @@ no concuerde con ningún caso anterior. En este ejemplo imprimeremos que el
 número no es un día.
 Quizás hayas notado, o quizás no, que un \verb!switch! con \verb!break! en todos
 sus casos es básicamente un \verb!if-else!. Es cierto, un \verb!switch! siempre
-puede ser sustituido por un una cadena de condicionales, y tanto es así que hay
+puede ser sustituido por un una cadena de condicionales (si el \texttt{switch}
+tiene \texttt{breaks} en todos sus casos), y tanto es así que hay
 lenguajes donde esta estructura no existe, pero veremos más adelante un patrón
 de código donde se usa intensivamente. Cuando se produce esta equivalencia entre
 cadena de \verb!else-if! y un \verb!switch!, el caso \verb!default! es el
@@ -2390,49 +2391,49 @@ imprimirla durante cien veces.
 
 \begin{figure}[H]
 \centering
-% generated by Plantuml 1.2021.7
-\definecolor{plantucolor0000}{RGB}{0,0,0}
-\definecolor{plantucolor0001}{RGB}{254,254,206}
-\definecolor{plantucolor0002}{RGB}{168,0,54}
-\definecolor{plantucolor0003}{RGB}{255,255,255}
-\definecolor{plantucolor0004}{RGB}{127,127,127}
+% generated by Plantuml 1.2022.7
+\definecolor{plantucolor0000}{RGB}{34,34,34}
+\definecolor{plantucolor0001}{RGB}{241,241,241}
+\definecolor{plantucolor0002}{RGB}{24,24,24}
+\definecolor{plantucolor0003}{RGB}{0,0,0}
+\definecolor{plantucolor0004}{RGB}{17,17,17}
 \begin{tikzpicture}[yscale=-1
-,pstyle1/.style={color=plantucolor0002,fill=plantucolor0001,line width=1.5pt}
-,pstyle4/.style={color=plantucolor0002,line width=1.5pt}
+,pstyle1/.style={color=plantucolor0002,fill=plantucolor0001,line width=0.5pt}
+,pstyle4/.style={color=plantucolor0002,line width=1.0pt}
 ,pstyle5/.style={color=plantucolor0002,fill=plantucolor0002,line width=1.0pt}
 ]
-\draw[fill=black,line width=1.0pt] (143.8576pt,20pt) ellipse (10pt and 10pt);
-\draw[pstyle1] (100.7576pt,67.6055pt) arc (180:270:17.6055pt) -- (118.3631pt,50pt) -- (169.3521pt,50pt) arc (270:360:17.6055pt) -- (186.9576pt,67.6055pt) -- (186.9576pt,67.6055pt) arc (0:90:17.6055pt) -- (169.3521pt,85.2109pt) -- (118.3631pt,85.2109pt) arc (90:180:17.6055pt) -- (100.7576pt,67.6055pt) -- cycle;
-\node at (110.7576pt,60pt)[below right,color=black]{variable = 0};
-\draw[pstyle1] (104.1988pt,166.8164pt) arc (180:270:17.6055pt) -- (121.8042pt,149.2109pt) -- (165.9109pt,149.2109pt) arc (270:360:17.6055pt) -- (183.5164pt,166.8164pt) -- (183.5164pt,166.8164pt) arc (0:90:17.6055pt) -- (165.9109pt,184.4219pt) -- (121.8042pt,184.4219pt) arc (90:180:17.6055pt) -- (104.1988pt,166.8164pt) -- cycle;
-\node at (114.1988pt,159.2109pt)[below right,color=black]{variable++};
-\draw[pstyle1] (91.102pt,237.0273pt) arc (180:270:17.6055pt) -- (108.7075pt,219.4219pt) -- (179.0077pt,219.4219pt) arc (270:360:17.6055pt) -- (196.6131pt,237.0273pt) -- (196.6131pt,237.0273pt) arc (0:90:17.6055pt) -- (179.0077pt,254.6328pt) -- (108.7075pt,254.6328pt) arc (90:180:17.6055pt) -- (91.102pt,237.0273pt) -- cycle;
-\node at (101.102pt,229.4219pt)[below right,color=black]{print (variable)};
-\draw[pstyle1] (103.5111pt,105.2109pt) -- (184.2041pt,105.2109pt) -- (196.2041pt,117.2109pt) -- (184.2041pt,129.2109pt) -- (103.5111pt,129.2109pt) -- (91.5111pt,117.2109pt) -- (103.5111pt,105.2109pt) -- cycle;
-\node at (103.5111pt,110.2393pt)[below right,color=black]{variable \textless  100?};
-\node at (10pt,103.2676pt)[below right,color=black]{variable == 100};
-\draw[color=black,fill=white,line width=1.0pt] (68.102pt,160.2109pt) ellipse (11pt and 11pt);
-\draw[color=plantucolor0004,fill=black,line width=1.0pt] (68.102pt,160.2109pt) ellipse (6pt and 6pt);
-\draw[pstyle4] (143.8576pt,30pt) -- (143.8576pt,50pt);
-\draw[pstyle5] (139.8576pt,40pt) -- (143.8576pt,50pt) -- (147.8576pt,40pt) -- (143.8576pt,44pt) -- cycle;
-\draw[pstyle4] (143.8576pt,184.4219pt) -- (143.8576pt,219.4219pt);
-\draw[pstyle5] (139.8576pt,209.4219pt) -- (143.8576pt,219.4219pt) -- (147.8576pt,209.4219pt) -- (143.8576pt,213.4219pt) -- cycle;
-\draw[pstyle4] (143.8576pt,129.2109pt) -- (143.8576pt,149.2109pt);
-\draw[pstyle5] (139.8576pt,139.2109pt) -- (143.8576pt,149.2109pt) -- (147.8576pt,139.2109pt) -- (143.8576pt,143.2109pt) -- cycle;
-\draw[pstyle4] (143.8576pt,254.6328pt) -- (143.8576pt,264.6328pt);
-\draw[pstyle4] (143.8576pt,264.6328pt) -- (208.6131pt,264.6328pt);
-\draw[color=plantucolor0002,fill=plantucolor0002,line width=1.5pt] (204.6131pt,199.9219pt) -- (208.6131pt,189.9219pt) -- (212.6131pt,199.9219pt) -- (208.6131pt,195.9219pt) -- cycle;
-\draw[pstyle4] (208.6131pt,117.2109pt) -- (208.6131pt,264.6328pt);
-\draw[pstyle4] (208.6131pt,117.2109pt) -- (196.2041pt,117.2109pt);
-\draw[pstyle5] (206.2041pt,113.2109pt) -- (196.2041pt,117.2109pt) -- (206.2041pt,121.2109pt) -- (202.2041pt,117.2109pt) -- cycle;
-\draw[pstyle4] (91.5111pt,117.2109pt) -- (68.102pt,117.2109pt);
-\draw[pstyle4] (68.102pt,117.2109pt) -- (68.102pt,149.2109pt);
-\draw[pstyle5] (64.102pt,139.2109pt) -- (68.102pt,149.2109pt) -- (72.102pt,139.2109pt) -- (68.102pt,143.2109pt) -- cycle;
-\draw[pstyle4] (143.8576pt,85.2109pt) -- (143.8576pt,105.2109pt);
-\draw[pstyle5] (139.8576pt,95.2109pt) -- (143.8576pt,105.2109pt) -- (147.8576pt,95.2109pt) -- (143.8576pt,99.2109pt) -- cycle;
+\draw[color=plantucolor0000,fill=plantucolor0000,line width=1.0pt] (99.7556pt,20pt) ellipse (10pt and 10pt);
+\draw[pstyle1] (56.6556pt,67.6055pt) arc (180:270:17.6055pt) -- (74.261pt,50pt) -- (125.2501pt,50pt) arc (270:360:17.6055pt) -- (142.8556pt,67.6055pt) -- (142.8556pt,67.6055pt) arc (0:90:17.6055pt) -- (125.2501pt,85.2109pt) -- (74.261pt,85.2109pt) arc (90:180:17.6055pt) -- (56.6556pt,67.6055pt) -- cycle;
+\node at (66.6556pt,60pt)[below right,color=black]{variable = 0};
+\draw[pstyle1] (60.0967pt,184.7598pt) arc (180:270:17.6055pt) -- (77.7022pt,167.1543pt) -- (121.8089pt,167.1543pt) arc (270:360:17.6055pt) -- (139.4144pt,184.7598pt) -- (139.4144pt,184.7598pt) arc (0:90:17.6055pt) -- (121.8089pt,202.3652pt) -- (77.7022pt,202.3652pt) arc (90:180:17.6055pt) -- (60.0967pt,184.7598pt) -- cycle;
+\node at (70.0967pt,177.1543pt)[below right,color=black]{variable++};
+\draw[pstyle1] (47pt,248.499pt) arc (180:270:17.6055pt) -- (64.6055pt,230.8936pt) -- (134.9056pt,230.8936pt) arc (270:360:17.6055pt) -- (152.5111pt,248.499pt) -- (152.5111pt,248.499pt) arc (0:90:17.6055pt) -- (134.9056pt,266.1045pt) -- (64.6055pt,266.1045pt) arc (90:180:17.6055pt) -- (47pt,248.499pt) -- cycle;
+\node at (57pt,240.8936pt)[below right,color=black]{print (variable)};
+\draw[pstyle1] (62.5798pt,105.2109pt) -- (136.9313pt,105.2109pt) -- (148.9313pt,117.2109pt) -- (136.9313pt,129.2109pt) -- (62.5798pt,129.2109pt) -- (50.5798pt,117.2109pt) -- (62.5798pt,105.2109pt) -- cycle;
+\node at (103.7556pt,129.2109pt)[below right,color=black]{cierto};
+\node at (62.5798pt,110.2393pt)[below right,color=black]{variable \textless  100};
+\node at (27.8162pt,103.2676pt)[below right,color=black]{falso};
+\draw[color=plantucolor0000,line width=1.0pt] (24pt,164.2109pt) ellipse (11pt and 11pt);
+\draw[color=plantucolor0004,fill=plantucolor0000,line width=1.0pt] (24pt,164.2109pt) ellipse (6pt and 6pt);
+\draw[pstyle4] (99.7556pt,30pt) -- (99.7556pt,50pt);
+\draw[pstyle5] (95.7556pt,40pt) -- (99.7556pt,50pt) -- (103.7556pt,40pt) -- (99.7556pt,44pt) -- cycle;
+\draw[pstyle4] (99.7556pt,202.3652pt) -- (99.7556pt,230.8936pt);
+\draw[pstyle5] (95.7556pt,220.8936pt) -- (99.7556pt,230.8936pt) -- (103.7556pt,220.8936pt) -- (99.7556pt,224.8936pt) -- cycle;
+\draw[pstyle4] (99.7556pt,129.2109pt) -- (99.7556pt,167.1543pt);
+\draw[pstyle5] (95.7556pt,157.1543pt) -- (99.7556pt,167.1543pt) -- (103.7556pt,157.1543pt) -- (99.7556pt,161.1543pt) -- cycle;
+\draw[pstyle4] (99.7556pt,266.1045pt) -- (99.7556pt,276.1045pt);
+\draw[pstyle4] (99.7556pt,276.1045pt) -- (164.5111pt,276.1045pt);
+\draw[pstyle5] (160.5111pt,210.8936pt) -- (164.5111pt,200.8936pt) -- (168.5111pt,210.8936pt) -- (164.5111pt,206.8936pt) -- cycle;
+\draw[pstyle4] (164.5111pt,117.2109pt) -- (164.5111pt,276.1045pt);
+\draw[pstyle4] (164.5111pt,117.2109pt) -- (148.9313pt,117.2109pt);
+\draw[pstyle5] (158.9313pt,113.2109pt) -- (148.9313pt,117.2109pt) -- (158.9313pt,121.2109pt) -- (154.9313pt,117.2109pt) -- cycle;
+\draw[pstyle4] (50.5798pt,117.2109pt) -- (24pt,117.2109pt);
+\draw[pstyle4] (24pt,117.2109pt) -- (24pt,153.2109pt);
+\draw[pstyle5] (20pt,143.2109pt) -- (24pt,153.2109pt) -- (28pt,143.2109pt) -- (24pt,147.2109pt) -- cycle;
+\draw[pstyle4] (99.7556pt,85.2109pt) -- (99.7556pt,105.2109pt);
+\draw[pstyle5] (95.7556pt,95.2109pt) -- (99.7556pt,105.2109pt) -- (103.7556pt,95.2109pt) -- (99.7556pt,99.2109pt) -- cycle;
 \end{tikzpicture}
-
-\caption{Diagrama de flujo: programa que imprime los números del uno al cien}
+\caption{Diagrama de flujo: programa que imprime los números del 1 al 100}
 \label{img:whileFlux}
 \end{figure}
 
@@ -2612,12 +2613,17 @@ bucle suele usarse cuando se usa una cosa llamada arrays, que
 veremos posteriormente.
 
 \subsection{Interrupción de bucles}
-Es bastante común querer terminar un bucle sin completar la iteración en la que
-estamos inmersos, por ejemplo, imagina que, dado un número, queremos
-saber cuál es la potencia de diez más alta en la que cabe dicho número. Es
-decir: el número 102 sólo cabe en potencias de diez iguales o superiores a tres
-(1.000). Este es un ejemplo de cuándo nos interesa parar la ejecución en una
-instrucción que no es la última. El código que calcularía esto podría ser:
+% Es bastante común querer terminar un bucle sin completar la iteración en la que
+% estamos inmersos, por ejemplo, imagina que, dado un número, queremos
+% saber cuál es la potencia de diez más alta en la que cabe dicho número. Es
+% decir: el número 102 sólo cabe en potencias de diez iguales o superiores a tres
+% (1.000). Este es un ejemplo de cuándo nos interesa parar la ejecución en una
+% instrucción que no es la última. El código que calcularía esto podría ser:
+
+Es relativamente común querer terminar un bucle sin completar una iteración,
+por ejemplo, escribamos un programa que calcula la potencia de dos que
+sea mayor o igual que un número objetivo. Además, establecemos una potencia
+máxima para parar de calcular si la superamos.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2626,37 +2632,26 @@ instrucción que no es la última. El código que calcularía esto podría ser:
 caption={Ejemplo de interrupción de un bucle con una variable auxiliar},
 label={lst:loopInterruption}]
 #include <stdio.h>
+int main(void) {
+    int steps     = 0;
+    int max_steps = 20;
+    int number    = 1;
+    int target    = 1024;
 
-int main(void)
-{
-    int number = 100;
-    int bigger = 0;
-    int ii = 0;
-    while (!bigger) {
-        int aux = 1;
-        for (int jj = 0; jj < ii; ++jj) {
-            aux *= 10;
-            bigger = aux >= number;
-        }
-        ++ii;
+    while (steps < max_steps && number < target) {
+        steps++;
+        number *= 2;
     }
-    --ii;
-    printf("El número %d cabe en %d cifras.\n", number, ii);
+    printf("2 a la %d es mayor o igual que %d\n", steps, target);
 }
 \end{lstlisting}
 \end{minipage}
 
-Como ves, si bien no es mala solución, nos obliga a declarar una variable
-extra (\verb!bigger!),
-utilizar esa variable en la condición del bucle y como la última instrucción del
-\verb!while! siempre se ejecuta, hay que restarle una unidad a \verb!ii! cuando
-salimos del bucle. Por eso, podemos utilizar
-la instrucción \verb!break! que te presenté cuando hablamos del \verb!goto!.
-Esta instrucción sirve para salir de la ejecución de un nivel de bucle, es decir,
-si se ejecuta, interrumpe el bucle \textbf{sin completar la iteración}, es
-decir, no ejecutará las instrucciones después de \verb!break!
-(en este caso: \verb!++ii!).
-Reescribamos el programa con esta instrucción.
+En este programa utilizamos la variable \texttt{steps} como contador de la
+potencia que estamos calculando. \texttt{max\_steps} es una variable que
+simboliza la potencia máxima que queremos calcular, \texttt{number} es la
+potencia calculada en la iteración concreta y \texttt{target} el número al que
+queremos llegar.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2665,34 +2660,40 @@ Reescribamos el programa con esta instrucción.
 caption={Interrupción de un bucle con la instrucción \texttt{break}},
 label={lst:breakExample}]
 #include <stdio.h>
+int main(void) {
+    int steps     = 0;
+    int max_steps = 20;
+    int number    = 1;
+    int target    = 1025;
 
-int main(void)
-{
-    int number = 101;
-    int ii = 0;
-    while (1) {
-        int aux = 1;
-        for (int jj = 0; jj < ii; ++jj) {
-            aux *= 10;
-        }
-        if (aux >= number) {
+    while (steps < max_steps) {
+        steps++;
+        number *= 2;
+        if (number >= target) {
             break;
         }
-        ++ii;
     }
-    printf("El número %d cabe en %d cifras.\n", number, ii);
+    printf("2 a la %d es mayor o igual que %d\n", steps, target);
 }
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, se lee un poco mejor, porque toda la lógica de cuándo se
-termina el bucle está en el mismo sitio, en el condicional que está dentro de
-él. Además, no tenemos por qué restarle una unidad fuera del bucle a \verb!ii!,
-porque al salir de la iteración exactamente cuando encontramos el número,
-éste no se incrementa, mientras que con la otra solución, sí. Aprovecho
-para decirte que, como puedes ver, la condición de este bucle es un uno,
-es decir, siempre es cierta. Simplemente no necesitamos condición porque vamos
-a salir mediante el \verb!break;!.
+En este caso hemos movido parte de la condición a un condicional dentro del
+cuerpo del bucle. En él, comprobamos si hemos llegado a la condición que nos
+haría terminar de ejecutar. Nótese que esta condición es la \textbf{inversa} a
+la mitad que hemos retirado antes, si bien antes comprobábamos que el número
+fuera menor estrictamente que el objetivo (\texttt{target}), ahora en este
+condicional tenemos que \texttt{number} sea mayor o igual que \texttt{target},
+esto es porque la anterior era la condición para \textbf{seguir} computando, y
+este es la condición \textbf{para dejar} de hacerlo, de ahí que sea lo
+contrario. Si se cumple esta condición de parada, ejecutamos \texttt{break} y
+salimos.
+
+Esta manera de escribir programas, es decir: utilizar un \texttt{break} dentro
+de un bucle para terminarlo es algo que muchos programadores desaconsejan, pero
+como estamos estudiando el languaje específicamente y no buenas prácticas de
+programación, he de ponerte un ejemplo a fin de enseñártelo y, que si lo ves
+escrito en algún otro código, lo entiendas.
 
 Además: \verb!break! tiene una contraparte, que es \verb!continue!. Esta
 instrucción se salta \textbf{lo que quede de esta iteración}, yendo directamente
@@ -2761,6 +2762,10 @@ pero no entre 400, pasa al siguiente también>>.
 Como puedes ver, podemos poner la impresión en el bucle sin un condicinal
 porque, si se llega a esa línea, es porque se han cumplido las condiciones para
 que sea bisiesto.
+
+Este programa, siendo sinceros, está peor escrito que su variante sin
+\texttt{continue}, pero te lo he explicado para que  lo conozcas y lo entiendas
+si lo ves escrito, del mismo modo que pasaba con \texttt{break},
 
 \section{Estructuras de datos}
 Las estructuras de datos son una de las cosas más importantes en programación
@@ -2849,7 +2854,7 @@ int main(void)
 
 
 Varias consideraciones: primero, la variable que se declara en los bucles
-\texttt{for} cuando se accede a un bucle suele llamarse \verb!i!.
+\texttt{for} cuando se accede a un array suele llamarse \verb!i!.
 Es una manía personal
 mía llamarla \texttt{ii}, queda a tu discreción, pero si quieres que otros
 programadores lean tu código cómodamente, recomendaría usar uno de los dos
@@ -2985,7 +2990,7 @@ int main(void)
     double distancia = sqrt(diff_x*diff_x + diff_y*diff_y);
 
     printf("P1 : [%f, %f]\n", punto1_x, punto1_y);
-    printf("P1 : [%f, %f]\n", punto2_x, punto2_y);
+    printf("P2 : [%f, %f]\n", punto2_x, punto2_y);
     printf("Distance: %f\n", distancia);
 }
 \end{lstlisting}
@@ -3270,7 +3275,7 @@ que la función nos va a devolver. Por ejemplo, \lstinline[style=C]{double}.
 tener nombre. Por ejemplo, \verb!power!.
 \item Paréntesis de apertura.
 \item Lista de argumentos con su tipo separados por comas. Por ejemplo: dos
-enteros llamados \verb!base! y \verb!power!.
+enteros llamados \verb!base! y \verb!exponent!.
 \item Cierre de paréntesis.
 \item Como siempre, final de la línea punto y coma.
 \end{enumerate}
@@ -3283,7 +3288,7 @@ Siguiendo los ejemplos que hemos puesto, quedaría tal que:
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:functionDeclaration},
 caption={Declaración de una función en C}]
-double power(int base, int power);
+double power(int base, int exponent);
 \end{lstlisting}
 \end{minipage}
 
@@ -3301,7 +3306,7 @@ quedaría:
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:functionDefinition},
 caption={Definición de una función en C}]
-double power(int base, int power)
+double power(int base, int exponent)
 {
     //Aquí pondremos instrucciones
 }
@@ -3316,7 +3321,7 @@ preguntarás por qué esto es así, pues porque en el sistema operativo Linux (y
 la mayoría de sistemas) los programas en C se empiezan llamando a la
 función \verb!main!. Por eso tuve que hacerte escribir su definición antes de
 explicarte qué era una función. Finalmente, en cuanto a terminología, la
-<<forma>> de una función (el trío de tipo de retorno, nombre y argumentos) se
+<<forma>> de una función (el trío de tipo de retorno y argumentos) se
 llama habitualmente con la palabra en inglés \emph{signature}.
 
 Volvamos a la función \verb!power!, ahora que ya tenemos la función lista
@@ -3329,7 +3334,7 @@ que quieres que la función \textbf{devuelva} y ordenar a C que lo devuelva con
 la palabra clave \lstinline[style=C]{return}. Cuando se usa esta palabra,
 la función termina (se sale de ella). Veamos cómo podemos implementar la
 función de ejemplo que, si no lo has adivinado por nombre, calculará la potencia
-de \verb!base! elevado a \verb!power!. Quedaría de este modo:
+de \verb!base! elevado a \verb!exponent!. Quedaría de este modo:
 
 
 \noindent
@@ -3337,12 +3342,12 @@ de \verb!base! elevado a \verb!power!. Quedaría de este modo:
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:functionExample},
 caption={Ejemplo de función en C}]
-double power(int base, int power)
+double power(int base, int exponent)
 {
     double res = 1;
     int ii = 0;
-    while (ii != power) {
-        if (power < 0) {
+    while (ii != exponent) {
+        if (exponent < 0) {
             res /= base;
             ii--;
         }
@@ -3367,7 +3372,10 @@ Bien, ahora que ya hemos definido la función veamos cómo se usa. Para usar una
 función ésta se <<invoca>>. Para invocarla simplemente pones su nombre y los
 argumentos que necesita. Veamos un ejemplo, suponiendo que más atrás en el
 programa tenemos definida nuestra función \verb!power!,
-este fragmento de código imprimirá varias potencias:
+este fragmento de código imprimirá varias potencias. Si lo piensas, utilizar
+una función en programación es como escribir un valor de la misma en lenguaje
+matemático, si $f(x) = x^2$ entonces sabes que escribir $f(3)$ es lo mismo que
+escribir nueve.
 
 
 \noindent
@@ -3375,6 +3383,8 @@ este fragmento de código imprimirá varias potencias:
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:functionInvocation},
 caption={Invocación de función en C}]
+#include <stdio.h>
+// Pega aquí la definición de power
 int main(void)
 {
     double powers[3];
@@ -3462,7 +3472,7 @@ uno u otro. El código sería el siguiente:
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:cyclicFunctions},
-caption={Declaración separa de definición}]
+caption={Declaración no separada de definición}]
 #include <stdio.h>
 
 void patos(void){
@@ -3497,7 +3507,7 @@ definiciones. Es decir:
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:cyclicFunctions},
-caption={Declaración separa de definición}]
+caption={Declaración separada de definición}]
 #include <stdio.h>
 
 void patos(void);
@@ -3705,7 +3715,8 @@ representar números, desde el 0 al 9. Pues en binario funciona igual, pero sól
 disponemos de dos cifras.
 
 Un sistema numérico posicional
-funciona de este modo: si la base numérica es $n$, cada cifra de un número vale
+funciona de este modo: si la base numérica (el número de cifras disponibles,
+en el caso de nuestro sistema, diez) es $n$, cada cifra de un número vale
 el valor de la misma cifra multiplicado por $n$ elevado al número de posiciones
 que queden a la derecha del número. Como siempre, veámoslo con un ejemplo: si
 escribimos el número 34.789, el cálculo que usamos para saber cuánto vale es
@@ -3787,7 +3798,7 @@ El problema es que 64 cifras binarias con muchas para leerse de manera
 sencilla, mira este número binario:
 1101001001010101001010100101101010101010101110100100111010010101. Es muy
 largo. Por ello, cuando se expresan direcciones de memoria se utiliza otro
-sistema numérico (soy consciente de que esto es un gran rodeo). Este sistema
+sistema numérico. Este sistema
 numérico es el \textbf{hexadecimal}. Es un sistema de base 16, con cifras del 0
 a la F. Sí, a la F, has leído bien. Como los números que usamos son de base 10,
 no tenemos símbolos para representar una cifra que valga 10, 11, 12... y así
@@ -3802,7 +3813,8 @@ $$
 Para convertir un número en decimal a hexadecimal hay que hacer lo siguiente:
 \begin{enumerate}
 \item Convertir el número a binario
-\item Dividir el número en grupos de cuatro bits
+\item Dividir el número en grupos de cuatro bits, \textbf{empezando por la
+derecha}.
 \item Convertir cada grupo de 4 bits a decimal y escribir la cifra hexadecimal
 correspondiente.
 \end{enumerate}
@@ -3872,10 +3884,11 @@ saber que no escribe ni lee de regiones de memoria de las que no debería) es
 una de las tareas más importantes, si no la que más. En esta tarea, el sistema
 operativo engaña a nuestros programas. Para tu programa, tienes una memoria
 utilizable que equivale al mapa completo (los 2\textsuperscript{64} bytes),
-aunque el ordenador tenga, por ejemplo, 8 GB. Por cierto, en términos
+aunque el ordenador tenga, por ejemplo, 8~GB which is several thousand times
+less. Por cierto, en términos
 de informática, cada nivel en los prefijos de multiplicación no es 1.000,
 sino 2\textsuperscript{10}, 1.024, si fuéramos
-exhaustivos, deberíamos escribir GiB, que es como se indican
+exhaustivos, deberíamos escribir GiB, MiB y demás, que es como se indican
 esos múltiplos de 1.024. Lo que hace el sistema operativo es
 alojar lo que le pidamos en partes de la memoria \textbf{física} disponible
 y darnos direcciones de ese mapa que suponemos que tenemos, y las traduce.
