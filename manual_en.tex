@@ -2178,16 +2178,6 @@ int main(void)
 }
 \end{lstlisting}
 \end{minipage}
-
-% Si compilas y ejecutas esto, verás que imprimer la primera y la última línea,
-% pero no la segunda. Esto es así porque hemos usado la instrucción \verb!goto!
-% para saltar a un punto posterior del programa. El \verb!goto! es una instrucción
-% muy peligrosa, en el sentido de que si en tu programa hay un número ligeramente
-% elevado de ellos, es señal de que o no has pensado bien tu proceso, o te faltan
-% herramientas para programarlo de una manera más apropiada. Así que, hasta que no
-% veamos otras secciones del este manual, te recomiendo que reserves los
-% \verb!goto! como una curiosidad más que como algo que debas usar.
-
 If you compile the program and execute it, you would see that it prints the
 first and last line, but not the second. This is so because we have used the
 \texttt{goto} instruction to jump to a later point in the program. The use
@@ -2198,16 +2188,6 @@ would discourage its ussage. I advise you to save gotos as a novelty more
 than a common-use tool.
 
 \subsection{Repeat instructions: loops}
-% Al inicio de esta sección te expliqué que hacer que el ordenador repita
-% operaciones es algo imprescindible para los programas funcionen, y aquí vamos
-% a aprender cómo: con los bucles, o en inglés: \textit{loops}. Hay dos tipos
-% principales de bucles en C: el \lstinline[style=C]!while! y el
-% \lstinline[style=C]!for!.
-% Del mismo modo que
-% hicimos con el condicional, vamos a ver primero la estructura del flujo del
-% programa, después cómo se escribe en C y finalmente veremos ejemplos de cómo
-% se utilizaría en algunos programas.
-
 At the start of this section I expalined to you that making the computer to
 repeat instructions is necessary to make programs work, and here we're going
 to learn how: with \textbf{loops}. There two main kinds of loops:
@@ -2217,13 +2197,6 @@ structure of the program, later how it is writen in C and finally example on
 how to use the loops in some programs.
 
 \subsubsection{The \texttt{while} loop}
-% Este es el tipo de bucle más sencillo y por eso lo vamos a explicar primero,
-% básicamente declara una serie de instrucciones que se repetirán mientras se
-% cumpla una condición. Imagínate que quisieras imprimir todos los números de 1
-% al cien. Podrías escribir 100 líneas que imprimiesen cada número o podrías
-% decirle al ordenador que imprima una variable, le sume uno, y vuelva a
-% imprimirla durante cien veces.
-
 This is the most basic kind of loop, and that's why we're going to explain it
 firtly, simply sets a series of instructions that will be executed as long
 (while) a condition is true. Imagine you wanted to print all numbers from
@@ -3728,10 +3701,15 @@ If your programs were the only software that executed in the computer, you'd
 have the whole map available for you and you wouldn't have to do anything to
 write on memory, simply... do it. But this is not the case, because your
 programs are executed thanks to the operating system. The operating system has
-many functionalities: it coordinates the processes that are executed in the
+many functionalities: it coordinates the programs that are executed in the
 machine, manages file systems, allows the CPU to understand devices such as
 keyboards and controllers... but one of its most basic functions is \textbf{
-memory management}. The OS gives processes memory blocks on which these can
+memory management}. First of all: when a program is executed, its contents are
+loaded from where it is stored (your hard disk mainly) to your RAM memory, and a
+\textbf{process} is created. A process is the actual program running in memory,
+you could see the program as the blueprints of a car and the process as an
+instance of a car, concrete, that is working in the world.
+The OS gives processes memory blocks on which these can
 write or not, and \textbf{ensures} that they do not go out of their assigned
 memory.
 
@@ -3759,97 +3737,93 @@ the operating system decieves our programs. To our program, you have an
 available memory that is the whole map (the 2\textsuperscript{64} bytes), even
 when the computer may have, for example, 8 GB which is several thousand times
 less. By the way, in general terms, each level in the prefixes of multiplication
-of 1,000 is not 1,000, but 2\textsuperscript{10}, 1,024, if we were exhaustive,
+of 1,000 is not 1,000, but 2\textsuperscript{10}, 1,024, when you're talking
+about bytes, if we were exhaustive,
 we should write GiB, MiB and so on, which is the correct way to indicate those
 prefixes that multiply by 1,024. What the operating system does is to alocate
 what we ask from him in the \textbf{physical} memory and gives us addresses of
 that map of memory we think we have, and translates it. This process is the
 \textbf{memory virtualization}, and is one of the most important features of an
 operating system. Thanks to it, the programmer doesn't need to manage where the
-memory is physically allocated.
+memory is physically allocated. Also, it allows each process to be isolated,
+the programmer has no idea which other processes are doing in their memory map,
+and other processes have no information about what we're doing with ours.
 
-
-En este mapa de memoria virtualizado, que es efectivamente el que vamos a usar,
-el sistema operativo crea una serie de \textbf{regiones de memoria}, las cuales
-están destinadas a alojar distintos tipos de información de cada programa
-ejecutándose en un ordenador. A continuación te presento un mapa de memoria
-con las regiones más importantes, y seguidamente te explicaré qué son y por qué
-nos importan.
+In this map of virtualized memory, which efectivelly the one we're going to use,
+the operating system creates a set of \textbf{memory regions}, which are used to
+alocate different types of information of each program executing in a computer.
+Now I will show you a memory map with the most important regions, and I will
+explain what they are and why we care about them.
 \begin{figure}[H]
     \center
-    \includegraphics[width=0.5\linewidth]{regionsMemoryMap}
-    \caption{Regiones del mapa de memoria de un proceso}
+    \includegraphics[width=0.5\linewidth]{regionsMemoryMap_en}
+    \caption{Regions of the memory map of a process}
     \label{img:regionsMemoryMap}
 \end{figure}
 
-La región de código o texto es sencilla, es donde se almacenan las
-instrucciones que tu programa va a ejecutar. Cuando te expliqué lo que era la
-compilación te dije que convertiríamos nuestras instrucciones en un binario que
-el ordenador podría ejecutar. Pues es en esta sección donde se almacena. Al
-generar tu programa, esas instrucciones binarias se almacenan en el disco en
-el ejecutable. Cuando el programa se ejecuta, éstas se cargan en memoria en
-esta sección. Esta sección no se puede cambiar ni leer dentro del programa.
+The text region is easy, it is were the instructions that your program is going
+to execute are stored. When I explained you what compilation was I told you we
+were going to transform our instructions in a binary the computer can execute.
+This is the section where it is stored. To generate a program, those
+instructions in binary are stored in the disk in the executable. When they load
+in memory, they go in this section. This section can't be directly read or
+changed by the program itself.
 
-La siguiente empieza a ser interesante. Cuando escribes un literal en el código
-éste debe almacenarse en algún sitio. Esta es la sección donde todos esos
-números que escribes en el código se almacenan y se usan cuando son necesarios.
-Aquí además se guardan los valores de las estructuras y arrays que inicialices
-con \textbf{listas de inicialización}. En la siguiente sección se guardan las
-variables, arrays, estructuras, etc. \textbf{globales} que no hayas
-inicializado. ¿Por qué sólo las globales? Porque la función \verb!main! es una
-función, y las variables que se declaran en las funciones
-(o en cualquier bloque de código) no se guardan aquí, sino en la siguiente
-sección: la pila.
+The next one starts to be interesting. This sections stores the value of the
+global variables, either of basic types, arrays, or structs that you write
+initialized in the code (initializing the variables from a functions or other
+block of code won't count). This is because the values you store in them will
+exist before your program starts executing, in the very moment the process is
+created. The next section stores those \textbf{global} varuables you haven't
+initialized. Why only the global ones in both cases? Because the function
+\verb!main! is a function and the variables declared in functions (or any other
+block of code) are not stored here, but in the next section, the stack.
 
-Mira el mapa, esta sección está abajo (en las direcciones más altas), pero
-te la voy a explicar ahora porque es una de las más importantes. En la pila
-se guardan las variables que se declaran en bloques de código: funciones,
-bucles, condicionales, etc. ¿Por qué? Porque de esta sección de memoria los
-datos pueden salir y entrar, o mejor dicho, se puede reutilizar la memoria
-de datos antiguos para escribir datos nuevos. Para explicarte cómo ocurre esto,
-primero he de explicarte cómo funciona una pila.
+Look at the map, this section is at the bottom (towards the higher addresses),
+but I am going to explain it now because it is one of the most important. The
+varuables you declare in a block of code: functions, loops, conditionals, etc.
+are stored. Why? Because in this section of memory data can go in and out, or
+better said, the memory of old data can be reused to write new ones. To explain
+how this is done, firstly I need to explain you how a stack (in general terms)
+works.
 
-Una pila es una estructura de datos, como los arrays o las estructuras, que
-funciona de este modo: cuando introduces algo en una pila, este elemento se
-queda arriba, y cuando sacas algo de la pila, sólo podrás sacar lo que esté
-en la parte superior. Te voy a poner un ejemplo físico: una lata de las famosas
-patatas Pringles\textsuperscript{®}. La única patata que puedes sacar es la
-superior, si quieres sacar más, puedes, pero siempre en el orden inverso al que
-fueron metidas en la lata. Pues con cualquier pila pasa lo mismo.
-El modo en que esta pila se aplica a la programación en C es que,
-cuando se entra en cualquier
-\textbf{bloque de código}, las variables declaradas en él son \textbf{añadidas}
-a la pila. Esto incluye los arrays y estructuras. Cuando se sale de ese bloque
-de código, esas variables son \textbf{extraídas} de la pila, es decir,
-se pierden porque se entiende que ya fueron usadas. Éste es el motivo por el
-que las funciones \textbf{no pueden devolver arrays}. Porque esos arrays
-dejan de existir cuando la función deja de ejecutarse.
+A stack is a data structure, like arrays or structs, which works in this way:
+when you put something in the stack, that element in on top, and when you pull
+out something from the stack, you can only pull out the last element, the one
+in the top of the stack. I am going to set a physical example: a can of the
+famous Pringles\textsuperscript{®} potato chips. The only potato that you can
+pull out is the top one, if you want get more, you can, but always in the
+reverse order from how they were put in the can. Any stack works the same. The
+way this stack is applied to C programming is this way: when the execution flow
+goes into any code block, the variables declared inside it are \textbf{added}
+to the stack. This includes arrays and structs. When the flow goes out of the
+block, those variables are \textbf{pulled out} of the stack, that is, they're
+lost because it is understood they were already used. This is the very reason
+\textbf{functions cannot return arrays}. Because those array would cease
+existing once the functions has returned.
 
-Quizás te estés
-preguntando por qué puedes declarar
-variables de tipos básicos o estructuras en tus funciones y
-devolverlos. Esto es porque, del mismo modo que los argumentos, el valor
-devuelto se \textbf{copia}. El valor devuelto por una función se deja
-en la cima de la pila para que se recoja en el punto en que \textbf{la función
-fue llamada}. Ahí es donde tú lo copias a una variable, con el operador
-de asignación. Con los arrays \textbf{no podemos usar el operador de
-asignación}, no es como se copian arrays. De hecho el compilador lanzaría un
-error si intentaras asignar un array a otro.
+Maybe you're wondering why you can declare basic types variables or structs
+inside functions and return them, if they're going to be destroyed once the
+function is finished executing. That is because, in the same way the arguments,
+the return value when it is not an array get copied. Concretelly it left in the
+top part of the pile so the \textbf{code where it called} of the function can
+copy it with an assignation. With array \textbf{we cannot use the assignment
+operator}, it is not how arrays are copied. As a matter of fact the compiler
+would throw an error if you tried assigning an array to another.
 
-
-Veamos un ejemplo de cómo se ve la pila de un programa en el caso de ejecutar
-alguno de los programas de ejemplo que hemos escrito. Vamos a utilizar el
-programa \ref{lst:arraysAndFunctions}: \nameref{lst:arraysAndFunctions}.
-En este ejemplo vas a ver que en la pila hay dos nombres (\verb!my_array! y
-\verb!array!), pero recuerda que \textbf{apuntan al mismo array}. Sólo copian
-la dirección donde el array empieza, no sus elementos.
+Let's see an example of how the stackw ould look in the case of executing some
+of the example programs we've writen. We're going to use the program
+\ref{lst:arraysAndFunctions}: \nameref{lst:arraysAndFunctions}.
+In this example you're going to see that in the pile there two names
+(\verb!my_array! and \verb!array!), but remember they \textbf{point to the same
+array}. They only copy the address it starts, not the elements.
 \begin{table}[H]
 \centering
     \begin{subfigure}{0.33333\linewidth}
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{La pila empieza vacía}\\\hline
+        \textbf{The stack starts empty}\\\hline
          \\\hline
         \multicolumn{1}{c}{\color{white}CIERTOFALSO\normalcolor}\\ \arrayrulecolor{white}\hline
         \multicolumn{1}{c}{\color{white}CIERTOFALSO\normalcolor}\\ \arrayrulecolor{white}\hline
@@ -3860,7 +3834,7 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{Entramos en \texttt{main}}\\\hline
+        \textbf{Going into \texttt{main}}\\\hline
         my\_array\\\hline
         \multicolumn{1}{c}{\color{white}CIERTOFALSO\normalcolor}\\ \arrayrulecolor{white}\hline
         \multicolumn{1}{c}{\color{white}CIERTOFALSO\normalcolor}\\ \arrayrulecolor{white}\hline
@@ -3871,7 +3845,7 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{Entr. en \texttt{print\_array}}\\\hline
+        \textbf{Going into \texttt{print\_array}}\\\hline
         array\\\hline
         array\_size\\\hline
         my\_array\\\hline
@@ -3884,7 +3858,7 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{Entr. en el \texttt{for}}\\\hline
+        \textbf{Going into \texttt{for}}\\\hline
         ii \\\hline
         array\\\hline
         array\_size\\\hline
@@ -3896,7 +3870,7 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{Salimos del \texttt{for}}\\\hline
+        \textbf{We exit the \texttt{for}}\\\hline
         array\\\hline
         array\_size\\\hline
         my\_array\\\hline
@@ -3908,7 +3882,7 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{Sal. de \texttt{print\_array}} \\\hline
+        \textbf{We exit \texttt{print\_array}} \\\hline
         my\_array\\\hline
         \multicolumn{1}{c}{\color{white}CIERTOFALSO\normalcolor}\\ \arrayrulecolor{white}\hline
         \multicolumn{1}{c}{\color{white}CIERTOFALSO\normalcolor}\\ \arrayrulecolor{white}\hline
@@ -3921,7 +3895,7 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{Entr. en \texttt{add\_one\_to\_each}} \\\hline
+        \textbf{Going into \texttt{add\_one\_to\_each}} \\\hline
         array\\\hline
         array\_size\\\hline
         my\_array\\\hline
@@ -3933,7 +3907,7 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{\linewidth}{|Y|}
         \hline
-        \textbf{Entr. en el \texttt{for}} \\\hline
+        \textbf{Going into \texttt{for}} \\\hline
         ii\\\hline
         array\\\hline
         array\_size\\\hline
@@ -3945,7 +3919,7 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{Sal. del \texttt{for}}\\\hline
+        \textbf{We exit the \texttt{for}}\\\hline
         array\\\hline
         array\_size\\\hline
         my\_array\\\hline
@@ -3959,7 +3933,7 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{Sal. de \texttt{add\_one\_to\_each}} \\\hline
+        \textbf{We exit \texttt{add\_one\_to\_each}} \\\hline
         my\_array\\\hline
         \multicolumn{1}{c}{\color{white}CIERTOFALSO\normalcolor}\\ \arrayrulecolor{white}\hline
         \multicolumn{1}{c}{\color{white}CIERTOFALSO\normalcolor}\\ \arrayrulecolor{white}\hline
@@ -3971,7 +3945,7 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{Entr. en \texttt{print\_array}}\\\hline
+        \textbf{Going into \texttt{print\_array}}\\\hline
         array\\\hline
         array\_size\\\hline
         my\_array\\\hline
@@ -3983,7 +3957,7 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{Entr. en el \texttt{for}}\\\hline
+        \textbf{Going into the \texttt{for}}\\\hline
         ii \\\hline
         array\\\hline
         array\_size\\\hline
@@ -3997,7 +3971,7 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{Sal. del \texttt{for}}\\\hline
+        \textbf{We exit the \texttt{for}}\\\hline
         array\\\hline
         array\_size\\\hline
         my\_array\\\hline
@@ -4008,7 +3982,7 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{Sal. de \texttt{print\_array}} \\\hline
+        \textbf{We exit \texttt{print\_array}} \\\hline
         my\_array\\\hline
         \multicolumn{1}{c}{\color{white}CIERTOFALSO\normalcolor}\\ \arrayrulecolor{white}\hline
         \multicolumn{1}{c}{\color{white}CIERTOFALSO\normalcolor}\\ \arrayrulecolor{white}\hline
@@ -4019,59 +3993,56 @@ la dirección donde el array empieza, no sus elementos.
         \centering
         \begin{tabularx}{.9\linewidth}{|Y|}
         \hline
-        \textbf{Sal. de \texttt{main}} \\\hline
+        \textbf{We exit \texttt{main}} \\\hline
         \\\hline
         \multicolumn{1}{c}{\color{white}CIERTOFALSO\normalcolor}\\ \arrayrulecolor{white}\hline
         \multicolumn{1}{c}{\color{white}CIERTOFALSO\normalcolor}\\ \arrayrulecolor{white}\hline
         \multicolumn{1}{c}{\color{white}CIERTOFALSO\normalcolor}\\ \arrayrulecolor{white}\hline
         \end{tabularx}
     \end{subfigure}%
-\caption{Ejemplo del estado de la pila en una ejecución}
+\caption{Example of the state of the stack in an execution}
 \label{tab:stackExample}
 \end{table}
 
+Now you know how the stack works and the implications id has in the arrays
+saved in it, we can see the last region and maybe the most important, the heap.
+This region stores the memory you ask from the operating system with a series of
+functions we're going to see. And you may be thinking: why would you do that if
+you can declare an array? Easy, this memory you ask the operating system for is
+always available to you \textbf{until you free them}. That mean that, contrary
+to the arrays, it's your duty to worry about freeing it. Is one of the most
+important tasks of a C programmer, but to do so, you need to learn first what
+pointers are.
 
-Ahora que ya sabes cómo funciona la pila y las implicaciones que tiene que
-los arrays se guarden en ella, podemos ver la última región y quizás la más
-importante: el montículo (o \textit{heap}). En ésta región se guarda la memoria
-que tú le pides el sistema operativo mediante una serie de funciones que vamos
-a ver. Y pensarás, ¿para qué voy a hacer eso si puedo hacer un array? Sencillo:
-esta memoria que pides está permanentemente a tu disposición \textbf{hasta que
-la liberas}. Es decir, al contrario que los arrays, debes preocuparte tú de
-saber cuándo liberar esa memoria. Es una de las tareas más importantes de
-un programador en C, pero para poder hacer eso, tenemos que aprender primero
-qué son los punteros.
-\subsection{Punteros}
-Ahora que ya sabes que la memoria está direccionada por bytes, debes saber cuál
-es la manera en que usamos direcciones en el lenguaje C. Lo hacemos con un nuevo
-(para nosotros) tipo de variable llamado puntero. Un puntero es
-una variable que guarda una dirección de memoria, y nos permite comunicarle a
-funciones u otras partes del programa \textbf{una región de memoria}.
-Ya has usado punteros, pero no lo sabías porque he preferido explicar primero
-el resto de cosas que has visto en secciones anteriores, aunque te he ido
-avanzando su uso.
+\subsection{Pointers}
+Now you know that the memory is addresses by bytes, you must know how we use
+addresses in the C language. We do it with a new type (for us) called pointer.
+A pointer is a variable that stores a memory address, and allow us to
+communicate to functions or other parts of the program \textbf{a memory block}.
+You have already used pointers, but you didn't know what they were because I
+have chosen to explain other things first, although I have been anticipating
+its use.
 
-Te dije en su momento que cuando a una función se le pasa un array éste decae
-a tipo puntero. Es decir, como no hacemos una copia de los arrays que le pasamos
-a las funciones, lo que hacemos es decirle a la función dónde están los elementos
-del array. Así, si es necesario que haga una copia, lo hará, y si no, los leerá
-o manipulará directamente.
+I told you before that when a functions received an array as an argument it
+decays to a mere pointer. This means we do not copy of the arrays functions
+receive, what we do is tell the function where the elements of the array are in
+memory. In this way, if it is necessary to perform a copy, we can do it, if
+not, the function can chose to manipulate or read them directly.
 
-Si un puntero simboliza una dirección de memoria, puedes pensar que un único
-tipo que simbolice una dirección sería suficiente, pero no. Cada tipo de dato
-(tanto básico como estructura) que haya en tu código tiene asociado su tipo
-puntero, es decir, no hay únicamente punteros, sino punteros a \verb!int!, a
-\verb!double!, a \verb!char!, a tal o cual \textit{struct}... ¿Por qué es eso
-así? Porque al usar punteros con tipos asociados, sabemos \textbf{qué hay} en la
-dirección apuntada. Por ejemplo, si tenemos un puntero a \verb!int! que vale
-0xFB455DE, sabemos que debemos coger ese byte y los tres siguientes
-y decodificarlos como un entero. Ahora que ya sabes esto, veámoslo en código:
+If a pointer symbolizes a memory address, you can think only one type for memory
+addresses is needed, but this is not the case. Each datatype (either basic or
+struct) has its own pointer, that is, there are not only pointers, but pointers
+to \texttt{double}, \verb!char!, to this or that struct... Why is that? Because
+when using pointers with associated types, we know \textbf{what is} in the
+memory the address points to. For example, if we hace a pointer to \verb!int!
+that is 0xFB455DE, we know we must take that byte and the three next ones and
+decode them as an integer. Let's see it in the code.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:pointers1},
-caption={Declaración de punteros}]
+caption={Pointer declaration}]
 #include <stdio.h>
 
 int main(void)
@@ -4079,53 +4050,45 @@ int main(void)
     int a = 2;
     int *ptr_to_a;
     ptr_to_a = &a;
-    printf("a es un entero alojado en %p que vale %d\n", ptr_to_a, a);
+    printf("a is in address %p and it is %d\n", ptr_to_a, a);
 }
 \end{lstlisting}
 \end{minipage}
 
-
-En la línea 7 declaramos por primera vez una variable puntero, esto se hace
-con ese asterisco que ves entre el tipo de la variable y su nombre. Es aquí
-donde se establece que este puntero está asociado a un \verb!int!. En la
-siguiente línea asignamos a este puntero el valor de la dirección donde está
-alojada la variable \verb!a!. Para eso usamos el operador \verb!&!.
-El nombre del operador que más se usa es \textit{ampersand}, en español se llama
-et, pero este nombre es poco conocido.
-Dicho operador, delante de
-una expresión, nos da el puntero de su tipo a donde su valor esté alojado.
-Ten en cuenta que, para que esto funcione, esa expresión debe estar alojada
-en algún sitio. Es decir, los valores temporales otorgarían un error, por
-ejemplo \verb!&(a*2)! lanzaría un error, porque \verb!a*2! no ha sido guardado
-en ningún sitio aún.
-Si ejecutas ese programa, la salida será parecida a esto:
-
+In line 7 we declare a pointer variable for the first time, this is done with
+an asterisk that you see between the type of the variable and the name. This is
+where it is stablished that this pointer is associated to a \texttt{int}. In
+the next line we're assigning a to this pointer the value of the direction,
+\verb!a! is allocated. We use the operator \verb!&!. The name of the operator
+is ampersand. Said operator, infron of an expression, gives us the pointer to
+its type with the address said expression is stored. Mind that, for this to
+work,, this expression must be stored somewhere. That is, the temporal values
+would throw an error, for example: \verb!&(a * 2)! would throw an error, because
+\verb!a*2! hasn't been stored in any place. If you execute the program that uses
+the pointer, the output will be something like this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=terminalStyle]
 \$ ./main.exe
-a es un entero alojado en 0x7ffff5c58e7c que vale 2
+a is in address 0x7fffde738b6c and it is 2
 \end{lstlisting}
 \end{minipage}
 
-
-Entonces, veamos un caso práctico de para qué valen los punteros, por ejemplo:
-ya hemos dicho muchas veces que una función que recibe un entero lo que hace
-es recibir una copia. ¿Y si quisiéramos ahorrarnos eso? Si, por ejemplo, quieres
-una función que multiplique un número por otro, quizás no quieres que se haga
-una copia, que devuelva el resultado y copiar ese resultado en la variable,
-simplemente \textbf{deja de que la función haga el trabajo}. Si le pasamos
-el puntero a nuestra variable, será la función quien cambie el valor, vamos a
-verlo:
-
+Then, let's a practical case of what pointers are useful for, for example:
+we have said several times that a function receives a copy of the arguments but,
+what if we wanted to save that effort? If, for example, you wanted a function
+that multiplies a number by other, maybe you do not want to copy it, the
+function returning the result and copy that result again in the variable, simply
+\textbf{leave the function work for you}. If we pass the pointer to our variable
+it will be the function the one changing the value, let's see it.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:pointers1},
-caption={Declaración de punteros}]
+caption={Pointer ussage example}]
 #include <stdio.h>
 void multiply(int* ptr, int b) {
     (*ptr) *= b;
@@ -4135,53 +4098,48 @@ int main(void)
     int a = 2;
     int* pointer_to_a;
     pointer_to_a = &a;
-    printf("a es un entero alojado en %p que vale %d\n", pointer_to_a, a);
+    printf("a is in address %p and it is %d\n", pointer_to_a, a);
     multiply(pointer_to_a, 4);
-    printf("a es un entero alojado en %p que vale %d\n", pointer_to_a, a);
+    printf("a is in address %p and it is %d\n", pointer_to_a, a);
 }
 \end{lstlisting}
 \end{minipage}
 
+Here you can see you we declare a function the received a pointer to integer
+(the variable we want to multiply) and an integer (the number we want it to
+be multiplied for). In this function you'd see a new use of the asterisk
+operator, (\verb!*!), which is the one for \textbf{dereferencing} a pointer.
+What is that? It is accessing the value that pointer is referencing (hence the
+name). Remember that, as a pointer, \verb!ptr! stores the memory address, so we
+need a way to tell C to store in that address the multiplied number. To do so,
+we use the asterisk before the pointer. After that, we use the operator
+\verb!*=! to multiply and assign. In line 11 you see how we simply call the
+function, without having to store what it return (in fact, we have defined it as
+\verb!void! so it does not return anything) and we avoid copying the integer we
+wanted to multiply.
 
-Aquí puedes ver cómo declaramos una función que recibe un puntero a entero (la
-variable que queremos multiplicar) y un entero (el número por el que la
-multiplicaremos). En esta función verás un uso nuevo del operador asterisco
-(\verb!*!), que es el de \textbf{desreferenciar} un puntero. ¿Qué es eso?
-Es acceder al valor que ese puntero referencia (de ahí el nombre). Recuerda
-que, como puntero, \verb!ptr! contiene la dirección de memoria, necesitamos una
-manera de decirle a C que meta en esa dirección el número multiplicado. Para eso
-usamos el asterisco delante del puntero. Después, usamos el operador \verb!*=!
-para multiplicar y asignar por el otro argumento.
-En la línea 11 puedes ver como simplemente llamamos a la función, sin tener
-que guardar lo que devuelve (porque de hecho la hemos definido como \verb!void!
-así que no devuelve nada) y nos ahorramos la copia del entero que queríamos
-multiplicar.
+Apart from the asterisk operator, there is another operator that is used with
+pointers that you must know, this is the arrow opeator \verb!->!. It is used to
+access the fields of a pointer to a struct. This may be a little confusing, but
+I am going to take my time. Imagine we have the point struct we wrote in the
+section about structs. If, for any reason, we were using a pointer to it and
+wanted to access its fields, we should use the operator asterisk to dereference
+the pointer and then the operator dot to access the field. For example, let
+\verb!point_ptr! be a pointer to \verb!struct point_s!, to acces its value
+\verb!x!, we had to write \verb!(*point_ptr).x!. It is not a problem, but I warn
+you that it is very common to have structs with pointers to other structs and so
+on... it can become pretty illegible in three or four times. That is why we have
+the arrow operator, to make the code before turn into simply:
+\verb!point_ptr->x!. I want to clarify that this operator access to the field,
+does not gives us a pointer to said field. That is, following the example,
+\verb!point_ptr->x! would be a \verb!double!, not a \verb!double*!. Later on we
+will see this operator in real use.
 
-Además del operador asterisco, hay otro operador que se utiliza con punteros
-que debes conocer, y éste es operador flecha \verb|->|. Sirve para acceder a los
-campos de un puntero a una estructura. Esto puede parecer un poco confuso, pero
-lo voy a explicar detenidamente. Imagina que tenemos la estructura punto que
-escribimos en la sección sobre estructuras. Si, por el motivo que fuera,
-estuviéramos
-manejando un puntero a una estructura de este tipo y quisiéramos acceder a sus
-campos,
-tendríamos que utilizar el operador asterisco para desreferenciar el puntero
-y después el punto para acceder al campo. Por ejemplo: sea \verb!point_ptr! un
-puntero a \verb!struct point_s!, para acceder a su valor \verb!x!, tendríamos
-que escribir \verb!(*point_ptr).x!. No parece un problema, pero te informo de
-que es común tener estructuras con punteros a otras que apunten a su vez a
-otras... puede ser bastante ilegible hacer esto al cabo de tres o cuatro
-punteros. Por eso existe el operador flecha, para que esto se convierta
-simplemente en \verb|point_ptr->x|. Quiero que quede claro que este operador
-accede al campo, no otorga un puntero al mismo. Es decir, siguiendo con el
-ejemplo, \verb!point_ptr->x! será un \verb!double!, no un \verb!double*!.
-Algo más adelante veremos este operador en uso.
-
-\subsubsection{Aritmética de punteros}
-Los arrays son en ciertos aspectos (pero \textbf{no} todos) equivalentes a
-punteros, debido a esto, los punteros pueden ser referenciados con el operador
-corchete. Y de hecho, puedes convertir un array a puntero explícitamente en
-tus programas. Veamos cómo:
+\subsubsection{Pointer arithmetic}
+Arrays are in certain aspect (but \textbf{not} all) equivalent to pointers, due
+to this, pointers can be dereferenced with the square bracket operator. As a
+matter of fact, you can turn an array into a pointer explicitly in your program.
+As always, let's see how it is done:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -4205,17 +4163,14 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-
-Esto que ves en el programa \ref{lst:pointers2} es lo que pasa
-sin que te des cuenta cuando una
-función recibe un array, éste se convierte en un puntero y puedes manejarlo
-con los mismos operadores de un array. Esto, sin embargo; sólo es válido para
-arrays de una dimensión, por un motivo que veremos más tarde.
-En puridad, el operador corchete es un \textit{atajo}. En realidad lo que hace
-es sumar al puntero y utilizar el asterisco para desreferenciar. Cuando sumas
-un entero a un puntero entra en juego la aritmética de punteros, veamos
-un ejemplo y te explico lo que es exactamente.
-
+What you see in the program \ref{lst:pointers2} is what happens without
+you noticing it when a function receives an array, is turned into a pointer and
+you can use it with the same operators of an array. This, nevertheless; is only
+valid for one dimension array, for a reason we will see later on. Exhaustively
+speaking, the square braces operator is a \emph{shortcut}. Actually what it does
+is add to the pointer and use the asterisk to dereference. When you add an
+integer type to a pointer, the pointer arithmetic starts to play, let's see an
+example and I'll show you how it works.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -4229,7 +4184,7 @@ int main(void)
     int my_array[10] = { 0,1,2,3,4,5,6,7,8,9 };
     int* pointer_like_array = my_array;
     for (int ii = 0; ii < 10; ++ii) {
-        printf("En la dirección %p hay un %d\n",
+        printf("In address %p there is a %d\n",
             pointer_like_array + ii,
             *(pointer_like_array + ii));
     }
@@ -4238,17 +4193,15 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-
-Si ejecutas el programa verás que las direcciones que imprimen están separadas
-4 unidades. Esto es porque cuando a un puntero le sumas un entero, aunque dicho
-puntero es una dirección de memoria de una memoria direccionada por bytes, al
-ser un puntero a \textbf{entero}, esa expresión de sumarle un número se traduce
-a sumarle ese número multiplicado por el tamaño de un \verb!int! (cuatro bytes).
-Después de esto, utilizamos el
-operador asterisco para que ese puntero al que hemos sumado un entero sea
-desreferenciado. Utilizar la aritmética de punteros es útil cuando quieres
-pasar a una función el puntero a una posición de un array. Veamos un ejemplo.
-
+If you execute the program you would see that the addresses are four units
+apart. This is because when you add an integer to a pointer, even when said
+pointer is a memory address of a memory addressed by bytes, due to being a
+pointer to \textbf{integer}, that expression of adding an integer to it is
+translated in adding that number multiplied by the size of an \verb!int!
+(four bytes). After this, we use the asterisk operator so this pointer we have
+added a pointer is dereferenced. Using pointer arithmetic is useful when
+you want to pass to a function the pointer of a position of an array. For
+example:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -4283,47 +4236,43 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+As an instance, if we use the function that multiplies a number without having
+to return it, we can write a function that does the same with an array (here
+you can appreciate how functions are a way to reuse code and avoid duplicating
+it). We can also see how, using pointer arithmetic, you do not need to have into
+account the size of each data type, the language does it for you. There is an
+alternative way to do this that you may see because it is more compact, and it
+is use the square braces operator to and then use the ampersand to achieve the
+address, doing so, line 8 would turn into
+\lstinline[style=C]{multiply(&array[ii], other);}. In those cases, using one
+or the other is choice of the programmer.
 
-Por ejemplo, si utilizamos la función que multiplica un entero sin tener que
-devolverlo, podemos hacer la versión que haga lo propio con un array (aquí
-puedes apreciar como las funciones sirven para no duplicar código). Y podemos
-ver como, usando la aritmética de punteros, no necesitas tener en cuenta tú
-mismo el tamaño de cada tipo de dato, el lenguaje lo hace por ti. Hay una
-sintaxis alternativa para esto que a veces verás porque es más compacta, y es
-utilizar el operador corchete para acceder al elemento y después usar el
-operador \verb!&! para conseguir la dirección, haciendo eso, la línea 8 quedaría
-como sigue \lstinline[style=C]{multiply(&array[ii], other);}. En estos casos
-usar u otra alternativa queda a discreción del programador.
+\subsubsection{The \texttt{char} pointer}
+Finally I am going to unveil uno of the misteries that I have been hiding from
+you for the most time (against my will, for the record) about the programs we
+have writen up until now. This mistery is: what are those texts between double
+quotes, for example: \verb!"Hello, world!"!. I got a bit ahead of myself in the
+title because I wrote the answer there, but they're an abbreviated way to write
+\textbf{arrays of \texttt{char}}. You know that a \verb!char! is a letter, and
+that an array is a succession of data. The logic conclusion is that, in C, texts
+are \verb!char! arrays. If they're \verb!char! arrays, where is their
+declaration and why are they there between quotes. To sum it up: because we
+write texts in our program so often, the creators of C decided to add a
+\textbf{constant expression} to be able to declare arrays of \verb!char! which
+are temporal where it is needed, this expression is, putting the text in quotes.
+There are expressions to declare arrys of other types, but they're not so
+important so we will see them in later sections.
 
-\subsubsection{El puntero a \texttt{char}}
-Por fin voy a desvelar uno de los misterios que más tiempo he estado ocultándote
-(muy a mi pesar, que conste en acta) sobre los programas que hemos escrito
-hasta ahora. Este misterio es: qué son los textos que escribimos entre comillas
-dobles, por ejemplo: \verb|"¡Hola, mundo!"|. Me he saboteado un poco a mí mismo
-porque lo he puesto en este epígrafe, pero son una manera abreviada de escribir
-\textbf{arrays de \texttt{char}}. Ya sabes que un \verb!char! es una letra, y que
-un array es un es una sucesión de datos. La conclusión lógica es que, en C, los
-textos son arrays a \verb!char!. Bueno, y si son arrays a \verb!char!, dónde
-está su declaración y por qué van por ahí sueltos entre comillas. En resumen:
-debido a que escribir textos en un programa es muy común, los creadores de C
-decidieron añadir una \textbf{expresión constante} para poder declarar arrays de
-\verb!char! temporales donde fuera necesario, esta expresión es, efectivamente,
-poner el texto entre comillas. Hay expresiones para declarar arrays de otros
-tipos de datos del mismo modo, pero no son tan importantes así que las veremos en
-secciones posteriores.
-
-Sin embargo; hay una diferencia entre un array de \verb!char! (o puntero cuando
-pasa a una
-función) y un array de otro tipo de dato. La función \verb!printf!, por ejemplo,
-recibe un puntero a \verb!char!, pero en ningún sitio indicamos el tamaño de
-éste. Alguna manera debe tener cualquier función que reciba un puntero a
-\texttt{char}
-que contenga texto de saber cuánto mide dicho array. Esa manera es que todas
-las cadenas de texto (\textit{strings} en inglés) en C terminan con un char
-con el valor 0. Es decir, al escribir \verb|"¡Hola, mundo!"| estamos creando
-rápidamente un array de \verb!char! que contiene \textbf{catorce} \verb!char!,
-las letras que ves y un char con valor 0 al final. Voy a demostrarte que
-esto es así con un pequeño programa:
+Nevertheless; there is a differente between a \verb!char! array (or pointer when
+it is passed to a function) and an array of another data type. The function
+\verb!printf!, but in any place we say the size of the array, the number of
+elements on the memory the pointer points to. The functions that receive it must
+have any mechanism to know how many there are. That way is that every text
+chains (called strings in programming) in C are ended in a \verb!char! with
+value zero. That is, when it is written \verb|"Hola, mundo!"| we are creating
+in a quick way an array of \verb!char! that contains \textbf{fourteen}
+\verb!char!, the letters you can see and a \verb!char! with value zero at the
+end. I am going to demonstrate this is the case with a little program:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -4333,54 +4282,50 @@ esto es así con un pequeño programa:
 
 int main(void)
 {
-    char correct_string[] = "Me gusta el batido de chocolate.\n";
-    char incorrect_string[] = { 'M','e',' ','g','u','s','t','a',' ',
-                                'l','a',' ','p','i','z','z','a',' ',
-                                'c','o','n',' ','b','a','c','o','n',
-                                '.'};
+    char correct_string[] = "I like choccy milk.\n";
+    char incorrect_string[] = {'I', ' ', 'l', 'i', 'k', 'e', ' ',
+                               'c', 'h', 'o', 'c', 'c', 'y', ' ',
+                               'm', 'i', 'l', 'k', '.', '\n'};
     printf(correct_string);
     printf(incorrect_string);
 }
 \end{lstlisting}
 \end{minipage}
+The first string will be printed correctly, but the second will print and,
+with all probability, after it, other characters will be printed, probably
+nonsense (execute the program a couple times, it may work well the first time).
+This is because since the second string is not ended in a char with
+value \verb!zero!, \verb!printf! doesn't know where to stop printing. Aside from
+this way of working with them, \verb!char! arrays work like any other array and,
+when they're turned into pointers, like any other pointer. In later sections
+I will show how to manipulate text strings in more advanced ways.
+\subsubsection{The null pointer}
+There is an special value for all the types of pointer, which is the null
+pointer, or, as it is writen in the language: \verb!NULL!. It is a \verb!void!
+pointer that is equal to zero. If you remember, the memory map that address
+would correspond to the text section, our program can't modify itself or read
+the binary instructions, among other things because part of that sextion is not
+our code, but the code of operating system which inserts itself in processes to
+allow us to do certain things. Hence the designers of the language used this
+value to symbolize a pointer that is in a special state.
 
-La primera cadena se imprimirá correctamente, pero la segunda se imprimirá y,
-con toda probabilidad, después de ella saldrán cosas, probablemente sin sentido.
-Esto es porque como la segunda cadena no acaba en un \verb!char! con valor 0,
-\verb!printf! no sabe cuándo dejar de imprimir. Aparte de esta manera de
-trabajar con ellos, los arrays a \verb!char! funcionan como cualquier otro array
-y, cuando se convierten en punteros, como cualquier puntero. En secciones
-posteriores te explicaré cómo manipular cadenas de texto de maneras más
-avanzadas.
-
-\subsubsection{El puntero nulo}
-Hay un valor especial para todos los tipos de puntero, que es el puntero nulo,
-o, como se escribe en el lenguaje: \verb!NULL!. Es un puntero a \verb!void! que
-vale 0. Si recuerdas el mapa de memoria, esa dirección correspondería al código,
-nuestro programa no puede modificarse a sí mismo ni leerse, entre otras cosas
-porque parte de esa sección no es nuestro código, sino código del sistema
-operativo que incrusta en nuestro binario para permitirnos realizar ciertas
-funciones. Así que los diseñadores del lenguaje utilizaron este valor para
-simbolizar un puntero que está en un estado especial.
-
-Uno de los usos más importante de este puntero es que sirve para explicar si
-una operación ha ido bien o no. Por ejemplo, cuando abrimos un archivo con una
-función llamada \verb!fopen!, éste devuelve un puntero a una estructura, si
-el archivo no existe, o no tienes permisos para abrilo, ese puntero será
-\verb!NULL!.
-Muchas funciones que reciben un puntero
-usan \verb!NULL! para indicar un comportamiento especial. Por ejemplo, vamos a
-escribir una función que encapsule la funcionalidad del programa
-\ref{lst:pointNoStruct}, esto ha sido un ejercicio, así que si no lo has hecho,
-hazlo ahora; pero le vamos a dar un giro: en vez de recibir en la función las
-estructuras, vamos a recibir punteros. Primero, porque como ya te dije,
-ahorramos la copia de la estructura y además podemos usar \verb|NULL| para
-indicar valores especiales.
+One of the most important uses of this pointer is that it is used to express if
+an operation has gone well or not. For example, when we open a file with a
+function called \verb!fopen!, this returns a pointer to a struct, if the file
+does not exist, or the program hasn't got permissions to open it, the pointer
+will be \verb"NULL". Many functions that receive a pointer use \verb!NULL! to
+express an special behaviour. For ecample, let's write a function that
+encapsulates the functionality of the program \ref{lst:pointNoStruct}, this has
+been an exercise, so if you didn't do it yet, do it now; but we're going to
+give it a twist: instead of receiving the structs, let's receive pointer to the
+structs. First, because as I said you, we save ourselves copying the structs and
+we can use \verb!NULL! to indicate special values.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, label={lst:nullPointers}, caption={Uso de punteros a \texttt{NULL}}]
+\begin{lstlisting}[style=C, label={lst:nullPointers},
+caption={Use of pointers to \texttt{NULL}}]
 struct point_s {
     double x; double y;
 };
@@ -4409,66 +4354,63 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Si observas la función que hemos escrito, dentro de ella declaramos un punto
-que simboliza el \textbf{origen de coordenadas}. Lo que hacemos es que si
-uno de los punteros a estructuras es \verb|NULL|, entendemos que ese punto
-es el origen de coordenadas. Lo que hacemos es que asignamos a nuestros
-argumentos (que son punteros) la dirección a esta variable local que hemos
-declarado. Recuerda: los argumentos que una función recibe son \textbf{copias}
-de los valores. En este caso, nuestro argumento es un puntero a una estructura.
-Al asignar a nuestro argumento otro valor \textbf{no estamos alterando la
-estructura original}, porque no hemos cambiado el valor al que nuestro argumento
-apunta, sino el mismo argumento. Una vez hecho esto, podemos calcular la
-distancia del mismo modo que haríamos si no fueran punteros. ¿Qué utilidad tiene
-escribir esta función así? Encontrar la distancia de un punto al origen de
-coordenadas es una operación común, al hacer esto así, permitimos que quien
-llame a la función lo haga sin declarar una estructura extra que simbolice
-el origen.
+If you look at the function we have written, inside it we declare a point that
+symbolizes the \textbf{origin of coordinates}. What we do is that if one of the
+pointers to the structs is \verb!NULL!, we understand that such point is
+the origin of coordinates. What we do is that we assign to our arguments (which
+are pointers) the direction to this local variable we have declared. Remember:
+the arguments that a functions recibes are \textbf{copies} of the values. In
+this case, our argument is a pointer to a struct. Assigning to our argument
+other value \textbf{we are not altering the original structure}, because we
+haven't changed the value our argument points to, but the argument itself. Once
+this is done, we can calculate the distance in the same way we would do if they
+weren't pointers. What is the use of writing a function in this way? Finding
+the distance to the origin of coordinates is a common operation, doing this in
+this way, we allow to the program calling the function to do such calculation
+without declaring an extra struct to symbolize the origin.
 
-\subsection{Alojar y liberar memoria}
-Ahora que ya hemos aprendido lo que es un puntero, y a manejarlos, podemos
-pedirle al sistema operativo memoria de esa que se almacena en el montículo y
-podemos gestionar de manera más flexible que los arrays. Para eso utilizamos
-dos funciones: \verb!malloc! y \verb!free!. Los nombres son bastante
-descriptivos: la primera significa \textit{memory alloc} y la segunda liberar.
-Cuando necesitas reservar memoria en el montículo, llamas a \verb!malloc!
-y le pides una región contigua de memoria de $n$ bytes. La función \verb!malloc!
-devuelve un puntero a \verb!void!. Ese mismo puntero deberá, en algún momento,
-liberarse pasándoselo a \verb!free! más tarde.
+\subsection{Allocate and free memory}
+Now we have learnt what a pointer is, and to manage them, we can ask the
+operating sistem memory of the kind that is stored in the heap and we can
+manage in a more flexible way than arrays. To do so we use two functions:
+\verb!malloc! and \verb!free!. The names of the functions are very descriptive,
+the first means ``memory alloc'' and the second frees the memory. When you need
+to reserve memory in the heap, you call \texttt{malloc} and ask for a contiguous
+memory block of $n$ bytes. The function \verb!malloc! return a \verb!void!
+pointer. That same pointer should, in some time, be freed passing to
+\texttt{free} as its argument.
 
+Talking about pointers to \verb!void!, I told you that \verb!void! means that
+the functions either don't receive anything or don't return anything. The mean
+of a \verb!void! pointer is related to that: it is a pointer that you do not
+know what it is, \verb!malloc! has no way to know what you are going to do with
+the memory, therefore it returns a \verb!void! pointer. A pointer to \verb!void!
+is also useful when we want to write functions os structs that are compatible
+with different data types. Let's see first a simple example on how to use
+\verb!malloc! and \verb!free!.
 
-Hablando de punteros a \verb!void!, te dije que \verb!void! significaba que
-las funciones o no recibían nada o no devolvían nada, según donde lo pusieras.
-El significado del puntero a \verb!void! está relacionado: es un puntero a algo
-que no sabes qué es, \verb!malloc! no tiene modo de saber qué vas a hacer con
-esa memoria, así que es el tipo de puntero que devuelve. Un puntero a
-\verb!void! también es útil cuando queremos hacer funciones o estructuras que
-valgan para distintos tipos de datos. Veamos primero un ejemplo sencillo de
-cómo usar \verb!malloc! y \verb!free!.
-
-Una de las utilidades principales de la reserva dinámica de memoria es cuando
-otra parte del programa hace un cálculo que devuelve un resultado cuyo tamaño
-no sabemos. Por ejemplo, imagínate una función que, dado un array de números,
-devuelve un array con un ejemplar de cada número distinto, es decir, elimina
-las repeticiones del array, llamémosla \verb!erase_reps!.
-Las funciones no pueden devolver arrays,
-eso ya lo sabemos, pero quien llame a \verb!erase_reps! podría declarar un array
-y pasárselo a la función, pero en estos casos existe un problema: no sabemos
-el tamaño que tendría ese array. Es cierto que en este caso tenemos un
-\textbf{umbral superior}, si le damos a esta función un array de $n$ posiciones,
-sólo puede devolverse, como máximo, un vector de $n$ posiciones. Así que podrías
-declarar un array de $n$ posiciones y pasárselo a la función para que ésta
-escribiera allí el resultado. No obstante, hay un problema, ¿cómo sabemos qué
-parte de ese array es solución y cuánto es sobrante? Lo único que puedes hacer es
-devolver desde \verb!erase_reps! el tamaño de la solución. En este caso tendrías
-un array de $n$ posiciones de las cuales sólo usarías una indeterminada cantidad
-menor. Estás desperdiciando memoria. Y si bien no parece un problema,
-puede convertirse en uno.
+One of the advantages of dynamic memory allocation occurs when a other part of
+the program performs a calculation whose result has an unknown size. For
+example, imagine a function that, given an array of number, returns a vector
+with an instance of every dictinct number, that is, erases repetitions, let's
+call it \verb!erase_reps!. Functions cannot return arrays, that's something we
+already know, but the person that calls \verb!erase_reps! could declare an array
+and pass it to the function, a problem arises nevertheless: we do not know
+the size that array will have. Is it true that we have an \textbf{upper bound},
+if we give to this function an array of $n$ positions, the result can only have,
+at most, $n$ positions. So we could declare an array of $n$ positions
+and tell the function to leave there the results. But there is a problem, how do
+we know which part is solution and wich part is excess? The only thing you could
+so is to return from \verb!erase_packets! the size of the solution. In this case
+you'd have to an array of $n$ positions of which you'd use a lesser amount.
+You'd be wasting memory and, even when it does not look like a problem, it may
+become one very quickly.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, label={lst:mallocAndFree}, caption={Ejemplo de reserva dinámica}]
+\begin{lstlisting}[style=C, label={lst:mallocAndFree},
+caption={Example of dynamic allocation}]
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -4511,83 +4453,76 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-En la línea dos del código vemos como aparece la línea
-\verb!#include <stdlib.h>!, es una línea necesaria para usar \verb!malloc! y
-\verb!free!. Después llega la declaración de la función, hemos hecho que
-devuelva el puntero al resultado y reciba tres argumentos: el array del que
-vamos a eliminar repeticiones, la longitud del array y un puntero a entero que
-servirá para \textbf{indicar la longitud del vector resultado}. Este patrón
-de diseño es muy común en programas en C, cuando necesitas que la función
-calcule muchas cosas, recibes punteros a sitios donde dejar la información,
-esto es lo que hemos hecho con el tamaño del resultado. En el cuerpo
-de la función asignamos el valor 0 a \verb!final_length! para empezar. Después
-declaramos un array preliminar en que guardar los números únicos, ¿por qué un
-array? Porque este no es el resultado, sino un array que usaremos para guardar
-los números hasta que sepamos cuántos y cuáles son. No sabremos cuántos
-números únicos hay hasta que los contemos, así que le asignamos el tamaño del
-array de entrada para poder usar ese umbral superior que mencioné antes, si
-el array de entrada mide $n$, nuestro resultado no puede tener más que $n$
-posiciones.
-Ese patrón también es muy común: utilizar una estructura de datos auxiliar que
-luego copiaremos a una mejor dimensionada y definitiva.
+In the line 2 of code we see how the line \verb!#include <stdlib.h>! makes its
+appearance, it is needed to use \verb!malloc! and \verb!free!. After it we have
+the declaration of the function, we hace made it return the pointer to the
+result and receive three arguments: the array from which we're erasing
+repetitions, the length of such array and a pointer to integer that will allow
+us to \textbf{indicate the length of the solution}. This pattern is very used in
+C programs, when you need the function to calculate a lot of things, you receive
+pointers to those things and write the results there. In the body of the
+function we assign 0 to \verb!final_length! to start. After it, we declare a
+preliminar array to save the unique numbers, why an array? Because this is not
+the result, but an array we will use to save the numbers until we know how many
+there are, so we will assign to this array the upper bound I mentioned before,
+the list of unique numbers in an array can't be longer than the array itself.
+This is also a common pattern: using an auxiliary data structure that we will
+copy to another with a more proper size and definitive.
 
-El siguiente bucle
-simplemente comprueba, para cada número del array, si ese número aparece antes.
-Presta atención al bucle interno, para cada elemento $i$ del array, examinamos
-los elementos desde el primero (el 0) al anterior al i-ésimo y comprobamos si
-alguno es igual. Si lo es,
-utilizamos la variable \verb!unique! para indicar si el número ha sido
-encontrado antes y, por lo tanto, no es único, así que asignamos a esta variable
-lógica el valor 0.
-Después, una vez hemos comprobado todos los
-elementos anteriores al actual, aumentamos la longitud final y copiamos este
-número al array preliminar. Cuando ya tenemos calculada la longitud del array
-final y todos los números en el array preliminar, podemos usar \verb!malloc!
-para crear la solución final.
+The next loop simply check, for any element of the array, is that numbers
+appears before. Pay attention to the inner loop, for each $i$ element of the
+array, we look at the elements before it (elements from 0 to $i$ not including
+$i$). If it is, we use the variable \verb!unique! to indicate if the number has
+been found before and, therefore, is not unique, so we assign this variable
+value 0. After that, once we have checked all the elements before the current
+one, we increment the final length and copy this number to the preliminar array.
+When the length is already calculated and all the numbers are in the preliminary
+array, we can use \verb!malloc! to create the final solution.
 
-La función \verb!malloc! devuelve, como ya hemos dicho, un puntero que indica
-el inicio de la zona de memoria que nos ha reservado. Para ello, recibe
-\textbf{el tamaño en bytes} que queremos. Y aquí verás el operador
-\lstinline[style=C]{sizeof}. Sí, he dicho operador, no función. De hecho,
-verás que ninguna función sale en azul en los ejemplos, y \verb!sizeof! sí.
-Esto es por es un operador \textbf{unario} que nos da el tamaño en bytes
-de un tipo de dato que escribamos después, entre paréntesis. También sirve para
-obtener el tamaño de expresiones en general, pero eso lo veremos más adelante.
-De momento quédate con que \verb!sizeof(int)! es igual al
-tamaño en bytes de un entero. Como puedes ver, simplemente multiplico el tamaño
-del entero por el de posiciones que sé que son únicas. El siguiente bucle,
-simplemente, copia de la solución parcial a la definitiva. Finalmente,
-devolvemos el puntero reservado con \verb!malloc!.
+The \verb!malloc! return, as we have said, a pointer that indicates the start of
+the memory zone it has reserved for us. To do so, it receives the \textbf{tamaño
+en bytes} we want. And you'll see here the \lstinline[style=C]{sizeof} operator.
+Yes, I have said operator, not a function. As a matter of fact, you may have
+notices that no function is in blue in the code examples, and \verb!sizeof!
+does. This is it is a \textbf{unary} operator that gives us the size in bytes
+of a type we write next to it between parenthesis. It is also capable of
+calculating the size of complex expressions, but we will see that later on.
+For now, just remember that \verb!sizeof(int)! is equal to the size in bytes of
+an integer. As you can see, I simply multiply the size of the integer by the
+number os positions that I know they're unique. The next loop, simply, copies
+from the preliminary soluction to the definitive. Finally, we return the pointer
+allocated with \verb!malloc!.
 
-En la función \verb!main! simplemente declaramos un array con varios números
-aleatorios con repeticiones, llamamos a la función sobre ellos y mostramos el
-resultado por pantalla. Verás que funciona como se espera. Nota el uso que
-hacemos del operador \verb!&! para pasarle a la función \verb!erase_reps! el
-puntero a una variable normal.
+In \verb!main! function we simply declare an array with several random numbers
+with repetitions, we call the function on them and show the result on the
+screen. You'd see that it works as it is intended. Note the use we make of the
+operator ampersand to pass to the function \verb!erase_reps! the pointer to
+a normal variable.
 
-Como apunte, he estado usando y mezclando las palabras array y vector en esta
-sección, y no lo he hecho casualmente: un vector es un conjunto de memoria
-contigua que aloja datos, pero que es susceptible de crecer y encoger, y que,
-en consecuencia, ha sido reservado dinámicamente. Un array es ese tipo de
-expresión que te expliqué en su propia sección. Se parecen, y de hecho comparten
-muchas características, pero no son exactamente lo mismo.
+As a note, I have been using and mixing vector and array in this section and
+I didn't do it casually: a vector is a contiguous memory block that stores data,
+which is susceptible or growing and shrinking and that, consequently has been
+reserved dinamically. An array is that data type I explained to you on its own
+section. They're alike, and they share many characteristics, as a matter of
+fact, but they're not exactly the same.
 
-Y ya que hablamos de vectores y arrays, hay una diferencia fundamental entre
-los vectores o punteros y los arrays. De un array \textbf{podemos conocer su
-tamaño} y de los punteros que apuntan a vectores no. Y si de los arrays podemos
-conocer su tamaño, ¿por qué hemos estado usando siempre un valor literal? Porque
-no quería contarte eso hasta que pudiera comparar punteros y arrays. Antes te
-dije que el operador \verb!sizeof! nos da el tamaño en bytes de un tipo de dato
-o \textbf{de una expresión}. El tamaño en bytes de un array es lo que
-esperaríamos, si contiene 10 enteros de 4 bytes, 40. Pero el tamaño de un
-puntero \textbf{es siempre el mismo}. Es más, el tamaño de un puntero a
-cualquier tipo de dato es siempre el mismo. Veamos cómo utilizar \verb!sizeof!
-para calcular el tamaño de un array.
+And now we're talking about vectors and arrays, there is a fundamental diference
+between vectors or pointers and arrays. We \textbf{can ask for the size of an
+array} but not of the pointers that point to vectors. And, if we can know the
+size of array, why have we been using a literal value? Because I didn't want to
+show you this until we could compare arrays and vectors. Before, I told you that
+\verb!sizeof! gives us the size in byte of a data type or
+\textbf{an expression}. The size in bytes of an array is what one would expect:
+is it contains ten integers of four bytes, the size would be 40. But the size of
+a pointer \textbf{is always the same}. Furthermore, the size of a pointer to any
+dataype is always the same. Let's see how to use \verb!sizeof! to get the size
+of an array.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, label={lst:sizeofArraysPointers}, caption={Diferencia entre \texttt{sizeof} con punteros y arrays}]
+\begin{lstlisting}[style=C, label={lst:sizeofArraysPointers},
+caption={Difference of \texttt{sizeof} between pointers and arrays}]
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -4604,45 +4539,50 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Aquí es donde entra en juego eso que te dije de que \verb!sizeof! es un operador
-y no una función. Si ves la línea 7, utilizamos \verb!sizeof! para hallar el
-tamaño del array y lo dividimos por el tamaño del primer elemento. De este
-modo, podemos saber fácilmente el número de posiciones. Aquí lo he asignado
-a una variable para que lo veas mejor, pero podríamos haber puesto esta
-expresión directamente en el bucle \verb!for!. Bien, y sabiendo esto, quizás
-te estés preguntando por qué siempre que le pasamos un array a una función
-pasamos también un argumento que indica el tamaño del array, si podríamos usar
-\verb!sizeof! para ello. Pues es que no podemos, porque cuando a una función se
-le pasa un array, recuerda que éste se convierte en un puntero. Lo bueno de los
-vectores, sin embargo, es que como los reservamos basándonos en su tamaño,
-podemos asignar ese tamaño a una variable antes de llamar a \verb!malloc! y
-así tenerlo accesible.
+The fact that \verb!sizeof! is a operator and not a function comes into play
+here. If you look at line 7, we use the operator \verb!sizeof! to get the size
+of the array and divide it by the size of the firl element. Mind you that
+\verb!sizeof! doesn't need to know what is \textbf{inside} the first position,
+just the type of the expression (\verb!array[0]!) which would be an \verb"int".
+You could use \verb!sizeof! like this over memory that is not accessible and
+it won't give you any problem, because it does not read the content but only
+evaluates the type of the expression.
+This way, we can
+easily the number of positions. Here I have assigned it to a variable so you
+can see it more clearly, but you would have put this expression directly in the
+\verb!for! loop. Well, knowing this, maybe you are wondering why we always
+passed the lenght of array to functions if we could know it. The answer is that
+we do not know it, because you must remember that, when a function gets an array
+passed as argument, this decays to be a mere pointer. The good side of vector,
+nonetheless, is that since we reserve them using their size, you can assign it
+to a variable before doing the allocation to use it later several times.
 
-Y aún tengo otro truco que enseñarte sobre este operador, y es que nos permite
-escribir las llamadas a \verb!malloc! en un modo que favorezca algunos cambios
-en el código. Imagínate esta llamada a \verb!malloc!:
-\lstinline[style=C]{int *vector = malloc(length * sizeof(int));} Es como la
-que hemos hecho antes, pero presenta un pequeño problema: si cambiamos el tipo
-del array, debemos estar muy atentos de cambiar también el tipo que hay dentro
-de \verb!malloc!, porque si no estaríamos reservando menos espacio del que
-pensamos. No obstante; recordemos que \verb!sizeof! permite calcular el tamaño de
-expresiones, así que podemos cambiar la llamada a una como esta:
-\lstinline[style=C]{int *vector = malloc(length * sizeof *vector);}. Fíjate,
-si \verb!vector! es un puntero a \verb!int!, \verb!*vector! sería el primer
-elemento, un entero, y \verb!sizeof! nos dará en consecuencia el tamaño de un
-entero (4). La ventaja de este estilo de llamada es que así, si cambiamos de
-opinión y queremos que \verb!vector! sea un \verb!double*!, no tenemos que
-acordarnos de cambiar nada dentro del argumento de \verb!malloc!.
+And I still have another trick to teach you about this operator, and it is
+that allows us to write the calls to \texttt{malloc} in a way it favour some
+changes in the code. Imagine this call to malloc:
+\lstinline[style=C]{int *vector = malloc(length * sizeof(int));}.
+It is like the one we did before, but it present a little problem, if we change
+the type of the vector we must be very careful to also change the type that
+is inside the \texttt{malloc}, because, if not, we would be allocating less
+memory than we want. Nevertheless: let's remember that \verb!sizeof! allows us
+to calculate the size of expressions, so we can change the call tome something
+like this: \lstinline[style=C]{int *vector = malloc(length * sizeof *vector);}.
+Pay attention to it, if \verb!vector! is a pointer to \verb!int!, \verb!*vector!
+would be the first element, an integer, and \verb!sizeof! will hence give us
+the size of an integer (4). The advantage of this style of call is that, if we
+change the type of the vector, we do not have to remember changing anything
+inside \verb!malloc!.
 
-\subsection{Composición de punteros}
-Ahora que ya conoces los mecanismos básicos de los punteros, podemos ver algunos
-ejemplos de estructuras más complejas con ellos. Por ejemplo, uno de los casos
-más interesantes con los que te encontrarás con relativa frecuencia es el
-puntero a puntero de determinado tipo de dato. Esto es el equivalente a un
-array de dos dimensiones, pero con reserva dinámica de memoria. Veamos un
-programa en C que cree esta estructura, te invito a que lo compares con el
-programa \ref{lst:bidimensionalArray}: \nameref{lst:bidimensionalArray}, en el
-que veíamos la creación y uso de un array bidimensional.
+\subsection{Pointer composition}
+Now you already know the basic mechanisms of pointers, we can see some of the
+examples of more complex structures made with them. For example, one of the most
+interesting cases that you may encounter when programming is the pointer to
+pointer to a given data type. It is equivalent to a bidimensional array, but
+with dynamic memory allocation. Let0s a program in C that creates this
+structure, I encourage you to compre is with the program
+\ref{lst:bidimensionalArray}: \nameref{lst:bidimensionalArray}, in which we
+saw the creation and use of a bidimensional array.
+
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -4681,41 +4621,37 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-En la línea 8 del programa de ejemplo podrás ver que declaramos un puntero
-con dos asteriscos, esto es porque es un puntero a puntero a entero. Los
-punteros pueden encadenarse infinitamente, y, en el fondo, no tendría por qué no
-ser así, si lo piensas detenidamente. Si un puntero es una dirección de memoria,
-nada me impide hacer que ésta a punte a un lugar de la memoria donde hay otra
-dirección, y así sucesivamente. Además, aquí puedes ver que reservamos
-memoria para \verb!rows! punteros a entero. La regla para entender los punteros
-es que el número de asteriscos en la declaración se anula con los asteriscos
-usados para desreferencias, de este modo, si hemos declarado \verb!matrix! como
-un \verb!int**!, al hacer \verb!*matrix! estamos obteniendo un \verb!int*!.
-Observa la simetría, o, simplemente, cuenta los asteriscos, esta simple regla
-es sencilla, pero potente a la hora de aclarar nuestras ideas sobre punteros.
+In line 8 of the example program you can see that we declare a pointer with two
+asterisks, this is because it is a pointer to pointer to integer. The pointers
+can be chained indefinitely and, actually, there is no reason for it not to be
+that way. If a pointer is a memory address, nothing avoids me from making this
+to point to a place in memory where another address is, and so on and so forth.
+Also, you can see that we allocate memory for \verb!rows! pointers to integer.
+The rule to understand pointers is that the number of asterisks in the
+declaration is compensated by the number of asterisks used to dereferencing, in
+this way, if we declare \verb!matrix! as an \verb!int**!, \verb!*matrix! is
+an \verb!int*! (two asterisks in declaration minus one in dereferencing).
+Look at the simmetry, or simply count the asterisks.
 
-En la línea 10 empezamos un \verb!for! que reserva memoria para cada fila de
-\verb!matrix!, después, una vez reservada, rellenamos esos elementos con un
-valor con el bucle de la línea 12. Aquí simplemente estamos haciendo que cada
-casilla valga su posición desde el principio (empezando desde uno, que queda más
-bonito). Como puedes ver, estamos usando corchetes para indizar este doble
-puntero, con los corchetes pasa lo mismo que con los asteriscos, así que si
-\verb!matrix! es, de nuevo, un \verb!int**!, al hacer \verb!matrix[ii][jj]!
-estamos obteniendo un \verb!int!. Los siguientes dos bucles anidados simplemente
-imprimen la matriz.
+In line 10 we start a \verb!for! that allocated the memory for each row of
+\verb!matrix!, later, once we have allocated the memory, we fill those positions
+with a value in the loop in line 12. Here simply we're making each position to
+be equal to its overall position (starting in one, for a change). As you
+can see, we're using square braces to index this double pointer, with breaces
+it's the same that with asterisks, to if we have \verb!matrix! that is an
+\verb!int**!, doing \verb!matrix[ii][jj]! we getting an int. The two nested
+loops simply print the matrix.
 
-Finalmente, debemos liberar la matriz, observa también la simetría de este
-proceso con el proceso de reservar la memoria, si primero hicimos un
-\verb!malloc! para \verb!rows! punteros y después cada puntero lo reservamos
-con un \verb!malloc! de de \verb!columns! enteros, aquí liberaremos los punteros
-en orden inverso, primero liberaremos cada fila de la matriz y después la
-matriz en sí misma.
+Finally, we must free the matirx, note that this is also simmetrical with the
+allocating process, if firstly we did a \verb!malloc! of \verb!row! pointers and
+then each one of those were allocated with a malloc of \verb!columns! integers,
+here we liberate the pointers in the reverse order, firstly we free each row and
+later the matrix itself.
 
-Como esto puede ser confuso la primera vez que se ve, voy a dibujar el mapa
-de memoria de esta situación, para que tengas una imagen visual de qué está
-ocurriendo. Los punteros son un concepto muy abstracto, así que no te preocupes
-si no acabas de entenderlos a la primera.
-
+Like this can be confusing the first time you see it, I am going to draw the
+memory map of this situation, so you have a visual image of what is happening.
+Pointers are a very abstract concept, so don't worry if you do not understand
+them at the first glance.
 
 \begin{figure}[H]
     % Lo centramos
@@ -4725,65 +4661,64 @@ si no acabas de entenderlos a la primera.
     \label{img:double_pointer_map}
 \end{figure}
 
-En la figura represento el mapa de memoria, a la izquierda están los nombres
-que tienen esas ubicaciones de memoria en el programa, y en el rectángulo
-expreso su contenido. Las flechas del lado derecho de la imagen representan las
-referencias de los punteros a dichas direcciones de memoria. Los colores
-simplemente sirven para que puedas seguirlas más fácilmente. Bien, si miras
-donde pongo la etiqueta \verb!matrix!, verás que contiene una dirección de
-memoria, esta dirección referencia a un \textbf{vector de punteros}, es decir,
-\verb!rows! punteros juntos. Cada uno de estos punteros apunta, a su vez, a una
-región
-contigua de memoria, en la cual se guarda una fila entera de la matriz. Sólo
-he representado las primeras tres filas, porque si no la figura sería excesivamente
-grande.
+In the figure I present the memory map, on the lest there are the names those
+locations have in the program, and in the rectangle I write their contents.
+Arrows on the right side of the image represent the references of the pointers
+to those memory addresses. Colors simply allow you to follow the different
+arrows more easily. Well, if you look at where I put the tag \verb!matrix!,
+you'd see it contains a memory address, this addres reference to a
+\textbf{vector of pointers}, that is, \verb!rows! pointers together. Each one of
+those pointers, to a contigous memory region in which the is an antire row
+saved. I have only representes the first three rows, because otherwise the image
+would be too big.
 
-Ahora voy a poner la figura de cómo sería el mapa de memoria en el caso de un
-array doble, no incluyo el código porque su declaración sería simplemente
+Now I am going to draw the figure on how would the map be in the case of a
+double array, I don't include the code bcause it would be simply:
 \lstinline[style=C]!int matrix[10][5]!.
 
 \begin{figure}[H]
     % Lo centramos
     \center
     \includegraphics[width=.5\linewidth]{double_array_map}
-    \caption{Mapa de memoria de un doble array}
+    \caption{Memory map of a double array}
     \label{img:double_array_map}
 \end{figure}
 
-Como puedes ver, aunque el array es de dos dimensiones, no hay una segunda
-desreferenciación. Es decir, en ningún momento se sigue un segundo puntero.
-¿Cómo es esto posible? Si miras el mapa, verás que el array se almacena en
-una región de memoria continua. Esto quiere decir que C sólo tiene que
-adquirir la dirección de inicio del array y, después, sumarle lo que indiquen
-los operadores corchete. Es aquí donde se presenta un problema cuando intentamos
-pasar un array bidimensional a una función. Llegados a la función, C no sabe
-si ese puntero que tiene es un vector de vectores o un array de arrays, por
-ello, si le pasaras este array doble a una función que recibe un puntero doble,
-al hacer, por ejemplo, \verb!matrix[1][2]! lo que intentaría hacer es acceder
-como si fuera un puntero, y haría: \verb!*((*(matrix + 1))+2)! Es decir, primero
-sumaría (recuerda la aritmética de punteros) uno a la dirección base, después,
-\textbf{interpretaría su contenido como un puntero} a otro vector, y a ese
-intentaría sumarle 2 para desreferenciarlo. El problema es que
-\verb!*(matrix+1)! \textbf{no es} un puntero, es directamente el número.
+As you can see, even when the array have been declared with two dimensions,
+there is not dereferenciation. That is: there is no moment in which you follow a
+second pointer. How is this possible? If you look to the map, you'd see the
+array is stored in a contigous memory region. This meand that C only needs to
+adquiere the start direction of the array and, later, add what the indexes
+inside the squere braces tell you. It's here where a problem arises when we
+try to pass a bidimensional array to a function. When the array reached the
+function, C doesn't know if that pointer is an bidimensional array or a vector
+of vectors, that why, if you passed this array to a function that receives a
+double pointer (\verb!int**!), when performing, for example \verb!matrix[1][2]!
+what id would try to do is access it like it's a pointer, and would do:
+\verb!*((*(matrix + 1))+2)!. That is, it would firstly add one to the base
+direction (remember pointer arithmetic) and then \textbf{it would interpret the
+content as a pointer} to another vector and it would try to add 2 to that vector
+to dereference it. The problem is that \verb!*(matrix+1)! \textbf{is not} a
+pointer, it is directly the number.
 
-C puede hacer esto porque, del mismo modo que te indiqué cuando te expliqué
-cómo funciona el operador \verb!sizeof!, podemos ver que C sabe el tamaño de un
-array siempre que éste no decaiga a puntero, es decir, puedes saber el tamaño
-de un array en cualquier alcance interior a aquél en que fue declarado.
+C can do this because, in the same that I explained you how the operator
+\verb!sizeof! works, we can see the C knows the size of an array as long as this
+does not decay to pointer, that is, you can know the size of an array in any
+scope inner to the one it was declared in.
 
-La conclusión lógica de lo que acabamos de ver es que el número máximo de
-dimensiones de array que puede recibir cualquier función es uno, porque es el que
-se comporta como un puntero sin problemas. El hecho de que el array, por ser
-declarado en una única orden, sea una estructura continua en memoria hace que
-pueda ser interpretado como una estructura de una sola dimensión. Por ejemplo,
-en el siguiente código declaramos y rellenamos un array de dos dimensiones y,
-sin embargo, podemos acceder a él como si sólo tuviera una dimensión.
+The logic conclusion of what we have just learnt is that maximun numbers of
+dimensions of array that any function can get is one, because it is the one
+that behaves as a pointer without problems. The fact that an array, by being
+declared in a unique order, is contiguous, makes arrays able to be accessed
+always a one dimensional structure. For example, in the next code we declare and
+fill up an array of two dimensions and, nevertheless, we can access it like if
+it had just one dimension.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Uso de un array como una estructura unidimensional},
+caption={Using a bidimensional array like a one-dimension structure},
 label={lst:bidimensionalArrayAsOneDimension}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -4810,56 +4745,53 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, una vez hemos llegado a la región contigua de memoria, es decir
-\verb!(*matrix)!, sólo tenemos que recorrerla como si fuera un array
-unidimensional.
+As you can see, once we have reached the contiguous memory region
+(\verb!(*matrix)!), we only have to iterate over it like if it were a one
+dimension array.
 
-\subsection{Ejercicios de la sección}
+\subsection{Section exercises}
 \begin{exercises}[resume*]
-\item Completa esta tabla de números en diferentes bases numéricas:
+\item Fill up this table with different numeric bases:
 \begin{table}[H]
 \begin{tabularx}{\linewidth}{|R|R|R|}
 \hline
-\multicolumn{1}{|Y|}{\textbf{Decimal}}& \multicolumn{1}{Y|}{\textbf{Binario}} & \multicolumn{1}{Y|}{\textbf{Hexadecimal}} \\\hline
+\multicolumn{1}{|Y|}{\textbf{Decimal}}& \multicolumn{1}{Y|}{\textbf{Binary}} & \multicolumn{1}{Y|}{\textbf{Hexadecimal}} \\\hline
 73&  &  \\\hline
    &00100110& \\\hline
 &&0x12F       \\\hline
 128&&         \\\hline
 \end{tabularx}
 \end{table}
-\item Vuelve al ejercicio noveno y reproduce los contenidos de la pila en cada
-bloque de código del programa. Utiliza de referencia la solución que propongo
-yo.
-\item Haz un programa que cree un puntero de tres niveles de tipo \verb!int!,
-lo reserve correctamente, lo rellene con el valores correlativos
-\textbf{empezando en uno} y después lo imprima de una manera comprensible.
-Finalmente, libéralo también de tal modo que no quede memoria sin liberar al
-final del programa.
-\item Basándote en el programa anterior, crea dos funciones, una para crear
-una matriz tridimensional con memoria dinámica dadas sus tres dimensiones y
-otra para liberarla.
+\item Return to the code of the 9\textsuperscript{th} exercise and reproduce
+the content of the stack in all the code blocks of the program. Use a code the
+solution I propose in the solution section.
+\item Write a program that creates a pointer of three levels of type \verb!int!,
+allocates memory for it correctly and fill it up with corrleative values
+\textbf{starting in one} and later on it prints is an understandable way.
+Finally, free it also in a way that the is no left unfreed memory at the end of
+the program.
+\item Using the last program as base, create two functions, one to create a
+tridimensional matrix with dynamic memory given its three dimensions and another
+one to allocate it.
 \end{exercises}
-\section{Modificadores de tipos: constancia y signo}
+\section{Type modifiers: const and sign}
 \label{sec:typeModifications}
+Up until now we have only used basic types, but you can add \textbf{modifiers}
+to those types, which are qualities that create slightly different type based on
+the original one. The first and most important is the \lstinline[style=C]!const!
+modifier. This allows us to indicate that the value of a variable is
+\textbf{read only}, that is, once we give it value, and we must do so when
+declaring it, we couldn't modify it. This is very useful to make sure we do not
+introduce errors in the code when we use data that shouldn't be changed.
 
-Hasta ahora sólo hemos manejado los tipos básicos, pero a esos tipos se les
-pueden añadir \textbf{modificadores}, que son cualidades que crean un tipo
-ligeramente distinto basado en el anterior. El primero y más importante es el
-modificador \lstinline[style=C]!const!. Éste nos permite indicar que una
-variable es \textbf{de sólo lectura}, es decir, que una vez le demos valor
-cuando la declaramos, no podremos modificarla. Esto es muy útil para asegurarnos
-de que no introducimos errores en el código cuando manejamos datos que no deben
-ser cambiados.
-
-Por ejemplo, imagínate un programa que utilice el número $\pi$. Por ejemplo
-para calcular el área de una circunferencia, necesitaríamos escribir
-\verb!surface = PI * pow(r, 2)!. Pero, imagina que nos equivocamos y escribimos
-\verb!surface = PI *= pow(r, 2)!, este error sería muy difícil de ver porque
-la primera vez la superficie estaría bien calculada, pero \verb!PI! habría
-quedado sobreescrita por el uso del operador \verb!*=!, y todos los cálculos
-posteriores serían incorrectos. Si declaramos \verb!PI! como una constante,
-el compilador nos notificará de estos errores.
-
+For example, imagine a program that use the number $\pi$. Let's say to
+calculate the area of a circle, we would need to write
+\verb!surface = PI * pow(r, 2)!, but imagine we make an error and write
+\verb!surface = PI *= pow(r, 2)!, this error would be difficult to catch because
+the first time the surface would be correctly calculated, but \verb!PI! would
+have a different value because we have unwillingly used the operator \verb!*=!,
+and all the later calculations would be erroneous. If we declare \verb!PI! as
+a constant, the compiler could notify us about those errors.
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
@@ -4887,16 +4819,14 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-En la línea cuatro del código puedes ver cómo declaramos \verb!PI! como una
-constante de tipo \verb!double!. Puedes ver que, además, estamos declarándola
-como variable global. Si recuerdas cuando te expliqué el alcance las variables y
-lo que era una variable global, te dije que era útil cuando había funciones.
-Aquí puedes ver uno de los usos comunes de las variables globales, cuando se
-definen constantes universales, como podrían ser $\pi$, $e$ o la constante
-gravitatoria $G$. Pero volviendo al hecho de la constante, si intentas escribir
-una instrucción que modifique la constante, el compilador lanzará un error como
-este:
-
+In line four you can see how we declare \verb!PI! as a constant of type
+\verb!double!. You can see, also, we are declaring it as a global variables. If
+you remember when I explained the scope and what global variables are, I told
+you they would be useful once we had functions. Here you can see one of the most
+common uses of them, when you define universal contants, as $\pi$, $e$ or the
+gravitational constant $G$. But coming back to the constant, if you try to write
+an instruction that modifies the constant, the compiler would throw an error
+like this one:
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
@@ -4909,17 +4839,15 @@ main.c:17:8: error: assignment of read-only variable 'PI'
 \end{lstlisting}
 \end{minipage}
 
-Pero el modificador \verb!const! se aplica en otro sitio muy importante,
-se utiliza en las declaraciones de los argumentos de las funciones para indicar
-que los argumentos no se pueden modificar. De nuevo, los argumentos de las
-funciones son copias de sus valores, así que, sabiendo esto, no tendría utilidad
-una manera de decir que no los podemos modificar, el asunto nuclear de esto es
-que el modificador \verb!const! se aplica a punteros, indicando que no se puede
-modificar su contenido, y es ahí donde se vuelve tremendamente útil en
-conjunción con las funciones. Por ejemplo, volvamos a la función que utiliza
-punteros para calcular la distancia entre dos estructuras \verb!point_s!, como
-no queremos que estas estructuras sean modificadas por la función.
-
+But the \verb!const! modifier is applied in other place, it is used in the
+declaration of arguments of functions to indicate that those cannot be modified.
+Again, arguments of functions are copies of their values, so, knowing this,
+it wouldn't make any sense to say we can't modify them, the core matter about
+this is that the \verb"const" modifier is applied to pointers, indicating the
+their content can't be modified, and this is where it is tremendously useful
+when joined with functions. For example, let's go back to the function that
+calculates the distance between to points using pointers, since we do not want
+the structure to be modified by the function, we can do this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -4960,41 +4888,37 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Si miras el programa, la única diferencia es que en la declaración anteponemos
-el modificador \verb!const! delante del tipo del dato. Esto impide que
-modifiquemos el contenido de este puntero dentro de la función. Si intentas
-hacer, por ejemplo: \verb!a->x++;! el compilador lanzará un error. Esto es de
-suma utilidad para el programador que use la función sin haberla escrito,
-porque así entiende si una función va a modificar los datos que éste le pase,
-sin necesidad de saber qué hacer la función por dentro. Cuando veamos cómo
-dividir el programa en varios archivos, verás la importancia de esto en su
-totalidad.
+If you look at the program, the only difference is that in the declaration we
+put \verb!const! before the data type. This avoids that we modify the content
+of that pointer inside the function. If you try to perform for example:
+\verb!a->x++;! the compiler will throw an error. This is very useful for the
+programmer that uses the function if he hasn't writen it, because that
+declaration is a way to tell him that the function does not modify the data at
+all. When we reach the point of writting out programs in different source files,
+we will see this in more depth.
 
-Además, el modificador \verb!const! añade el concepto de
-\textit{const correctness}, este concepto es aquél por el cual hay que respetar
-la cualidad de constancia de las variables y argumentos. Esto quiere decir que
-debes definir tus funciones con cuidado de indicar todo lo que sea posible
-como constante. Por ejemplo, en el caso de la función que calcula la distancia
-entre dos puntos los dos argumentos deben ser constantes. Pero es más, una
-función \textbf{puede devolver una constante}. Esto sirve cuando se crean
-estructuras de datos que no quieres que el usuario sea capaz de modificar
-directamente, sino sólo mediante las funciones que tú quieras.
+Also, the modifier \verb!const! adds the concept of \textbf{const correctness},
+this concept means the programmer needs to respect the quality of contansce of
+variables and arguments. This means that you must define your functions
+carefully, indicating everything you can as constant. For example, in the
+case of the function that calculated the distance between two points, both
+arguments must be constant. But there is more, the function \textbf{can return a
+constant}. This is usegul when you create structs that you do not want the user
+to modify, but only with the functions you provide for that.
 
-Hablaremos más de esto en un futuro, pero te pongo un ejemplo básico:
-imagínate una estructura que guarda datos de una persona.
-En esta estructura
-tendremos varios punteros a \verb!char!: el nombre, un primer apellido y un
-segundo apellido. Lo que haremos es crear una función que cree esta estructura
-recibiendo los tres textos, reservará la memoria necesaria y después copiará
-los textos a esa memoria. Después, para manejar esa estructuras vamos a crear
-funciones que reemplacen estos arrays cuando el usuario quiera. Vamos a por
-ello:
+We will talk about this further later on, but I am going to set a basic example:
+imagine a struct that saves data of a person. In this struct we would have
+several pointers to \verb!char!: the name, the first surname and the second
+surname (I wrote this example for Spanish names, which have two surnames). What
+we will do is to create a function that receives three texts, will allocate the
+necessary memory and we are going to create functions that replace those arrays
+when the user of the functions needs to do so. Let's go:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Estructura con punteros constantes -- Funciones de manipulación},
+caption={Struct with const pointers -- Managing functions},
 label={lst:structConstPointers}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -5055,7 +4979,7 @@ void destroy_person(struct person_s *person){
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Estructura con punteros constantes -- Funciones de recuperación de información},
+caption={Struct with const pointers -- Functions to retreive information},
 label={lst:structConstGetters}]
 const char* person_get_name(const struct person_s* person) {
     return person->name;
@@ -5081,7 +5005,7 @@ const char* person_get_last_name_2(const struct person_s* person) {
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Estructura con punteros constantes -- función \texttt{main}},
+caption={Struct with const pointers -- \texttt{main} function},
 label={lst:structConstMain}]
 int main(void)
 {
@@ -5101,45 +5025,44 @@ int main(void)
 }
 \end{lstlisting}
 \end{minipage}
-En este código puedes ver como <<ocultamos>> al usuario cómo manejamos estos
-punteros. Para impedir que él cambie su contenido sin utilizar nuestras
-funciones, las funciones que devuelven los punteros para poder usarlos, por
-ejemplo para imprimirlos, devuelven punteros constantes. Si intentaras hacer,
-por ejemplo: \lstinline[style=C]!person_get_name(&myself)[3] = 'a'! el
-compilador lanzaría un error. Esto es una herramienta para impedir que el
-usuario de la estructura se olvide de liberar la memoria a la hora de reemplazar
-el texto por otro.
 
-Si estás atento, te habrás dado cuenta de que todo esto es algo inútil cuando
-el usuario de la estructura podría simplemente escribir
-\verb!myself.name[0] = 'a'!, y tendrías razón. En secciones posteriores veremos
-maneras de evitar esto. Pero incluso con este problema, hacer esto es una buena
-manera de ahorrarle trabajo al usuario de la estructura.
+In this code you can see how we ``hide'' the user how we manage these pointers.
+To avoid him from chaging its concent without using our functions, the functions
+that return the pointers to be able to use them, for example to print them,
+return constant pointers. If you tried to do, for example:
+\lstinline[style=C]!person_get_name(&myself)[3] = 'a'! the compiler would throw
+and error. This is a tool to avoid the user of the struct from forgetting to
+free the memory when replacing a text by other.
 
-El otro modificador que quiero presentarte es el signo, o mejor dicho, la
-ausencia de signo. La palabra reservada \lstinline[style=C]!unsigned! nos
-permite declarar variables de los mismos tipos que los tipos básicos, pero
-que sólo contengan valores positivos. Si no ves a primera vista la utilidad de
-esto, ésta reside en que al hacer el tipo sin signo, aumentas el rango que puede
-almacenar en los números positivos, si un \verb!char! tiene un rango en
-$[-127, 128]$, al hacerlo sin signo, éste tiene un rango de $[0, 255]$. Además,
-esto permite añadirle significado a tus variables.
+If you're paying attention, you may have noticed that all of this is a little
+bit useless when the use can simply write something like:
+\verb!myself.name[0] = 'a'! and you'd be right. In later sections we would see
+ways to avoid this. But, even with this problem, doing this is a good way to
+save work to the user os the struct.
 
-Por ejemplo, una variable que guarde el tamaño de algo, por ejemplo de un array
-o de un vector, no debería tener signo, porque nunca puede ser negativa. Una
-variable que guarde un mes, por ejemplo, tampoco. En el caso de tamaños de
-arrays o vectores es importante porque hacer las variables que guardan su
-tamaño no tengan signo, porque así nos permite hacer arrays el doble de grandes.
-No existen tipos sin signo para números de coma flotante (\verb!float!
-y \verb!double!).
-Veamos un ejemplo de cómo utilizar el modificador \verb!unsigned! para declarar
-variables, argumentos y tipos de retorno.
+Another modifier I want to present to you is the sign, or better said, the
+absence of sign. The keywork \lstinline[style=C]!unsigned! allows us to
+declare variables and arguments of the same types of the basic types, but that
+can only contain positive integers. If you do not see at first sight why this is
+useful, this resides in that making a type unsigned you get a range doubled in
+the possitive side. If a \verb"char" has a range of $[-127, 128]$, an unsigned
+char has a range of $[0, 255]$. Also, this allows to add meaning to your
+variables.
+
+For example, a varuable that stores the size of something, for example an array,
+or a vector, shouldn't have a sign, because it can never be negative. A variable
+that stores a month, shouldn't either, for instance. In the case od sizes or
+vectors it is important to make the variable that store their size unsigned,
+because this allows us to get vectors and arrays of double the size. There are
+not types without sign for floating points numbers (\verb!float! and
+\verb"double"). Let's see an example on how to use the modifier \verb!unsigned!
+to declare variables, arguments and return types.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Uso de tipos sin signo},
+caption={Use of unsigned types},
 label={lst:unsignedTypes}]
 #include <stdio.h>
 
@@ -5159,57 +5082,56 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Sé que parece un poco engorroso escribir \verb!unsigned! cada vez, más adelante
-veremos cómo solventar esto.
-\subsection{Ejercicios de la sección}
-El ejercicio más apropiado es que revises todos los ejercicios que
-hemos hecho hasta ahora y los reescribas teniendo en cuenta la constancia de las
-funciones y el signo.
-\section{Comunicar tu programa con el exterior}
-Por fin vamos a llegar al punto en que tu programa pueda comunicarse con el
-exterior, hasta ahora, todos los datos que hemos introducido en el programa
-están escritos en el código como literales. Eso es muy impráctico, en términos
-generales, un programa leerá, ya sea por consola o desde un archivo concreto,
-los datos que deba utilizar. Hay tres fuentes de información externa
-básicas que vamos a manejar:
+I know it looks a bit cumbersome to write unsigned each time, later on we will
+see how to solve this.
+\subsection{Exercises of the section}
+The most appropiate exercise is for you to revise all the exercises we have done
+and rewrite having into account the const quality and the sign.
+
+\section{Communicating your program}
+At last, we're reaching the part of the manual where you can communicate your
+program with things outside it, up until now, all the data we have introduced in
+the program are writen as literals. This is very impractical, generally, a
+program will read, either from the terminal or from a concrete file, the data
+it is going to use. There three sources of external information for a program:
 \begin{enumerate}
-\item Argumentos de la línea de comandos.
-\item La entrada por consola.
-\item Ficheros.
+    \item Arguments from the command line.
+    \item Input from the terminal.
+    \item Files
 \end{enumerate}
 
-Lo primero es algo que aún no sabes qué es, pero que será bastante útil. Hasta
-ahora, la función \verb!main! no recibía ningún argumento, pero puede
-recibirlos. Si \verb!main! es una función que sólo sirve como punto de entrada
-a nuestro programa, ¿quién la puede llamar con argumentos? Básicamente
-estos argumentos vienen de la línea de comandos con la que llamemos a nuestro
-programa. Para poder acceder a ellos dentro del programa, debemos declarar
-la función \verb!main! de este modo:
+The first thing is something you do not know yet, but it's going to be very
+useful. Up until now, \verb!main! function wasn't receiving any argument, but
+how can it do so? If \verb!main! is the function that only acts as the entry
+point for our program, who can call it with arguments? Basically these arguments
+come from the command line we have executed our program with. To be able to
+access them inside the program, we must declare the function \verb!main! in this
+new way:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Declaración de una función \texttt{main} que reciba argumentos},
+caption={Declaration of a \texttt{main} function that receives arguments},
 label={lst:mainArguments}]
 int main(int argc, const char** argv) {
 // ...
 \end{lstlisting}
 \end{minipage}
 
-De estos dos argumentos, el primero es el número de argumentos que ha recibido
-tu programa, y el segundo es un vector de vectores a \verb!char! que nos llega
-en forma de puntero a puntero. Los argumentos que recibe un programa vienen
-en formato de cadenas de texto, por lo que, si son números, debemos utilizar
-funciones auxiliares para convertirlos a esos tipos de dato. Vamos a hacer
-un programa que reciba un número indeterminado de argumentos y los imprima, cada
-uno en una línea nueva.
+Of these two arguments of the function, the first one is the number of arguments
+the program has
+received, and the second is a vector of vectors of \verb!char! that is sent to
+us as a two-level pointer. The arguments that a program receives come in text
+format so, if they're numbers, you must use extra functions to turn them into
+those data types. Let's make a program that receives an undeterminated number
+of arguments and prints them in a new line.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Utilización de los argumentos de un programa},
+caption={Ussage of the arguments or a program},
 label={lst:argumentProgram}]
 #include <stdio.h>
 
@@ -5222,26 +5144,28 @@ int main(int argc, char const *argv[])
 \end{lstlisting}
 \end{minipage}
 
-Y quizás te preguntes que cómo le paso esos argumentos al programa, bien, es
-sencillo: al llamar el programa, después de la ruta al ejecutable, pones
-todos los argumentos separados por espacios, por ejemplo:
+Maybe you're wondering how we can pass those arguments to the program, after the
+path of the executable, you write all the arguments separated by space, por
+example:
 \begin{lstlisting}[style=terminalStyle]
-\$./main.exe argumento1 argumento2 argumento3
+\$./main.exe argument1 argument2 argument3
 \end{lstlisting}
-Si compilas este programa y lo ejecutas con esos argumentos, imprimirá esto:
+If you compile the program and execute with those arguments, it will print this:
 
 \begin{lstlisting}[style=terminalStyle]
 ./main.exe
-argumento1
-argumento2
-argumento3
+argument1
+argument2
+argument3
 \end{lstlisting}
 
-Y sí, como ves, el primer argumento es el comando con el que se llamó el
-programa, esto es importante porque, como deducirás, quiere decir que tu
-programa siempre recibirá al menos uno. Este primer argumento cambia según la
-orden con la que llamemos a nuestro programa, por ejemplo, si en vez de con
-esa ruta relativa lo llamamos con una ruta absoluta, obtendríamos los siguiente:
+And yes, as you can see, the first argument is the command you called the
+program with, and this is important because, as you may deduct, this means
+that your programs always receives at least one. This first argument changes
+according to the order you executed your program with, for example, if instead
+of with that path you'd execute it with an absolute path, you'd get the
+following.
+
 \begin{lstlisting}[style=terminalStyle]
 \$ /home/usuario/test/project/main.exe arg1 arg2 arg3
 /home/usuario/test/project/main.exe
@@ -5250,29 +5174,27 @@ arg2
 arg3
 \end{lstlisting}
 
-Como última nota, si el espacio es el carácter que se usa para separar
-argumentos, ¿pueden tener espacios los argumentos? Sí, simplemente rodea el
-argumento de comillas dobles. Y, entonces, ¿pueden tener comillas dobles? Sí,
-simplemente pon una barra inversa delante de la comilla, veamos un ejemplo
-rápido,
+As a last note, if the space is the character that separates the arguments, how
+do we write arguments with spaces in them? Simply surround the argument between
+straigt quotes (like C strings). Let's see an example.
 \begin{lstlisting}[style=terminalStyle]
-\$ ./main.exe "Esto es una comilla: \"" \"\"\" "Frase con espacios"
+\$ ./main.exe "This is a double quote: \"" \"\"\" "Sentence with spaces"
 ./main.exe
-Esto es una comilla: "
+This is a double quote: "
 """
-Frase con espacios
+Sentence with spaces
 \end{lstlisting}
 
-Si necesitamos leer un número, debemos utilizar, como ya hemos dicho, una
-función que nos convierta el argumento en un número. La función básica para
-hacer esto es \verb!atoi! (del inglés: \emph{ASCII to integer}). Por ejemplo,
-vamos a crear un programa que reciba una serie de argumentos y los sume:
+If we need to read a number, we must use, as we said before, a function that
+turns the text into a number. The basic function to do this is \verb!atoi!
+(from ASCII to integer). For example, let's create a program that receives a
+series of numbers and adds them up.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Programa que suma argumentos},
+caption={Program that adds its arguments},
 label={lst:sumArgs}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -5286,36 +5208,44 @@ int main(int argc, char const* argv[])
         total += atoi(argv[ii]);
     }
 
-    printf("La suma de los argumentos es: %d\n", total);
+    printf("The addition of the arguments is: %d\n", total);
 }
 \end{lstlisting}
 \end{minipage}
 
-Nota que empezamos a sumar desde el segundo argumento (la posición uno del
-vector) porque el primero no es un número. Esto me lleva a advertirte de que
-\verb!atoi! es una función muy básica y si introduces en ella una cadena que no
-es un número, devolverá valores sin sentido, en muchas ocasiones 0. Así
-que ten cuidado sobre esto. De todos modos, en otras secciones veremos maneras
-de manipular cadenas de texto más complejas que nos permitirán comprobarlo.
-Sería un ejercicio interesante que hicieras un programa que comprobara si una
-cadena de texto es un número o no. Finalmente, también existe \verb!atof! que
-hace lo mismo, pero con decimales.
+Mind that we start adding from the second argument (position one in the vector)
+because the first one is not a number. This leads me to warn you that
+\verb!atoi! is a very basic function and that if you pass something to it that
+it not a number, it will return nonsense values, many times zero. So be careful
+about this. Anyway, in other sections we will see ways to manipulate text
+strings that are more complex and would allow us to check it. If would be an
+intereting exercise that you made a program that checks if a text string is a
+number or not. Finally, there is also \verb!atof! that does the same, but to
+floating point number.
 
-Otra opción que existe que dejar que, una vez iniciado el programa, el usuario
-escriba por consola lo que deba éste recibir. Por ejemplo, podríamos hacer un
-programa que sea una versión 2.0 de nuestro primer \emph{Hola Mundo}. Esta
-versión podría primero preguntar el nombre del usuario y después saludarle por
-él. Para conseguir esto se utiliza (o se puede utilizar, hay otras alternativas)
-la función \verb!scanf!. Esta función es la hermana gemela de \verb!printf!
-porque se comporta igual, simplemente especificas un formato y le das las
-variables donde quieres guardar los datos y la función leerá de la terminal
-con ese formato. Por ejemplo, hagamos este \emph{Hola Mundo 2.0}.
+% Otra opción que existe que dejar que, una vez iniciado el programa, el usuario
+% escriba por consola lo que deba éste recibir. Por ejemplo, podríamos hacer un
+% programa que sea una versión 2.0 de nuestro primer \emph{Hola Mundo}. Esta
+% versión podría primero preguntar el nombre del usuario y después saludarle por
+% él. Para conseguir esto se utiliza (o se puede utilizar, hay otras alternativas)
+% la función \verb!scanf!. Esta función es la hermana gemela de \verb!printf!
+% porque se comporta igual, simplemente especificas un formato y le das las
+% variables donde quieres guardar los datos y la función leerá de la terminal
+% con ese formato. Por ejemplo, hagamos este \emph{Hola Mundo 2.0}.
+
+Other option is to allow the user to write things into the program once
+it has started. For example, we could so a program that is a 2.0 version of our
+first \textit{Hello, World}. This version would first ask the name of the user
+and then say hello to him personally. You can use the function \verb!scanf!
+to do so. This function is the twin of \verb!print! because it behaves in the
+same way, you specify a format and pass the variable you need to it where it
+will store the data. For example, let's make this \textit{Hello World 2.0}
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo básico de \texttt{scanf}},
+caption={\texttt{scanf} basic example},
 label={lst:basicScanf}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -5326,28 +5256,27 @@ int main(int argc, char const* argv[])
 {
 
     char name[NAME_LENGTH] = "";
-    printf("Hola, ¿cuál es tu nombre?\n");
+    printf("Hello, what's your name?\n");
     scanf("%s", name);
-    printf("Escantado de conocerte, %s.\n", name);
+    printf("Nice to meet you, %s.\n", name);
 }
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, es sencillo, pero debes tener en cuenta que si lees tipos
-de datos básicos con \verb!scanf! debes pasarle punteros a esas variables. En
-el caso de un puntero a \verb!char! es menos evidente. Además, salvo que llames
-a otras funciones para cambiar cómo se comporta la terminal, \verb!scanf! sólo
-leerá hasta el primer carácter en blanco que se encuentre, es decir, hasta el
-primer espacio, por ejemplo. Eso quiere dedir que si quieres leer varias
-palabras debes invocar a \verb!scanf! varias veces o invocarlo con varios
-especificadores de formato. Vamos a ver un ejemplo un poco más complicado para
-que quede todo esto claro.
+As you can see, it's easy, but you must be aware that if you read basic types
+you must pass the pointers to the variable your want to store them in to
+\texttt{scanf}. With this \verb!char! pointer it's less evident. Also, unless
+you call other functions to change how the terminal behaves, \verb!scanf! will
+only read up until the first whitespace character. That is, until the first
+space. This means that if you want to read several words at the same time you
+must call \verb!scanf! several times or call it with several format specifiers.
+Let's see a bit more complicated example.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo avanzado de \texttt{scanf}},
+caption={\texttt{scanf} advanced example},
 label={lst:scanfExample}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -5360,107 +5289,162 @@ int main(int argc, char const* argv[])
     char name[NAME_LENGTH] = "";
     int age = 0;
     double height = 0.0;
-    printf("Hola, quiero conocerte, dime tu nombre, tu edad y cuánto mides en metros\n");
+    printf("Hello, I want to get to know you, tell me your name, age and how tall are you in meters.\n");
     scanf("%s %d %lf", name, &age, &height);
-    printf("Escantado de conocerte, %s. Así que tienes %d años y mides %f m\n", name, age, height);
+    printf("Nice to meet you, %s. So you're %d years old and are %f m tall.\n", name, age, height);
 }
 \end{lstlisting}
 \end{minipage}
 
-Como hemos dicho, \verb!scanf! deja de leer en los espacios, así que puedes
-escribir cada dato y pulsar enter o escribir las tres respuestas separadas
-por espacios y darle a enter una sola vez. Además, nota que, como queremos
-leer en un \verb!double!, tenemos que usar el especificador \verb!%lf!, esto
-también se puede hacer al imprimir, para que se imprima con mayor precisión,
-pero en este caso como es en la dirección inversa, el compilador lanza un
-\emph{warning} si lo dejamos con simplemente \verb!%f!. Esta función
-\textbf{bloquea} el programa hasta que recibe \textbf{todos} los argumentos
-pedidos por los especificadores. Además, lo que se escriba en la terminal y
-no se consuma (se lea por \verb!scanf!) queda pendiente para llamadas
-posteriores, es decir, si en vez de escribir en nuestro ejemplo una sola
-llamada, escribieras tres, una con cada especificador y variable, el efecto
-sería el mismo, podrías seguir escribiendo todo separado por espacios. Del
-mismo modo que \verb!atoi!, si especificas que recibirá números y la entrada
-es distinta, fallará dando valores con poco o ningún sentido.
+As we said, \verb!scanf! stop reading in the first space, so your can write each
+data and hit enter or write the three answers separated by spaces and hit enter
+just once. Also, note that, as you want to read a \verb!double! we must the
+specifier \verb!%lf!, this is also done to print, to print the number with more
+precission, but in this case we are doing it in the opposite direction, and the
+compiler would warn us this is not right if we used \verb!%f!. This function
+\textbf{blocks} the program until is receives \textbf{all} the arguments we're
+asking for with the specifiers. Also, what is written in the terminal and does
+not get used (is read with \verb!scanf!) stays there pending to be used. That
+is, if instead of writting our example with just one call to \verb!scanf! we
+wrote three calls, each one with one specifier and variable, the effect would be
+the same. You could still write the three things separated by spaces and hit
+enter. In the same way that \verb!atoi!, if the specifiers expects a number and
+the input is not a number, the function will fail throwing values with little to
+no sense.
 
-Y finalmente: los ficheros, o archivos. Los programas pueden eliminar, crear,
-escribir y leer de archivos. Para esto hay varias maneras, algunas más pedestres
-que otras, porque algunas son más estándar y otras dependen del sistema
-operativo. Al contrario que con los otros métodos, los ficheros tienen un
-ciclo de vida más complejo. El ciclo de vida es, en este contexto, la descripción
-de cuándo empieza a existir, existe y deja de existir algo. Por ejemplo,
-el ciclo de vida de una región de memoria dinámica es desde que la reservas
-hasta que la liberas, el de un array, desde que se entra en su bloque de código
-hasta que se sale, etc. Con los archivos pasa algo parecido.
+% Y finalmente: los ficheros, o archivos. Los programas pueden eliminar, crear,
+% escribir y leer de archivos. Para esto hay varias maneras, algunas más pedestres
+% que otras, porque algunas son más estándar y otras dependen del sistema
+% operativo. Al contrario que con los otros métodos, los ficheros tienen un
+% ciclo de vida más complejo. El ciclo de vida es, en este contexto, la descripción
+% de cuándo empieza a existir, existe y deja de existir algo. Por ejemplo,
+% el ciclo de vida de una región de memoria dinámica es desde que la reservas
+% hasta que la liberas, el de un array, desde que se entra en su bloque de código
+% hasta que se sale, etc. Con los archivos pasa algo parecido.
 
-Los archivos son un concepto que, de nuevo, gestiona el sistema operativo,
-de tal modo que tenemos que utilizar funciones concretas para abrirlos, escribir
-y leer en ellos y, finalmente, cerrarlos. A la mínima que estés un poco atento,
-verás el paralelismo entre esto y la reserva de memoria. La función para abrir
-un archivo es \lstinline[style=C]!fopen!, veamos su declaración:
+Finally, the files. Programs can delete, create, write and read from files.
+To do this, there several ways, some more simple than others, because some are
+more standard and other depend on the operating system. In opposition to the
+other methods, files have a more complex life cycle. Life cycle in this context
+refers to the description of when something starts to exist, exists and ceases
+to do so. For example, the life cycle of a dynamically reserved memory block
+is the moment of their allocation to the moment it's freed, the one of an array
+goes from the moment you go into the block of code it's declared to the moment
+the program stops executing in that block. Files behave in a similar way:
+
+% Los archivos son un concepto que, de nuevo, gestiona el sistema operativo,
+% de tal modo que tenemos que utilizar funciones concretas para abrirlos, escribir
+% y leer en ellos y, finalmente, cerrarlos. A la mínima que estés un poco atento,
+% verás el paralelismo entre esto y la reserva de memoria. La función para abrir
+% un archivo es \lstinline[style=C]!fopen!, veamos su declaración:
+
+Files are a concept that, again, the operating system manages, therefore we have
+to use functions to open, write, read from them and, finally, close them. If you
+have been paying attention, you may have seen the parallelism between this and
+memory allocation. The function to open a file is \lstinline[style=C]!fopen!,
+let's see its declaration.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Declaración de la función \texttt{fopen}},
+caption={\texttt{fopen} function declaration},
 label={lst:callocSignature}]
 FILE *fopen(const char *pathname, const char *mode);
 \end{lstlisting}
 \end{minipage}
 
-Devuelve un puntero a un tipo llamado \verb!FILE!, este tipo es \textbf{opaco},
-esta es una palabra que se utiliza en informática para decir que no puedes saber
-lo que hay dentro, es decir, es el sistema quien lo gestiona y tú sólo
-interactúas con este tipo mediante llamadas a función. Los argumentos de esta
-función son dos punteros a \verb!char!. El primero es la ruta al archivo.
-Esta ruta puede ser relativa o absoluta, pero ten cuidado, si es relativa, ésta
-toma como origen \textbf{el directorio de trabajo} de la terminal donde lo
-ejecutes. Es decir, si le dices a la función que abra un archivo en la ruta
-\verb!./file.txt!, lo buscará (o lo creará, según proceda), en tu directorio
-de trabajo, no en el que se encuentre el ejecutable, salvo que sean el mismo.
+It return a pointer to a type called \verb!FILE!, this type is \textbf{opaque},
+this a word that it is used in computer science to say that you can't know that
+is inside, that is, it is the system who manages it and you only interact with
+it callinf the functions it provides you. The arguments this functions receives
+are two \texttt{char} pointers. The first one is the path to the file. This path
+takes as origin \textbf{the working directory} of the terminal where we
+executed the program. That is, if you pass to the function the path
+\verb!./file.txt!, it will look for it (or create it, depending on how the
+function was called), in your working directory, no in the one the program is
+in, unless they're the same.
 
-El segundo argumento es interesante, es, como indica su nombre, el modo de
-apertura del archivo. En éste argumento se suele escribir un literal que
-contiene una serie de letras, estas letras son atributos a la manera en que
-abrimos el archivo, veamos qué opciones tenemos.
+
+% El segundo argumento es interesante, es, como indica su nombre, el modo de
+% apertura del archivo. En éste argumento se suele escribir un literal que
+% contiene una serie de letras, estas letras son atributos a la manera en que
+% abrimos el archivo, veamos qué opciones tenemos.
+% \begin{enumerate}
+% \item \verb!r!: Abre el archivo para lectura (sólo para lectura) la cabeza
+% de lectura se sitúa al inicio del archivo. Si el archivo no existe, se produce
+% un error y la función devuelve \verb!NULL!.
+% \item \verb!r+!: Igual que la anterior, pero permite escribir también.
+% \item \verb!w!: \textbf{Vacía} el archivo o lo crea si no existe
+% y permite escribir en él, situando la cabeza de lectura, lógicamente, al inicio.
+% \item \verb!w+!: Igual que la anterior, pero permite leer también.
+% \item \verb!a!: Abre el archivo para escribir, pero \textbf{no lo vacía},
+% sí que lo crea si no existe. La cabeza se sitúa al final del archivo, para
+% \textbf{añadir} a al contenido que hubiera.
+% \item \verb!a+!: El archivo es creado si no existe, se escribirá al final
+% del mismo y permite también leer.
+% \end{enumerate}
+
+The second argument is interesting, it is, as its name says, the mode in which
+we're opening the mode. In this argument you tend to write a literal that
+contains a series of letters, these letters are the attributes of the way you're
+going to open the file. Let's see which options we have.
 \begin{enumerate}
-\item \verb!r!: Abre el archivo para lectura (sólo para lectura) la cabeza
-de lectura se sitúa al inicio del archivo. Si el archivo no existe, se produce
-un error y la función devuelve \verb!NULL!.
-\item \verb!r+!: Igual que la anterior, pero permite escribir también.
-\item \verb!w!: \textbf{Vacía} el archivo o lo crea si no existe
-y permite escribir en él, situando la cabeza de lectura, lógicamente, al inicio.
-\item \verb!w+!: Igual que la anterior, pero permite leer también.
-\item \verb!a!: Abre el archivo para escribir, pero \textbf{no lo vacía},
-sí que lo crea si no existe. La cabeza se sitúa al final del archivo, para
-\textbf{añadir} a al contenido que hubiera.
-\item \verb!a+!: El archivo es creado si no existe, se escribirá al final
-del mismo y permite también leer.
+    \item \verb!r!: Open the file just to read it, the reader head (more on this
+    later) is at the
+    start of the file. If the file does not exist, an error occurs and the
+    function return \verb!NULL!.
+    \item \verb!r+!: Same as before, but it allows to write too.
+    \item \verb!w!: \textbf{Empties} the file or creates it if it doesn't exist.
+    The reading head is at the start, logically.
+    \item \verb!w+!: Like the last one, but allows to read too.
+    \item \verb!a!: Open the file to write on it, but \textbf{it does not empty
+    it}. It creates it if it doesn't exist, the head start at the end of the
+    file, to \textbf{append} data to it.
+    \item \verb!a+!: The file is created is it does not exist, data will be
+    writen to the end of the file. It also allows reading.
 \end{enumerate}
 
-En la descripción de las opciones hablo de una cosa llamada cabeza de lectura.
-Es un concepto propio de los ficheros, en un fichero el programa guarda la
-posición del mismo en el que está esta cabeza. Cuando escribes o lees, ésta
-se mueve hacia delante tanto como el tamaño de los datos que hayas leído o escrito.
-Una analogía que se solía utilizar es que un fichero es como una cinta de vídeo,
-y el cabezal de lectura como el del reproductor. El cabezal empieza al inicio
-de una cinta y vez de 10 minutos, la pausas y la vuelves a reaundar, empezarás
-desde donde lo dejaste. Todo sea dicho, el cabezal de lectura es único por
-proceso y archivo, así que dos programas pueden leer o escribir en el mismo
-archivo en puntos distintos. Por otro lado, cuando la cabeza de lectura llega
-al final, se para allí (lógicamente), pero si estás realizando una operación
-de escritura, el archivo se agrandará, como es lógico, porque de no ser así,
-no podríamos escribiríamos en archivos nuevos o vacíos.
 
-Ahora que ya sabes cómo abrir un archivo, veamos cómo se lee o escribe de él.
-Las funciones que se usan para esto son dos: \verb!fwrite! y \verb!fread!.
+% En la descripción de las opciones hablo de una cosa llamada cabeza de lectura.
+% Es un concepto propio de los ficheros, en un fichero el programa guarda la
+% posición del mismo en el que está esta cabeza. Cuando escribes o lees, ésta
+% se mueve hacia delante tanto como el tamaño de los datos que hayas leído o escrito.
+% Una analogía que se solía utilizar es que un fichero es como una cinta de vídeo,
+% y el cabezal de lectura como el del reproductor. El cabezal empieza al inicio
+% de una cinta y vez de 10 minutos, la pausas y la vuelves a reaundar, empezarás
+% desde donde lo dejaste. Todo sea dicho, el cabezal de lectura es único por
+% proceso y archivo, así que dos programas pueden leer o escribir en el mismo
+% archivo en puntos distintos. Por otro lado, cuando la cabeza de lectura llega
+% al final, se para allí (lógicamente), pero si estás realizando una operación
+% de escritura, el archivo se agrandará, como es lógico, porque de no ser así,
+% no podríamos escribiríamos en archivos nuevos o vacíos.
+
+In the description of the options I talk about something called the reading or
+writting head, also called read/write pointer. It is not a C pointer or anything
+like that. It is a concept inherent to files. The read/w head is an abstraction
+of a physical devide that is in a point of the file and writes or reads to it.
+Files are just a stream of bytes, and this head would write or read from the
+position it is in, and advance as many bytes as it read or wrote. The methaphor
+that was used was a video tape. If you put a tape in a video player, the head
+would start at the begining of the tape, if you watched let's say ten minutes
+of it, you could pause it, go do something and come back, it will be where you
+left it. You could rewind it, fast forward it, etc. Also, playing the video
+makes the head move forwards, that is: reading makes you rewind if you want
+to go back. All this being said, the read/write header is unique \textbf{per
+file and process}, this means that to programs can be reading or writting from
+the same file at the same moment. When you reach the end of the file you can't
+read more (logically) but if you're writting, the file would grow seamlessly.
+
+Now you already know how to open a file, let's see how to write or read to and
+from it. The functions that are used to do this are these two: \verb!fwrite!
+and \verb!fread!
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Declaración de la función \texttt{fread}},
+caption={\texttt{fread} function signature},
 label={lst:freadSignature}]
 size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
 \end{lstlisting}
@@ -5470,52 +5454,58 @@ size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Declaración de la función \texttt{fwrite}},
+caption={\texttt{fwrite} function signature},
 label={lst:fwriteSignature}]
 size_t fwrite(const void *pt, size_t size, size_t nmemb, FILE *stream);
 \end{lstlisting}
 \end{minipage}
 
-Las dos funciones se comportan más o menos igual, reciben un puntero, un tamaño,
-otro número y finalmente el puntero a la estructura que simboliza el fichero.
-El primer puntero es de entrada para escribir y de salida para leer. Es donde
-pondremos nuestros datos, o la memoria para que la función lo escriba cuando
-leemos. Es un puntero a \verb!char!, que es el puntero que se utiliza para
-simbolizar una continuidad de datos genérico, es decir, un continuo de bytes.
+The two functions behave more or less the same, they receive a pointer, a size,
+another number a finally the pointer to the struct that symbolizes the file.
+The first pointer is the input to write and the output to read. It is where we
+will put our data, or the memory so the function can write the content
+of the file in it. It is a \verb!char! pointer, which is the kind of pointer
+used when you want to manage a generic stream of bytes. Both functions are
+writen with the idea of managing a number of items of a certain size in
+bytes, that's why we have \verb!size! and \verb!nmemb!. The first one is the
+size of the items we're writting or reading and the second the number
+of said items we're reading or writing. The function returns the number of
+\textbf{items} written or read, not the number of bytes, mind this when
+using the functions.
+More on this in the examples later on.
 
-Finalmente, después de hacer lo que deseas con los archivos que has abierto,
-debes cerrarlo. Cerrar el archivo provoca que todos los cambios que se han
-escrito se sincronicen con el disco duro o sistema de almacenamiento subyacente.
-Esto es importante, si te olvidas de cerrar un archivo puedes ver que cambios
-que has escrito no se reflejan en el archivo. La función para cerrar archivos
-se llama \verb!fclose!, su \emph{signature} es la siguiente.
+Finally, after doing what you want with the files you have opened, you must
+close it. Closing the files makes all the changes you have done to it to be
+written with the underlying storage device. This is important, if you forget to
+close a file you may see the changes you've done in your program are not
+in the real file. The function to close files is called \verb!fclose! and its
+signature is like this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Declaración de la función \texttt{fclose}},
+caption={\texttt{fclose} signature},
 label={lst:fcloseSignature}]
 int fclose(FILE *stream);
 \end{lstlisting}
 \end{minipage}
-Como puedes ver, sólo recibe el archivo que deseamos cerrar o liberar.
+As you can see, it only receives the pointer to the file we can to close.
 
-Ahora que ya hemos explicado las funciones que hay que utilizar, vamos a ver
-un ejemplo simple de programa que utilice ficheros. Un programa muy típico
-podría ser uno que copie un fichero a otro, como el comando \verb!cp!, que es
-el que se usa en Linux para hacer eso. Vamos a hacer un programa que reciba dos
-argumentos, el primero será el archivo que deseamos copiar y el segundo dónde.
-El comando en Linux admite que la segunda localización sea una carpeta, es
-decir, podrías hacer \verb!cp ~/novel.txt /home/joe/novels! pero para hacer
-más sencillo nuestro ejemplo, obligaremos a que el usuario siempre especifique
-dos rutas completas. Veamos cómo se haría.
+Now we have shown the functions that are needed, let's an example on how to use
+files. A very usual program is one that copies a files from one directory to
+another, like the command \verb!cp!, which is the one used in Linux to do so.
+Let's make a program that receives two arguments, the first one would be the
+file we want to copy and the second the folder we want to copy it to. The Linux
+command allows the use to specify a folder as destiny, but to make things
+simpler we will make this program to ask for a full path (name of the destiny
+file) included.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de manejos de ficheros},
+caption={Example of basic file management},
 label={lst:fileBasic}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -5528,21 +5518,21 @@ int main(int argc, char const* argv[])
     char byte          = 0;
 
     if (argc < 3) {
-        printf("Uso: main.exe <origen> <destino>\n");
+        printf("Use: main.exe <origin> <destiny>\n");
         return EXIT_FAILURE;
     }
 
     origin_file = fopen(argv[1], "r");
 
     if (NULL == origin_file) {
-        printf("ERROR: El archivo de origen no existe.\n");
+        printf("ERROR: The origin file doesn't exist.\n");
         return EXIT_FAILURE;
     }
 
     destiny_file = fopen(argv[2], "w");
 
     if (NULL == destiny_file) {
-        printf("ERROR: El archivo de destino no existe.\n");
+        printf("ERROR: The destiny file doesn't exist.\n");
         fclose(origin_file);
         return EXIT_FAILURE;
     }
@@ -5559,90 +5549,83 @@ int main(int argc, char const* argv[])
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, hemos declarado dos variables de tipo puntero a \verb!FILE!,
-las inicializamos a \verb!NULL! y empezamos el programa. Cuando recibes
-argumentos es recomendable que los interpretes primero, porque si éstos son
-incorrectos no tiene sentido seguir procesando. Después, intentamos abrir el
-archivo de origen, nota que lo abrimos para solo lectura y sin eliminarlo,
-lógicamente. Si esa llamada falla, el valor devuelto será nulo, comprobamos
-que esto no es así antes de continuar. Hacemos lo mismo, después, con el
-archivo de destino, pero date cuenta de que en caso de error, además
-de salir del programa (terminar la función \verb!main! con la palabra
-\verb!return! termina el programa, lógicamente), debemos cerrar el archivo
-anterior que ya abrimos. Finalmente, utilizamos un bucle para leer byte a byte
-el archivo de origen y escribirlo en el de destino. Como puedes ver,
-la condición del bucle es que continuará hasta que el \verb!fread! devuelva
-cero. Esto es así porque tanto \verb!fread! como \verb!fwrite! devuelven
-el número de estructuras del tamaño indicado por el segundo argumentos leídas o
-escritas, cuando se devuelva cero, es que se ha terminado de leer el archivo.
+As you can see, we have declared two variables of the pointer type to
+\verb!FILE!, we initialize them to \verb"NULL" and start the program. When you
+receive arguments it is adviceable to parse them first, because if they are not
+correct, there is no purpose in continue with the program. After that, we try to
+open the origin file, note that we open it just to read it and without emptying
+it, logically. If that call fails, the value it return would be \verb!NULL! and
+we check this is not the case before continuing. We do the same with the destiny
+file, but this one is opened with the option \verb!r! that will empty the file if it
+exists and create it if it does not. Notice that, in case of error, we need to
+close the first file we
+opened before exiting the program (returning from function \verb!main! ends the
+program). Finally, we use a loop to read byte by byte the origin file and write
+it in the destiny. As you can see, the loop condition is that it will keep
+looping as long as the reading function return anything that is not zero.
+This is like so because both \verb!fwrite! and \verb!fread! return the number of
+items they have writen or read. In this case, when \verb!fread! returns zero it
+is there is no more to read.
 
-Voy a concentrarme en el valor de retorno, como ya vimos hace poco, a
-\verb!fread! o \verb!fwrite! le indicamos un tamaño y un multiplicador, los
-argumentos \verb!size! y \verb!nmemb! respectivamente. Esto nos permitiría
-indicar, por ejemplo, que se escribieran \verb!nmemb! estructuras de su tamaño
-hallado con \verb!sizeof!. El tamaño devuelto por las funciones es el número
-de estructuras escritas, no el de bytes. Si quieres escribir, como en este
-caso, un número de bytes, simplemente indica que \verb!size! es uno y
-\verb!nmemb! es el tamaño en bytes de lo que quieres escribir.
+I am going to take some time explaining the return value of the functions, as
+we said before, we pass to both \verb!fread! and \verb!fwrite! a size and a
+number if items we want to read or write. This would allow us for example to
+write or read a certain number os structs whose size we could know with
+\verb!sizeof!. The return value is the number os \textbf{items} read, not the
+number or bytes. When writting a stream of bytes directly, simply indicate that
+the size is one and the \verb!nmemb! is the numbers of bytes.
 
-Ahora bien, quizás pienses que escribir un programa como este que lee byte a
-byte es un poco ineficiente, y tienes razón. Cada llamada a las funciones
-que tratan con cosas que gestiona el sistema operativo es relativamente
-costosa, por lo que es inteligente minimizarlas. En este caso, podríamos leer
-todo el primer archivo en memoria, cerrarlo y escribir en el segundo, en una
-sola orden, todo lo que ya leímos. El problema es que si por ejemplo intentaras
-copiar un archivo de 12~GB es probable que llenaras toda la memoria
-de un ordenador normal. Cuando eso pasa, o bien el sistema operativo termina tu
-proceso, o simplemente el ordenador se bloquea. Para evitar ambos extremos, lo
-que se suele hacer es utilizar un tamaño moderado lógico que guardar en memoria
-cada vez. Por ejemplo, digamos que queremos copiar los archivos mediante bloques
-de 100~MB, (o mejor dicho, 100~MiB). Veamos cómo
-quedaría el programa.
+You may be thinking that write a program like this that reads one byte at a time
+is a bit inefficient, and you're right. Each call to a function that manages
+things that are handled by the operating system is relatively costly, so it is
+intelligent to minimize them. In this case, we could read all the first file in
+memory and then close it and write it in the second, in just one order. The
+problem with this is that if you tried to cpy a 12~GB file it's probable that
+you fill all the memory in the computer, in which case it simply hangs or closes
+the program. To avoid both extremes, what is done often is to read a block of
+a sensible size (for example 100~MB) and write it, and repeat until the process
+is done.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de lectura de fichero con \textit{buffer}},
+caption={Example of file copying with a buffer},
 label={lst:readWithBuffer}]
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BLOCK_SIZE ((size_t)(1024 * 1024)) //10^20 = MiB
-
 int main(int argc, char const* argv[])
 {
 
-    FILE   *origin_file  = NULL;
-    FILE   *destiny_file = NULL;
-    char   *buffer       = malloc(BLOCK_SIZE);
-    size_t  bytes_read   = 0;
+    const size_t BLOCK_SIZE   = (size_t)(1024 * 1024);
+    FILE*        origin_file  = NULL;
+    FILE*        destiny_file = NULL;
+    char*        buffer       = malloc(BLOCK_SIZE);
+    size_t       bytes_read   = 0;
 
     if (argc < 3) {
-        printf("Uso: main.exe <origen> <destino>\n");
+        printf("Use: main.exe <origin> <destiny>\n");
         return EXIT_FAILURE;
     }
 
     origin_file = fopen(argv[1], "r");
 
     if (NULL == origin_file) {
-        printf("ERROR: El archivo de origen no existe.\n");
+        printf("ERROR: The origin file does not exist.\n");
         return EXIT_FAILURE;
     }
 
     destiny_file = fopen(argv[2], "w");
 
     if (NULL == destiny_file) {
-        printf("ERROR: El archivo de destino no existe.\n");
+        printf("ERROR: The destiny file does not exist.\n");
         fclose(origin_file);
         return EXIT_FAILURE;
     }
 
-    while (0 != (bytes_read = fread(buffer,
-                                    sizeof(char),
-                                    BLOCK_SIZE,
-                                    origin_file)))
-    {
+    while (0 != (bytes_read =
+                     fread(buffer, sizeof(char), BLOCK_SIZE, origin_file))) {
         fwrite(buffer, sizeof(char), bytes_read, destiny_file);
     }
 
@@ -5651,40 +5634,35 @@ int main(int argc, char const* argv[])
     free(buffer);
     return EXIT_SUCCESS;
 }
-
 \end{lstlisting}
 \end{minipage}
 
-El único cambio es que en vez de un único \verb!char! declaramos un vector de
-ellos con un tamaño definido en la macro correspondiente y que, después,
-en el bucle de copia, en vez de copiar siempre un byte, intentamos leer
-el tamaño del bloque, y al escribirlo, utilizamos el valor de retorno de
-\verb!fread!. Quiero detenerme aquí porque quizás esta línea te sorprende.
-Cualquier asignación es una expresión con un valor. Esto es lo que nos permite
-hacer algo como \verb!a = b = c!. Gracias a esta propiedad, puedes comparar
-el valor de una asignación con otra variable, que es lo que estamos haciendo.
-En este caso, podríamos incluso prescindir de la operación de comparación,
-porque comprobar si un número es distinto de cero es lo mismo que pasa si pones
-ese número en el \verb!if! directamente, sin embargo, me gusta hacerlo
-explícito.
+The only change is that instead of a single \verb!char! we declare a vector of
+them with the size defined in a const variable and, later on, in the copy loop,
+instead of copying always one byte, we try to read the block size and, when
+writting it, we use the value returned from the read operation. I want to take a
+moment in this line because it's a bit different from what we have seen up until
+now. An assignment is an expression with a value. This is what allows us to do
+things like: \verb!a = b = c!. Thanks to this property, you can compare the
+result of an assignment to another value. In this case we could save writing the
+comparison because putting a number in an if is the same that checking it is not
+zero.
 
-Esto es un uso básico de lectura y escritura en archivos, pero otra cosa que se
-hace a veces es \textbf{mover la cabeza de lectura} sin leer o escribir.
-Por ejemplo, imagínate que queremos imprimir un archivo en orden inverso.
-Nos vemos en el mismo problema que el caso de uso anterior: lo más sencillo
-sería leer el archivo entero y después invertirlo, pero es un gran problema
-si el archivo es muy grande. Podríamos hacer lo mismo que hicimos antes, leer
-el archivo a trozos, invertir los trozos y después ponerlos juntos, también
-en orden inverso. Eso es complicado, gracias a que podemos mover la cabeza
-de lectura, podemos leer directamente los bloques en el orden inverso, gracias
-a esta operación.
+This is a basic use of reading and writing, but anochet thing that is done often
+is \textbf{move the read/write pointer} without reading or writing. For example,
+imagine that we want to print a file in reverse order. We are in the same
+predicament as before, we could read all the file and then invert it, but it is
+a problem again if the file is too big. We could do the same we did before, read
+the file piece by piece, invert the pieces and then put them all together, also
+in a reverse order. This is complicated, thanks to the fact we can move the
+read/write pointer, we can read directly the blocks in reverse order.
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de uso de funciones para mover la cabeza de lectura},
+caption={Example of use of functions to move the read/write pointer},
 label={lst:fseek}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -5741,72 +5719,69 @@ int main(int argc, char** argv)
 \end{lstlisting}
 \end{minipage}
 
-El programa es un poco complicado, pero, como siempre, iremos por partes. Lo
-primero que hacemos es definir una función que pueda invertir los bytes de un
-array a \verb!char!. No es lo principal de este ejemplo, pero quédate con el
-algoritmo porque es una tarea usual y un algoritmo clásico. Después empieza lo
-que queremos hacer, es un poco complicado, pero me interesa más que veas lo que
-hacen las funciones de las que estamos hablando más que el proceso general.
-Hasta la línea 27 lo único que hacemos es algo con lo que ya estás
-familiarizado: procesamos los argumentos y abrimos el archivo, comprobando que
-todo ha ido bien. Después usamos la función \verb!fseek! que nos permite
-\textbf{mover la cabeza de lectura y escritura}, concretamente al final. Veamos
-cómo funciona.
+The program is not a bit complicated, but, as always, we will explain it little
+by little. The first thing we do is to define a function that can reverse the
+bytes of a vector. It is not the main matter in this example, but remember the
+algorithm because it is a classic. What we want to do starts right after, it is
+a bit complex, but I am interested in you seeing what the functions that move
+the head do. Up until line 27 the only thing we do is something you're already
+used to see: we process the arguments and open the file, checking everything has
+gone well. After that we use the function \verb!fseek! that allows us to
+\textbf{move the read/write pointer}, concretelly, we move it to the end of the
+file. Let's see how it work.
 
-Esta función nos permite poner la cabeza de lectura en un punto añadiendo un
-desplazamiento, que puede ser positivo o negativo. Hay tres puntos de referencia
-que puedes usar con esta función:
+This function allows us to move the head to a point in the file with an offset.
+There are three points you can use as reference for the offset.
 \begin{enumerate}
-\item \verb!SEEK_SET!: El inicio del archivo, por ejemplo:
-\verb!fseek(100, SEEK_SET);! pondría la cabeza en el centésimo byte del archivo.
-Si usas este punto de referencia no puedes usar desplazamientos negativos,
-lógicamente.
-\item \verb!SEEK_CUR!: Es la posición actual, puedes usar desplazamientos
-positivos o negativos. Por ejemplo: \verb!fseek(100, SEEK_CUR);! podría usarse
-en un bucle para leer el byte 100, el 200, el 300...
-\item \verb!SEEK_END!: Es el final del archivo, por ejemplo: si quisieras
-ir al tecer byte desde el final podrías escribir: \verb!fseek(-3, SEEK_END);!
+\item \verb!SEEK_SET!: The start of the file.
+\verb!fseek(100, SEEK_SET);! would set the head to be in the
+100\textsuperscript{th} byte of the file. When using this point, you cannot use
+negative offsets, logically.
+\item \verb!SEEK_CUR!: It is the current position, you can use negative of
+positive displacements For example: \verb!fseek(100, SEEK_CUR);! could be used
+in a loop to read the bytes 100\textsuperscript{th},
+the 200\textsuperscript{th}, the 300\textsuperscript{th}...
+\item \verb!SEEK_END!: It is the end of the file, for example if you wanted to
+go to the third byte from the end you'd perform: \verb!fseek(-3, SEEK_END);!
 \end{enumerate}
 
-En la línea 29 lo que hacemos es irnos directamente al final del archivo.
-Después usamos otra función interesante llamada \verb!ftell!. Esta función nos
-da la posición actual de la cabeza lectora en el archivo que recibe como
-argumento. Así sabremos la posición absoluta en que estamos. Después comprobamos
-si nos queda un tamaño del bloque que hemos elegido entero hasta el inicio del
-archivo. Si podemos, utilizamos ese tamaño del bloque, si no, utilizamos
-lo que podamos. Después, desplazamos a la siguiente posición que hemos calculado
-la cabeza, como puedes ver, usamos un posicionamiento absoluto. Leemos y
-\textbf{volvemos a desplazarlo hacia atrás} tantos bytes como hemos leído.
-Después llamamos a la función que invierte los bytes e imprimimos la cadena
-de texto. Después, actualizamos la variable que nos dice en qué posición
-estamos. Cuando hayamos llegado a la primera posición del archivo, sabremos que
-hemos terminado. Debes tener cuidado, \verb!fseek! sólo funciona cuando es
-posible moverse a donde le indicas. Cuando no es posible, no mueve la cabeza y
-da error (devuelve -1). Finalmente, cerramos el archivo e imprimimos un salto
-de línea para que el \textit{prompt} salga en la siguiente línea.
+In line 29 what we do it go directly to the end of the file. After that, we use
+another function called \verb!ftell!. This functions give us the current
+position in the file as a number. That is how we know where we are. After that
+we check if there is a whole block of data left. If we can, we use that block
+size, if not, we use what we can. After that, we displace the head to the
+position we have calculated, and read the amount of bytes we calculated. We read
+and \textbf{displace the pointer back again} as many bytes as we read. After
+that we call the function that inverts the bytes we have read. After that,
+we update the variable that tell us where we are. Once we arrive to the first
+position of the file, we know we hace finished. You must be careful,
+\verb!fseek! only works when it is possible to move the pointer to the place you
+tell it to. When it is not possible, it doesn't move the pointer and gives an
+error (return -1). Finally, we close the file and print a new line so the prompt
+shows in the next line.
 
-No lo hemos usado en el ejemplo, pero podemos \textbf{eliminar} archivos. Para
-ello utilizamos la función \verb!remove!, cuya \textit{signature} es ésta:
+We haven't used it in the example, but you can \textbf{delete} files. To do so
+we use the function \verb!remove!, whose signature is:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Declaración de la función \texttt{remove}},
+caption={\texttt{remove} function signature},
 label={lst:signatureRemove}]
 int remove(const char *pathname);
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, simplemente recibe un nombre de archivo. Veamos un ejemlo
-básico de programa que haga uso de ella: uno que reciba por argumento una ruta
-y la elimine.
+As you can see, it simply receives a path. Let's see an example of a simple
+program that makes use of it: one that receives as an argument a path and
+deletes it.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de programa que usa la función \texttt{remove}},
+caption={Example of a program that uses \texttt{remove}},
 label={lst:exampleRemove}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -5827,15 +5802,14 @@ int main(int argc, char const *argv[]) {
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, el programa es muy sencillo, llamo a \verb!remove! con el
-primer argumento (después del nombre del programa) y compruebo si ha funcionado
-o no.
+As you can see, the program is very simple, I call remove with the first
+argument (after the name of the program) and check is it has gone well.
 
-\subsection{Ejercicios de la sección}
+\subsection{Exercises of the section}
 \begin{exercises}[resume*]
-\item Escribe un programa que reciba un número variable de números como
-argumentos e imprima la descomposición en factores primos de todo ellos de este
-modo: si los argumentos fueran: 10, 8, 55 y 103:
+\item Write a program that receives a set of number as arguments and prints
+their decomposition in prime factor, for example, if the arguments were:
+10, 8, 55 y 103, the result would be:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -5849,36 +5823,38 @@ Factors of
 \end{verbatim}
 \end{minipage}
 
-Se recomienda hacer control de errores comprobando que los argumentos son
-números antes de utilizarlos, etc.
-\item Escribe un programa que lea \textbf{por consola} una serie de palabras
-y que sólo deje de leer cuando se introduzca <<!!>> como palabra. Después, debe
-imprimir dichas palabras en orden aleatorio. La función \verb!rand! devuelve
-un número aleatorio entre cero y el máximo entero positivo. Si quieres que
-devuelva números aleatorios \textbf{distintos} cada vez debes ejecutar
-\verb!srand(time(NULL));! al inicio de la función \verb!main!. Debes incluir la
-cabecera \verb!time.h!.
+It is recommended to make error control, checking the arguments are numbers
+before using them, etc.
+\item Write a program that reads \textbf{from terminal} a series of words and
+that only stops reading when you introduce ``!!'' as a word. After that, it
+must print said words in a random order. The function \verb!rand! returns a
+random number between zero and the biggest possitve integer, you need it to
+generate random numbers. If you want the random numbers to be different from
+one execution to the other, simply put this line: \verb!srand(time(NULL));! at
+the begining of your program. If you decide to do this too, you need to add
+the line \verb!#include<time.h>! just after the \verb!#include<stdio.h>! line.
 
-\item Haz una función que lea dos archivos e \textbf{intercambie} su contenido,
-escribe dicho programa de tal modo que no sea necesario alojar ninguno de los
-dos archivos en memoria completamente. Para hcer esto puedes usar este proceso:
+\item Make a function that reads two files and \textbf{swaps} their content,
+write said program in such a way that there is no need to store any of the files
+in memory completely. To do this you may follow these steps.
 \begin{enumerate}
-\item Copia los contenidos del primer archivo
-en un archivo auxiliar en el directorio \verb!/tmp/!
-\item Cierra el archivo que has copiado.
-\item Ábrelo de nuevo con un modo que elimine su contenido.
-\item Copia los contenidos del segundo archivo en el primero.
-\item Cierra el segundo archivo.
-\item Ábrelo de nuevo en un modo que elimine su contenido.
-\item Copia los contenidos del archivo auxiliar en el primero.
+    \item Copy the contents of the first file to an auxiliary file in
+    \verb!/tmp/!.
+    \item Close the file you have copied.
+    \item Open it again with a mode that deletes the contents.
+    \item Copy the contents of the second file to the first.
+    \item Close the second file.
+    \item Open it again with a mode that deletes its content.
+    \item Copy the content of the auxiliary file to the first file.
 \end{enumerate}
 
-\item Escribe una función que reciba una palabra como argumento e indique
-en qué posición (en bytes) dentro del archivo se encuentra la palabra. Sólo
-tienes que dar la primera ocurrencia, si la palabra no se encuentra, devuelve
-un número negativo. Haz un programa que, con esa función, reciba una ruta a un
-archivo y una palabra e imprima el resultado de buscar la palabra en el archivo.
+\item Write a function that receives a word as an argument and indicates
+in which position (in bytes) a word is in a file. Return just the position of
+the first ocurrence, if the word does not exists, return a negative number.
+Write a program that, with that function, receives a path and a word as
+arguments and prints the result of searching for the word in the file.
 \end{exercises}
+
 \section{Cómo escribir programas legibles y claros}
 Todos los lenguajes de programación tienen un grado mayor o menor de
 \textbf{legibilidad}. Se entiende por esto lo sencillo que es para programadores

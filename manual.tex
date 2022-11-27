@@ -3856,7 +3856,13 @@ no es el caso, porque tus programas se ejecutan sobre el sistema operativo.
 El sistema operativo tiene muchas funciones: se encarga de coordinar los
 procesos que se ejecutan en la máquina, de manejar el sistema de ficheros,
 de permitir que el ordenador (la CPU) entienda a los dispositivos... pero
-una de sus funciones básicas es \textbf{la gestión de memoria}. El SO
+una de sus funciones básicas es \textbf{la gestión de memoria}.
+Primeramente: cuando un programa se ejecuta, un
+proceso es la encarnación real de un programa, cuando se ejecuta un programa,
+el contenido del programa se carga desde donde está almacenado (tu disco duro),
+a la memoria RAM y así se crea un \textbf{proceso}. Puedes verlo de este modo:
+un programa es un plano de un coche, y el proceso es un ejemplar real de ese
+coche que funciona y existe. El SO
 otorga a los procesos porciones de memoria en la que éstos pueden escribir
 o no, y \textbf{controla} que no se salgan de sus parcelas asignadas.
 
@@ -3894,7 +3900,9 @@ alojar lo que le pidamos en partes de la memoria \textbf{física} disponible
 y darnos direcciones de ese mapa que suponemos que tenemos, y las traduce.
 Este proceso es la \textbf{virtualización de memoria}, y es una de las
 funciones más importantes de un sistema operativo. Gracias a él, el programador
-no debe gestionar dónde se pone físicamente lo que él escribe.
+no debe gestionar dónde se pone físicamente lo que él escribe. Además, esto
+aísla a los procesos, un proceso no tiene ni idea de qué está pasando en el mapa
+de memoria de otros procesos y ningún otro sabe qué pasa en este.
 
 En este mapa de memoria virtualizado, que es efectivamente el que vamos a usar,
 el sistema operativo crea una serie de \textbf{regiones de memoria}, las cuales
@@ -3917,11 +3925,13 @@ generar tu programa, esas instrucciones binarias se almacenan en el disco en
 el ejecutable. Cuando el programa se ejecuta, éstas se cargan en memoria en
 esta sección. Esta sección no se puede cambiar ni leer dentro del programa.
 
-La siguiente empieza a ser interesante. Cuando escribes un literal en el código
-éste debe almacenarse en algún sitio. Esta es la sección donde todos esos
-números que escribes en el código se almacenan y se usan cuando son necesarios.
-Aquí además se guardan los valores de las estructuras y arrays que inicialices
-con \textbf{listas de inicialización}. En la siguiente sección se guardan las
+La siguiente empieza a ser interesante. En esta sección se guarda el valor de
+variables globales, ya sean de tipos básicos, arrays o estructuras que
+inicializes (debes declararlas e inicializarlas, la inicialización que hagas en
+otro momento no cuenta a estos efectos). Esto es así porque esos valores que
+almacenas en ellas existirán
+antes de que tu programa empieze a ejecutarse, nada más crear el proceso.
+En la siguiente sección se guardan las
 variables, arrays, estructuras, etc. \textbf{globales} que no hayas
 inicializado. ¿Por qué sólo las globales? Porque la función \verb!main! es una
 función, y las variables que se declaran en las funciones
@@ -4181,8 +4191,8 @@ avanzando su uso.
 Te dije en su momento que cuando a una función se le pasa un array éste decae
 a tipo puntero. Es decir, como no hacemos una copia de los arrays que le pasamos
 a las funciones, lo que hacemos es decirle a la función dónde están los elementos
-del array. Así, si es necesario que haga una copia, lo hará, y si no, los leerá
-o manipulará directamente.
+del array. Así, si es necesario que haga una copia, podemos hacerla, y si no,
+los leerá o manipulará directamente.
 
 Si un puntero simboliza una dirección de memoria, puedes pensar que un único
 tipo que simbolice una dirección sería suficiente, pero no. Cada tipo de dato
@@ -4192,13 +4202,13 @@ puntero, es decir, no hay únicamente punteros, sino punteros a \verb!int!, a
 así? Porque al usar punteros con tipos asociados, sabemos \textbf{qué hay} en la
 dirección apuntada. Por ejemplo, si tenemos un puntero a \verb!int! que vale
 0xFB455DE, sabemos que debemos coger ese byte y los tres siguientes
-y decodificarlos como un entero. Ahora que ya sabes esto, veámoslo en código:
+y decodificarlos como un entero. Veámoslo en código:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:pointers1},
-caption={Declaración de punteros}]
+caption={Ejemplo de uso de punteros}]
 #include <stdio.h>
 
 int main(void)
@@ -4576,7 +4586,7 @@ cómo usar \verb!malloc! y \verb!free!.
 Una de las utilidades principales de la reserva dinámica de memoria es cuando
 otra parte del programa hace un cálculo que devuelve un resultado cuyo tamaño
 no sabemos. Por ejemplo, imagínate una función que, dado un array de números,
-devuelve un array con un ejemplar de cada número distinto, es decir, elimina
+devuelve un vector con un ejemplar de cada número distinto, es decir, elimina
 las repeticiones del array, llamémosla \verb!erase_reps!.
 Las funciones no pueden devolver arrays,
 eso ya lo sabemos, pero quien llame a \verb!erase_reps! podría declarar un array
@@ -4733,7 +4743,14 @@ int main(void)
 
 Aquí es donde entra en juego eso que te dije de que \verb!sizeof! es un operador
 y no una función. Si ves la línea 7, utilizamos \verb!sizeof! para hallar el
-tamaño del array y lo dividimos por el tamaño del primer elemento. De este
+tamaño del array y lo dividimos por el tamaño del primer elemento.
+Cabe aclarar que \verb!sizeof! no necesita saber qué hay \textbf{dentro} de
+la primera posición, sólo el tipo de la expresión, en este caso \verb!array[0]!,
+que sería un \verb!int! y por tanto cuatro bytes. Podrías utilizar \verb!sizeof!
+de manera similar en memoria que no fuera accesible y no pasaría nada porque
+\verb!sizeof! no lee la memoria sino que evalúa el tipo de la expresión sobre el
+que aplicar el operador.
+De este
 modo, podemos saber fácilmente el número de posiciones. Aquí lo he asignado
 a una variable para que lo veas mejor, pero podríamos haber puesto esta
 expresión directamente en el bucle \verb!for!. Bien, y sabiendo esto, quizás
@@ -4979,7 +4996,7 @@ de que no introducimos errores en el código cuando manejamos datos que no deben
 ser cambiados.
 
 Por ejemplo, imagínate un programa que utilice el número $\pi$. Por ejemplo
-para calcular el área de una circunferencia, necesitaríamos escribir
+para calcular el área de un círculo, necesitaríamos escribir
 \verb!surface = PI * pow(r, 2)!. Pero, imagina que nos equivocamos y escribimos
 \verb!surface = PI *= pow(r, 2)!, este error sería muy difícil de ver porque
 la primera vez la superficie estaría bien calculada, pero \verb!PI! habría
@@ -5045,8 +5062,8 @@ que el modificador \verb!const! se aplica a punteros, indicando que no se puede
 modificar su contenido, y es ahí donde se vuelve tremendamente útil en
 conjunción con las funciones. Por ejemplo, volvamos a la función que utiliza
 punteros para calcular la distancia entre dos estructuras \verb!point_s!, como
-no queremos que estas estructuras sean modificadas por la función.
-
+no queremos que estas estructuras sean modificadas por la función, we can do
+this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -5465,7 +5482,7 @@ de datos básicos con \verb!scanf! debes pasarle punteros a esas variables. En
 el caso de un puntero a \verb!char! es menos evidente. Además, salvo que llames
 a otras funciones para cambiar cómo se comporta la terminal, \verb!scanf! sólo
 leerá hasta el primer carácter en blanco que se encuentre, es decir, hasta el
-primer espacio, por ejemplo. Eso quiere dedir que si quieres leer varias
+primer espacio, por ejemplo. Eso quiere decir que si quieres leer varias
 palabras debes invocar a \verb!scanf! varias veces o invocarlo con varios
 especificadores de formato. Vamos a ver un ejemplo un poco más complicado para
 que quede todo esto claro.
@@ -5489,7 +5506,7 @@ int main(int argc, char const* argv[])
     double height = 0.0;
     printf("Hola, quiero conocerte, dime tu nombre, tu edad y cuánto mides en metros\n");
     scanf("%s %d %lf", name, &age, &height);
-    printf("Escantado de conocerte, %s. Así que tienes %d años y mides %f m\n", name, age, height);
+    printf("Encantado de conocerte, %s. Así que tienes %d años y mides %f m\n", name, age, height);
 }
 \end{lstlisting}
 \end{minipage}
@@ -5569,11 +5586,16 @@ del mismo y permite también leer.
 En la descripción de las opciones hablo de una cosa llamada cabeza de lectura.
 Es un concepto propio de los ficheros, en un fichero el programa guarda la
 posición del mismo en el que está esta cabeza. Cuando escribes o lees, ésta
-se mueve hacia delante tanto como el tamaño de los datos que hayas leído o escrito.
+se mueve hacia delante tanto como el tamaño de los datos que hayas leído o
+escrito.
 Una analogía que se solía utilizar es que un fichero es como una cinta de vídeo,
 y el cabezal de lectura como el del reproductor. El cabezal empieza al inicio
-de una cinta y vez de 10 minutos, la pausas y la vuelves a reaundar, empezarás
-desde donde lo dejaste. Todo sea dicho, el cabezal de lectura es único por
+de una cinta, supongamos que ves 10 minutos, la pausas y la vuelves a reaundar,
+empezarás
+desde donde lo dejaste. Puedes rebobinar, avanzar el vídeo y, además, ver partes
+del vídeo hace que la cabeza avance. Es decir, leer avanza el cabezal, y si
+quieres ver algo qhe ya viste debes rebobinar.
+Todo sea dicho, el cabezal de lectura es único por
 proceso y archivo, así que dos programas pueden leer o escribir en el mismo
 archivo en puntos distintos. Por otro lado, cuando la cabeza de lectura llega
 al final, se para allí (lógicamente), pero si estás realizando una operación
@@ -5609,6 +5631,11 @@ El primer puntero es de entrada para escribir y de salida para leer. Es donde
 pondremos nuestros datos, o la memoria para que la función lo escriba cuando
 leemos. Es un puntero a \verb!char!, que es el puntero que se utiliza para
 simbolizar una continuidad de datos genérico, es decir, un continuo de bytes.
+Estas funciones están hechas para escribir o leer objetos de un determinado
+tamaño, de ahí que existan los argumentos \verb!size! y \verb!nmemb!; el primero
+es el tamaño de cada uno de los objetos y el segundo el número de ellos que
+queremos leer o escribir. La función devuelve el número de \textbf{objetos}
+escritos o leídos, no de bytes. Más sobre esto en los ejemplos.
 
 Finalmente, después de hacer lo que deseas con los archivos que has abierto,
 debes cerrarlo. Cerrar el archivo provoca que todos los cambios que se han
@@ -5693,7 +5720,9 @@ incorrectos no tiene sentido seguir procesando. Después, intentamos abrir el
 archivo de origen, nota que lo abrimos para solo lectura y sin eliminarlo,
 lógicamente. Si esa llamada falla, el valor devuelto será nulo, comprobamos
 que esto no es así antes de continuar. Hacemos lo mismo, después, con el
-archivo de destino, pero date cuenta de que en caso de error, además
+archivo de destino, pero este archivo debemos abrirlo con permisos de escritura,
+creándolo si no existe y vaciando su contenido si ya existía, es decir, con la opción \verb!r!.
+Date cuenta de que, en caso de error, además
 de salir del programa (terminar la función \verb!main! con la palabra
 \verb!return! termina el programa, lógicamente), debemos cerrar el archivo
 anterior que ya abrimos. Finalmente, utilizamos un bucle para leer byte a byte
@@ -5735,11 +5764,10 @@ label={lst:readWithBuffer}]
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BLOCK_SIZE ((size_t)(1024 * 1024)) //10^20 = MiB
-
 int main(int argc, char const* argv[])
 {
 
+    const size_t BLOCK_SIZE = (size_t)(1024 * 1024);
     FILE   *origin_file  = NULL;
     FILE   *destiny_file = NULL;
     char   *buffer       = malloc(BLOCK_SIZE);
@@ -5778,12 +5806,11 @@ int main(int argc, char const* argv[])
     free(buffer);
     return EXIT_SUCCESS;
 }
-
 \end{lstlisting}
 \end{minipage}
 
 El único cambio es que en vez de un único \verb!char! declaramos un vector de
-ellos con un tamaño definido en la macro correspondiente y que, después,
+ellos con un tamaño definido en la variable correspondiente y que, después,
 en el bucle de copia, en vez de copiar siempre un byte, intentamos leer
 el tamaño del bloque, y al escribirlo, utilizamos el valor de retorno de
 \verb!fread!. Quiero detenerme aquí porque quizás esta línea te sorprende.
@@ -5892,7 +5919,7 @@ lógicamente.
 positivos o negativos. Por ejemplo: \verb!fseek(100, SEEK_CUR);! podría usarse
 en un bucle para leer el byte 100, el 200, el 300...
 \item \verb!SEEK_END!: Es el final del archivo, por ejemplo: si quisieras
-ir al tecer byte desde el final podrías escribir: \verb!fseek(-3, SEEK_END);!
+ir al tercer byte desde el final podrías escribir: \verb!fseek(-3, SEEK_END);!
 \end{enumerate}
 
 En la línea 29 lo que hacemos es irnos directamente al final del archivo.
@@ -5901,8 +5928,8 @@ da la posición actual de la cabeza lectora en el archivo que recibe como
 argumento. Así sabremos la posición absoluta en que estamos. Después comprobamos
 si nos queda un tamaño del bloque que hemos elegido entero hasta el inicio del
 archivo. Si podemos, utilizamos ese tamaño del bloque, si no, utilizamos
-lo que podamos. Después, desplazamos a la siguiente posición que hemos calculado
-la cabeza, como puedes ver, usamos un posicionamiento absoluto. Leemos y
+lo que podamos. Después, desplazamos a la siguiente posición que hemos
+calculado, como puedes ver, usamos un posicionamiento absoluto. Leemos y
 \textbf{volvemos a desplazarlo hacia atrás} tantos bytes como hemos leído.
 Después llamamos a la función que invierte los bytes e imprimimos la cadena
 de texto. Después, actualizamos la variable que nos dice en qué posición
@@ -5983,8 +6010,9 @@ y que sólo deje de leer cuando se introduzca <<!!>> como palabra. Después, deb
 imprimir dichas palabras en orden aleatorio. La función \verb!rand! devuelve
 un número aleatorio entre cero y el máximo entero positivo. Si quieres que
 devuelva números aleatorios \textbf{distintos} cada vez debes ejecutar
-\verb!srand(time(NULL));! al inicio de la función \verb!main!. Debes incluir la
-cabecera \verb!time.h!.
+\verb!srand(time(NULL));! al inicio de la función \verb!main!. Debes añadir
+la línea \verb!#include<time.h>! justo después de la línea
+\verb!#include <stdio.h>!
 
 \item Haz una función que lea dos archivos e \textbf{intercambie} su contenido,
 escribe dicho programa de tal modo que no sea necesario alojar ninguno de los
