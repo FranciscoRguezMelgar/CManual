@@ -342,7 +342,7 @@ more complex that if you used other languages. So let's go little by little.
 If you're reading this manual, or this part, I understand you didn't explore
 programming before. Let's start by the beginning. Since C is a language
 computers understand more easily, we must know which operating system we have.
-If you have not altered your computer in any way, the most probable thing is
+If you haven't altered your computer in any way, the most probable thing is
 that you have a computer with Windows. Ideally you should install Linux, or
 create a virtual machine with it, or use the Windows subsystem for
 Linux.
@@ -438,7 +438,7 @@ point to the father of the directory we're in (\verb!..!).
 
 The case of the root
 directory is special, because its parent directory is the same directory. In
-Windows the system is the same, but there is not only one root, there are
+Windows the system is similar, but there is not only one root, there are
 several. Those being the different storage drives we have. Also, we do not need
 to be all the time hoping in one level jumps, we can use complete paths to
 navigate from a place to the other. If you haven't figured it out yet by the
@@ -460,10 +460,10 @@ another. There are two types of paths:
 The text it shows up everytime you hit enter is called a prompt and, in general,
 it shows you your username, the machine where you are and after that, your
 working directory, if it fits in the screen. I am going to substitute the prompt
-just for a dollar sign in the examples I show you, so it fits better the page.
-When you first started your terminal it showed a tilde (\verb!~!) because that's
-an alias of your home directory, which is a route in Linux systems where the
-user stores his personal files. Generally speaking, that route is in
+just for a dollar sign in the examples I show you, so it fits better in the
+page. When you first started your terminal it showed a tilde (\verb!~!) because
+that's an alias of your home directory, which is a route in Linux systems where
+the user stores his personal files. Generally speaking, that route is in
 \verb!/home/<username>! for example \verb!/home/john!.
 
 Now we are going to learn to see what is inside a directory, the command that
@@ -578,10 +578,10 @@ desktop. You can create it as you're used to now.
 \end{lstlisting}
 \end{minipage}
 
-Now you are already in the folder, open it in the files explorer, because we
+Now you are already in the folder, open it in the file explorer, because we
 have the last configuration left. In the Windows file explorer, in the top of
 the window, click on the View tab and check the box next to ``show extensions
-of knows file types''. Next there is a picture of how it looks.
+of known file types''. Next there is a picture of how it looks.
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{extensions_en}
@@ -730,7 +730,7 @@ basic types that I will show you in a handy table.
     \label{tab:basicTypes}
 \end{table}
 
-A table like that may be intimidating at first, but it is simple. When we
+A table like that one may be intimidating at first, but it is simple. When we
 declare (create) a variable, we must say what type it has. I like to say that
 variables are like boxes and that, according to their type, inside that box
 some things fit and some others do not. To declare a variable, you write its
@@ -757,7 +757,6 @@ names in C (and in any programming language):
     remind of a snake that has eaten animals and has bulges in its body.
 \end{enumerate}
 
-
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
@@ -783,13 +782,13 @@ Computers do not understand about letters, only numbers, therefore, when you
 tell the computer that \verb!letter! is equal to \verb!'a'!, you tell it it's
 equal to the number that letter has assigned. Mind that to assign the value
 of a \verb!char! you must use simple straight quotes. The correspondency between
-letters and numbers is writen in the ASCII table, is you want to read it, I
+letters and numbers is writen in the ASCII table, if you want to read it, I
 leave this \href{https://www.ascii-code.com/}{link} to a site where u can
 check it up. If you look there, you will see that the letter a has the value
 97. After that, we assign to other char a numeric value, in line 7 you can see
 we declare a variable without assigning a value to it. That is totally okay, but
 beware!, \textbf{a variable to which you have not assigned a value has a random
-value}. This is why many techaers would advice you that everytime you declare a
+value}. This is why many teachers would advice you that everytime you declare a
 variable you should give it a value immediately. This process (giving value to
 a variable for the first time) is called ``initialize'' a variable.
 
@@ -798,15 +797,16 @@ and I want to take some time talking about line 12. At first, it could seem
 that when writing \verb!shorty = 5520;! we are enunciating a mathematical
 equality, that that is always going to be the same, but in C we do not work with
 ``laws'', but with instructions, so you shall not read that line as ``the value
-of shorty is 5520'' but ``I have assigned the value the value 5520''. That is:
+of shorty is 5520'' but ``I have assigned the value 5520 to shorty''. That is:
 you have put into the ``box'' a 5520, but nothing avoids you to pull that
 value out and put another one in as we do in line 12.
 
 The values a programmer writes in the source code are called ``literals''. I
 think that the name is pretty much self explanatory. Each literal has a type,
 in the same way variables have. Later we will see why that's important. For now,
-remember that literal is the name of values of variables the programmer writes
-explicitly in the code. Apart from literals, we can assign to a variable the
+remember that literal is the name of values the programmer writes
+explicitly in the code. That would be, numbers (like 5520) or letters,
+(like \verb!'a'!). Apart from literals, we can assign to a variable the
 value of an \textbf{expression}, a expression is any text writen in the C
 language that has a value. For now, we are going to limit ourselves to assign
 one variable to other variables.
@@ -833,7 +833,7 @@ is difficult, I am going to include in the next example a series of lines with
 the word \verb!printf! in them, you may remember it from our first program.
 Later on, I will teach you to use it, but, at the moment, simply copy this
 program in your file of source code and compile it as we did before. (Copying
-things from a PDF tends to be cumbersome, therefore type it yourself, also, it
+things from a PDF tends to be problematic, therefore type it yourself, also, it
 will serve as typing practice.)
 
 \noindent
@@ -930,15 +930,15 @@ f: inf
 
 As you can see, neither the \texttt{char} is equal to 1,500 nor the
 \texttt{short} is 5,555,555, because they cannot be. The compiler does not say
-anything about the \texttt{float} or the \texttt{double}, the reason is that both
-data types have a special value called infinity, which symbolizes infinity.
+anything about the \texttt{float} or the \texttt{double}, the reason is that
+both data types have a special value called infinity, which symbolizes infinity.
 This is because, as we will see later on, they do not represent numbers in a
 totally correct way, and that's why they can be positive and negative infinity.
 
 Let's take some time for the problem of decimal numbers. If you know how binary
 code works, you would know that a binary number of $n$ bits you can represent
 $2^n$ numbers. In the case of decimal numbers, we use one complex system called
-IEEE  754. I am not going to go into detail here, but the main problem of this
+IEEE 754. I am not going to go into detail here, but the main problem of this
 way of representing numbers is that it is not only not exact (for example,
 the number 0.1 cannot be represented exactly), but its precission is not
 constant. What does this mean? That if near the zero the float may distinguish
@@ -953,7 +953,7 @@ variable. Later on I will teach you to perform conversions between data types
 explicitly.
 
 \subsection{Printing things}
-Programmers call ``print'' to write things into files and, specially, to the
+Programmers call ``print'' to write things into files and, specially, in the
 screen, like your first program that wrote ``Hello, world!''. I do not want to
 get ahead of myself, because there are several concepts behind what we use to
 print things on the screen, nevertheless, I need you to be able to show things
@@ -976,9 +976,10 @@ characters.
 \centering
 \begin{tabularx}{\linewidth}{|c|Y|}
 \hline
-\textbf{Specifier} & \textbf{Type it prints}                                              \\ \hline
+\textbf{Specifier} & \textbf{Type it prints}                                                    \\ \hline
 \texttt{\%d}& Integers (\texttt{int})                                                           \\ \hline
-\texttt{\%f}& Decimals (\texttt{float} and \texttt{double})                                     \\ \hline
+\texttt{\%f}& \texttt{float}                                                                    \\ \hline
+\texttt{\%lf}& \texttt{double}                                                                  \\ \hline
 \texttt{\%hd}& \texttt{short}                                                                   \\ \hline
 \texttt{\%c}& \texttt{char} as characters (no numbers)                                          \\ \hline
 \texttt{\%s}& Text, writen as \texttt{\textquotedbl A text\textquotedbl}, quotes included.      \\ \hline
@@ -989,8 +990,8 @@ characters.
 \end{table}
 
 On the other hand, the special characters are these, and are written with a
-backwards slashes (\textbackslash{}) in front of them. In the table I already
-include the backward slash. Also, since the specifiers are written starting with
+backwards slash (\textbackslash{}) infront of them. In the table I already
+included the backward slash. Also, since the specifiers are written starting with
 percentage symbol (\verb!%!), if you want to print it, you need to put it twice.
 
 \begin{table}[H]
@@ -1057,7 +1058,7 @@ them. In C (and in any other programming language) there are the so called
 \textbf{operators}. They are symbols that allow us to perform calculations.
 Operators are a mathematical concept, and are applied to a set of arguments, or
 better put, operands. In math, the symbols $+$, $-$, $\times$ and $\div$ are
-mathemetical operators for addition, substraction, multiplication and division,
+mathematical operators for addition, substraction, multiplication and division,
 respectively. In the same way we have done with the basic types, I will present
 the operators in a table and later on we will see examples on how to use them.
 
@@ -1120,7 +1121,7 @@ d2: 0.333333
 \end{lstlisting}
 \end{minipage}
 
-What would look like the same operation give totally different results, and this
+What would look like the same operation gave totally different results, and this
 is because the \textbf{type} of the operands was different. In C, a literal
 integer number value is an \texttt{int}, and the division operator when it
 is operating on two integers, has an integer type. Nevertheless, when
@@ -1129,15 +1130,15 @@ division, and its type is \texttt{double}.
 
 Operators \verb!++! and \verb!--! are special, because they are unary operators.
 An unary operator is an operator that is applied only to one operand. For
-example, in mathematic you have the operator square root, whose symbol is
+example, in math you have the operator square root, whose symbol is
 $\sqrt{\phantom{2}}$ which, applied to just one number, gives us the number
 (or numbers) that squared give us the operand. The operators increment and
-decrement are unary and, also, can be writen infront of behind the operand.
+decrement are unary and, also, can be writen infront or behind the operand.
 These are special operantors that do not only give us a value, but also
 \textbf{affect the value of the operand they act on}. Simply: if \verb!a! is
 equal to three and we make \verb!a++!, \verb!a! will be four, but if we assign
 the value of the operation to other variable, that other variable will have
-a different value depending on if we write it in the poastfix or prefix way,
+a different value depending on if we write it in the postfix or prefix way,
 let's see it in the code.
 
 
@@ -1195,7 +1196,7 @@ executed from left to right.
 
 \subsubsection{Casting: explicit conversions}
 It is usual that one needs to convert one type into another, for example, in the
-case we saw before with the division, if you wanted to decimal division, you
+case we saw before with the division, if you wanted a decimal division, you
 would need to make one of them decimal to get the result you want. It is also
 common than a variable that is an \texttt{int} gets assigned to a \texttt{char}
 because you know its result is inside the range of values a \texttt{char} can
@@ -1231,13 +1232,13 @@ casting to an integer type the result of a division, as you can see, we need
 to enclose the whole division in parenthesis so the casting is not applied only
 to the first element.
 \item \lstinline[style=C]!(char) (number % 128)!: Here you can see one of the
-instances in which casting some integer type to another smaller one is ok. If
+instances in which casting some integer type to a smaller one is ok. If
 \texttt{number} is an integer, by casting it to \verb!char! there could be
 problems but since we have performed module on 128, the result of the expression
 is going to be between 0 and 127, therefore we know it is going to be in range
 of the \texttt{char}.
 \end{enumerate}
-Next there is a table that will tell you which conversions are allowed and which
+Following there is a table that will tell you which conversions are allowed and which
 are not possible.
 
 \begin{table}[H]
@@ -1264,10 +1265,10 @@ of the integer to tell whole units apart, but I write it in the table to remind
 you that you may look at the precission of the integers. Where I write casting
 and I precise there can be an overflow I mean you're performing cast from
 a bigger type to a smaller one, so that is not generally acceptable unless you
-check urself that the value of the casted expression fits into the new type.
+check yourself that the value of the casted expression fits into the new type.
 
 \subsubsection{Final example of a program with operators}
-At this point, we can make our first program that makes ``something'', I am
+At this point, we can make our first program that does ``something'', I am
 going to give you an example that calculates the solution to a system of
 linear equations, that is:
 
@@ -1317,7 +1318,7 @@ int main(void)
 If you copy this program, compile and execute it, you would see that I have
 explained about variables and expressions. Nevertheless, the program has a
 problem: it only solves one system of equations, to change the system, we need
-to change the source code and recompile. This is not practical, and the real
+to change the source code and recompile. This is not practical, and real
 programs do not work in this way. For now most of our programs would be like
 this one, because I want to explain more fundamental things first. Up until
 now our programs have been very boring, they are limited to execute a series of
@@ -1330,7 +1331,7 @@ in certain conditions. If you change the value of the numbers in the
 program in a way you make the system irresolvable the program will fail.
 Test it, change the values of \texttt{a}, \texttt{b} and \texttt{c} to 1 and
 \texttt{d}, \texttt{e} and \texttt{f} to 2. This system has infinite solutions
-and will make the program to fail. Is you compile and execute with they new
+and will make the program to fail. If you compile and execute with the new
 values, you should get something like the following:
 
 \noindent
@@ -1415,7 +1416,7 @@ diagram.
 \draw[pstyle5] (187.176pt,214.4219pt) -- (191.176pt,224.4219pt) -- (195.176pt,214.4219pt) -- (191.176pt,218.4219pt) -- cycle;
 \end{tikzpicture}
 
-\caption{Flow diagram: solving a equation system with a conditional}
+\caption{Flow diagram: solving an equation system with a conditional}
 \label{img:fluxIgEq}
 \end{figure}
 
@@ -1441,14 +1442,14 @@ and example, and then we will hop to the theory.
 
 Imagine a fire extinguishing system that works in this manner: ``If the
 temperature is greater than 50\centigrade, the fire sprinklers will start
-working, if the temperature is lower, but the is smoke detected, the sprinklers
+working, if the temperature is lower, but there is smoke detected, the sprinklers
 will start working anyway''. Since this is a science, let's write it in a formal
 manner. Each sentence that is conceptually different is a \textbf{proposition},
 and they're generally named by letters of the alphabet from p onwards. Let's
 see which propositions we have:
 
 \begin{enumerate}
-    \item Temperature is greater than 50 \centigrade, let's call it $p$.
+    \item Temperature is greater than 50\centigrade, let's call it $p$.
     \item Smoke is detected, let's call it $q$.
     \item The sprinklers go off, let's call it $r$.
 \end{enumerate}
@@ -1515,25 +1516,25 @@ negated expression, for example $\overline{p}$.
 \label{tab:andTruthTable}
 \end{table}
 
-The conceptual meaning of the operation is intuitive, but I will explain it
+The conceptual meaning of the operations are intuitive, but I will explain it
 here to tell some details. The conjunctios is true only when \textbf{both}
 of the operand are true, and is like joining two propositions with ``and'' in
 English. ``It is raining and it's cold'' is true only if at the same time it's
-raining and it's cold. On the other hand, disjunction is when you join to
+raining and it's cold. On the other hand, disjunction is when you join two
 propositions with ``or''. ``I have twisted my anckle or I have broken it'', but
-there is a caveat here, if you look at the truth table you will se than when
+there is a caveat here, if you look at the truth table you will se that when
 \textbf{both members}  are true, the disjunction is true also. It is something
 that is not aligned with the spoken language, and you need to keep it in mind.
-Finally, negation is when you put ``not'' bedore the expression o preposition,
+Finally, negation is when you put ``not'' before the expression or preposition,
 ``it is not raining'' is true only if ``it is raining'' is false.
 
-And, after this logical detour that would Aristotle proud, what? We're almost
-there, in C the logic operators are writen in this way:
+And, after this logical detour that would make Aristotle proud, what?
+We're almost there, in C the logic operators are writen in this way:
 \begin{enumerate}
     \item Conjunction is writen: \verb!&&!.
     \item Disjunction is writen: \verb!||!. (This symbols is called a pipe
-    symbol, in the American keyboard you get pushing the key over the enter and
-    shift.)
+    symbol, in the American keyboard you ir get pushing the key over the enter
+    and shift.)
     \item Negation is written: \verb"!".
 \end{enumerate}
 
@@ -1549,7 +1550,7 @@ an integer type to store logic values.
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Primer programa con operacioneslógicas},
+caption={First program with logic operations},
 label={lst:firstLogicProgram}]
 #include <stdio.h>
 int main(void)
@@ -1561,34 +1562,6 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-
-% Sí, se parece a los programas aburridos que hacíamos antes, pero no te
-% preocupes, la cuestión es que si vas a la tabla
-% \ref{tab:logicOperationExample}: \nameref{tab:logicOperationExample} verás
-% que se corresponde con la una disyunción, si hay humo, la temperatura es alta,
-% o las dos a la vez, saltarán los aspersores. Sin embargo; esto sigue siendo
-% algo inútil,
-% no podemos comprobar si la temperatura es mayor o menor que 50, hemos tenido que
-% inventárnoslo. Y esto me lleva a prensentarte otro conjunto de operadores, los
-% operadores de comparación. Esto es fácil, en C podemos comprobar si una
-% variable es igual, distinta, mayor o menor que otra. Escribo la tabla y
-% mejoramos el programa que teníamos antes.
-% \begin{table}[H]
-% \centering
-% \begin{tabularx}{\linewidth}{|c|Y|}
-% \hline
-% \bf Operador & \bf Descripción \\ \hline
-% \tt < &   Cierto si el operando izquierdo es menor que el derecho, falso en otro caso.\\\hline
-% \tt > &   Cierto si el operando izquierdo es mayor que el derecho, falso en otro caso.\\\hline
-% \tt <= &  Cierto si el operando izquierdo es menor o igual que el derecho, falso en otro caso. \\\hline
-% \tt >= &  Cierto si el operando izquierdo es mayor o igual que el derecho, falso en otro caso. \\\hline
-% \tt == &  Cierto si los valores son iguales, falso en otro caso.\\\hline
-% \tt != &  Cierto si los valores son distintos, falso en otro caso. \\\hline
-% \end{tabularx}
-% \caption{Operadores de comparación de C}
-% \label{tab:logicOperators}
-% \end{table}
-
 Yes, it looks like the boring programs we were doing up until now, do not worry,
 the matter is: if you go back to \ref{tab:logicOperationExample}:
 \nameref{tab:logicOperationExample} you're going to see that the program is just
@@ -1597,7 +1570,7 @@ sprinklers will go off. Nevertheless, this program is still a bit useless. We
 cannot check is the temperature is greater or lower than 50 \centigrade, we have
 had to make it up. This leads me to present another set of operators to you,
 the comparison operators. This is easy, in C we can check is one variable
-(or expression) is equals, greater or less than than another. I will write the
+(or expression) is equals, greater or less than another. I will write the
 table and let's improve the program we had before.
 \begin{table}[H]
 \centering
@@ -1614,10 +1587,6 @@ table and let's improve the program we had before.
 \caption{Comparison operators}
 \label{tab:logicOperators}
 \end{table}
-
-% Ahora que ya conoces los operadores de comparación y los lógicos, vamos a hacer
-% un programa que compruebe si un número está en el intervalo $\left(a, b\right]$,
-% es decir: entre $a$ y $b$, incluyendo $b$, pero sin incluir $a$.
 
 Now you know comparison operators, let's make a program that checks is a given
 value is in the interval $\left(a, b\right]$, that is, between $a$ and $b$,
@@ -1654,18 +1623,11 @@ like it and then remove the intermediate variables as an exercise, at least in
 your first programs.
 
 \subsubsection{Diverging the flow: the \texttt{if}}
-% Ahora que ya sabemos cómo crear condiciones lógicas (proposiciones) que sean
-% ciertas o falsas, podemos crear nuestra primera sentencia condicional. En C,
-% una sentencia condicional se crea con la palabra clave \lstinline!if!. A
-% continuación te presento la estructura básica de un \texttt{if}, pero esto
-% \textbf{no} es un programa correcto en C.
-
 Now we know how to create logic conditions (propositions) that can be either
 true or false, we can create our first conditional sentence. In C, a conditional
-sentence is made with the key word \lstinline[style=C]!if!. A will present to
-you now the basic structure of an \texttt{if}, but this is \textbf{not}  a
+sentence is made with the key word \lstinline[style=C]!if!. I will present to
+you now the basic structure of an \texttt{if}, but this is \textbf{not} a
 valid C program.
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -1687,7 +1649,6 @@ else
 Now we can improve our first program that simulates the sprinkler system!
 Let's add the comparison and logical operators.
 
-
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
@@ -1702,33 +1663,23 @@ int main(void)
 
     if (temperature > 50 || smoke)
     {
-        printf("Aspersores activados.\n");
+        printf("Sprinklers activated.\n");
     }
     else
     {
-        printf("Aspersores apagados.\n");
+        printf("Sprinklers deactivated.\n");
     }
 }
 \end{lstlisting}
 \end{minipage}
 
-
-% Como nos ha venido pasando, cada vez que cambies algún valor deberás recompilar
-% y ejecutar. Cambia los valores de las variables \texttt{humo} y
-% \texttt{temperature} para que cambie el resultado del condicional. Finalmente,
-% podemos mejorar nuestro programa de resolución de ecuaciones
-% lineales, antes de hacer cualquiera de las operaciones, debemos comprobar que
-% el divisor no es cero. Para ello simplemente declararemos más variables y
-% después dividiremos por ellas.
-
 As we have been suffering before, each time you change any value you will have
 to recompile and execute. Change the values of the variable \texttt{smoke} and
 \texttt{temperature} to make the result of the conditional change. Finally,
-we can improgram of resolution of linear equations, before performing any of the
-calculations we will check if the system has a solution. To do that, we need to
-check that the divider is not zero. To do that we simply declare more
+we can improve our program of resolution of linear equations, before performing
+any of the calculations we will check if the system has a solution. To do that,
+we need to check that the divider is not zero. To do that we simply declare more
 variables and then divide by them.
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -1763,20 +1714,6 @@ int main(void)
 }
 \end{lstlisting}
 \end{minipage}
-
-% Esto ya se parece algo más a un programa <<de verdad>>, podríamos decir que ya
-% estamos metidos en harina. Pero el condicional aún tiene más desarrollo: se
-% puede encadenar. A veces queremos comprobar una cadena de condiciones una
-% detrás de otra y ejecutar sólo las instrucciones correspondientes a la primera
-% que se cumpla. Imagina un programa que recibe la temperatura ambiente y, en
-% función de ella, da un mensaje sobre el tiempo, por ejemplo:
-% \begin{enumerate}
-% \item Si hay  40\centigrade{} o más, imprimir <<Hace mucho calor.>>
-% \item Si hay  35\centigrade{} o más, imprimir <<Hace calor.>>
-% \item Si hay  25\centigrade{} o más, imprimir <<Hace un buen día.>>
-% \item Si hay  10\centigrade{} o más, imprimir <<Hace fresquito.>>
-% \item Si hay menos de 10\centigrade{} imprimir <<Hace mucho frío.>>
-% \end{enumerate}
 
 This is more alike to a ``real'' program, we could say that we are already
 hands down on the matter. But the conditional has more things to it. You can
@@ -1857,7 +1794,7 @@ $$
 \end{figure}
 
 In case this is not possible, it means that nor $x$ or $y$ are in both
-equations, that is, we have one equations that solves for $x$ and other for $y$.
+equations, that is, we have one equation that solves for $x$ and other for $y$.
 Either we have$\left\{\matrix{ax=c\cr ey=f}\right.$ or we have
 $\left\{\matrix{by=c\cr dx=f}\right.$. Simply checking if $a=0$ we will know in
 which case we are. Finally, we could be in the case that we had just one
@@ -1929,7 +1866,7 @@ according to the system. We can be in one of these four cases:
 equations as we did the first time we solved the problem. In this case, if
 the divider we calculated is zero, the problem is not solvable.
 \item $y$ is present in both equations, we can solve for it as we did just
-before showing this version program.
+before showing this version of the program.
 \item In one of the equations, both $x$ and $y$ are multiplied by zero,
 therefore this is not a system, and we cannot solve it.
 \item We can be in the case we can't solve both equations for one unknown,
@@ -1973,14 +1910,14 @@ The main implication of enclosing code between braces in a block is that the
 variables declared inside it are not visible outside, but those declared outside
 are visible inside the block.
 If you remember the basic structure of the conditional, you will see it includes
-braces, also, in the first program that I presented to you I told you will
+braces, also, in the first program that I presented to you I told you you will
 always have to write a series of lines, those include a single code block.
 Inside that block we have put all the instructions in all our programs. Now
-we have conditionals, we hace nested blocks (blocks inside blocks).
+we have conditionals, we have nested blocks (blocks inside blocks).
 
 All variable declared in C has a \textbf{scope}, that is the portion of the code
-in which the variable can be seen, the scope of a variable is the block in qhich
-it's been declared and all those block inside that one.
+in which the variable can be seen, the scope of a variable is the block in which
+it's been declared and all those blocks inside that one.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2001,10 +1938,10 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-If you try to compile the code I just shown, you will se the compile says the
+If you try to compile the code I just shown, you will se the compiler says the
 variable \texttt{inner} is not declared, even when you declared it ``before''.
 Another of the side effects of blocks is that you can define variables that
-already existen in outter blocks. Let's see an example.
+already existed in outter blocks. Let's see an example.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2027,7 +1964,7 @@ int main(void)
 \end{minipage}
 
 If you compile an execute this program, you'll see it prints firstly 10 and
-later 3. This is because there two variables with the same name. How is this
+later 3. This is because there are two variables with the same name. How is this
 possible? How does C to which variable are you referencing? Simply those
 variables that are local (those declared in the block you're in) have priority
 over those declared in more external blocks. This means you cannot access
@@ -2039,10 +1976,9 @@ couldn't explain before. Firstly I want to tell you that outside the braces of
 our first program we can write things. Concretely, we can declare variables,
 which are called \textbf{global variables}. They are called like that because
 they have a ``global'' scope. That is: any other instruction in your program
-have access to them (unless they declared a variable with the same name). I am
+has access to them (unless they declared a variable with the same name). I am
 not going to take much time in them, at the moment, they're not useful to us,
 but I am going to show you an example of how a program with them would look.
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2070,18 +2006,15 @@ the variables \texttt{x} and \texttt{y} in the only block we needed them, we
 could have declared them at the start of the program, or as global variables,
 but, since it was not necessary, we didn't do it.
 
-
 \subsection{Other jump onstructions: \texttt{switch} and \texttt{goto}}
-
 You know the most important way to make the flow of the program diverge, but
 there are other two that still have some utility, I have already named them in
 the title: \texttt{switch} and \texttt{goto}. The first one behaves like a
 distributor of the flow of the program, given a variable it examines the value
-and compares it with a series of cases, according to the case, it jump that
+and compares it with a series of cases, according to the case, it jumps to that
 line. We could imagine the \texttt{switch} like a factory worker that classifies
 products that go out an assembly line, according to the state of the product it
 does a thing or another.
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2127,15 +2060,15 @@ int main(void)
 
 If you look the example program, a \texttt{switch} starts in a similar way to
 a \verb!if!, but inside the parenthesis there is not a condition, but always a
-variable. That variables must be an integer type. After that, in the body
+variable. That variable must be an integer type. After that, in the body
 of the \texttt{switch} there is a set of lines that start with \verb!case!,
-after that you must write a literal value (it cannot be a variable) and then
-the lines you want to execute in case the the variable in the switch has the
-value of this case. That set of instructions can end or not with an special
-instruction called \lstinline[style=C]!break;!. This instructions makes the
+after that word you must write a literal value (it cannot be a variable) and
+then the lines you want to execute in case the the variable in the switch has
+the value of this case. That set of instructions can end or not with an special
+instruction called \lstinline[style=C]!break;!. This instruction makes the
 flow of the program to exit the switch. We need this because if we didn't put
 it, the instructions in the following cases would execute also. If you execute
-the problem as it is writen, it will print only the message of the Thursday, but
+the program as it is writen, it will print only the message of the Thursday, but
 if you remove the breaks and recompile, it will print all days from Thursday on.
 
 You would see there is a line that is not a \texttt{case}, but has been created
@@ -2150,9 +2083,9 @@ in the \texttt{else} at the end of the chain.
 
 The \texttt{switch} is an example of jumping to a label. A label is something
 special because it stablishes a point in the to which you can jump with or
-without a condition. The instruction to jump to a label is \texttt{goto}, let's
-see a simple example and, later, I will explain its most common use case.
-The code example for that code will be introduced in a later section, because
+without a condition. The other instruction to jump to a label is \texttt{goto},
+let's see a simple example and, later, I will explain its most common use case.
+The code example for that case will be introduced in a later section, because
 it will be difficult to understand without advancing more in the contents of
 the language.
 
@@ -2193,12 +2126,12 @@ repeat instructions is necessary to make programs work, and here we're going
 to learn how: with \textbf{loops}. There two main kinds of loops:
 \lstinline[style=C]!while! and \lstinline[style=C]!for!.
 In the same fashion we did with the conditional, we will see firstly the flow
-structure of the program, later how it is writen in C and finally example on
+diagram of the structure, later how it is writen in C and finally an example on
 how to use the loops in some programs.
 
 \subsubsection{The \texttt{while} loop}
 This is the most basic kind of loop, and that's why we're going to explain it
-firtly, simply sets a series of instructions that will be executed as long
+firstly, it sets a series of instructions that will be executed as long
 (while) a condition is true. Imagine you wanted to print all numbers from
 one to 100. You could write 100 lines that print every number or you could
 tell the computer to print a variable, add one to it, and then print it again
@@ -2274,16 +2207,12 @@ int main(void)
 \end{minipage}
 
 The \texttt{while} loop is the simplest of them, as you can see. The
-instructions that are in the code are executed only in the condition is true.
+instructions that are in the loop are executed only in the condition is true.
 This has two implications: is the condition is \textbf{not} true when you arrive
 to the \texttt{while} instruction, the loop will never be executed, not even
 once. The other is that if there is nothing that changes the value of the
 condition of the loop inside it, the loop will execute forever. For example in
 this loop we change the value of variable so it reaches 100 and the loop ends.
-
-% Hay un tipo especial de bucle \texttt{while} que ejecutará las instrucciones
-% siempre \textbf{al menos una vez}, porque la primera ejecución la hace antes de
-% evaluar la condición. Veamos un ejemplo:
 
 There is a special kind of loop \texttt{while} that will execute the
 instructions always \texttt{at least once}, because the first execution will be
@@ -2308,21 +2237,21 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-This program generales a random number (you must believe it until I explain more
-concepts) and prints it, then, if the numbers is not 10, prints it again and
-changes the varuable value to another random value. Why would we need to use
-\texttt{do-while}? because with it we do not need to initialize the variable
+This program generates a random number (you must believe it until I explain more
+concepts) and prints it, then, if the number is not 10, prints it again and
+changes the variable value to another random value. Why would we need to use
+\texttt{do-while}? because with it we don't need to initialize the variable
 outside the loop, and all the ocurrences of the use a \texttt{rand} will be
-inside. This lopp is much less used than \texttt{while} and shares with the
-switch that is it something that doesn't get used much, but when it does, it's
-due to be used, it makes things to be easier.
+inside. This loop is much less used than \texttt{while} and shares with the
+switch that is it something that doesn't get used much, but when it does,
+it makes things much easier.
 
 \subsubsection{The \texttt{for} loop}
 
-The \texttt{for} loop is a loop that works as while, but that does two things
-more: it executes an instruction \textbf{before executing anything inside the
-loop} and other \textbf{at the end of each repetition}. Let's see the flow
-diagram and how it's writen.
+The \texttt{for} loop is a loop that works like the while loop, but that does
+two things more: it executes an instruction \textbf{before executing anything
+inside the loop} and other \textbf{at the end of each repetition}. Let's see
+the flow diagram and how it's writen.
 \begin{figure}[H]
 \centering
 % generated by Plantuml 1.2022.7
@@ -2413,14 +2342,14 @@ int main(void)
 This program performs the same task that we did with the \texttt{while} loop.
 As you can see, we declare and initialize a variable called \texttt{ii}, with
 value one, execute the body of the loop (the body is the block of code that
-will repeat itself) and, at the end to every iteration the varuable will be
-incremented in one. This kind of loop tend to be very used along something
+will repeat itself) and, at the end to every iteration the variable will be
+incremented in one. This kind of loop tends to be very used along something
 called arrays, which we will see later.
 
 \subsection{Loop interruption}
 Sometimes we want to end an execution of a loop in the middle of an iteration,
 in this case we are going to write a program that calculates the power of two
-that id greater or equal than a target.
+that is greater or equal than a target.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2484,7 +2413,7 @@ int main(void) {
 
 In this case we have moved half of our condition to a conditional inside the
 loop, that checks if the number is greater or equal than the target.
-Note that we have had to \textbf{invert} the condition. Before, we checked if
+Mind that we have had to \textbf{invert} the condition. Before, we checked if
 number was strictly less than target, because it was the condition to
 \textbf{keep computing}, here we are checking the opposite, if number is greater
 or equal than the target, because this new condition \textbf{ends} the
@@ -2510,9 +2439,6 @@ leap years or not. A year is a leap year given these conditions.
     \item It is, in any case, if it is divisible by four hundred.
 \end{enumerate}
 
-% Si una de las condiciones no se cumple, no tiene sentido que comprobemos
-% las siguientes, veamos cómo se implementaría sin \verb!continue!.
-
 If one of those conditions is not true, there is no reason to check any other
 one, let's see how it will be writen without \texttt{continue}.
 
@@ -2529,7 +2455,7 @@ int main(void)
         int bisiesto = ii % 400 == 0 ||
                           (ii % 4 == 0 && !(ii % 100 == 0));
         if(bisiesto){
-            printf("El año %d es bisiesto.\n", ii);
+            printf("The year %d is a leap year.\n", ii);
         }
     }
 }
@@ -2566,22 +2492,23 @@ int main(void)
 It uses more lines, but some people may argue it is easier to read, you could
 read it as ``if it is not divisible by four, go to the next number, if it is
 divisible by one hundred but not by four hundred, go to the next too''.
-Also, te printing order is not in a conditional, because if we reach the line,
+Also, the printing order is not in a conditional, because if we reach the line,
 we already know the number is a leap year.
 
 As it happened with \texttt{break}, this is not a better way to write a program,
-but I needed to invent some example with the limited content I have shown
-now. Again, take \texttt{continue} as a novelty more than something that will
-be used most often than not.
+but I needed to invent some example with the limited content I have shown up
+until now. Again, take \texttt{continue} as a novelty more than something that
+will be used often.
 \section{Data structures}
 Data structures are one of the most important things in programming and
-in computer science, until now the only structure you know were variables, each
-one of a type and with a different name. This is the structure más simple, but
+in computer science, until now the only structure you knew were variables, each
+one of a type and with a different name. This is the simplest structure, but
 very often we need more complex structures, in this section we will see two
 simple data structures that C provides to the programmer: the array and
 the struct, or structure. Structure has a generic meaning as the one I used in
 the title, and the sepecific one of being the artifact of the C language I am
-going to show you.
+going to show you. I will try to say structure when I mean any generic data
+structure and struct when I mean the C language feature specifically.
 
 \subsection{The array}
 Sometimes we want to pack data of the same type together, those packets are
@@ -2594,7 +2521,7 @@ array a''. Let's see how they're declared and used.
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Example of declaration of array},
+caption={Example of declaration of an array},
 label={lst:arrayDeclaration}]
 #include <stdio.h>
 int main(void)
@@ -2614,7 +2541,6 @@ square braces (\verb![]!), the position we want to access. Inside the braces
 there may be any expresion with an integer value, variables included, which
 is the most common.
 
-
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
@@ -2633,11 +2559,10 @@ int main(void)
 \end{minipage}
 
 In this program we are declaring the array, assigning a value to the first
-possition and then using that value to assignt hat possition to another
+possition and then using that value to assign that possition to another
 variable, the values of the first position of the array and the variable
 are not linked. If you remember what I said in the last section, we will
 use a lot of \texttt{for} loops alongside arrays.
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2657,26 +2582,19 @@ int main(void)
 \end{minipage}
 
 We must make several considerations, the variable you have declared in a
-\texttt{for} loop when you access an array tend to be called \texttt{i}.
+\texttt{for} loop when you access an array tends to be called \texttt{i}.
 It is just a personal habit of mine to call it \texttt{ii}, you can do it as
 you wish, but if you want other programmers to read your code easily, I would
 encourage you to use any of those two alternatives; secondly: look carefully
 the loop, \texttt{ii} takes values from 0 to 9, which are the positions of
 the array, and it assigns to them the values of the variable we are using
-to access the array, so we wad number in it values 0, 1... to 9.
-
-% Pero los arrays pueden tener más de una dimensión, es decir, si ahora tenemos
-% arrays de datos, podemos tener matrices, o cubos, o incluso
-% estructuras de dimensiones ilimitadas. En general, el ser humano tiene
-% dificultad manejando más de dos o tres dimensiones, así que te pondré el ejemplo
-% de cómo usar un array de dos dimensiones.
+to access the array, so we wad number in it with values 0, 1... to 9.
 
 But arrays can have more than one dimension, that is, if we now have arrays of
-data. we can have matrixes, or cubes, or even structures of unlimited
+data, we can have matrixes, or cubes, or even structures of unlimited
 dimensions. In general, human beings have problems managing more than two or
 three dimensions, so I will show you an example on how to use a bi-dimensional
 array.
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2703,16 +2621,16 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-The first dimension of the array, in this case 5, says to you how many rows
+The first dimension of the array, in this case 5, inficates how many rows
 it will have, the second, the columns. You can think of array with two
 dimensions as an ``array of arrays''. This is expandable to all the dimensions,
 as we said before. You must be careful, if you try to access to an position of
 the array that does not exist it is very probable that your program ends
 abruptly. If you use nested loops with arrays of several dimensions, the
 custom is that the variables that go in the inner loops after \texttt{i} are
-called with the next letters (j, k...). This is a mathematical reminiscence,
-where big operator like summations or products of series use indexes with
-these letters.
+called with the following letters (j, k...). This is a mathematical
+reminiscence, where big operators like summations or products of series use
+indexes with these letters.
 
 \subsection{The struct}
 In C a struct is a ``pack'' of data from different type that has a name. It
@@ -2723,12 +2641,6 @@ allows us to use the basic construction blocks of the language, basic types,
 and create new concepts with them. In general, we want all the parts of our code
 to be able to see these new types, so we will declare them outside all code
 blocks, in tye same way I told you a global variable is declared.
-
-% Cuando creamos una variable de este tipo, estamos \textbf{instanciando} un
-% \textit{struct}. En informática instanciar es crear una variable de un tipo
-% determinado. Por ejemplo, podríamos haber dicho <<instancias un entero>>, pero
-% se suele aplicar a tipos compuestos, no básicos. Así que primero debemos crear
-% el tipo y después variables de ese tipo.
 
 When we create a variable of this new type, we are \textbf{instantiating} a
 struct. In computer science instantiate is creating a variable of a given type.
@@ -2806,7 +2718,6 @@ variables . I think you can see that the very moment we start managing many
 points in a program, this could be something very difficult to understand.
 Let's see what would come out of using our new knowledge of the structures.
 
-
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
@@ -2842,20 +2753,19 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-As you can see, the program is much more cleaner. Also, I do not have to rely in
-the name of the varuables to signify that something is a point, but I can
+As you can see, the program is much more clean. Also, I do not have to rely in
+the name of the variables to signify that something is a point, but I can
 rely in the tools the language offers me.
 
 Note: These two programs use a library (we will speak about them later on)
-and need to be compile with an special option, simply add \texttt{-lm} to the
+and need to be compiled with an special option, simply add \texttt{-lm} to the
 line you have been using to compile until now, it would end like:
 ``\texttt{gcc -o main.elf main.c -lm}'' (without the quotes).
 
-
 \subsection{Initialization lists}
-Both array an structures have a way to initialize them in a concise way. If you
-remember the chaper about variables, initializing a variables is give it
-value for the first time. This way of doing so to arrays an structs is the
+Both arrays an structs have a way to initialize them in a concise way. If you
+remember the chapter about variables, initializing a variables is give it
+value for the first time. This way of doing so to arrays and structs is the
 initialization list. Let's see an example.
 
 \noindent
@@ -2880,9 +2790,10 @@ int main(void)
 In the case of the struct, the members are initialized in the order we declared
 when creating the new struct type. So in the example the x coordinate will be
 1.1 and the second 2.3. In the case of the array we have filled all the
-positions, if we put only some, they will be initialized to zero. Be careful,
-because the initializers with braces are good only to initialize, if we added to
-the program a line such as: \lstinline[style=C]!punto1 = {2.2, 4.6}! the
+positions, if we put only some, the remaining will be initialized to zero.
+Be careful, because the initializers with braces are good only to initialize,
+if we added to the program a line such as:
+\lstinline[style=C]!punto1 = {2.2, 4.6}! the
 compiler wouldn't let you compile. The same would happen with the array. With
 the struct we can do something, initialize only the fields we want, omitting
 some, etc. This is done with a little confusing syntax. Let's use an example
@@ -2912,22 +2823,11 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-% Como puedes ver, primero hemos inicializado los campos que queríamos y después
-% hemos calculado lo que nos interesaba con ellos. Nota, además, que como hemos
-% indicado en el inicializador el campo al que corresponde cada valor, ni siquiera
-% hemos de preocuparnos del orden.
-% (La regla para saber si un año
-% es bisiesto es más compleja, pero esto es sólo un ejemplo).
-
-As you can see, firstly we hace initialized the fields we wanted and later we
-calculated what we wanted. Since we have said whose fields we wanted to assign
-values to in the initialization list, we didn't even have to worry about the
-order. As we saw before the rule to know if a year is a leap year is more
+As you can see, firstly we have initialized the fields we wanted and later we
+calculated what was remaining. Since we have said whose fields we wanted to
+assign values to in the initialization list, we didn't even have to worry about
+the order. As we saw before the rule to know if a year is a leap year is more
 complex but this is just an example.
-
-
-% Quiero añadir como colorario final que es posible (y común) declarar arrays de
-% \textit{structs} y estructuras con arrays como miembros. Ejemplo:
 
 I want to add as a conclusion that it is posible (and common) to declare arrays
 of struct and have struct that have arrays as fields. For example.
@@ -2958,9 +2858,10 @@ int main(void)
 
 Pay attention to the initialization list in line 12, in it the most external
 braces indicate that we are initializing the struct \texttt{triangly}, after it,
-there is another level of braces because we're initializing the member points,
-which is an array and, finally, for each element of that array we use an
-initialization list for each point. A clearer but longer would be:
+there is another level of braces because we're initializing the member
+\verb"points", which is an array and, finally, for each element of that array
+we use an initialization list for each point. A clearer but longer way to write
+it would be:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2974,9 +2875,9 @@ struct triangle_s triangly = { .points = {{.x = 1.1, .y = 2.2},
 I have to warn you about one thing, when you initialize an array with an
 initialization list you cannot define its size with a variable, that is:
 you must do it with a literal value. This has a very clear reason: if you
-initialize an array with a variable as dimension, for example:
-\verb!int array[var] = {1,2};!, the list will indicate that the array is, at
-least two positions long, but the compiler does not know how much var will be.
+initialize an array with a variable as its size, for example:
+\verb!int array[var] = {1,2};!, the list will indicate that the array is at
+least, two positions long, but the compiler does not know how much var will be.
 If it's two or more, it is ok, but if it's less, what would the compiler do?
 Make an array of that length indicated by \verb"var" and drop values from the
 list or ignore \verb!var! and use the elements on the list? Mind you that
@@ -2988,18 +2889,17 @@ in mind, if you want an array with a concrete size, determined by a variable,
 do not initialize it with an initialization list. In any case, the compiler
 would tell you that it's wrong.
 
-
 \subsection{Exercises of the section}
 Now you already have significant knowledge I will propose some exercises to you
 to check you understood the concepts presented so far.
 \begin{exercises}
-\item Write a program that declared a struct that defined a circle in two
+\item Write a program that declares a struct that defines a circle in two
 dimensions (center and radious). Make a program that declares a variable of
 that type and calculates its area.
 \item Write a program that, using the struct point presented in the example,
 declares an initializes an array of them and prints the directions you must
 follow from a point to the next, for example, if the points were:
-$(1, 2), (3, 4), (2,5), (2, 1)$ this will be printed:
+$(1, 2), (3, 4), (2, 5), (2, 1)$ this will be printed:
 \begin{verbatim}
 Right, Up
 Left, Up
@@ -3019,7 +2919,7 @@ sum of its rows and columns in this way:
 \end{verbatim}
 
 If you put numbers with a different length the columns will be
-misaligned, you haven't got to worry about this.
+misaligned, you must not worry about this.
 
 \item Write a program that does the following for the number from one to 100,
 both included: if the number is divisible between two, you must print ``fizz'',
@@ -3044,8 +2944,8 @@ In programming, a function is almost a direct translation of what a function
 is in mathematics. Let's start there, in mathematics a function is an object
 that receives a series of arguments from certian domains and gives a result
 that is in some codomain. In other words, it receives a set of mathematical
-objects each from a type (numbers, vectors, matrixes...) and gives you a result
-of some type of mathematical things.
+objects each one from a type (numbers, vectors, matrixes...) and gives you a
+result of some type of mathematical items.
 $$
 f(x) : \mathbb{R} \longrightarrow \mathbb{R}_{\ge 0}
 $$
@@ -3061,20 +2961,6 @@ a piece of code that receives a series of arguments and ``returns'' a result.
 I am going to explain it in yet another way: a function is like a ``black box''
 that receives ingredients and gives us a result, without the need to know what
 is inside.
-
-% Después de esta introducción, veamos cómo se declara, define y usa una función
-% en C. La declaración de una función es como sigue:
-% \begin{enumerate}
-% \item Tipo de retorno de la función, es decir, el codominio, el tipo de dato
-% que la función nos va a devolver. Por ejemplo, \lstinline[style=C]{double}.
-% \item Nombre de la función, al igual que las variables, las funciones han de
-% tener nombre. Por ejemplo, \verb!power!.
-% \item Paréntesis de apertura.
-% \item Lista de argumentos con su tipo separados por comas. Por ejemplo: dos
-% enteros llamados \verb!base! y \verb!power!.
-% \item Cierre de paréntesis.
-% \item Como siempre, final de la línea punto y coma.
-% \end{enumerate}
 
 After that introduction, let's see how they are declared, defined and used.
 The declaration is writen as it follows:
@@ -3104,7 +2990,7 @@ double power(int base, int power);
 
 But this function cannot be used, because we haven't defined it. Define a
 function is in a way like initializing a variable. And it is saying
-\textbf{what the functions actually does}. To do that, we copy the definition of
+\textbf{what the function actually does}. To do that, we copy the definition of
 the function (without the semicolon) and we write a block of code. Which would
 look like this:
 
@@ -3120,17 +3006,17 @@ double power(int base, int exponent)
 \end{lstlisting}
 \end{minipage}
 
-If you have been attentive, you may have seen a similarity between that last
-fragment of code and the first program we wrote. This is not by chance, when
-you wrote \verb!int main(void)!... what you were doing was \textbf{declare and
-define} a function called \verb!main!. What you may be wondering now is why.
+If you have been paying atention, you may have seen a similarity between that
+last fragment of code and the first program we wrote. This is not by chance,
+when you wrote \verb!int main(void)!... what you were doing was \textbf{declare
+and define} a function called \verb!main!. What you may be wondering now is why.
 This is because in the Linux operating system and in most operating systems
 the way programs start is by the operating system calling their \texttt!main!
 function. That is why I had to make you write all those lines without telling
 you what they were. Finally, the ``shape'' of a function (return type and
 type of arguments) is called signature of a function.
 
-Let's come back to the function \verb!power!, now we have ready to be written,
+Let's come back to the function \verb!power!, now we have it ready to be written,
 we can define its behaviour. In a function, the block of code that goes after
 the argument list is called \textbf{body}. Inside the body the arguments can
 be used as local variables. With this you can calculate the value you want the
@@ -3139,7 +3025,6 @@ function to \textbf{return} and make C do so with the
 the function ends executing (you go out of it). Let's see how we can implement
 the function of the example that, if you didn't guess it by the name, calculates
 the power \verb!base! to \verb!exponent!. It would end up like this:
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -3165,19 +3050,19 @@ double power(int base, int exponent)
 \end{lstlisting}
 \end{minipage}
 
-The function does this: declares a variable called \verb!res! which will be were
-we will save the power we calculate. After that, we will use a \verb!while!
-loop to multiply of divide (according to if the exponent is possitive or
-negative) as many times as it's needed. At the end, we will return the result.
+The function does this: declares a variable called \verb!res! which will be
+where we will save the power we calculate. After that, we will use a
+\verb!while! loop to multiply of divide (according to if the exponent is
+possitive or negative) as many times as it's needed. At the end, we will return
+the result.
 
 All right, now we have defined the function let's see how you use it. To use
-a function you will ``invoke'' it. To do so we will simply write its name and the
-arguments it needs. Let's see an example, if before in our program we we have
-defined the function, this fragment of code will print several powers. If you
-think about this, using a function in a programming language is like writting
-the concrete value of a function in mathematics, if $f(x) = x^2$ then you
-know writting $f(3)$ is the name as writting a nine.
-
+a function you will ``invoke'' it. To do so we will simply write its name and
+the arguments it needs. Let's see an example, if before in our program we
+have defined the function, this fragment of code will print several powers.
+If you think about this, using a function in a programming language is like
+writting the concrete value of a function in mathematics, if $f(x) = x^2$
+then you know writing $f(3)$ is the name as writting a nine.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -5223,17 +5108,7 @@ intereting exercise that you made a program that checks if a text string is a
 number or not. Finally, there is also \verb!atof! that does the same, but to
 floating point number.
 
-% Otra opción que existe que dejar que, una vez iniciado el programa, el usuario
-% escriba por consola lo que deba éste recibir. Por ejemplo, podríamos hacer un
-% programa que sea una versión 2.0 de nuestro primer \emph{Hola Mundo}. Esta
-% versión podría primero preguntar el nombre del usuario y después saludarle por
-% él. Para conseguir esto se utiliza (o se puede utilizar, hay otras alternativas)
-% la función \verb!scanf!. Esta función es la hermana gemela de \verb!printf!
-% porque se comporta igual, simplemente especificas un formato y le das las
-% variables donde quieres guardar los datos y la función leerá de la terminal
-% con ese formato. Por ejemplo, hagamos este \emph{Hola Mundo 2.0}.
-
-Other option is to allow the user to write things into the program once
+Another option is to allow the user to write things into the program once
 it has started. For example, we could so a program that is a 2.0 version of our
 first \textit{Hello, World}. This version would first ask the name of the user
 and then say hello to him personally. You can use the function \verb!scanf!
@@ -5299,8 +5174,7 @@ int main(int argc, char const* argv[])
 As we said, \verb!scanf! stop reading in the first space, so your can write each
 data and hit enter or write the three answers separated by spaces and hit enter
 just once. Also, note that, as you want to read a \verb!double! we must the
-specifier \verb!%lf!, this is also done to print, to print the number with more
-precission, but in this case we are doing it in the opposite direction, and the
+specifier \verb!%lf!, the
 compiler would warn us this is not right if we used \verb!%f!. This function
 \textbf{blocks} the program until is receives \textbf{all} the arguments we're
 asking for with the specifiers. Also, what is written in the terminal and does
@@ -5312,16 +5186,6 @@ enter. In the same way that \verb!atoi!, if the specifiers expects a number and
 the input is not a number, the function will fail throwing values with little to
 no sense.
 
-% Y finalmente: los ficheros, o archivos. Los programas pueden eliminar, crear,
-% escribir y leer de archivos. Para esto hay varias maneras, algunas más pedestres
-% que otras, porque algunas son más estándar y otras dependen del sistema
-% operativo. Al contrario que con los otros métodos, los ficheros tienen un
-% ciclo de vida más complejo. El ciclo de vida es, en este contexto, la descripción
-% de cuándo empieza a existir, existe y deja de existir algo. Por ejemplo,
-% el ciclo de vida de una región de memoria dinámica es desde que la reservas
-% hasta que la liberas, el de un array, desde que se entra en su bloque de código
-% hasta que se sale, etc. Con los archivos pasa algo parecido.
-
 Finally, the files. Programs can delete, create, write and read from files.
 To do this, there several ways, some more simple than others, because some are
 more standard and other depend on the operating system. In opposition to the
@@ -5331,12 +5195,6 @@ to do so. For example, the life cycle of a dynamically reserved memory block
 is the moment of their allocation to the moment it's freed, the one of an array
 goes from the moment you go into the block of code it's declared to the moment
 the program stops executing in that block. Files behave in a similar way:
-
-% Los archivos son un concepto que, de nuevo, gestiona el sistema operativo,
-% de tal modo que tenemos que utilizar funciones concretas para abrirlos, escribir
-% y leer en ellos y, finalmente, cerrarlos. A la mínima que estés un poco atento,
-% verás el paralelismo entre esto y la reserva de memoria. La función para abrir
-% un archivo es \lstinline[style=C]!fopen!, veamos su declaración:
 
 Files are a concept that, again, the operating system manages, therefore we have
 to use functions to open, write, read from them and, finally, close them. If you
@@ -5365,26 +5223,6 @@ executed the program. That is, if you pass to the function the path
 function was called), in your working directory, no in the one the program is
 in, unless they're the same.
 
-
-% El segundo argumento es interesante, es, como indica su nombre, el modo de
-% apertura del archivo. En éste argumento se suele escribir un literal que
-% contiene una serie de letras, estas letras son atributos a la manera en que
-% abrimos el archivo, veamos qué opciones tenemos.
-% \begin{enumerate}
-% \item \verb!r!: Abre el archivo para lectura (sólo para lectura) la cabeza
-% de lectura se sitúa al inicio del archivo. Si el archivo no existe, se produce
-% un error y la función devuelve \verb!NULL!.
-% \item \verb!r+!: Igual que la anterior, pero permite escribir también.
-% \item \verb!w!: \textbf{Vacía} el archivo o lo crea si no existe
-% y permite escribir en él, situando la cabeza de lectura, lógicamente, al inicio.
-% \item \verb!w+!: Igual que la anterior, pero permite leer también.
-% \item \verb!a!: Abre el archivo para escribir, pero \textbf{no lo vacía},
-% sí que lo crea si no existe. La cabeza se sitúa al final del archivo, para
-% \textbf{añadir} a al contenido que hubiera.
-% \item \verb!a+!: El archivo es creado si no existe, se escribirá al final
-% del mismo y permite también leer.
-% \end{enumerate}
-
 The second argument is interesting, it is, as its name says, the mode in which
 we're opening the mode. In this argument you tend to write a literal that
 contains a series of letters, these letters are the attributes of the way you're
@@ -5404,21 +5242,6 @@ going to open the file. Let's see which options we have.
     \item \verb!a+!: The file is created is it does not exist, data will be
     writen to the end of the file. It also allows reading.
 \end{enumerate}
-
-
-% En la descripción de las opciones hablo de una cosa llamada cabeza de lectura.
-% Es un concepto propio de los ficheros, en un fichero el programa guarda la
-% posición del mismo en el que está esta cabeza. Cuando escribes o lees, ésta
-% se mueve hacia delante tanto como el tamaño de los datos que hayas leído o escrito.
-% Una analogía que se solía utilizar es que un fichero es como una cinta de vídeo,
-% y el cabezal de lectura como el del reproductor. El cabezal empieza al inicio
-% de una cinta y vez de 10 minutos, la pausas y la vuelves a reaundar, empezarás
-% desde donde lo dejaste. Todo sea dicho, el cabezal de lectura es único por
-% proceso y archivo, así que dos programas pueden leer o escribir en el mismo
-% archivo en puntos distintos. Por otro lado, cuando la cabeza de lectura llega
-% al final, se para allí (lógicamente), pero si estás realizando una operación
-% de escritura, el archivo se agrandará, como es lógico, porque de no ser así,
-% no podríamos escribiríamos en archivos nuevos o vacíos.
 
 In the description of the options I talk about something called the reading or
 writting head, also called read/write pointer. It is not a C pointer or anything
@@ -5854,7 +5677,7 @@ the first ocurrence, if the word does not exists, return a negative number.
 Write a program that, with that function, receives a path and a word as
 arguments and prints the result of searching for the word in the file.
 \end{exercises}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Cómo escribir programas legibles y claros}
 Todos los lenguajes de programación tienen un grado mayor o menor de
 \textbf{legibilidad}. Se entiende por esto lo sencillo que es para programadores
