@@ -4288,7 +4288,9 @@ multiplicaremos). En esta función verás un uso nuevo del operador asterisco
 Es acceder al valor que ese puntero referencia (de ahí el nombre). Recuerda
 que, como puntero, \verb!ptr! contiene la dirección de memoria, necesitamos una
 manera de decirle a C que meta en esa dirección el número multiplicado. Para eso
-usamos el asterisco delante del puntero. Después, usamos el operador \verb!*=!
+usamos el asterisco delante del puntero. Simplemente: el asterisco convierte
+el puntero a entero (verb!int*!) en el entero (verb!int!) al que aquél apuntaba.
+Es decir, <<sigue el puntero>>. Después, usamos el operador \verb!*=!
 para multiplicar y asignar por el otro argumento.
 En la línea 11 puedes ver como simplemente llamamos a la función, sin tener
 que guardar lo que devuelve (porque de hecho la hemos definido como \verb!void!
@@ -5316,7 +5318,7 @@ exterior, hasta ahora, todos los datos que hemos introducido en el programa
 están escritos en el código como literales. Eso es muy impráctico, en términos
 generales, un programa leerá, ya sea por consola o desde un archivo concreto,
 los datos que deba utilizar. Hay tres fuentes de información externa
-básicas que vamos a manejar:
+básicas que vamos a manejar (hay muchas más, que no explicaré en este manual):
 \begin{enumerate}
 \item Argumentos de la línea de comandos.
 \item La entrada por consola.
@@ -6026,6 +6028,7 @@ en un archivo auxiliar en el directorio \verb!/tmp/!
 \item Cierra el segundo archivo.
 \item Ábrelo de nuevo en un modo que elimine su contenido.
 \item Copia los contenidos del archivo auxiliar en el primero.
+\item Elimina el archivo auxiliar en \verb!/tmp/!.
 \end{enumerate}
 
 \item Escribe una función que reciba una palabra como argumento e indique

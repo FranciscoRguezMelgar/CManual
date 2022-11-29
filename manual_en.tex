@@ -318,7 +318,7 @@ pros and cons) to compose a program that, after a process, the computer is able
 to understand. This process is \textbf{compilation}. To compile a program is
 turning it from that language humans can understand (and that you are going to
 learn to write, I hope with my help) into a pure computers' language. The code
-writen in those languages is called \textbf{source code} because it is the
+written in those languages is called \textbf{source code} because it is the
 source from which we will obtain (compile) our programs. In general, I am not
 going to make a distinction between the program (compiled program) and the
 source code. We will tell them apart by the conext.
@@ -667,8 +667,8 @@ my programs as to files called \verb!main.exe! mainly.
 You edited your first program with the notepad, but editing code in that way
 if a bit unbearable. Partially this is so because it is usual to use specialized
 editors that colorize the words that are important in the concrete programming
-language you are using and help you with things like knowing where the braces
-that close the one your looking at now. I am going to leave here a list of
+language you are using and help you with things like knowing where the bracket
+that closes the one your looking at now. I am going to leave here a list of
 some common editors used with C code. I will not assume you are using any
 concrete one, so choose the one you like. I use the first one, but may be for
 your first steps you may stick to Notepad++, which is simpler, and jump
@@ -741,19 +741,19 @@ write the name of the variable, the equal sign and the value, let's see some
 examples and I'll get into some caveats.
 
 Regarding the name: the name of a variable is made out of letters, numbers and
-underscores. The name of a variable must not be writen all in uppercase, but
+underscores. The name of a variable must not be written all in uppercase, but
 it can contain some. It cannot start by a number, and \textbf{you should not start
 it with an underscore}. In general, you can use two notations to write variable
 names in C (and in any programming language):
 \begin{enumerate}
     \item \textbf{Camel case}: if a name contains several words, they must be
-    writen together, with the first letter of each word in uppercase,
+    written together, with the first letter of each word in uppercase,
     excluding the first. For example: \verb!betterValue! or \verb!targetNumber!.
     It is called like this
     because the uppercase letters remind of the humps of a camel.
     \item \textbf{Snake Case}: The words are separated by underscores, all in
     lowercase, for example:  \texttt{better\_value} or \texttt{target\_number}. It is
-    called like that because the shape of the names writen in this fashion
+    called like that because the shape of the names written in this fashion
     remind of a snake that has eaten animals and has bulges in its body.
 \end{enumerate}
 
@@ -782,7 +782,7 @@ Computers do not understand about letters, only numbers, therefore, when you
 tell the computer that \verb!letter! is equal to \verb!'a'!, you tell it it's
 equal to the number that letter has assigned. Mind that to assign the value
 of a \verb!char! you must use simple straight quotes. The correspondency between
-letters and numbers is writen in the ASCII table, if you want to read it, I
+letters and numbers is written in the ASCII table, if you want to read it, I
 leave this \href{https://www.ascii-code.com/}{link} to a site where u can
 check it up. If you look there, you will see that the letter a has the value
 97. After that, we assign to other char a numeric value, in line 7 you can see
@@ -807,7 +807,7 @@ in the same way variables have. Later we will see why that's important. For now,
 remember that literal is the name of values the programmer writes
 explicitly in the code. That would be, numbers (like 5520) or letters,
 (like \verb!'a'!). Apart from literals, we can assign to a variable the
-value of an \textbf{expression}, a expression is any text writen in the C
+value of an \textbf{expression}, a expression is any text written in the C
 language that has a value. For now, we are going to limit ourselves to assign
 one variable to other variables.
 
@@ -869,7 +869,7 @@ b is equal to: 22, a still is 10
 \end{lstlisting}
 \end{minipage}
 
-As you can see, when \verb!a = b! is writen, \textbf{the values of a and b are
+As you can see, when \verb!a = b! is written, \textbf{the values of a and b are
 not linked together}. Nevertheless, when assigning any value to a variable, you
 must be careful. Going back to the methaphor of the boxes, in a box you can fit
 things of a certain set of shapes and sizes. If a data is, for instance, a
@@ -960,7 +960,7 @@ print things on the screen, nevertheless, I need you to be able to show things
 on the screen to be able to test your own programs.
 
 To print things on the screen you must use the word \texttt{printf}. With a
-syntax (syntax just means the way things are suppossed to be writen) a little
+syntax (syntax just means the way things are suppossed to be written) a little
 bit difficult. You must write \texttt{printf}, an opening parenthesis and a thing
 called ``format'' which is the text that is going to be printed, surrounded by
 double straight quotes (\texttt{"}). To include variables in that printing, you
@@ -982,7 +982,7 @@ characters.
 \texttt{\%lf}& \texttt{double}                                                                  \\ \hline
 \texttt{\%hd}& \texttt{short}                                                                   \\ \hline
 \texttt{\%c}& \texttt{char} as characters (no numbers)                                          \\ \hline
-\texttt{\%s}& Text, writen as \texttt{\textquotedbl A text\textquotedbl}, quotes included.      \\ \hline
+\texttt{\%s}& Text, written as \texttt{\textquotedbl A text\textquotedbl}, quotes included.      \\ \hline
 \texttt{\%p}& Pointers, they are an advanced feature of the language, I will explain them later \\ \hline
 \end{tabularx}
 \caption{Format specifiers}
@@ -1133,7 +1133,7 @@ An unary operator is an operator that is applied only to one operand. For
 example, in math you have the operator square root, whose symbol is
 $\sqrt{\phantom{2}}$ which, applied to just one number, gives us the number
 (or numbers) that squared give us the operand. The operators increment and
-decrement are unary and, also, can be writen infront or behind the operand.
+decrement are unary and, also, can be written infront or behind the operand.
 These are special operantors that do not only give us a value, but also
 \textbf{affect the value of the operand they act on}. Simply: if \verb!a! is
 equal to three and we make \verb!a++!, \verb!a! will be four, but if we assign
@@ -1424,7 +1424,7 @@ What you're seeing is called a flow diagram, despise the fancy name, it is very
 easy to read. You start in the black dot in the top of the diagram,
 and you follow the arrow, a diamond means a \textbf{decision}, according to what
 is inside the decision (a condition), one branch or the other will be taken.
-If you read the text of the condition inside the diamond, I have writen there
+If you read the text of the condition inside the diamond, I have written there
 what makes our system \textbf{irresolvable}. If you read the text next to the
 arrows that come out from the diamond, you will see that if $ae-db=0$, we will
 print that the system is not solvable and exit normally. If it is not zero,
@@ -1470,10 +1470,10 @@ False & False & False \\\hline
 
 In logic, there are thee basic operators:
 \begin{enumerate}
-\item Conjunction, commonly known as ``and''. It is writen with the symbol $\land$.
-\item Disjunction, common knows as ``or''. It is writen with the symbol $\lor$.
-\item Negation, commonly knows as ``not''. It is writen with several symbols,
-for example $\sim$ and $\lnot$, but it is writen also putting a bar over the
+\item Conjunction, commonly known as ``and''. It is written with the symbol $\land$.
+\item Disjunction, common knows as ``or''. It is written with the symbol $\lor$.
+\item Negation, commonly knows as ``not''. It is written with several symbols,
+for example $\sim$ and $\lnot$, but it is written also putting a bar over the
 negated expression, for example $\overline{p}$.
 \end{enumerate}
 
@@ -1529,10 +1529,10 @@ Finally, negation is when you put ``not'' before the expression or preposition,
 ``it is not raining'' is true only if ``it is raining'' is false.
 
 And, after this logical detour that would make Aristotle proud, what?
-We're almost there, in C the logic operators are writen in this way:
+We're almost there, in C the logic operators are written in this way:
 \begin{enumerate}
-    \item Conjunction is writen: \verb!&&!.
-    \item Disjunction is writen: \verb!||!. (This symbols is called a pipe
+    \item Conjunction is written: \verb!&&!.
+    \item Disjunction is written: \verb!||!. (This symbols is called a pipe
     symbol, in the American keyboard you ir get pushing the key over the enter
     and shift.)
     \item Negation is written: \verb"!".
@@ -1729,7 +1729,7 @@ message about the weather.
 \item If it's less than 10\centigrade{}, print ``It's very cold.''
 \end{enumerate}
 
-I have writen the sentences in that way purposely so you realize that, even when
+I have written the sentences in that way purposely so you realize that, even when
 forty degrees is more than ten, we don't want to print that it's hot, it's a
 nice day and it's a little bit chilly here, only the condition that arrives
 first. To do so C gives us the \texttt{if-else} sentence, in which we ``chain''
@@ -2068,7 +2068,7 @@ the value of this case. That set of instructions can end or not with an special
 instruction called \lstinline[style=C]!break;!. This instruction makes the
 flow of the program to exit the switch. We need this because if we didn't put
 it, the instructions in the following cases would execute also. If you execute
-the program as it is writen, it will print only the message of the Thursday, but
+the program as it is written, it will print only the message of the Thursday, but
 if you remove the breaks and recompile, it will print all days from Thursday on.
 
 You would see there is a line that is not a \texttt{case}, but has been created
@@ -2126,7 +2126,7 @@ repeat instructions is necessary to make programs work, and here we're going
 to learn how: with \textbf{loops}. There two main kinds of loops:
 \lstinline[style=C]!while! and \lstinline[style=C]!for!.
 In the same fashion we did with the conditional, we will see firstly the flow
-diagram of the structure, later how it is writen in C and finally an example on
+diagram of the structure, later how it is written in C and finally an example on
 how to use the loops in some programs.
 
 \subsubsection{The \texttt{while} loop}
@@ -2251,7 +2251,7 @@ it makes things much easier.
 The \texttt{for} loop is a loop that works like the while loop, but that does
 two things more: it executes an instruction \textbf{before executing anything
 inside the loop} and other \textbf{at the end of each repetition}. Let's see
-the flow diagram and how it's writen.
+the flow diagram and how it's written.
 \begin{figure}[H]
 \centering
 % generated by Plantuml 1.2022.7
@@ -2440,7 +2440,7 @@ leap years or not. A year is a leap year given these conditions.
 \end{enumerate}
 
 If one of those conditions is not true, there is no reason to check any other
-one, let's see how it will be writen without \texttt{continue}.
+one, let's see how it will be written without \texttt{continue}.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2537,7 +2537,7 @@ array do not start from one, but from zero. That means that an array like this
 one with ten positions hasn't got a position number ten, but positions from
 zero to nine.
 To access any element in an array we must write the name of it and, between
-square braces (\verb![]!), the position we want to access. Inside the braces
+square brackets (\verb![]!), the position we want to access. Inside the brackets
 there may be any expresion with an integer value, variables included, which
 is the most common.
 
@@ -2772,7 +2772,7 @@ initialization list. Let's see an example.
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Initializing with braces},
+caption={Initializing with brackets},
 label={lst:initializationLists}]
 #include <stdio.h>
 struct point_s {
@@ -2791,7 +2791,7 @@ In the case of the struct, the members are initialized in the order we declared
 when creating the new struct type. So in the example the x coordinate will be
 1.1 and the second 2.3. In the case of the array we have filled all the
 positions, if we put only some, the remaining will be initialized to zero.
-Be careful, because the initializers with braces are good only to initialize,
+Be careful, because the initializers with brackets are good only to initialize,
 if we added to the program a line such as:
 \lstinline[style=C]!punto1 = {2.2, 4.6}! the
 compiler wouldn't let you compile. The same would happen with the array. With
@@ -2806,7 +2806,7 @@ all the time.
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Initializing a struct with braces and field selection},
+caption={Initializing a struct with brackets and field selection},
 label={lst:dateStruct}]
 #include <stdio.h>
 struct date_s {
@@ -2857,8 +2857,8 @@ int main(void)
 \end{minipage}
 
 Pay attention to the initialization list in line 12, in it the most external
-braces indicate that we are initializing the struct \texttt{triangly}, after it,
-there is another level of braces because we're initializing the member
+brackets indicate that we are initializing the struct \texttt{triangly}, after it,
+there is another level of brackets because we're initializing the member
 \verb"points", which is an array and, finally, for each element of that array
 we use an initialization list for each point. A clearer but longer way to write
 it would be:
@@ -2963,7 +2963,7 @@ that receives ingredients and gives us a result, without the need to know what
 is inside.
 
 After that introduction, let's see how they are declared, defined and used.
-The declaration is writen as it follows:
+The declaration is written as it follows:
 \begin{enumerate}
 \item Data type of return of the function, that is, the codomain, el data type
 the function is going to give us. For example, \lstinline[style=C]{double}.
@@ -3097,20 +3097,21 @@ This is the word we use when we want to indicate that a function doesn't need
 any argument, for example, \verb!main!, or that it does not return any value.
 One second, what is a function that doesn't return anything good for? Well,
 while functions in C are very much like mathematical functions, they're not
-exactly the same, because functions in C can manipulate other thing the are not
-their arguments, the global variables. The most common example is \verb!printf!,
-that does a thing which is not returning anything, but manipulate the terminal,
-which is symbolized as a global variable of a concrete type. I told you when I
-mentioned them that they weren't useful for us ``yet''. When you have several
-functions, sometimes you need to use global variables because they will be
-available in all the functions, but, as I told you, it is not the best thing to
-do.
+exactly the same, because functions in C can manipulate other things that are
+not their arguments, the global variables. The most common example is
+\verb!printf!, that does a thing which is not returning anything, but
+manipulate the terminal, which is symbolized as a global variable of a concrete
+type. I told you when I mentioned them that they weren't useful for us ``yet''.
+When you have several functions, sometimes you need to use global variables
+because they will be available in all the functions, but, as I told you, it is
+not the best thing to do.
 
 Finally, one precission: I have said to you that inside the body of the function
 the arguments behave like local variables, and that may have led you to this
 question: if you change the value of any argument, is that variable changed
 outside the function? No, the arguments of a function are \textbf{copies} of
-those that were given to them when invoking it. Let's see it with an example:
+those that were given to the function in the call.
+Let's see it with an example:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -3137,23 +3138,13 @@ a three. This is because, as I said, the arguments are copies of the ones
 you passed them.
 
 \subsection{Separation between declaration and definition}
-% Te he explicado cómo declarar y cómo definir una función por separado, pero
-% en los ejemplos siempre he incluido únicamente la definición. Esto es porque en
-% la definición incluimos la declaración. Hay dos motivos por los que puedes
-% separar ambas cosas, el primero es que quieras separar tu código en varios
-% archivos, cosa que te explicaré más adelante, pero el segundo es que necesites
-% definir todas las funciones porque se usan unas a otras, veamos un ejemplo
-% de dos funciones, cuyo objetivo es imprimir siempre <<Temporada de patos>> y
-% <<Temporada de conejos>>, dependiendo de a cuál llames primero, el orden será
-% uno u otro. El código sería el siguiente:
-
 I have already explained to you how to declare and define a function
-separatedly, but in all the example I have always included only the definition.
-This is because in the definition we include the declaration. There are to
+separatedly, but in all the examples I have always included only the definition.
+This is because in the definition we include the declaration. There are two
 reasons to do both things separatedly, the first one is that you want to
 separate your code in several files, thing we will do later on, but the second
 is that you need to define all the functions because they use each other, let's
-see and example of two functions, whose target is to print always
+see an example of two functions, whose target is to print always
 ``Duck season'', and ``Rabbit season'', depending on which was called first,
 the order will be one or the other. The code would be something like this:
 
@@ -3189,7 +3180,6 @@ program, nevertheless, works, but it is not, again, sensible, using functions
 without defining them before.
 How could we solve this? Putting the declaration of both functions
 \textbf{before} of their definitions. That is:
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -3228,12 +3218,11 @@ modify the contents of it}. This is because arrays that are passed to a function
 turn into \textbf{pointers}. As you can see, I have mentioned them several
 times. They're one of the most central elements of the language and where its
 power is, hence I will explain them later on, but its presence is felt
-in an invisible way all we are learning up until now, as you will see when we
+in an invisible way in all we are learning up until now, as you will see when we
 reach that point. At the moment, just remember that when an array is an argument
 of a function, you can modify its elements. Let's see an example of two
-functions, one modifies the elements of an array passed ar argument and the
+functions, one modifies the elements of an array passed as argument and the
 other does not.
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -3278,17 +3267,13 @@ pointer, for similar reasons.
 
 
 \subsection{Exercises of the section}
-% En esta sección te pediré que escribas varias funciones, cabe mencionar que
-% aunque no se pide, es recomendable, para comprobar que lo has hecho bien, que
-% \textbf{pruebes} estas funciones llamándolas en tu función \verb!main! con
-% valores  imprimiendo los resultados si fuera necesario.
 In this section I will ask you to write several functions, needed to say that,
 even when it is not asked for in every exercise, you should check
 you have done it right, \textbf{testing} the functions calling them in your
-function \verb!main! with values printing the results.
+function \verb!main! with values and printing the results.
 
 \begin{exercises}[resume*]
-\item Write a functions that tells if a number is prime or composed. Note: a
+\item Write a function that tells if a number is prime or composed. Note: a
 number is prime only if it is divisible only by itself and the unit (1). One
 itself is not composed nor prime.
 
@@ -3296,7 +3281,7 @@ itself is not composed nor prime.
 in the last section. To calculate the square root of a number you must use
 the function \verb!sqrt!, to be able to use it you should include at the
 begining of your program (just right under the line that says:
-\verb!#include zstdio.h>!) the line \verb!#include <math.h>! and all \verb!-lm!
+\verb!#include zstdio.h>!) the line \verb!#include <math.h>! and add \verb!-lm!
 to the command to compile the programs, that would be:
 \verb!gcc -o main.elf main.c -lm!
 \item Write a function that receives an array of integers and a separator char
@@ -3319,7 +3304,7 @@ receive the coefficients if the equations ($a$, $b$, $c$, $d$, $e$ y $f$). It
 can receive them separatedly of in an array. To return the result you can create
 a struct that has two \verb"doubles".
 \item Write a function that normalizes the elements of an array of
-\verb!double!. Normalize is express all the elements in terms of the unit,
+\verb!double!. Normalize is expressing all the elements in terms of the unit,
 so to normalize it you must divide all elements by the biggest element
 \end{exercises}
 
@@ -3328,8 +3313,8 @@ This is one of the most important sections of the manual. Even when this is a
 manual about C programming, it is very difficult, if not impossible, to program
 in C in a sophisticated way without understanding, at least partially, the
 memory of a computer. Up until now I have said that the variables that you
-declare, both of basic types and arrays or structs are stores in ``memory'',
-but, what is exactly a computers memory? Well, let's start from the most
+declare, both of basic types and arrays or structs are stored in ``memory'',
+but, what is exactly a computer's memory? Well, let's start from the most
 evident thing, how does it look?
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{ram}
@@ -3338,24 +3323,18 @@ evident thing, how does it look?
 \end{figure}
 
 Here you can see a module of memory of a computer. This module is a circuit
-board soldered to it. The chips are the black rentangles. In them it is stored
-the information in binaty code. A memory is a system from which you ask fro a
+board with memory chips soldered to it. The chips are the black rentangles.
+In them it is stored
+the information in binary code. A memory is a system from which you ask for a
 portion of information and it deposits the value in a set of ``cables'' that
 are in the computer, from which the values travel to the CPU, the processor,
 the memory is \textbf{addressed}. This means that each portion of the memory
 is referenced by a number.
 
-% Utilizando una analogía, imagina que la memoria
-% fuera un cuaderno con una cuadrícula, en cada cuadrado digamos que cabe una
-% cifra o una letra, para poder rellenar o leer el cuaderno, lo que haremos
-% es numerar las cuadrículas. Empezaremos con la cuadrícula cero, después la uno,
-% y así sucesivamente.
-
 Using an analogy, imagine that the memory is a notebook with a grid, in each
 cell you can store a figure or a letter, to be able to fill or read the
-cell, what we will do is assign a number to each one a number. We will start
+cell, what we will do is assign a number to each one. We will start
 with the number zero and after that the one, two...
-
 
 \begin{table}[H]
     \centering
@@ -3383,12 +3362,8 @@ to say ``S'', because the \textbf{address} 24 is the nineth position of the
 second row. In general, computer memories are \textbf{addressed by bytes}, this
 means that for each byte there is a number (an address). You may have noted that
 it is absurd to draw this in a table if we are assigning simply numbers, this
-should be a continous list, a table of a single columns. If you have thought
+should be a continous list, a table of a single column. If you have thought
 that, you're right, because that's how memory is usually represented.
-
-% En resumen: la memoria de los ordenadores es una sucesión continua de bytes
-% numerados desde el 0 en adelante, a los que podemos referenciar por ese número
-% tanto para leer como para escribir en ellos.
 
 To sum it up: the memory in computers is a continous succession of bytes
 numerated from zero and on, to which we can reference by that number
@@ -3396,50 +3371,23 @@ both to read and write.
 
 \subsection{Positional numerical systems: decimal, binary, hexadecimal}
 \label{numericSystems}
-% Como ya dijimos en la introducción, el ordenador sólo entiende código binario,
-% y esto es aplicable tanto a las direcciones de la memoria como a su contenido.
-% Debido a esto, me veo compelido, pues, a
-% darte una pequeña clase sobre cómo funciona el código binario. El código binario
-% es un sistema numérico posicional. Un sistema posicional es aquél en que los
-% números se componen de cifras, cada una de las cuales tiene un valor dependiendo
-% de su \textbf{posición} dentro del número. Cuanto más a la izquierda están las
-% cifras en un número, más valen. Recuerda cuando aprendiste cómo funcionaban los
-% números: había unidades, decenas, centenas, millares... y así sucesivamente,
-% el sistema que usamos es posicional, y es decimal, porque tenemos 10 cifras para
-% representar números, desde el 0 al 9. Pues en binario funciona igual, pero sólo
-% disponemos de dos cifras.
-
 As we said in the introduction, the computer only understands binary code,
 and this is applicable both to the addresses of the memory and its contents.
 Due to this, I am compelled to teach you how the binary code works. The binary
-code is a positional numerical system. In a positional system numbers are
+code is a positional numerical system. In a positional system, numbers are
 composed by figures, each one of those figures has a value depending on which
 \textbf{position} they occupy in the number. The more to the left they are in
 the number, the more they add to it. Remember when we learnt how numbers work,
 you had units, tens, hundreds, thousands... and so on and so forth. The system
-we use to write numebrs is, therefore, positional, and decimal, because we have
+we use to write numebers is, therefore, positional, and decimal, because we have
 ten figures (from zero to nine). In binary it's the same, but with only two
 figures.
-
-% Un sistema numérico posicional
-% funciona de este modo: si la base numérica es $n$, cada cifra de un número vale
-% el valor de la misma cifra multiplicado por $n$ elevado al número de posiciones
-% que queden a la derecha del número. Como siempre, veámoslo con un ejemplo: si
-% escribimos el número 34.789, el cálculo que usamos para saber cuánto vale es
-% el siguiente:
-% (Recuerda que un número elevado a 0 es 1)
-% $$
-% 3\cdot10^4+4\cdot10^3+7\cdot10^2+8\cdot10^1+9\cdot10^0
-% $$
-% $$
-% 3\cdot10000+4\cdot1000+7\cdot100+8\cdot10+9\cdot1
-% $$
 
 A positional numerical system works in this way: if the numeric base (number of
 different figures available, in the case of our system, 10) is $n$, each figure
 adds to the number the value of the figure multiplied by $n$ to the power of
-how many figures are left to the right of this one. As always, let's see it with
-and example: is we write the number 34,789, the calculation we perform to
+how many figures remain to the right of this one. As always, let's see it with
+and example: if we write the number 34,789, the calculation we perform to
 know how much it adds up is this one (remember that any number that is not zero
 powered to the zero power is one):
 $$
@@ -3449,7 +3397,7 @@ $$
 3\cdot10000+4\cdot1000+7\cdot100+8\cdot10+9\cdot1
 $$
 
-Again, we can express it like tens, hundreds, unit... which are the names
+Again, we can express it like tens, hundreds, units... which are the names
 we have to those concrete powers of ten.
 
 So, if you had a binary number, you'd make the same calculation, but instead of
@@ -3463,8 +3411,8 @@ $$
 1\cdot64+ 1\cdot32+1\cdot16+0\cdot8+1\cdot4+0\cdot2+1\cdot1=117
 $$
 
-Now you already know how to read a binary numbers, you need to see how a decimal
-numbers is converted to binary. To do so, you do the following:
+Now you already know how to read a binary number, you need to see how a decimal
+number is converted to binary. To do so, you do the following:
 \begin{enumerate}
 \item Divide the number by two, calculating the residue.
 \item If the division leaves no residue, you write a zero on the left side of
@@ -3473,7 +3421,7 @@ the resulting number, if it has residue (it can only be one), you write one.
 \end{enumerate}
 
 Let's see an example of this, given the number 253, if you apply the procedure,
-you should have something like the operations below. If you note the results of
+you should have something like the operations below. If you note the residues of
 the divisions in the direction of the arrow in the bottom of the diagram you
 could compose finally the binary number: 11111101.
 
@@ -3507,34 +3455,21 @@ $$
 $$
 
 If you are an user of computers, you may have heard sentences like
-``this computer has a 32 bit computer'' or ``this computer is compatible with
+``this computer is a 32 bit computer'' or ``this computer is compatible with
 64 bit software''. That numbers of bits is the size of, between other things,
 the memory addresses. A computer of 32 bits has 32 bit memory addresses, hence
 it can address 2\textsuperscript{32} bytes. Newadays most computers are 64 bit,
 so most of them can address 2\textsuperscript{64} bytes of information
 theoretically. Of course, a computer will be always limited by the actual amount
-of memory it has which in normal computers is usually of a handful of gigabytes.
-
-
-% El problema es que 64 cifras binarias con muchas para leerse de manera
-% sencilla, mira este número binario:
-% 1101001001010101001010100101101010101010101110100100111010010101. Es muy
-% largo. Por ello, cuando se expresan direcciones de memoria se utiliza otro
-% sistema numérico (soy consciente de que esto es un gran rodeo). Este sistema
-% numérico es el \textbf{hexadecimal}. Es un sistema de base 16, con cifras del 0
-% a la F. Sí, a la F, has leído bien. Como los números que usamos son de base 10,
-% no tenemos símbolos para representar una cifra que valga 10, 11, 12... y así
-% hasta 15, así que utilizamos letras del alfabeto latino. Por lo demás, funciona
-% igual que el binario o el decimal. Un número hexadecimal se suele representar
-% con <<0x>> delante para indicar que es ese tipo de número. Veamos un ejemplo,
-% sea el número hexadecimal 0xF2A:
+of memory it has which, in normal computers, is usually of a handful of
+gigabytes.
 
 The problem is that 64 binary digits are too many to be read easily, look at
-this binary numbers:
+this binary number:
 1101001001010101001010100101101010101010101110100100111010010101. It's too long.
-Because of that, when memory addresses are writen, they are writen in a
+Because of that, when memory addresses are written, they are written in a
 different numerical system. This numerical system is the \textbf{hexadecimal}.
-If a system with base 16, with figures from zero to F. Yes, to F, you have read it
+Is a system with base 16, with figures from zero to F. Yes, to F, you have read it
 right. Since numbers in our normal system have base 10, we haven't got symbols
 to represent a figure that has value 10, 11, 12... up to 15, so we use letter of
 the latin alphabet. Otherwise, it works in the same way than binary or
@@ -3559,11 +3494,11 @@ in binary it is 11111101, if we wanted to convert it to hexadecimal we would
 need to divide it in groups of four: 1111~1101. the number 1111 is 15, so it'd
 be F, and the number 1101 is a 13, so it would be D, therefore 253 would be
 equal to 0xDF. If the leftmost group is not a 4 byte group, you must put zeroes
-on the left side. By the way, to convert to hexadecimal, to binary, simply take
-every hexadecimal digit and convert it to binary again but, remember, each digit
-is a four byte binary number, so 0x33 would be 0011~0011. no 1111, that would
-be a different number entirely. You're prepared to start learning how the memory
-of a computer works.
+on the left side. By the way, to convert from hexadecimal to binary, simply take
+every hexadecimal digit and convert it to binary again but, remember, each
+digit is a four byte binary number, so 0x33 would be 0011~0011. no 1111, that
+would be a different number entirely. You're prepared to start learning how the
+memory of a computer works.
 
 \subsection{The memory map}
 One of the most common way to represent the memory of a computer is with a
@@ -3577,8 +3512,8 @@ addresses. Look at the following figure:
     \caption{Mapa de memoria vacío}
     \label{img:emptyMemoryMap}
 \end{figure}
-In that figure we hace drawn the whole computer memory in a column, with
-the lower addresses (near zero) in the top and the higher ones (closes to
+In that figure we have drawn the whole computer memory in a column, with
+the lower addresses (near zero) in the top and the higher ones (closer to
 0xFF...) in the bottom. Generally I like more this representation, but in
 many sources and literature you'd see the map drawn in the other direction.
 
@@ -3598,12 +3533,11 @@ The OS gives processes memory blocks on which these can
 write or not, and \textbf{ensures} that they do not go out of their assigned
 memory.
 
-In the section in which I talked about array I told you that if you accessed to
+In the section in which I talked about arrays I told you that if you accessed to
 a position of an array that didn't exist, your program would end abruptly, test
 it. Make a program that declares an array of, for example, 10 positions and
 afterwards writes something in position 2,500. You'd see how the program writes
 a message like this one when executed:
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -3616,11 +3550,11 @@ Segmentation fault (core dumped)
 
 It is possible that it does not throw the message, due to how the computer
 manages the memory internally. Anyway, for a C programmer, memory management
-(and specially check that he does not write to or reads from memory blocks it
+(and specially checking that he does not write to or reads from memory blocks he
 shouldn't) is one of the most important tasks, if not the most. In this task,
 the operating system decieves our programs. To our program, you have an
 available memory that is the whole map (the 2\textsuperscript{64} bytes), even
-when the computer may have, for example, 8 GB which is several thousand times
+when the computer may have, for example, 8~GB which is several thousand times
 less. By the way, in general terms, each level in the prefixes of multiplication
 of 1,000 is not 1,000, but 2\textsuperscript{10}, 1,024, when you're talking
 about bytes, if we were exhaustive,
@@ -3634,9 +3568,10 @@ memory is physically allocated. Also, it allows each process to be isolated,
 the programmer has no idea which other processes are doing in their memory map,
 and other processes have no information about what we're doing with ours.
 
-In this map of virtualized memory, which efectivelly the one we're going to use,
-the operating system creates a set of \textbf{memory regions}, which are used to
-alocate different types of information of each program executing in a computer.
+In this map of virtualized memory, which is efectivelly the one we're going to
+use, the operating system creates a set of \textbf{memory regions}, which are
+used to alocate different types of information of each program executing in a
+computer.
 Now I will show you a memory map with the most important regions, and I will
 explain what they are and why we care about them.
 \begin{figure}[H]
@@ -3656,17 +3591,17 @@ changed by the program itself.
 
 The next one starts to be interesting. This sections stores the value of the
 global variables, either of basic types, arrays, or structs that you write
-initialized in the code (initializing the variables from a functions or other
+initialized in the code (initializing the variables from a function or other
 block of code won't count). This is because the values you store in them will
 exist before your program starts executing, in the very moment the process is
-created. The next section stores those \textbf{global} varuables you haven't
+created. The next section stores those \textbf{global} variables you haven't
 initialized. Why only the global ones in both cases? Because the function
 \verb!main! is a function and the variables declared in functions (or any other
 block of code) are not stored here, but in the next section, the stack.
 
 Look at the map, this section is at the bottom (towards the higher addresses),
 but I am going to explain it now because it is one of the most important. The
-varuables you declare in a block of code: functions, loops, conditionals, etc.
+variables you declare in a block of code: functions, loops, conditionals, etc.
 are stored. Why? Because in this section of memory data can go in and out, or
 better said, the memory of old data can be reused to write new ones. To explain
 how this is done, firstly I need to explain you how a stack (in general terms)
@@ -3676,7 +3611,7 @@ A stack is a data structure, like arrays or structs, which works in this way:
 when you put something in the stack, that element in on top, and when you pull
 out something from the stack, you can only pull out the last element, the one
 in the top of the stack. I am going to set a physical example: a can of the
-famous Pringles\textsuperscript{®} potato chips. The only potato that you can
+famous Pringles\textsuperscript{®} potato chips. The only chip that you can
 pull out is the top one, if you want get more, you can, but always in the
 reverse order from how they were put in the can. Any stack works the same. The
 way this stack is applied to C programming is this way: when the execution flow
@@ -3685,19 +3620,19 @@ to the stack. This includes arrays and structs. When the flow goes out of the
 block, those variables are \textbf{pulled out} of the stack, that is, they're
 lost because it is understood they were already used. This is the very reason
 \textbf{functions cannot return arrays}. Because those array would cease
-existing once the functions has returned.
+existing once the function has returned.
 
 Maybe you're wondering why you can declare basic types variables or structs
 inside functions and return them, if they're going to be destroyed once the
 function is finished executing. That is because, in the same way the arguments,
-the return value when it is not an array get copied. Concretelly it left in the
+the return value when it is not an array get copied. Concretely it left in the
 top part of the pile so the \textbf{code where it called} of the function can
 copy it with an assignation. With array \textbf{we cannot use the assignment
 operator}, it is not how arrays are copied. As a matter of fact the compiler
 would throw an error if you tried assigning an array to another.
 
-Let's see an example of how the stackw ould look in the case of executing some
-of the example programs we've writen. We're going to use the program
+Let's see an example of how the stack would look in the case of executing some
+of the example programs we've written. We're going to use the program
 \ref{lst:arraysAndFunctions}: \nameref{lst:arraysAndFunctions}.
 In this example you're going to see that in the pile there two names
 (\verb!my_array! and \verb!array!), but remember they \textbf{point to the same
@@ -3889,18 +3824,18 @@ array}. They only copy the address it starts, not the elements.
 \label{tab:stackExample}
 \end{table}
 
-Now you know how the stack works and the implications id has in the arrays
+Now you know how the stack works and the implications it has in the arrays
 saved in it, we can see the last region and maybe the most important, the heap.
 This region stores the memory you ask from the operating system with a series of
 functions we're going to see. And you may be thinking: why would you do that if
-you can declare an array? Easy, this memory you ask the operating system for is
-always available to you \textbf{until you free them}. That mean that, contrary
-to the arrays, it's your duty to worry about freeing it. Is one of the most
-important tasks of a C programmer, but to do so, you need to learn first what
-pointers are.
+you can declare an array? Simple, this memory you ask the operating system for
+is always available to you \textbf{until you free it}. That means that,
+contrary to the arrays, it's your duty to worry about freeing it. Is one of the
+most important tasks of a C programmer, but to do so, you need to learn first
+what pointers are.
 
 \subsection{Pointers}
-Now you know that the memory is addresses by bytes, you must know how we use
+Now you know that the memory is addressed by bytes, you must know how we use
 addresses in the C language. We do it with a new type (for us) called pointer.
 A pointer is a variable that stores a memory address, and allow us to
 communicate to functions or other parts of the program \textbf{a memory block}.
@@ -3909,7 +3844,7 @@ have chosen to explain other things first, although I have been anticipating
 its use.
 
 I told you before that when a functions received an array as an argument it
-decays to a mere pointer. This means we do not copy of the arrays functions
+decays to a mere pointer. This means we do not copy the arrays functions
 receive, what we do is tell the function where the elements of the array are in
 memory. In this way, if it is necessary to perform a copy, we can do it, if
 not, the function can chose to manipulate or read them directly.
@@ -3919,7 +3854,7 @@ addresses is needed, but this is not the case. Each datatype (either basic or
 struct) has its own pointer, that is, there are not only pointers, but pointers
 to \texttt{double}, \verb!char!, to this or that struct... Why is that? Because
 when using pointers with associated types, we know \textbf{what is} in the
-memory the address points to. For example, if we hace a pointer to \verb!int!
+memory the address points to. For example, if we have a pointer to \verb!int!
 that is 0xFB455DE, we know we must take that byte and the three next ones and
 decode them as an integer. Let's see it in the code.
 
@@ -3942,12 +3877,12 @@ int main(void)
 
 In line 7 we declare a pointer variable for the first time, this is done with
 an asterisk that you see between the type of the variable and the name. This is
-where it is stablished that this pointer is associated to a \texttt{int}. In
-the next line we're assigning a to this pointer the value of the direction,
+where it is stablished that this pointer is associated to an \texttt{int}. In
+the next line we're assigning to this pointer the value of the address,
 \verb!a! is allocated. We use the operator \verb!&!. The name of the operator
-is ampersand. Said operator, infron of an expression, gives us the pointer to
-its type with the address said expression is stored. Mind that, for this to
-work,, this expression must be stored somewhere. That is, the temporal values
+is ampersand. Said operator, infront of an expression, gives us the pointer to
+its type with the address said expression is stored in. Mind that, for this to
+work, this expression must be stored somewhere. That is, the temporal values
 would throw an error, for example: \verb!&(a * 2)! would throw an error, because
 \verb!a*2! hasn't been stored in any place. If you execute the program that uses
 the pointer, the output will be something like this:
@@ -3961,13 +3896,13 @@ a is in address 0x7fffde738b6c and it is 2
 \end{lstlisting}
 \end{minipage}
 
-Then, let's a practical case of what pointers are useful for, for example:
+Then, let's see a practical case of what pointers are useful for, for example:
 we have said several times that a function receives a copy of the arguments but,
 what if we wanted to save that effort? If, for example, you wanted a function
 that multiplies a number by other, maybe you do not want to copy it, the
-function returning the result and copy that result again in the variable, simply
-\textbf{leave the function work for you}. If we pass the pointer to our variable
-it will be the function the one changing the value, let's see it.
+function returning the result and copying that result again in the variable,
+simply \textbf{leave the function work for you}. If we pass the pointer to our
+variable the function will be the one changing the value, let's see it.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -3990,18 +3925,20 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Here you can see you we declare a function the received a pointer to integer
+Here you can see you we declare a function that received a pointer to integer
 (the variable we want to multiply) and an integer (the number we want it to
-be multiplied for). In this function you'd see a new use of the asterisk
+be multiplied by). In this function you'd see a new use of the asterisk
 operator, (\verb!*!), which is the one for \textbf{dereferencing} a pointer.
 What is that? It is accessing the value that pointer is referencing (hence the
 name). Remember that, as a pointer, \verb!ptr! stores the memory address, so we
 need a way to tell C to store in that address the multiplied number. To do so,
-we use the asterisk before the pointer. After that, we use the operator
+we use the asterisk before the pointer. In simple words, the asterisk turns the
+\verb!int*! into the \verb!int! that pointer points to. It ``follows the
+pointer''. After that, we use the operator
 \verb!*=! to multiply and assign. In line 11 you see how we simply call the
-function, without having to store what it return (in fact, we have defined it as
-\verb!void! so it does not return anything) and we avoid copying the integer we
-wanted to multiply.
+function, without having to store what it returns (in fact, we have defined it
+as \verb!void! so it does not return anything) and we avoid copying the integer
+we wanted to multiply.
 
 Apart from the asterisk operator, there is another operator that is used with
 pointers that you must know, this is the arrow opeator \verb!->!. It is used to
@@ -4010,7 +3947,7 @@ I am going to take my time. Imagine we have the point struct we wrote in the
 section about structs. If, for any reason, we were using a pointer to it and
 wanted to access its fields, we should use the operator asterisk to dereference
 the pointer and then the operator dot to access the field. For example, let
-\verb!point_ptr! be a pointer to \verb!struct point_s!, to acces its value
+\verb!point_ptr! be a pointer to \verb!struct point_s!, to access its value
 \verb!x!, we had to write \verb!(*point_ptr).x!. It is not a problem, but I warn
 you that it is very common to have structs with pointers to other structs and so
 on... it can become pretty illegible in three or four times. That is why we have
@@ -4049,13 +3986,13 @@ int main(void)
 \end{minipage}
 
 What you see in the program \ref{lst:pointers2} is what happens without
-you noticing it when a function receives an array, is turned into a pointer and
-you can use it with the same operators of an array. This, nevertheless; is only
-valid for one dimension array, for a reason we will see later on. Exhaustively
-speaking, the square braces operator is a \emph{shortcut}. Actually what it does
-is add to the pointer and use the asterisk to dereference. When you add an
-integer type to a pointer, the pointer arithmetic starts to play, let's see an
-example and I'll show you how it works.
+you noticing it when a function receives an array, it's turned into a pointer
+and you can use it with the same operators of an array. This, nevertheless; is
+only valid for one dimension array, for a reason we will see later on.
+Exhaustively speaking, the square brackets operator is a \emph{shortcut}. Actually
+what it does is add to the pointer and use the asterisk to dereference. When you
+add an integer type to a pointer, the pointer arithmetic starts to play, let's
+see an example and I'll show you how it works.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -4082,7 +4019,7 @@ If you execute the program you would see that the addresses are four units
 apart. This is because when you add an integer to a pointer, even when said
 pointer is a memory address of a memory addressed by bytes, due to being a
 pointer to \textbf{integer}, that expression of adding an integer to it is
-translated in adding that number multiplied by the size of an \verb!int!
+translated in adding the integer multiplied by the size of an \verb!int!
 (four bytes). After this, we use the asterisk operator so this pointer we have
 added a pointer is dereferenced. Using pointer arithmetic is useful when
 you want to pass to a function the pointer of a position of an array. For
@@ -4127,15 +4064,15 @@ you can appreciate how functions are a way to reuse code and avoid duplicating
 it). We can also see how, using pointer arithmetic, you do not need to have into
 account the size of each data type, the language does it for you. There is an
 alternative way to do this that you may see because it is more compact, and it
-is use the square braces operator to and then use the ampersand to achieve the
-address, doing so, line 8 would turn into
+is using the square brackets operator to get the element and then use the
+ampersand to retrieve the address, doing so, line 8 would turn into
 \lstinline[style=C]{multiply(&array[ii], other);}. In those cases, using one
 or the other is choice of the programmer.
 
 \subsubsection{The \texttt{char} pointer}
 Finally I am going to unveil uno of the misteries that I have been hiding from
 you for the most time (against my will, for the record) about the programs we
-have writen up until now. This mistery is: what are those texts between double
+have written up until now. This mistery is: what are those texts between double
 quotes, for example: \verb!"Hello, world!"!. I got a bit ahead of myself in the
 title because I wrote the answer there, but they're an abbreviated way to write
 \textbf{arrays of \texttt{char}}. You know that a \verb!char! is a letter, and
@@ -4143,8 +4080,8 @@ that an array is a succession of data. The logic conclusion is that, in C, texts
 are \verb!char! arrays. If they're \verb!char! arrays, where is their
 declaration and why are they there between quotes. To sum it up: because we
 write texts in our program so often, the creators of C decided to add a
-\textbf{constant expression} to be able to declare arrays of \verb!char! which
-are temporal where it is needed, this expression is, putting the text in quotes.
+\textbf{constant expression} to be able to declare arrays of \verb!char!
+where it is needed, this expression is putting the text in quotes.
 There are expressions to declare arrys of other types, but they're not so
 important so we will see them in later sections.
 
@@ -4152,8 +4089,8 @@ Nevertheless; there is a differente between a \verb!char! array (or pointer when
 it is passed to a function) and an array of another data type. The function
 \verb!printf!, but in any place we say the size of the array, the number of
 elements on the memory the pointer points to. The functions that receive it must
-have any mechanism to know how many there are. That way is that every text
-chains (called strings in programming) in C are ended in a \verb!char! with
+have some mechanism to know how many there are. That way is that every text
+chain (called strings in programming) in C finishes in a \verb!char! with
 value zero. That is, when it is written \verb|"Hola, mundo!"| we are creating
 in a quick way an array of \verb!char! that contains \textbf{fourteen}
 \verb!char!, the letters you can see and a \verb!char! with value zero at the
@@ -4162,7 +4099,7 @@ end. I am going to demonstrate this is the case with a little program:
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, label={lst:sizeofArraysPointers}, caption={Arrays de char}]
+\begin{lstlisting}[style=C, label={lst:sizeofArraysPointers}, caption={Charr array}]
 #include <stdio.h>
 
 int main(void)
@@ -4176,6 +4113,7 @@ int main(void)
 }
 \end{lstlisting}
 \end{minipage}
+
 The first string will be printed correctly, but the second will print and,
 with all probability, after it, other characters will be printed, probably
 nonsense (execute the program a couple times, it may work well the first time).
@@ -4186,10 +4124,10 @@ when they're turned into pointers, like any other pointer. In later sections
 I will show how to manipulate text strings in more advanced ways.
 \subsubsection{The null pointer}
 There is an special value for all the types of pointer, which is the null
-pointer, or, as it is writen in the language: \verb!NULL!. It is a \verb!void!
+pointer, or, as it is written in the language: \verb!NULL!. It is a \verb!void!
 pointer that is equal to zero. If you remember, the memory map that address
 would correspond to the text section, our program can't modify itself or read
-the binary instructions, among other things because part of that sextion is not
+the binary instructions, among other things because part of that section is not
 our code, but the code of operating system which inserts itself in processes to
 allow us to do certain things. Hence the designers of the language used this
 value to symbolize a pointer that is in a special state.
@@ -4242,42 +4180,42 @@ int main(void)
 If you look at the function we have written, inside it we declare a point that
 symbolizes the \textbf{origin of coordinates}. What we do is that if one of the
 pointers to the structs is \verb!NULL!, we understand that such point is
-the origin of coordinates. What we do is that we assign to our arguments (which
+the origin of coordinates. What we do is assigning to our arguments (which
 are pointers) the direction to this local variable we have declared. Remember:
-the arguments that a functions recibes are \textbf{copies} of the values. In
+the arguments that a function receives are \textbf{copies} of the values. In
 this case, our argument is a pointer to a struct. Assigning to our argument
 other value \textbf{we are not altering the original structure}, because we
 haven't changed the value our argument points to, but the argument itself. Once
 this is done, we can calculate the distance in the same way we would do if they
 weren't pointers. What is the use of writing a function in this way? Finding
-the distance to the origin of coordinates is a common operation, doing this in
-this way, we allow to the program calling the function to do such calculation
+the distance to the origin of coordinates is a common operation, doing things
+this way, we allow the program to call the function to do such calculation
 without declaring an extra struct to symbolize the origin.
 
 \subsection{Allocate and free memory}
 Now we have learnt what a pointer is, and to manage them, we can ask the
-operating sistem memory of the kind that is stored in the heap and we can
+operating system for memory of the kind that is stored in the heap and we can
 manage in a more flexible way than arrays. To do so we use two functions:
 \verb!malloc! and \verb!free!. The names of the functions are very descriptive,
 the first means ``memory alloc'' and the second frees the memory. When you need
 to reserve memory in the heap, you call \texttt{malloc} and ask for a contiguous
-memory block of $n$ bytes. The function \verb!malloc! return a \verb!void!
-pointer. That same pointer should, in some time, be freed passing to
-\texttt{free} as its argument.
+memory block of $n$ bytes. The function \verb!malloc! returns a \verb!void!
+pointer. That same pointer should, at some time, be freed passing it to
+\texttt{free}.
 
 Talking about pointers to \verb!void!, I told you that \verb!void! means that
-the functions either don't receive anything or don't return anything. The mean
-of a \verb!void! pointer is related to that: it is a pointer that you do not
-know what it is, \verb!malloc! has no way to know what you are going to do with
-the memory, therefore it returns a \verb!void! pointer. A pointer to \verb!void!
-is also useful when we want to write functions os structs that are compatible
-with different data types. Let's see first a simple example on how to use
-\verb!malloc! and \verb!free!.
+the functions either don't receive anything or don't return anything. The
+meaning of a \verb!void! pointer is related to that: it is a pointer that you do
+not know what it is, \verb!malloc! has no way to know what you are going to do
+with the memory, therefore it returns a \verb!void! pointer. A pointer to
+\verb!void! is also useful when we want to write functions or structs that are
+compatible with different data types. Let's see first a simple example on how to
+use \verb!malloc! and \verb!free!.
 
-One of the advantages of dynamic memory allocation occurs when a other part of
+One of the advantages of dynamic memory allocation occurs when other part of
 the program performs a calculation whose result has an unknown size. For
 example, imagine a function that, given an array of number, returns a vector
-with an instance of every dictinct number, that is, erases repetitions, let's
+with an instance of every distinct number, that is, erases repetitions, let's
 call it \verb!erase_reps!. Functions cannot return arrays, that's something we
 already know, but the person that calls \verb!erase_reps! could declare an array
 and pass it to the function, a problem arises nevertheless: we do not know
@@ -4340,7 +4278,7 @@ int main(void)
 
 In the line 2 of code we see how the line \verb!#include <stdlib.h>! makes its
 appearance, it is needed to use \verb!malloc! and \verb!free!. After it we have
-the declaration of the function, we hace made it return the pointer to the
+the declaration of the function, we have made it return the pointer to the
 result and receive three arguments: the array from which we're erasing
 repetitions, the length of such array and a pointer to integer that will allow
 us to \textbf{indicate the length of the solution}. This pattern is very used in
@@ -4354,10 +4292,11 @@ the list of unique numbers in an array can't be longer than the array itself.
 This is also a common pattern: using an auxiliary data structure that we will
 copy to another with a more proper size and definitive.
 
-The next loop simply check, for any element of the array, is that numbers
+The next loop simply checks, for any element of the array, is that number
 appears before. Pay attention to the inner loop, for each $i$ element of the
 array, we look at the elements before it (elements from 0 to $i$ not including
-$i$). If it is, we use the variable \verb!unique! to indicate if the number has
+$i$). If it is equal to the one we're examining now,
+we use the variable \verb!unique! to indicate if the number has
 been found before and, therefore, is not unique, so we assign this variable
 value 0. After that, once we have checked all the elements before the current
 one, we increment the final length and copy this number to the preliminar array.
@@ -4365,17 +4304,17 @@ When the length is already calculated and all the numbers are in the preliminary
 array, we can use \verb!malloc! to create the final solution.
 
 The \verb!malloc! return, as we have said, a pointer that indicates the start of
-the memory zone it has reserved for us. To do so, it receives the \textbf{tamaño
-en bytes} we want. And you'll see here the \lstinline[style=C]{sizeof} operator.
+the memory zone it has reserved for us. To do so, it receives the \textbf{size in
+bytes} we want. And you'll see here the \lstinline[style=C]{sizeof} operator.
 Yes, I have said operator, not a function. As a matter of fact, you may have
-notices that no function is in blue in the code examples, and \verb!sizeof!
-does. This is it is a \textbf{unary} operator that gives us the size in bytes
-of a type we write next to it between parenthesis. It is also capable of
+noticed that no function is in blue in the code examples, and \verb!sizeof!
+is. This is because it is a \textbf{unary} operator that gives us the size in
+bytes of a type we write next to it between parenthesis. It is also capable of
 calculating the size of complex expressions, but we will see that later on.
 For now, just remember that \verb!sizeof(int)! is equal to the size in bytes of
 an integer. As you can see, I simply multiply the size of the integer by the
-number os positions that I know they're unique. The next loop, simply, copies
-from the preliminary soluction to the definitive. Finally, we return the pointer
+number os positions that I know that are unique. The next loop, simply, copies
+from the preliminary solution to the definitive. Finally, we return the pointer
 allocated with \verb!malloc!.
 
 In \verb!main! function we simply declare an array with several random numbers
@@ -4393,14 +4332,14 @@ fact, but they're not exactly the same.
 
 And now we're talking about vectors and arrays, there is a fundamental diference
 between vectors or pointers and arrays. We \textbf{can ask for the size of an
-array} but not of the pointers that point to vectors. And, if we can know the
-size of array, why have we been using a literal value? Because I didn't want to
+array} but not of vectors. And, if we can know the
+size of arrays, why have we been using a literal value? Because I didn't want to
 show you this until we could compare arrays and vectors. Before, I told you that
-\verb!sizeof! gives us the size in byte of a data type or
+\verb!sizeof! gives us the size in bytes of a data type or
 \textbf{an expression}. The size in bytes of an array is what one would expect:
-is it contains ten integers of four bytes, the size would be 40. But the size of
+if it contains ten integers of four bytes, the size would be 40. But the size of
 a pointer \textbf{is always the same}. Furthermore, the size of a pointer to any
-dataype is always the same. Let's see how to use \verb!sizeof! to get the size
+datatype is always the same. Let's see how to use \verb!sizeof! to get the size
 of an array.
 
 \noindent
@@ -4426,31 +4365,31 @@ int main(void)
 
 The fact that \verb!sizeof! is a operator and not a function comes into play
 here. If you look at line 7, we use the operator \verb!sizeof! to get the size
-of the array and divide it by the size of the firl element. Mind you that
+of the array and divide it by the size of the first element. Mind you that
 \verb!sizeof! doesn't need to know what is \textbf{inside} the first position,
 just the type of the expression (\verb!array[0]!) which would be an \verb"int".
 You could use \verb!sizeof! like this over memory that is not accessible and
 it won't give you any problem, because it does not read the content but only
 evaluates the type of the expression.
-This way, we can
+This way, we can calculate
 easily the number of positions. Here I have assigned it to a variable so you
-can see it more clearly, but you would have put this expression directly in the
+can see it more clearly, but you could have put this expression directly in the
 \verb!for! loop. Well, knowing this, maybe you are wondering why we always
 passed the lenght of array to functions if we could know it. The answer is that
 we do not know it, because you must remember that, when a function gets an array
-passed as argument, this decays to be a mere pointer. The good side of vector,
+passed as argument, this decays to be a mere pointer. The good side of vectors,
 nonetheless, is that since we reserve them using their size, you can assign it
 to a variable before doing the allocation to use it later several times.
 
 And I still have another trick to teach you about this operator, and it is
-that allows us to write the calls to \texttt{malloc} in a way it favour some
+that allows us to write the calls to \texttt{malloc} in a way that favours some
 changes in the code. Imagine this call to malloc:
 \lstinline[style=C]{int *vector = malloc(length * sizeof(int));}.
-It is like the one we did before, but it present a little problem, if we change
+It is like the one we did before, but it presents a little problem, if we change
 the type of the vector we must be very careful to also change the type that
 is inside the \texttt{malloc}, because, if not, we would be allocating less
 memory than we want. Nevertheless: let's remember that \verb!sizeof! allows us
-to calculate the size of expressions, so we can change the call tome something
+to calculate the size of expressions, so we can change the call to something
 like this: \lstinline[style=C]{int *vector = malloc(length * sizeof *vector);}.
 Pay attention to it, if \verb!vector! is a pointer to \verb!int!, \verb!*vector!
 would be the first element, an integer, and \verb!sizeof! will hence give us
@@ -4463,11 +4402,10 @@ Now you already know the basic mechanisms of pointers, we can see some of the
 examples of more complex structures made with them. For example, one of the most
 interesting cases that you may encounter when programming is the pointer to
 pointer to a given data type. It is equivalent to a bidimensional array, but
-with dynamic memory allocation. Let0s a program in C that creates this
-structure, I encourage you to compre is with the program
+with dynamic memory allocation. Let's write a program in C that creates this
+structure, I encourage you to compare it with the program
 \ref{lst:bidimensionalArray}: \nameref{lst:bidimensionalArray}, in which we
 saw the creation and use of a bidimensional array.
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -4522,18 +4460,18 @@ In line 10 we start a \verb!for! that allocated the memory for each row of
 \verb!matrix!, later, once we have allocated the memory, we fill those positions
 with a value in the loop in line 12. Here simply we're making each position to
 be equal to its overall position (starting in one, for a change). As you
-can see, we're using square braces to index this double pointer, with breaces
-it's the same that with asterisks, to if we have \verb!matrix! that is an
-\verb!int**!, doing \verb!matrix[ii][jj]! we getting an int. The two nested
-loops simply print the matrix.
+can see, we're using square brackets to index this double pointer, with brackets
+it's the same that with asterisks, if we have \verb!matrix! that is an
+\verb!int**!, doing \verb!matrix[ii][jj]! we are getting an \verb"int". The two
+nested loops simply print the matrix.
 
-Finally, we must free the matirx, note that this is also simmetrical with the
+Finally, we must free the matrix, note that this is also simmetrical with the
 allocating process, if firstly we did a \verb!malloc! of \verb!row! pointers and
-then each one of those were allocated with a malloc of \verb!columns! integers,
+then each one of those was allocated with a malloc of \verb!columns! integers,
 here we liberate the pointers in the reverse order, firstly we free each row and
 later the matrix itself.
 
-Like this can be confusing the first time you see it, I am going to draw the
+Since this can be confusing the first time you see it, I am going to draw the
 memory map of this situation, so you have a visual image of what is happening.
 Pointers are a very abstract concept, so don't worry if you do not understand
 them at the first glance.
@@ -4546,15 +4484,15 @@ them at the first glance.
     \label{img:double_pointer_map}
 \end{figure}
 
-In the figure I present the memory map, on the lest there are the names those
+In the figure I present the memory map, on the left there are the names those
 locations have in the program, and in the rectangle I write their contents.
 Arrows on the right side of the image represent the references of the pointers
 to those memory addresses. Colors simply allow you to follow the different
 arrows more easily. Well, if you look at where I put the tag \verb!matrix!,
-you'd see it contains a memory address, this addres reference to a
+you'd see it contains a memory address, this address references to a
 \textbf{vector of pointers}, that is, \verb!rows! pointers together. Each one of
 those pointers, to a contigous memory region in which the is an antire row
-saved. I have only representes the first three rows, because otherwise the image
+saved. I have only represented the first three rows, because otherwise the image
 would be too big.
 
 Now I am going to draw the figure on how would the map be in the case of a
@@ -4573,29 +4511,29 @@ As you can see, even when the array have been declared with two dimensions,
 there is not dereferenciation. That is: there is no moment in which you follow a
 second pointer. How is this possible? If you look to the map, you'd see the
 array is stored in a contigous memory region. This meand that C only needs to
-adquiere the start direction of the array and, later, add what the indexes
-inside the squere braces tell you. It's here where a problem arises when we
+adquiere the start address of the array and, later, add what the indexes
+inside the square brackets tell you. It's here where a problem arises when we
 try to pass a bidimensional array to a function. When the array reached the
-function, C doesn't know if that pointer is an bidimensional array or a vector
-of vectors, that why, if you passed this array to a function that receives a
+function, C doesn't know if that pointer is a bidimensional array or a vector
+of vectors, that is why, if you passed this array to a function that receives a
 double pointer (\verb!int**!), when performing, for example \verb!matrix[1][2]!
-what id would try to do is access it like it's a pointer, and would do:
+what it would try to do is accessing it like it's a pointer, and would do:
 \verb!*((*(matrix + 1))+2)!. That is, it would firstly add one to the base
-direction (remember pointer arithmetic) and then \textbf{it would interpret the
-content as a pointer} to another vector and it would try to add 2 to that vector
-to dereference it. The problem is that \verb!*(matrix+1)! \textbf{is not} a
-pointer, it is directly the number.
+address (remember pointer arithmetic) and then \textbf{it would interpret the
+content as a pointer} to another vector and it would try to add 2 to that
+address to dereference it. The problem is that \verb!*(matrix+1)!
+\textbf{is not} a pointer, it is directly a number.
 
 C can do this because, in the same that I explained you how the operator
 \verb!sizeof! works, we can see the C knows the size of an array as long as this
 does not decay to pointer, that is, you can know the size of an array in any
 scope inner to the one it was declared in.
 
-The logic conclusion of what we have just learnt is that maximun numbers of
-dimensions of array that any function can get is one, because it is the one
+The logic conclusion of what we have just learnt is that maximun number of
+dimensions of an array that any function can get is one, because it is the one
 that behaves as a pointer without problems. The fact that an array, by being
 declared in a unique order, is contiguous, makes arrays able to be accessed
-always a one dimensional structure. For example, in the next code we declare and
+always a one dimensional structures. For example, in the next code we declare and
 fill up an array of two dimensions and, nevertheless, we can access it like if
 it had just one dimension.
 
@@ -4648,31 +4586,31 @@ dimension array.
 \end{tabularx}
 \end{table}
 \item Return to the code of the 9\textsuperscript{th} exercise and reproduce
-the content of the stack in all the code blocks of the program. Use a code the
+the content of the stack in all the code blocks of the program. Use as code the
 solution I propose in the solution section.
 \item Write a program that creates a pointer of three levels of type \verb!int!,
-allocates memory for it correctly and fill it up with corrleative values
-\textbf{starting in one} and later on it prints is an understandable way.
+allocates memory for it correctly and fills it up with correlative values
+\textbf{starting in one} and later on it prints it in an understandable way.
 Finally, free it also in a way that the is no left unfreed memory at the end of
 the program.
 \item Using the last program as base, create two functions, one to create a
 tridimensional matrix with dynamic memory given its three dimensions and another
-one to allocate it.
+one to free it.
 \end{exercises}
 \section{Type modifiers: const and sign}
 \label{sec:typeModifications}
 Up until now we have only used basic types, but you can add \textbf{modifiers}
-to those types, which are qualities that create slightly different type based on
+to those types, which are qualities that create a slightly different type based on
 the original one. The first and most important is the \lstinline[style=C]!const!
 modifier. This allows us to indicate that the value of a variable is
 \textbf{read only}, that is, once we give it value, and we must do so when
 declaring it, we couldn't modify it. This is very useful to make sure we do not
 introduce errors in the code when we use data that shouldn't be changed.
 
-For example, imagine a program that use the number $\pi$. Let's say to
+For example, imagine a program that uses the number $\pi$. Let's say to
 calculate the area of a circle, we would need to write
-\verb!surface = PI * pow(r, 2)!, but imagine we make an error and write
-\verb!surface = PI *= pow(r, 2)!, this error would be difficult to catch because
+\verb!surface = PI * r * r!, but imagine we make an error and write
+\verb!surface = PI *= r * r!, this error would be difficult to catch because
 the first time the surface would be correctly calculated, but \verb!PI! would
 have a different value because we have unwillingly used the operator \verb!*=!,
 and all the later calculations would be erroneous. If we declare \verb!PI! as
@@ -4699,7 +4637,7 @@ double perimeter(double radius) {
 int main(void)
 {
     double r = 3.5;
-    printf("Un círculo con un radio de %.3f tiene un perímetro de %.2f y un área de %.2f\n", r, perimeter(r), surface_circle(r));
+    printf("A circle with a radious of %.3f has a perimeter of %.2f and an area of %.2f\n", r, perimeter(r), surface_circle(r));
 }
 \end{lstlisting}
 \end{minipage}
@@ -4728,10 +4666,10 @@ But the \verb!const! modifier is applied in other place, it is used in the
 declaration of arguments of functions to indicate that those cannot be modified.
 Again, arguments of functions are copies of their values, so, knowing this,
 it wouldn't make any sense to say we can't modify them, the core matter about
-this is that the \verb"const" modifier is applied to pointers, indicating the
+this is that the \verb"const" modifier is applied to pointers, indicating that
 their content can't be modified, and this is where it is tremendously useful
 when joined with functions. For example, let's go back to the function that
-calculates the distance between to points using pointers, since we do not want
+calculates the distance between two points using pointers, since we do not want
 the structure to be modified by the function, we can do this:
 
 \noindent
@@ -4777,18 +4715,18 @@ If you look at the program, the only difference is that in the declaration we
 put \verb!const! before the data type. This avoids that we modify the content
 of that pointer inside the function. If you try to perform for example:
 \verb!a->x++;! the compiler will throw an error. This is very useful for the
-programmer that uses the function if he hasn't writen it, because that
+programmer that uses the function if he hasn't written it, because that
 declaration is a way to tell him that the function does not modify the data at
-all. When we reach the point of writting out programs in different source files,
+all. When we reach the point of writting our programs in different source files,
 we will see this in more depth.
 
 Also, the modifier \verb!const! adds the concept of \textbf{const correctness},
-this concept means the programmer needs to respect the quality of contansce of
+this concept means the programmer needs to respect the quality of constance of
 variables and arguments. This means that you must define your functions
 carefully, indicating everything you can as constant. For example, in the
 case of the function that calculated the distance between two points, both
 arguments must be constant. But there is more, the function \textbf{can return a
-constant}. This is usegul when you create structs that you do not want the user
+constant}. This is useful when you create structs that you do not want the user
 to modify, but only with the functions you provide for that.
 
 We will talk about this further later on, but I am going to set a basic example:
@@ -4796,7 +4734,7 @@ imagine a struct that saves data of a person. In this struct we would have
 several pointers to \verb!char!: the name, the first surname and the second
 surname (I wrote this example for Spanish names, which have two surnames). What
 we will do is to create a function that receives three texts, will allocate the
-necessary memory and we are going to create functions that replace those arrays
+necessary memory and we are going to create functions that replace those vectors
 when the user of the functions needs to do so. Let's go:
 
 \noindent
@@ -4864,7 +4802,7 @@ void destroy_person(struct person_s *person){
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Struct with const pointers -- Functions to retreive information},
+caption={Struct with const pointers -- Functions to retrieve information},
 label={lst:structConstGetters}]
 const char* person_get_name(const struct person_s* person) {
     return person->name;
@@ -4912,7 +4850,7 @@ int main(void)
 \end{minipage}
 
 In this code you can see how we ``hide'' the user how we manage these pointers.
-To avoid him from chaging its concent without using our functions, the functions
+To avoid him from chaging its content without using our functions, the functions
 that return the pointers to be able to use them, for example to print them,
 return constant pointers. If you tried to do, for example:
 \lstinline[style=C]!person_get_name(&myself)[3] = 'a'! the compiler would throw
@@ -4923,7 +4861,7 @@ If you're paying attention, you may have noticed that all of this is a little
 bit useless when the use can simply write something like:
 \verb!myself.name[0] = 'a'! and you'd be right. In later sections we would see
 ways to avoid this. But, even with this problem, doing this is a good way to
-save work to the user os the struct.
+save work to the user of the struct.
 
 Another modifier I want to present to you is the sign, or better said, the
 absence of sign. The keywork \lstinline[style=C]!unsigned! allows us to
@@ -4934,12 +4872,12 @@ the possitive side. If a \verb"char" has a range of $[-127, 128]$, an unsigned
 char has a range of $[0, 255]$. Also, this allows to add meaning to your
 variables.
 
-For example, a varuable that stores the size of something, for example an array,
+For example, a variable that stores the size of something, for example an array,
 or a vector, shouldn't have a sign, because it can never be negative. A variable
-that stores a month, shouldn't either, for instance. In the case od sizes or
-vectors it is important to make the variable that store their size unsigned,
+that stores a month, shouldn't either, for instance. In the case of sizes of
+vectors it is important to make the variable that stores their size unsigned,
 because this allows us to get vectors and arrays of double the size. There are
-not types without sign for floating points numbers (\verb!float! and
+not types without sign for floating point numbers (\verb!float! and
 \verb"double"). Let's see an example on how to use the modifier \verb!unsigned!
 to declare variables, arguments and return types.
 
@@ -4971,14 +4909,15 @@ I know it looks a bit cumbersome to write unsigned each time, later on we will
 see how to solve this.
 \subsection{Exercises of the section}
 The most appropiate exercise is for you to revise all the exercises we have done
-and rewrite having into account the const quality and the sign.
+and rewrite the code having into account the const quality and the sign.
 
 \section{Communicating your program}
 At last, we're reaching the part of the manual where you can communicate your
 program with things outside it, up until now, all the data we have introduced in
-the program are writen as literals. This is very impractical, generally, a
+the program are written as literals. This is very impractical, generally, a
 program will read, either from the terminal or from a concrete file, the data
-it is going to use. There three sources of external information for a program:
+it is going to use. There are three sources of external information for a
+program we're going to see in this manual (there are many more):
 \begin{enumerate}
     \item Arguments from the command line.
     \item Input from the terminal.
@@ -5008,9 +4947,9 @@ Of these two arguments of the function, the first one is the number of arguments
 the program has
 received, and the second is a vector of vectors of \verb!char! that is sent to
 us as a two-level pointer. The arguments that a program receives come in text
-format so, if they're numbers, you must use extra functions to turn them into
+format so, if they're numbers, you must use some functions to turn them into
 those data types. Let's make a program that receives an undeterminated number
-of arguments and prints them in a new line.
+of arguments and prints them, each one in a new line.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -5029,13 +4968,14 @@ int main(int argc, char const *argv[])
 \end{lstlisting}
 \end{minipage}
 
-Maybe you're wondering how we can pass those arguments to the program, after the
-path of the executable, you write all the arguments separated by space, por
+Maybe you're wondering how can we pass those arguments to the program, after the
+path of the executable, you write all the arguments separated by spaces, for
 example:
 \begin{lstlisting}[style=terminalStyle]
 \$./main.exe argument1 argument2 argument3
 \end{lstlisting}
-If you compile the program and execute with those arguments, it will print this:
+If you compile the program and execute it with those arguments, it will print
+this:
 
 \begin{lstlisting}[style=terminalStyle]
 ./main.exe
@@ -5061,7 +5001,7 @@ arg3
 
 As a last note, if the space is the character that separates the arguments, how
 do we write arguments with spaces in them? Simply surround the argument between
-straigt quotes (like C strings). Let's see an example.
+straight quotes (like C strings). Let's see an example.
 \begin{lstlisting}[style=terminalStyle]
 \$ ./main.exe "This is a double quote: \"" \"\"\" "Sentence with spaces"
 ./main.exe
@@ -5101,18 +5041,18 @@ int main(int argc, char const* argv[])
 Mind that we start adding from the second argument (position one in the vector)
 because the first one is not a number. This leads me to warn you that
 \verb!atoi! is a very basic function and that if you pass something to it that
-it not a number, it will return nonsense values, many times zero. So be careful
+is not a number, it will return nonsense values, many times zero. So be careful
 about this. Anyway, in other sections we will see ways to manipulate text
-strings that are more complex and would allow us to check it. If would be an
-intereting exercise that you made a program that checks if a text string is a
-number or not. Finally, there is also \verb!atof! that does the same, but to
-floating point number.
+strings that are more complex and would allow us to check it. It would be an
+interesting exercise that you made a program that checks if a text string is a
+number or not. Finally, there is also \verb!atof! that does the same, but for
+floating point numbers.
 
 Another option is to allow the user to write things into the program once
-it has started. For example, we could so a program that is a 2.0 version of our
-first \textit{Hello, World}. This version would first ask the name of the user
-and then say hello to him personally. You can use the function \verb!scanf!
-to do so. This function is the twin of \verb!print! because it behaves in the
+it has started. For example, we could write a program that is a 2.0 version of
+our first \textit{Hello, World}. This version would firstly ask the name of the
+user and then say hello to him personally. You can use the function \verb!scanf!
+to do so. This function is the twin of \verb!printf! because it behaves in the
 same way, you specify a format and pass the variable you need to it where it
 will store the data. For example, let's make this \textit{Hello World 2.0}
 
@@ -5171,10 +5111,10 @@ int main(int argc, char const* argv[])
 \end{lstlisting}
 \end{minipage}
 
-As we said, \verb!scanf! stop reading in the first space, so your can write each
-data and hit enter or write the three answers separated by spaces and hit enter
-just once. Also, note that, as you want to read a \verb!double! we must the
-specifier \verb!%lf!, the
+As we said, \verb!scanf! stops reading in the first space, so your can write
+each data and hit enter or write the three answers separated by spaces and hit
+enter just once. Also, note that, as you want to read a \verb!double! we must
+use the specifier \verb!%lf!, the
 compiler would warn us this is not right if we used \verb!%f!. This function
 \textbf{blocks} the program until is receives \textbf{all} the arguments we're
 asking for with the specifiers. Also, what is written in the terminal and does
@@ -5187,14 +5127,14 @@ the input is not a number, the function will fail throwing values with little to
 no sense.
 
 Finally, the files. Programs can delete, create, write and read from files.
-To do this, there several ways, some more simple than others, because some are
-more standard and other depend on the operating system. In opposition to the
+To do this, there are several ways, some more simple than others, because some
+are more standard and other depend on the operating system. In opposition to the
 other methods, files have a more complex life cycle. Life cycle in this context
 refers to the description of when something starts to exist, exists and ceases
-to do so. For example, the life cycle of a dynamically reserved memory block
-is the moment of their allocation to the moment it's freed, the one of an array
-goes from the moment you go into the block of code it's declared to the moment
-the program stops executing in that block. Files behave in a similar way:
+to do so. For example, the life cycle of a dynamically reserved memory block is
+from the moment of their allocation to the moment it's freed, the one of an
+array goes from the moment you go into the block of code it's declared to the
+moment the program stops executing in that block.
 
 Files are a concept that, again, the operating system manages, therefore we have
 to use functions to open, write, read from them and, finally, close them. If you
@@ -5212,10 +5152,10 @@ FILE *fopen(const char *pathname, const char *mode);
 \end{lstlisting}
 \end{minipage}
 
-It return a pointer to a type called \verb!FILE!, this type is \textbf{opaque},
-this a word that it is used in computer science to say that you can't know that
+It returns a pointer to a type called \verb!FILE!, this type is \textbf{opaque},
+this a word that it is used in computer science to say that you can't know what
 is inside, that is, it is the system who manages it and you only interact with
-it callinf the functions it provides you. The arguments this functions receives
+it calling the functions it provides you. The arguments this functions receives
 are two \texttt{char} pointers. The first one is the path to the file. This path
 takes as origin \textbf{the working directory} of the terminal where we
 executed the program. That is, if you pass to the function the path
@@ -5231,22 +5171,22 @@ going to open the file. Let's see which options we have.
     \item \verb!r!: Open the file just to read it, the reader head (more on this
     later) is at the
     start of the file. If the file does not exist, an error occurs and the
-    function return \verb!NULL!.
+    function returns \verb!NULL!.
     \item \verb!r+!: Same as before, but it allows to write too.
     \item \verb!w!: \textbf{Empties} the file or creates it if it doesn't exist.
     The reading head is at the start, logically.
     \item \verb!w+!: Like the last one, but allows to read too.
-    \item \verb!a!: Open the file to write on it, but \textbf{it does not empty
+    \item \verb!a!: Open the file to write in it, but \textbf{it does not empty
     it}. It creates it if it doesn't exist, the head start at the end of the
     file, to \textbf{append} data to it.
-    \item \verb!a+!: The file is created is it does not exist, data will be
-    writen to the end of the file. It also allows reading.
+    \item \verb!a+!: The file is created if it does not exist, data will be
+    written to the end of the file. It also allows reading.
 \end{enumerate}
 
 In the description of the options I talk about something called the reading or
 writting head, also called read/write pointer. It is not a C pointer or anything
-like that. It is a concept inherent to files. The read/w head is an abstraction
-of a physical devide that is in a point of the file and writes or reads to it.
+like that. It is a concept inherent to files. The read/write head is an abstraction
+of a physical device that is in a point of the file and writes or reads to it.
 Files are just a stream of bytes, and this head would write or read from the
 position it is in, and advance as many bytes as it read or wrote. The methaphor
 that was used was a video tape. If you put a tape in a video player, the head
@@ -5254,9 +5194,11 @@ would start at the begining of the tape, if you watched let's say ten minutes
 of it, you could pause it, go do something and come back, it will be where you
 left it. You could rewind it, fast forward it, etc. Also, playing the video
 makes the head move forwards, that is: reading makes you rewind if you want
-to go back. All this being said, the read/write header is unique \textbf{per
-file and process}, this means that to programs can be reading or writting from
-the same file at the same moment. When you reach the end of the file you can't
+to read the same thing again.
+All this being said, the read/write header is unique \textbf{per
+file and process}, this means that two programs can be reading or writting from
+the same file at the same moment but in different positions.
+When you reach the end of the file you can't
 read more (logically) but if you're writting, the file would grow seamlessly.
 
 Now you already know how to open a file, let's see how to write or read to and
@@ -5289,7 +5231,7 @@ The first pointer is the input to write and the output to read. It is where we
 will put our data, or the memory so the function can write the content
 of the file in it. It is a \verb!char! pointer, which is the kind of pointer
 used when you want to manage a generic stream of bytes. Both functions are
-writen with the idea of managing a number of items of a certain size in
+written with the idea of managing a number of items of a certain size in
 bytes, that's why we have \verb!size! and \verb!nmemb!. The first one is the
 size of the items we're writting or reading and the second the number
 of said items we're reading or writing. The function returns the number of
@@ -5375,39 +5317,40 @@ int main(int argc, char const* argv[])
 As you can see, we have declared two variables of the pointer type to
 \verb!FILE!, we initialize them to \verb"NULL" and start the program. When you
 receive arguments it is adviceable to parse them first, because if they are not
-correct, there is no purpose in continue with the program. After that, we try to
-open the origin file, note that we open it just to read it and without emptying
-it, logically. If that call fails, the value it return would be \verb!NULL! and
-we check this is not the case before continuing. We do the same with the destiny
-file, but this one is opened with the option \verb!r! that will empty the file if it
-exists and create it if it does not. Notice that, in case of error, we need to
-close the first file we
+correct, there is no purpose in continuing with the program. After that, we try
+to open the origin file, note that we open it just to read it and without
+emptying it, logically. If that call fails, the value it return would be
+\verb!NULL! and we check this is not the case before continuing. We do the
+same with the destiny
+file, but this one is opened with the option \verb!r! that will empty the file
+if it exists and create it if it does not.
+Notice that, in case of error, we need to close the first file we
 opened before exiting the program (returning from function \verb!main! ends the
 program). Finally, we use a loop to read byte by byte the origin file and write
 it in the destiny. As you can see, the loop condition is that it will keep
-looping as long as the reading function return anything that is not zero.
+looping as long as the reading function returns anything that is not zero.
 This is like so because both \verb!fwrite! and \verb!fread! return the number of
-items they have writen or read. In this case, when \verb!fread! returns zero it
+items they have written or read. In this case, when \verb!fread! returns zero it
 is there is no more to read.
 
 I am going to take some time explaining the return value of the functions, as
 we said before, we pass to both \verb!fread! and \verb!fwrite! a size and a
-number if items we want to read or write. This would allow us for example to
-write or read a certain number os structs whose size we could know with
+number of items we want to read or write. This would allow us for example to
+write or read a certain number of structs whose size we could know with
 \verb!sizeof!. The return value is the number os \textbf{items} read, not the
 number or bytes. When writting a stream of bytes directly, simply indicate that
-the size is one and the \verb!nmemb! is the numbers of bytes.
+the size is one and \verb!nmemb! is the numbers of bytes.
 
-You may be thinking that write a program like this that reads one byte at a time
-is a bit inefficient, and you're right. Each call to a function that manages
-things that are handled by the operating system is relatively costly, so it is
-intelligent to minimize them. In this case, we could read all the first file in
-memory and then close it and write it in the second, in just one order. The
-problem with this is that if you tried to cpy a 12~GB file it's probable that
-you fill all the memory in the computer, in which case it simply hangs or closes
-the program. To avoid both extremes, what is done often is to read a block of
-a sensible size (for example 100~MB) and write it, and repeat until the process
-is done.
+You may be thinking that writting a program like this that reads one byte at a
+time is a bit inefficient, and you're right. Each call to a function that
+manages things that are handled by the operating system is relatively costly,
+so it is intelligent to minimize them. In this case, we could read all the
+first file in memory and then close it and write it in the second, in just one
+order. The problem with this is that if you tried to cpy a 12~GB file it's
+probable that you fill all the memory in the computer, in which case it simply
+hangs or closes the program. To avoid both extremes, what is done often is to
+read a block of a sensible size (for example 100~MB) and write it, and repeat
+until the process is done.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -5480,7 +5423,6 @@ the file piece by piece, invert the pieces and then put them all together, also
 in a reverse order. This is complicated, thanks to the fact we can move the
 read/write pointer, we can read directly the blocks in reverse order.
 
-
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
@@ -5542,7 +5484,7 @@ int main(int argc, char** argv)
 \end{lstlisting}
 \end{minipage}
 
-The program is not a bit complicated, but, as always, we will explain it little
+The program is a bit complicated, but, as always, we will explain it little
 by little. The first thing we do is to define a function that can reverse the
 bytes of a vector. It is not the main matter in this example, but remember the
 algorithm because it is a classic. What we want to do starts right after, it is
@@ -5550,7 +5492,7 @@ a bit complex, but I am interested in you seeing what the functions that move
 the head do. Up until line 27 the only thing we do is something you're already
 used to see: we process the arguments and open the file, checking everything has
 gone well. After that we use the function \verb!fseek! that allows us to
-\textbf{move the read/write pointer}, concretelly, we move it to the end of the
+\textbf{move the read/write pointer}, concretely, we move it to the end of the
 file. Let's see how it work.
 
 This function allows us to move the head to a point in the file with an offset.
@@ -5568,8 +5510,8 @@ the 200\textsuperscript{th}, the 300\textsuperscript{th}...
 go to the third byte from the end you'd perform: \verb!fseek(-3, SEEK_END);!
 \end{enumerate}
 
-In line 29 what we do it go directly to the end of the file. After that, we use
-another function called \verb!ftell!. This functions give us the current
+In line 29 what we do is going directly to the end of the file. After that,
+we use another function called \verb!ftell!. This functions give us the current
 position in the file as a number. That is how we know where we are. After that
 we check if there is a whole block of data left. If we can, we use that block
 size, if not, we use what we can. After that, we displace the head to the
@@ -5577,11 +5519,11 @@ position we have calculated, and read the amount of bytes we calculated. We read
 and \textbf{displace the pointer back again} as many bytes as we read. After
 that we call the function that inverts the bytes we have read. After that,
 we update the variable that tell us where we are. Once we arrive to the first
-position of the file, we know we hace finished. You must be careful,
+position of the file, we know we have finished. You must be careful,
 \verb!fseek! only works when it is possible to move the pointer to the place you
 tell it to. When it is not possible, it doesn't move the pointer and gives an
-error (return -1). Finally, we close the file and print a new line so the prompt
-shows in the next line.
+error (returns -1). Finally, we close the file and print a new line so the
+prompt shows in the next line.
 
 We haven't used it in the example, but you can \textbf{delete} files. To do so
 we use the function \verb!remove!, whose signature is:
@@ -5625,14 +5567,14 @@ int main(int argc, char const *argv[]) {
 \end{lstlisting}
 \end{minipage}
 
-As you can see, the program is very simple, I call remove with the first
+The program is very simple, I call remove with the first
 argument (after the name of the program) and check is it has gone well.
 
 \subsection{Exercises of the section}
 \begin{exercises}[resume*]
 \item Write a program that receives a set of number as arguments and prints
-their decomposition in prime factor, for example, if the arguments were:
-10, 8, 55 y 103, the result would be:
+their decomposition in prime factors, for example, if the arguments were:
+10, 8, 55 and 103, the result would be:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -5647,7 +5589,7 @@ Factors of
 \end{minipage}
 
 It is recommended to make error control, checking the arguments are numbers
-before using them, etc.
+before using them, etc. Also, the order of the factors is not important.
 \item Write a program that reads \textbf{from terminal} a series of words and
 that only stops reading when you introduce ``!!'' as a word. After that, it
 must print said words in a random order. The function \verb!rand! returns a
@@ -5669,6 +5611,7 @@ in memory completely. To do this you may follow these steps.
     \item Close the second file.
     \item Open it again with a mode that deletes its content.
     \item Copy the content of the auxiliary file to the first file.
+    \item Delete the auxiliary file from \verb!/tmp/!.
 \end{enumerate}
 
 \item Write a function that receives a word as an argument and indicates
