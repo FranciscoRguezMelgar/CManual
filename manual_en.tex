@@ -256,7 +256,7 @@ document.
 Since this is a not very advanced manual, it is possible you have never had any
 experience programming. If this is the case, I will explain shallowly what
 ``programming'' is. Programming is, according to the Oxford dictionary: ``the
-process of writting and testing computer programs''. I am a simple guy and
+process of writing and testing computer programs''. I am a simple guy and
 have not put a foot in Oxford University but, perhaps naively, I expected a more
 enlightening definition. It allows us to start, though, programming is to write
 programs, therefore, to know what programming is, we need to know what a program
@@ -359,7 +359,7 @@ After it, you will go to the Microsoft Store app and will look for ``Ubuntu''.
 Go to the first result and install it. After that, go to the start menu and
 open the app (Ubuntu). It will take a moment to install. After it completes,
 it will ask you to input an username and a password. Just a note: when you start
-writting the password you will not see anything, don't worry, it's supposed to
+writing the password you will not see anything, don't worry, it's supposed to
 be like that, just write the password, it will ask you to input it twice, if
 you did it differently, it will tell you to do it again. Be sure to remember
 the username and password. When you are done, you will looking at a black screen
@@ -672,7 +672,7 @@ that closes the one your looking at now. I am going to leave here a list of
 some common editors used with C code. I will not assume you are using any
 concrete one, so choose the one you like. I use the first one, but may be for
 your first steps you may stick to Notepad++, which is simpler, and jump
-to another one when you feel more comfortable writting more complex programs.
+to another one when you feel more comfortable writing more complex programs.
 \begin{enumerate}
     \item Visual Studio Code.
     \item Atom.
@@ -2422,7 +2422,7 @@ If the breaking condition is true,
 we execute a \texttt{break}, exiting from the loop, printing the result
 and ending the program.
 
-This way of writting loops is discouraged, ideally all
+This way of writing loops is discouraged, ideally all
 the conditions that affect a loop termination should be in the loop, or in a
 variable that gets cheked in the loop itself. Hence this is not a good practice
 in programming, but this is not a manual about that, but to learn the language,
@@ -2953,7 +2953,7 @@ $$
 x \to x^2
 $$
 
-That thing up there is basically a very formal way of writting $f(x) = x^2$
+That thing up there is basically a very formal way of writing $f(x) = x^2$
 and $x$ is a real number. We have defined the domain (the real numbers) and the
 codomain (the \textbf{possitive} real numbers) and the transformation you need
 to make to the arguments to get the result. A function in C is the same, it is
@@ -3061,8 +3061,8 @@ a function you will ``invoke'' it. To do so we will simply write its name and
 the arguments it needs. Let's see an example, if before in our program we
 have defined the function, this fragment of code will print several powers.
 If you think about this, using a function in a programming language is like
-writting the concrete value of a function in mathematics, if $f(x) = x^2$
-then you know writing $f(3)$ is the name as writting a nine.
+writing the concrete value of a function in mathematics, if $f(x) = x^2$
+then you know writing $f(3)$ is the name as writing a nine.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -4615,6 +4615,7 @@ the first time the surface would be correctly calculated, but \verb!PI! would
 have a different value because we have unwillingly used the operator \verb!*=!,
 and all the later calculations would be erroneous. If we declare \verb!PI! as
 a constant, the compiler could notify us about those errors.
+
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
@@ -4650,6 +4651,7 @@ common uses of them, when you define universal contants, as $\pi$, $e$ or the
 gravitational constant $G$. But coming back to the constant, if you try to write
 an instruction that modifies the constant, the compiler would throw an error
 like this one:
+
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
@@ -4717,7 +4719,7 @@ of that pointer inside the function. If you try to perform for example:
 \verb!a->x++;! the compiler will throw an error. This is very useful for the
 programmer that uses the function if he hasn't written it, because that
 declaration is a way to tell him that the function does not modify the data at
-all. When we reach the point of writting our programs in different source files,
+all. When we reach the point of writing our programs in different source files,
 we will see this in more depth.
 
 Also, the modifier \verb!const! adds the concept of \textbf{const correctness},
@@ -5119,7 +5121,7 @@ compiler would warn us this is not right if we used \verb!%f!. This function
 \textbf{blocks} the program until is receives \textbf{all} the arguments we're
 asking for with the specifiers. Also, what is written in the terminal and does
 not get used (is read with \verb!scanf!) stays there pending to be used. That
-is, if instead of writting our example with just one call to \verb!scanf! we
+is, if instead of writing our example with just one call to \verb!scanf! we
 wrote three calls, each one with one specifier and variable, the effect would be
 the same. You could still write the three things separated by spaces and hit
 enter. In the same way that \verb!atoi!, if the specifiers expects a number and
@@ -5184,7 +5186,7 @@ going to open the file. Let's see which options we have.
 \end{enumerate}
 
 In the description of the options I talk about something called the reading or
-writting head, also called read/write pointer. It is not a C pointer or anything
+writing head, also called read/write pointer. It is not a C pointer or anything
 like that. It is a concept inherent to files. The read/write head is an abstraction
 of a physical device that is in a point of the file and writes or reads to it.
 Files are just a stream of bytes, and this head would write or read from the
@@ -5196,10 +5198,10 @@ left it. You could rewind it, fast forward it, etc. Also, playing the video
 makes the head move forwards, that is: reading makes you rewind if you want
 to read the same thing again.
 All this being said, the read/write header is unique \textbf{per
-file and process}, this means that two programs can be reading or writting from
+file and process}, this means that two programs can be reading or writing from
 the same file at the same moment but in different positions.
 When you reach the end of the file you can't
-read more (logically) but if you're writting, the file would grow seamlessly.
+read more (logically) but if you're writing, the file would grow seamlessly.
 
 Now you already know how to open a file, let's see how to write or read to and
 from it. The functions that are used to do this are these two: \verb!fwrite!
@@ -5233,7 +5235,7 @@ of the file in it. It is a \verb!char! pointer, which is the kind of pointer
 used when you want to manage a generic stream of bytes. Both functions are
 written with the idea of managing a number of items of a certain size in
 bytes, that's why we have \verb!size! and \verb!nmemb!. The first one is the
-size of the items we're writting or reading and the second the number
+size of the items we're writing or reading and the second the number
 of said items we're reading or writing. The function returns the number of
 \textbf{items} written or read, not the number of bytes, mind this when
 using the functions.
@@ -5338,10 +5340,10 @@ we said before, we pass to both \verb!fread! and \verb!fwrite! a size and a
 number of items we want to read or write. This would allow us for example to
 write or read a certain number of structs whose size we could know with
 \verb!sizeof!. The return value is the number os \textbf{items} read, not the
-number or bytes. When writting a stream of bytes directly, simply indicate that
+number or bytes. When writing a stream of bytes directly, simply indicate that
 the size is one and \verb!nmemb! is the numbers of bytes.
 
-You may be thinking that writting a program like this that reads one byte at a
+You may be thinking that writing a program like this that reads one byte at a
 time is a bit inefficient, and you're right. Each call to a function that
 manages things that are handled by the operating system is relatively costly,
 so it is intelligent to minimize them. In this case, we could read all the
@@ -5406,7 +5408,7 @@ int main(int argc, char const* argv[])
 The only change is that instead of a single \verb!char! we declare a vector of
 them with the size defined in a const variable and, later on, in the copy loop,
 instead of copying always one byte, we try to read the block size and, when
-writting it, we use the value returned from the read operation. I want to take a
+writing it, we use the value returned from the read operation. I want to take a
 moment in this line because it's a bit different from what we have seen up until
 now. An assignment is an expression with a value. This is what allows us to do
 things like: \verb!a = b = c!. Thanks to this property, you can compare the
@@ -5620,39 +5622,37 @@ the first ocurrence, if the word does not exists, return a negative number.
 Write a program that, with that function, receives a path and a word as
 arguments and prints the result of searching for the word in the file.
 \end{exercises}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Cómo escribir programas legibles y claros}
-Todos los lenguajes de programación tienen un grado mayor o menor de
-\textbf{legibilidad}. Se entiende por esto lo sencillo que es para programadores
-que lean código en este lenguaje entender rápidamente qué está haciendo ese
-código fuente. No es el lenguaje que se usa lo único que afecta a la
-legibilidad, cómo se escriba en él afecta mucho a la legibilidad. Algunos
-consejos para aumentar la legibilidad son:
+
+\section{How to write readable and clear programs}
+All programming languages have a different degree of \textbf{readability}. This
+is the easily a programmer would be to read the code written by another one, and
+understand what it is doing without a high level of effort. The language is not
+the only thing that affects the readability, the way one writes the code affects
+it at least as much, if not even more. Some advices to write more readable code
+are:
 \begin{enumerate}
-\item Utiliza nombres de variables significativos, es decir, en vez de \verb!a!,
-llama a las variables cosas como \verb!length!, \verb!days! o algo que tenga
-que ver con su significado.
-\item Utiliza nombres de función que expliquen lo que hace la función, del mismo
-modo, utiliza nombres de argumentos que indiquen qué son.
-\item Escribir el código tabulando cada bloque de código nuevo, etc.
+\item Use significative variable names, that is, instead of \verb!a!, call
+variables things like \verb!length!, \verb!days!, or something that had anything
+to do with their meaning, with what they are.
+\item Use function names that explain what the function is doing, in the same
+way, use names for the arguments that tell what they are, also.
+\item Write the code indenting each new code block. More on this later.
 \end{enumerate}
 
-Además, en C hay dos herramientas de vital importancia para aumentar la
-legibilidad del código que ahora te voy a presentar. Una es la palabra
-reservada \lstinline[style=C]!typedef!. Esta palabra reservada nos permite
-\textbf{darle nombre a un tipo de dato}. Es decir, nos permite poner otros
-nombres a tipos que ya existieran. Uno de los usos más prácticos de él es que
-nos permite definir un tipo con una sola palabra para referirnos a una
-estructura, así nos ahorramos el hecho de escribir \verb!struct mystruct_s!,
-no me dirás que no es un alivio después de tantos programas llenos de la palabra
-\verb!struct!. Veamos un programa ejemplo de esto:
-
+Also, in C there are two tools of vital importance to increase the readability
+of code and that I am going to present to you now. One is the keyword
+\lstinline[style=C]!typedef!. This keyword allows us to \textbf{give an alias
+to a datatype}. That is, it allows to give other names to datatypes. One of the
+most practical uses to this is that it allows us to refer with a single word to
+refer to a struct, so we save the fact of writing \verb!struct mystruct_s!,
+you can't avoid to tell me it's a relief after writing so many programs full of
+the word \verb!struct!. Let's an example of this.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Definición de un tipo a partir de una estructura},
+caption={Definition of a type from a struct},
 label={lst:structTypeDefinition}]
 #include <stdio.h>
 
@@ -5672,25 +5672,24 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Esta sería la sintaxis más explícita para hacer esto, hay otra alternativa que
-veremos ahora.
-En las líneas 1 a 4 no hay nada nuevo, simplemente declaramos la estructura,
-es la línea 6 la que es clave, como puedes ver, usamos la palabra
-\verb!typedef! para definir que el tipo \verb!struct point_s! se va a llamar
-ahora también \verb!point_t!. Nota que, como se ve en la línea 14, podemos
-seguir usando el nombre antiguo de los tipos. Todo sea dicho, salvo que quieras
-expresar un significado distinto, es lo mejor usar siempre el mismo nombre para los
-tipos. Hay una manera más abreviada para hacer esto, de hecho, dos, puedes
-combinar la sentencia \verb!typedef! en una única línea con la creación del
-\verb!struct!. Al hacer esto, puedes elegir ponerle nombre a la estructura o no,
-porque su nombre <<real>> será el que definas en el \verb!typedef!. Veámoslo:
-
+This would be the most explicit way to do this. There is another alternative
+that we will see later on. From lines 1 to 4 there is nothing new, we simply
+declare the struct, it is line 6 that is the key, as you can see, we use the
+word \verb!typedef! to define the type \verb!struct point_s! is going to be
+called also \verb!point_t!. Notice that, as you can see in line 14, we can keep
+using the old name of the types. All this being said, unless you want to
+symbolize something different to express a different meaning, it is better to
+use always the same name for the types. There is a more abbreviated way to do
+this, as a matter of fact, two, you can combine the sentence \verb!typedef! with
+the struct creation in the same line. Doing this, you can choose to set a name
+for the struct or not, because its ``real'' name would be the one you define
+with \verb!typedef!. Let's see it:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Diferentes combinaciones de \texttt{struct} con \texttt{typedef}},
+caption={Different combinations of \texttt{struct} with \texttt{typedef}},
 label={lst:structTypeCombo}]
 #include <stdio.h>
 
@@ -5714,37 +5713,35 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Las dos declaraciones de estas dos estructuras son equivalente en el hecho
-de que les asignan un nombre simple: \verb!point_t! y \verb!circle_t!, pero con
-un matiz: la estructura punto conserva su nombre de \verb!struct!, por lo que
-se podría utilizar para declarar variables de su tipo como se ve luego, al
-\verb!struct! círculo no le hemos puesto nombre de estructura, sólo lo hemos
-usado para definir un tipo. Esto es más simple, pero tiene un problema, cuando
-haces esto y el compilador necesita decirte que ha habido un error, será
-distinto dependiendo de la técnica que utilices. Con la estrutura
-\verb!circle_t!, si declaramos una función que recibe un argumento de este tipo
-y la llamamos con un tipo distinto, provocando un error, el mensaje del
-compilador será:
-
+The two declarations of these two structs are equivalent in the fact that they
+add a simple name to the structs, but with a nuance: the point struct keeps its
+struct name, so it could still be used to declare variables of this type as it
+is shown. The circle struct hasn't got an struct name, we have only used it
+to define a type. This is simpler but it presents a problem, when you do this
+and the compiler needs to tell you
+there's been an error, they would be different depending on the technique we
+use. With the struct \verb!circle_t!, if we declare one function that receives
+an argument of this type and cell it with a different type, creating an error,
+the message would be:
 \begin{lstlisting}[style=terminalStyle]
 main.c:14:18: note: expected 'circle_t' {aka 'struct <anonymous>'} but argument is of type 'int'
    14 | int foo(circle_t c){
 \end{lstlisting}
 
-Como puedes ver, te dice el nombre que tiene el tipo, y después intenta
-explicarte qué tipo era originariamente, el problema es que como hemos definido
-la estructura sin nombre, no tiene nada que decirnos, es un \verb!struct!
-anónimo. Y te estarás preguntando que todo esto cómo puede ser, bueno, es porque
-en C puedes declarar estructuras sin nombre con una variable para usarlas
-y tirarlas. Te lo voy a enseñar, pero es algo que no he visto en código
-profesional, así que, como el \verb!goto!, interioriza que existe, pero sería
-mejor que no lo usaras.
+As you can see, it sayd to you the name the type had, and then it tries to
+explian to you what it was originally, the problem is that, since we have
+defined the struct without a proper name, it has nothing to tell us, is an
+anonymous struct. And you may be wondering how can that be possible, well it is
+because in C you can declare structs without name like a variable to use them
+and throw them away. I am going to show it to you, but it is something I haven't
+seen in proffesional code so, like \verb!goto!, keep in mind it exists, but
+it would be better if you do not use it.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Estructura anónima y efímera},
+caption={Anonymous struct},
 label={lst:anonymousStruct}]
 #include <stdio.h>
 
@@ -5752,18 +5749,16 @@ label={lst:anonymousStruct}]
 int main(void)
 {
     struct { double x; double y; } temporal_point = { .x = 1, .y = 2 };
-    printf("Esto es un punto temporal que está en [%1.2f, %1.2f]\n", temporal_point.x, temporal_point.y);
+    printf("This is a temporal point which is in [%1.2f, %1.2f]\n", temporal_point.x, temporal_point.y);
 }
 \end{lstlisting}
 \end{minipage}
 
-Es por eso que podemos definir \verb!struct! que no tienen nombre y usar ese
-\verb!struct! anónimo para definir un tipo. Mi consejo es que siempre le pongas
-nombre a los \verb!struct! para evitar que el error del compilador sea más
-difícil de leer. Compara ese error del compilador que te he presentado antes con
-éste para la estructura punto que sí tenía un nombre independiente del
-\verb!typedef!.
-
+This is why we are able to define structs that have no name and and use this
+anonymous struct to define a type. My advice is that you always put a name
+to the struct to avoid the compiler to throw confusing errors. Compare this
+error of the compiler with the other error for the struct point that has a
+struct name regardless of \verb"typedef".
 
 \begin{lstlisting}[style=terminalStyle]
 main.c:13:18: note: expected 'point_t' {aka 'struct point_s'} but argument is of type 'int'
@@ -5771,32 +5766,29 @@ main.c:13:18: note: expected 'point_t' {aka 'struct point_s'} but argument is of
       |          ~~~~~~~~^
 \end{lstlisting}
 
-Terminando ya con este tema: si te fijas, siempre que le he puesto nombre a una
-estructura, lo he terminado con \verb!_s!, y siempre que he hecho un
-\verb!typedef!, lo he terminado con \verb!_t!. Esto es una convención, es decir,
-es algo que los programadores hacemos por tradición, pero no es obligatorio,
-ni el compilador ni ningún analizador de código te dirán que esto está mal
-(salvo que, claro, los hayas configurado para seguir la convención). El subfijo
-\verb!_s! es menos importante, pero sí te recomiendo encarecidamente que
-termines todos los tipos que definas con \verb!typedef! en \verb!_t!, primero:
-porque es muy común, lo hace casi todo el mundo y, segundo: porque los editores
-entienden que cualquier identificador (nombre, vaya), que termina en \verb!_t!
-es un tipo, y lo utilizan para darte pistas sobre qué es cada cosa, por ejemplo,
-los editores de texto colorearán todos los identificadores terminados en
-\verb!_t! del color de los tipos en ese editor.
+Finishing this with this topic: if you look closely, everytime I have put name
+to a struct I have ended it with \verb!_s!, and each time I have written a
+\verb!typedef!, I have ended it with \verb!_t!. This is a convention, that is,
+it is something programmer do because of tradition, but it is not mandatory,
+not the compiler would throw an error or warning. Es suffix \verb!_s! is less
+important, but I strongly encourage you to end all the types you define with
+\verb"typedef" with \verb!_t!, firstly: because it is very common, almost
+everybody does it and, secondly: because editors understand that any
+identificator (name, nasically), ends with a \verb!_t! is a type, and they use
+it to give hints about what each thing is, for example, editor will colorize
+that word in the color that editor colorizes types automatically if it ends with
+\verb!_t!.
 
-Aparte de esta utilidad tan cómoda para nosotros, hay otra, sirve para renombrar
-tipos básicos, por ejemplo, podemos renombrar el \verb!char! sin signo como
-\verb!byte_t!. Así si utilizamos nuestro programa para manejar listas de bytes
-podemos usar este tipo y el lector de nuestro código sabrá de qué estamos
-hablando.
-
+Aside from this very practical use for us, there is another, it allows us to
+rename basic types, for example, we can rename the unsigned \verb!char! as
+\verb!byte_t!. In that way if we use our program to manage lists of bytes we can
+use this type and reader of our code will know what we're talking about.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Redefinición de un tipo básico},
+caption={Redefining basic types},
 label={lst:typedefBasicType}]
 #include <stdio.h>
 
@@ -5818,18 +5810,17 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Quizá no entiendas todo este código, la línea 8, concretamente, pero simplemente
-observa cómo al utilizar un tipo concreto, se lee todo mucho mejor. Además,
-nos ahorramos escribir \verb!unsigned! múltiples veces.
-Del mismo modo que con el
-modificador de signo, podemos definir tipos con el modificador constante, por
-ejemplo: \verb!typedef const char letter_t!.
+Perhaps you do not understand all the code, the line 8, concretely, but simply
+look at how using a concrete type makes everything more readable. Also, it
+saves us to write unsigned several times. In the same way we did with the sign,
+we can define types with the const modifier, for example:
+\verb!typedef const char letter_t!.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de definición de tipo a partir de un tipo constante},
+caption={Example of definition of a type with const modifier},
 label={lst:typedefConstType}]
 #include <stdio.h>
 
@@ -5849,25 +5840,25 @@ int pos_of_letter(letter_t l){
 int main(void)
 {
     letter_t l = 'f';
-    printf("%c es la letra número %d del diccionario.\n", l, pos_of_letter(l));
+    printf("%c is letter number %d in the alphabet.\n", l, pos_of_letter(l));
 }
 \end{lstlisting}
 \end{minipage}
 
-Aunque esto es posible, en general la constancia es mejor dejarla
-\textbf{explícita}, es decir, definir tipos para lo que necesites, pero
-escribir el modificador \verb!const! cuando sea necesario, en vez de ocultarlo
-detrás del tipo redefinido.
+Even when this is posible, it is better to leave the const modifier as explicit,
+that is, define types for what u need, but write the modifier \verb!const! when
+it is needed, instead of hiding it behind a typedef. It is a common practice
+to define unsigned types, but it is recommended that, unless the meaning of the
+type implies it can't be negative (for example a length), putting some prefix in
+the name of the type. For example, you may see, if you read some code, types
+like \verb!uint32_t! which is a 32-bit integer (4 bytes) without sign.
 
-<<Y el más difícil todavía>> decían los maestros de ceremonias de los antiguos
-circos cuando los trapecistas o los payasos realizaban el truco final. Con
-\verb!typedef! este truco final es que, como los arrays de distintas dimensiones
-son tipos distintos, puedes definir un tipo a partir de un tipo array. ¿Qué
-utilidad tiene esto? A veces un conjunto de cosas de un tamaño concreto es un
-concepto en sí mismo. Dos personas juntas son un matrimonio, siete días son una
-semana y una mano tiene cinco dedos. La sintaxis de esto es un poco distinta a
-la que podrías pensar, pongo el ejemplo y explico por qué rápidamente.
-
+And for final trick, with \verb!typedef! this final trick is that, like arrays
+of different positions are in a way different types, you can define a type from
+an array. What is thif useful for? Sometimes a set of things of a certain size
+is a concept itself. Eight bits are a byte, seven days is a week and a hand has
+five fingers. Syntax for this is a bit different from what you may think at
+first instance.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -5882,31 +5873,29 @@ typedef unsigned char pixel_t[3];
 int main(void)
 {
     pixel_t pixel = { 125,33,129 };
-    printf("Este pixel tiene los valores: Rojo = %hu, Verde = %hu, Azul = %hu\n", pixel[0], pixel[1], pixel[2]);
+    printf("This pixel has these values: Red = %hu, Green = %hu, Blue = %hu\n", pixel[0], pixel[1], pixel[2]);
 }
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, \verb![3]! se pone a la derecha del nombre del nuevo tipo, en
-vez de a la izquierda, que sería lo intuitivo. Simplemente recuérdalo si quieres
-hacer esto. De todos modos, al igual que con la constancia, que un tipo sea
-un array es algo que es recomendable dejar explícito.
+As you can see, \verb![3]! is on the right of the name of the new type, instead
+of on the left, which would be the untuitive. Simply remember if you want to do
+this. Anyway, in the same way that with contance, a type that is an array is
+something that is better to leave explicit.
 
-La otra herramienta para añadir significado a tus programas, semántica, es
-el \verb!enum!, o tipo enumerado. Este es un tipo en C que nos permite asignar
-números correlativos automáticamente a nombres, los ejemplo clásicos (tan
-clásicos que casi son manidos) son los siguientes: días de la semana,
-meses del año, colores del arcoíris... La utilidad de esto es que podemos
-codificar fácilmente conjuntos de nombres como estos a números y utilizarlos
-para iterar, para indexar arrays, etc. Veamos el ejemplo de los días de la
-semana.
-
+The other tool to add meaning to our programs, semantics, is the \verb!enum!, or
+enumerated type. This is a type in C that allows us to assign correlative
+numbers to a set of names, the classic examples (so classic they are almost
+hackneyed) are the following: days of the week, months in the year, colors of
+the rainbow... The utility of this is that we can codify easily sets of names
+like those to names and use them to iterate a loop, index arrays, etc. Let's the
+example of the days of the week.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo básico de tipo enumerado},
+caption={Basic example of enumerated type},
 label={lst:BasicEnum}]
 #include <stdio.h>
 
@@ -5922,23 +5911,22 @@ enum week_days {
 
 int main(void)
 {
-    printf("Hoy es: %d\n", SATURDAY);
+    printf("Todays it is: %d\n", SATURDAY);
 }
 \end{lstlisting}
 \end{minipage}
 
-Si compilas y ejecutas esto verás que imprime <<Hoy es: 5>>. Esto es porque
-cuando escribes un enumerado así, el primer elemento recibe el valor cero, el
-siguiente uno, y así sucesivamente, en este caso de cero a seis.
-Y los enumerados pueden dar más de sí los combinas con arrays de tipos que
-ayuden a añadir la semántica, observa:
-
+If you compile and execute this you will see that it prints: ``Today it is: 5''.
+This is because when we write an \verb!enum! like that, the first element gets
+the value zero, the next one, and so on... in this case from zero to six. And
+the enumerated types can be more useful if you couple them with arrays of types
+that help us to add meaning.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Enum combinado con array de nombres},
+caption={Enum used alongside name array},
 label={lst:EnumWithNames}]
 #include <stdio.h>
 
@@ -5952,7 +5940,7 @@ enum week_days {
     SUNDAY
 };
 
-const char* WEEK_DAYS_NAMES[] = { "lunes","martes","miércoles","jueves","viernes","sábado","domingo" };
+const char* WEEK_DAYS_NAMES[] = { "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday" };
 
 int is_today_weekend(int day){
     return day == SUNDAY || day == SATURDAY;
@@ -5961,34 +5949,34 @@ int is_today_weekend(int day){
 int main(void)
 {
     for(int ii = MONDAY; ii <= SUNDAY; ++ii){
+        printf("Today it is: %s and\n", WEEK_DAYS_NAMES[ii]);
         if(is_today_weekend(ii)){
-            printf("¡Es fin de semana!\n");
+            printf("it's weekend!\n");
         }else{
-            printf("No es fin de semana.\n");
+            printf("it is not weekend.\n");
         }
     }
 }
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, tener el tipo enumerado nos permite que los programas sean
-mucho más legibles, que es lo que queríamos, porque como puedes ver, el bucle
-se lee como <<siendo \verb!ii! LUNES, hasta que sea igual a DOMINGO, si
-\verb!ii! es un fin de semana, imprime que lo es, si no, no>>. Habrás notado que
-tanto para \verb!ii! como para la declaración de la función utilizo el tipo
-\verb!int!. Esto es porque <<por dentro>> un tipo enumerado es un tipo entero,
-pero para escribir las cosas más claramente, podemos definir un tipo enumerado
-como definimos un tipo a partir de un \verb!struct!.
+Having an enumerated type allows us to write much more readable
+programs, which is what we wanted, because as you can see, the loop can read
+as: ``For a \verb!ii! from MONDAY to SUNDAY, if \verb!ii! is in the weekend,
+print is it, otherwise, print it is not''. Also, when printing the days, we can
+know the name of each simplt accessing the array of names. You may have noticed
+that both in the declaration of \verb!ii! and in the body of the function I use
+the type \verb!int!. This is because ``inside'' an enumerated type is an
+integer, but to write things more clearly, we can define an anumerated type
+in the same wat we defined an struct.
 
-Para ver que la legibilidad el código ha aumentado, mira cómo en la
-comprobación se puede ver que se lee como <<si el día es SÁBADO o DOMINGO,
-es un fin de semana>>. Pero el \verb!enum! tiene más flexibilidad, podemos
-definir el valor de cada etiqueta, o, esto es más útil: definir el valor de la
-primera, y las siguientes tomarán el valor correlativo correspondiente. Voy
-a poner en un mismo programa un ejemplo de ambas cosas, los días de la semana
-y los meses del año. El siguiente programa aúna todas las posibilidades
-anteriores:
-
+To see that the legibility of the code has improven, look at how the checking
+in the function may be read as: ``if a day is SATURDAY, or SUNDAY, it's
+weekend''. But the \verb!enum! has more flexibility, we can define a value for
+each tag, or, this is more useful, define the value of the first, and the
+following ones will would take a correlative value. I am going to write a
+program with an example of both things, days of the week and months of the
+year. The next program shows all the alternatives.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -6010,8 +5998,8 @@ typedef enum seasons_e {
     SPRING, SUMMER, FALL, WINTER
 } seasons_t;
 
-const char* season_names[] = { "primavera", "verano", "otoño", "invierno" };
-const char* month_names[] = { "NOT USED", "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" };
+const char* season_names[] = { "Spring", "Summer", "Autumn", "Winter" };
+const char* month_names[] = { "NOT USED", "January","February","March","April","May","June","July","August","September","October","November","December" };
 int is_today_weekend(week_days_t day) {
     return day == SUNDAY || day == SATURDAY;
 }
@@ -6034,44 +6022,42 @@ seasons_t season(months_t m) {
 int main(void)
 {
     for (months_t ii = JANUARY; ii <= DECEMBER; ++ii) {
-        printf("Estamos en %10s y es %s\n", month_names[ii], season_names[season(ii)]);
+        printf("It's %s and the season is: %s\n", month_names[ii], season_names[season(ii)]);
     }
 }
 \end{lstlisting}
 \end{minipage}
 
-He tenido que declarar los \verb!enum! en una línea para que quepa en esta
-página, pero eso no afecta. Mira bien como en el caso de los días de la semana
-he hecho que cada uno valga un valor arbitrario. Además, en iniciado los meses
-en el valor uno, no he definido valor del resto, por lo que se sucederán
-valiendo dos, tres... Esta definición tiene una implicación, en el
-caso de los días de la semana ya no puedo escribir el mismo
-bucle \verb!for! para iterar sobre
-ellos \textbf{porque ahora sus valores no son correlativos},
-sino que son arbitrarios. Además, si miras el array de
-los nombres de los meses del año, he tenido que poner al principio una
-posición que no se usa para que encaje.
+I have had to declare the \verb!enum! in one line so it fitst in this pafe, but
+this has no effect whatsoever. Pay attention to how in the case of week days I
+have made each one to be an arbitrary value. Also, I have started months with
+one, I haven't defined the value of the rest, so they will take the next values:
+two, three... This definition has an implication, though, in the case of the
+days of the week I can't write the same loop to iterate over them
+\textbf{because now the values are not correlative}, but arbitrary. Also, if you
+look at the array of names for the months of the year, I have had to write in
+the start of the array a position that is not used, but it is needed so the
+indexes of the array names correspond to the enum values.
 
-Al contrario que \verb!typedef!, los \verb!enum! son muy situacionales, aunque,
-como el \verb!do-while! o el \verb!switch!, cuando se da dicha situación son
-la herramienta ideal.
-\subsection{Estilo de código}
-Ahora que ya hemos hablado de muchas herramientas del lenguage, es hora de que
-establezcamos algunas reglas para escribir nuestros programas que he dejado
-implícitas y que me gustaría empezar a escribir aquí. En este epígrafe vamos
-a ver cómo deben escribirse los programas más allá de que funcionen o, incluso,
-de que sean eficientes. Cuando uno trabaja en programación, hay muchos momentos
-en que vas a estar más tiempo leyendo el código de otros programadores que
-escribiendo código nuevo. Y, consecuentemente, debes escribir tu código con la
-intención de que sea claro para otros programadores que lo lean. Vamos a ver
-un ejemplo de cómo un fragmento de código puede ser trivial o indescifrable
-simplemente cambiando cómo está escrito.
+Opposing to \verb!typedef!, the \verb!enum! are somewhat situational, although,
+like the \verb!do-while! or the \verb!switch!, when u find that situation
+they're good for, they're very good for it.
+\subsection{Code style}
+Now we have talked about many tools of the language, it's time that we stablish,
+some rules to write our programs that I have left implicit and I'd like to write
+here. In this section we are going to see how the programs should be written
+beyond how they word, even, regardless of how efficient they are. When one works
+in programming, there are several moments in which you're going to be more time
+reading other programmer's code that writing new code. Consequently you must
+write your programs with the intent that they are readable for other programmers
+to read. Let's see an example of a code fragment that could be trivial or
+undecipherable depending on how it is written.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de programa escrito con un mal estilo},
+caption={Example of a program with a bad style},
 label={lst:badStyle}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -6079,7 +6065,7 @@ int main(void)
 {
 int** a=malloc(10*sizeof*a);
 for(int ii=0;ii<10;++ii){
-(*(a+ii))=mailloc(5*sizeof**a);
+(*(a+ii))=malloc(5*sizeof**a);
 for(int jj=0;jj<5;++jj){
 (*(a+ii))[jj]=10*ii+jj;
 }
@@ -6097,17 +6083,17 @@ free(a);
 \end{lstlisting}
 \end{minipage}
 
-Intenta leer el programa \ref{lst:badStyle} y dime si sabes qué hace. Es probable
-que, después de unos cinco o diez minutos, descifres que simplemente reserva un
-vector de vectores, lo rellena, lo imprime y lo libera. Como puedes ver, sin
-espacios, sin las líneas tabuladas (tabular las líneas es poner espacios delante
-para que queden desplazadas a la derecha), sin líneas en blanco entre
-estructuras de control y escribiendo algunas líneas al lado de una llave,
-es imposible de
-leer. Además, no hemos declarado variables o macros que nos ayuden a entender
-si el mismo valor es así por casualidad o por simboliza lo mismo. Además, he
-mezclado arbitrariamente operadores distintos para acceder al vector. Si
-aplicamos una serie de mejoras a cómo está estrito el código, quedaría así:
+Try to read the program \ref{lst:badStyle} and tell me if you know what it does.
+It is probable that, after five or ten minutes you can figure out it allocates
+a vector of vector, fills it up, prints it and frees it. As you can see, without
+spaces, without indenting them (indenting a line is putting space infront of it
+so they're displaced to the right), without whitelines between control
+structures and writing some lines next to the braces, it is almost impossible
+to read. Also, we haven't declared variables or constants that allow us to
+understand if the same value is like that by chance or symbolizes the same.
+I have also mixed arbitrarily different operators to access the vector. If
+we apply a series of improvements to how this is written, it will result in
+this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -6141,7 +6127,7 @@ int main(void)
     }
 
     for (uint_t ii = 0; ii < ROWS; ++ii) {
-        free(*(matrix + ii));
+        free(matrix[ii]);
     }
     free(matrix);
 }
@@ -6149,100 +6135,100 @@ int main(void)
 \end{minipage}
 \newpage
 
-Como pudes ver, hemos introducido varias mejoras: los operadores están rodeados
-por espacios, las utilizaciones de \verb!sizeof! siempre llevan paréntesis para
-que sea más legible, hemos utilizado dos macros para simbolizar el tamaño del
-vector en vez de escribir cinco y diez todo el rato en el código,
-hemos utilizado siempre la misma manera de acceder a los
-vectores y, finalmente, hemos escrito cada instrucción
-en una línea con la tabulación correcta. Veamos qué pasos o
-principio hay que seguir para escribir código que sea entendible.
-
-\subsubsection{Tabulación}
-En la introducción de esta sección hemos hablado de la tabulación, y te he dicho
-que es anteponer a algunas líneas espacios para que salgan desplazadas a la
-derecha. Es una de las cosas que debes hacer obligatoriamente si quieres que te
-tomen en serio como programador, pero hay varias variaciones sobre cómo puedes
-hacerlo. La primera decisión que debes tomar es si tabulas con espacios o con
-tabuladores. Un tabulador es un carácter especial que indica al editor de texto
-que alinee las cosas en la siguiente columna de la pantalla. La ventaja de
-tabular con ellos es que puede configurar el editor para que muestre el
-tabulador como el número de espacios que más te guste. Este carácter se inserta
-con la tecla tabulador, que es la que tiene este símbolo:\tiny
+As you can see, we have introduced several improvements: operators are
+surrounded by spaces, \verb!sizeof! is always used with parenthesis so they're
+more clear, we have used two constants to simbolize the size of the vector
+instead of repeating five or ten all the time, we hace used always the same
+way to access the vectors and, finally, we have written each instruction in
+a line with the correct indentation. Let's see which steps must be followed
+to write readable code.
+\subsubsection{Indentation}
+In the introduction to this section we have talked about indentation, and I have
+said to you that is it to precede some lines with spaces so they appear
+displaced to the right. This is one of the things you must do if you want to be
+taken seriously as a programmer, but there are several things about how to do
+it. The first decission you have to take is if you indent with tabulators or
+with spaces. A tabulator is a special caracter that indicates the text editor to
+align things to the next column in the display. The avantage of this is that
+tabulating with them you can make the editor you're using to take the columns to
+which the tabulators align as any size of spaces. This character is inserted
+with the tabulator key, which is the one that has this symbol:
+\tiny
 $
 \matrix{
     \left|\leftarrow\right.\cr
     \left.\to\right|
 }
 $
-\normalsize .
-La otra opción es tabular con espacios, es decir, en vez de usar este carácter
-especial, usaremos un número determinado de espacios. En general, no pulsas
-varias veces la tecla espacio, sino que configuras tu editor de texto para que,
-al pulsar tabulador, se introduzca el número de espacios concreto.
+\normalsize or has the legend ``tab'' in it.
+Another option is to indent with spaces, that is, instead of using that special
+character, you use a set number of spaces. In general, you do not hit space
+several times, but yo configure your editor in such way that when you hit the
+tabulator key, it inserts the spaces you have configured as ``tab size'' or
+``indent size''.
 
-Esta es una de las cosas que hará que los programadores se peleen entre ellos
-como fanáticos religiosos o hinchas de un equipo de balompié, por lo que la
-elección es tuya. Sin embargo; mi modesta opinión es que los espacios son
-mejores porque permiten alinear el código de líneas largas, por ejemplo, mejor.
-Además, permiten asegurarte de que el código escrito se verá bien en todos los
-entornos, porque no hay ambigüedad sobre cuánto mide un espacio.
+This is one of things that would make programmer fight each other like religious
+zealots or hooligans of a football team, so the decission is yours.
+Nevertheless; my honest opinion is that spaces are better since they give you
+more liberty to align longer lines that must be broken. Also, ansures that the
+code is going to be shown correctly in all the editors, since there is not
+configuration about how a space must be shown, but people may have different tab
+size configured.
 
-La norma general para tabular es que los bloques de código deben tener sus
-instrucciones tabuladas un nivel más que allí donde estén definidos. Puedes
-observar que esto es así en todos los fragmentos de código que he incluido como
-ejemplos. Cada nivel de tabulación debe ser igual al anterior, es decir, si has
-elegido cuatro espacios, debes tabular siempre con cuatro
-espacios, nunca mezclar, y si utilizas tabuladores, un nivel
-de tabulación debe ser siempre un único tabulador.
+The general rule is that code blocks must have their instructions indented a
+level more than where they are define. You can see how I did this in the
+programs I have shown up until now. Each tabulation level must be the same as
+the others, that is, if you have chosen four spaces, you must indent always with
+four spaces, never mix. Also, if you're using tabulator characters, an
+indentation level shouldn't be more than a tabulator.
 
-La tabulación también entra en juego cuando una línea es demasiado larga.
-Te preguntarás quizá qué sentido tiene ponerle un límite a la longitud de las
-líneas si estamos usando editores de texto que nos permiten que éstas sean tan
-largas como queramos. Esto es así por varios motivos: las líneas demasiado
-largas suelen ser más difíciles de interpretar, impiden que tengas varios
-archivos abiertos a la vez y, además, en el improbable, pero posible caso de
-que quisieras imprimir tu código, sería difícil que quedase bien. El último
-caso no te afecta a ti, pero me ha afectado a mí en muchos de los programas
-que he escrito como ejemplos. La longitud de una líneas de código en C
-normalmente viene siendo de unos ochenta caracteres. Para que te hagas una idea,
-los fragmentos que he insertado en este manual contienen unos 71.
+Indentation is also important when a line is very long. You may be wondering
+what sense does it make to limit the lenght of the lines of code is we're using
+editors that allow us to make them as long as we want. This is so for several
+reasons: when lines are too long they tend to be more difficult to read, they
+avoid you from having several files opened at the same time and, also, in the
+improbable, but possible case you need to print your code, it would be difficult
+to do it properly. The last case does not affect you, but had affected me
+personally in several of the programs I have written as examples. The length of
+line of code in C is generally around 80 characters, ideally always less than
+that. To allow you to have in image, the lines I have inserted in the manual
+have around 71.
 
-Bueno, y qué pasa si la línea que estamos escribiendo contiene más de esos
-caracteres. Pues que hay maneras de escribir la línea de un modo distinto.
-Esta manera cambia según dónde se dé el problema, claro, así que vamos a ver
-los sitios más habituales y cómo arreglarlo.
+And what to do when the line is simply too long? There arw ways to write the
+lines in different styles. This way changes depending on how in a program you
+have the problem, so let's see some examples on how to fix it in several places.
 
-El primer caso es cuando se utilizan funciones con muchos argumentos, o cuyos
-nombres son muy largos, un ejemplo clásico de esto son las llamadas a
-\verb!printf!, pero se puede dar con otras funciones. Por ejemplo: imagina un
-programa que imprime un mensaje un poco largo para el usuario, podría quedar
-así:
+The first case is when you use functions with many arguments, or when the names
+of those arguments are too long. A classic example of this are the calls to
+\verb!printf!, but you can see it with other functions. For example, imagine
+a program that prints a somewhat long message for the user, it could be like
+this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Impresión larga},
+caption={Long printing instruction},
 label={lst:longprint}]
 #include <stdio.h>
 int main(void)
 {
-    printf("Este es un mensase importante, por favor, mantente hidratado, bebe agua\n");
+    printf("This is an important message, stay hydrated, drink water and avoid extreme heat situations.\n");
 }
 
 \end{lstlisting}
 \end{minipage}
-Como puedes ver, la línea no cabe en la pantalla, lo que se hace en estos
-casos es separa la constante de \textit{string} en varias. Siempre que las
-escribamos juntas o separadas sólo por espacios y líneas nuevas, C las tomará
-como una continua. Veamos cómo quedaría:
+
+As you can see, the line does not fit in the screen, what tends to be done in
+these cases is to split the constant in several. As long as you write them
+together or separated only by whitespaces (both spaces, tabs or newlines), C
+will see them as just one. Let's see the result:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Impresión larga},
+caption={Splitting a long printing instruction},
 label={lst:longprint}]
 #include <stdio.h>
 int main(void)
@@ -6253,18 +6239,19 @@ int main(void)
 }
 \end{lstlisting}
 \end{minipage}
-Nota que, aunque las separemos, debemos incluir los espacios entre palabras.
-Cuando se dividen así cadenas de texto, se suelen poner todas al mismo nivel
-de tabulación.
 
-El siguiente ejemplo es una función con muchos argumentos, o con argumentos
-muy largos. Imaginemos un programa tal que:
+Notice that, although we are splitting it, we must include the spaces between
+words. Also, then you split strings in this way you tend to write them all
+in the same level of indentation.
+
+The next example is a function with several arguments, or with very long ones,
+let's image a program like this one:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Muchos argumentos},
+caption={Example of a call with several arguments},
 label={lst:manyArgs}]
 int main(int argc, char** argv)
 {
@@ -6277,18 +6264,17 @@ int main(int argc, char** argv)
 \end{lstlisting}
 \end{minipage}
 
-Como no me interesa lo que hace el programa, sino sólo el formato, no voy a
-poner la definición de las funciones, pero la función \verb!insert_at! crea
-un array nuevo con el elemento dado como último argumento en la posición que
-indica el segundo. Si quisiéramos que la línea donde se llama a esa función
-fuera separada en varias, lo haríamos generalmente entre los argumentos de la
-llamada, veamos algunos estilos:
+Since I am not interested in what the program does, but only in the format, I am
+not going to include the function definition, but the function \verb!insert_at!
+creates a new array with the element given as last argument in the position that
+the second argument indicates. If we wanted that the line where that call occurs
+were separated in several ones, we could do do in these styles:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Cómo acortar líneas con muchos argumentos},
+caption={Splitting of call with several arguments},
 label={lst:manyArgsShorting}]
 //1
 int* res = insert_at(list, ARRAY_SIZE(list),
@@ -6306,26 +6292,27 @@ int* res =
 \end{lstlisting}
 \end{minipage}
 
-En el primer ejemplo hacemos un único corte en un argumento y ponemos
-el resto de la línea un nivel de tabulador por detrás de donde estaría.
-Este método es útil cuando nos pasamos del límite por pocos caracteres.
-El siguiente es mi preferido y básicamente pone cada argumento en una línea
-y al mismo nivel. En el último, nos aprovechamos de que estamos asignando el
-resultado de la llamada, utilizamos esta operación para hacer el corte,
-con una nueva línea y un nivel de tabulador hacia adentro. Los tres se pueden
-combinar como quieras, pero a mí me gusta el segundo porque impide que
-queden alineaciones extrañas.
+In the first example we make a cut in only one argument and we write the rest in
+a new line one indentation level to the left of where it would be if we wrote it
+in the same line. This method is useful when we surpass the character limit by
+just a few lines. The next is my preferred one and basically we write each
+argument in a new line and on the same level. In the last one, we take advantage
+of the fact that we are assigning the result of the call, we use this operation
+to perform the split, with a new line and an indentation level to the left.
+The three could be combined, but I like the second because it disallows weird
+alignments and also saves the more space. Some people may think it's overdoing
+things.
 
-La siguiente localización es la declaración de una función con muchos
-argumentos, por ejemplo, una función que imprima una fecha dado el año, el
-mes y el día y un argumento boleano que nos diga si lo hacemos en ese orden
-y en el inverso:
+The next place where you may need to split a line is the declaration of a
+function with several argument, for example, a function that prints a date given
+the year, the date and the month and an argument that tells us if we want
+DD-MM-YYYY format or YYYY-MM-DD.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Acortamiento de una declaración de función},
+caption={Splitting of function declaration},
 label={lst:functionShorting}]
 void print_date(unsigned short day,
                 unsigned char  month,
@@ -6334,36 +6321,33 @@ void print_date(unsigned short day,
 \end{lstlisting}
 \end{minipage}
 
-En estos casos se suelen poner todos los argumentos en una línea distinta,
-además, me he molestado en alinear los nombres de los argumentos para
-que se cree una especie de tabla, lo que facilita la lectura cuando se deben
-acortar así las listas de argumentos.
+In these cases you tend to write all the arguments in a different line, also,
+I have taken the effort in alignining the names and the type of the arguments to
+create a species of table, which facilitates the reading. This is merely
+stylistic and optional.
 
-En otros sitios donde se pueden dar estas situaciones es en listas de varios
-tipos, estoy usando la palabra listas aquí a la ligera, me refiero a
-las sucesiones de cosas separadas por comas que van entre llaves:
-listas de inicialización especialmente, en general puedes aplicar lo mismo que
-con los argumentos en el método primero de cuando acortamos una llamada a
-función.
+In other places where you can encounter these situations is in lists of several
+types, I am applying here the word list in a loosely way, I am referring to the
+successions of things separated by commas that are between braces:
+initialization lists specially, in general you can apply the same techniques
+that with the first method when we split the call of a function.
 
-\subsubsection{Espaciado entre símbolos}
-En términos generales la mayoría de los espacios en blanco que pondremos en
-nuestros programas son para facilitar esta legibilidad, porque C es un lenguaje
-diseñado para que los espacios en blanco no importen. Normalmente,
-los operadores matemáticos, lógicos o de cualquier tipo deben ir rodeados de
-espacios, es decir: se prefiere \lstinline[style=C]!a = b + 10;!
-que \lstinline[style=C]!a=b+10;!,
-rodea el operador de asignación y la suma de espacios. Las excepciones a esto
-son los operadores unarios (la negación lógica, el asterisco de
-desreferenciación de punteros, etc.). Además, en las declaraciones, el asterisco
-debe estar siempre pegado o al tipo de dato, o al nombre de la variable. Es una
-cuestión de estilo, pero yo recomiendo que se adhieran los asteriscos al nombre
-de la variable, o, en su caso, del argumento de la función.
-Es decir:
+\subsubsection{Spacing symbols}
+In general terms most of the whitespaces what we write in our programs are to
+make it easier to read, because C is a language designed so the whitespaces
+don't matter as much. Normally, mathematical operators, logic, or of any kind
+should be surrounded by spaces, that is: it is preferred
+\lstinline[style=C]!a = b + 10;! to \lstinline[style=C]!a=b+10;!, it surrounds
+the assignment operator and the plus operator with spaces. Also, in declarations
+the asterisk must be always next to the data type, or to the name of the
+variables. It is a question of style, but I recommend to stick them to the
+name of the variable or argument. What is important is to do it in the same
+way everytime inside the same project.
+For example:
 \begin{enumerate}
-\item Espacia los operadores: \lstinline[style=C]!int var = a * 3 + ii!
-\item Los asteriscos deben ir pegados a las variables a las que afectan, en
-declaraciones y desreferenciaciones:
+\item Space operators: \lstinline[style=C]!int var = a * 3 + ii!
+\item Asterisks should be next to the name of the variable or argument in
+declarations or to the one they're dereferencing:
 \begin{enumerate}
 \item \lstinline[style=C]!double *var1;!
 \item \lstinline[style=C]!int function(int *arg1, void **arg2);!
@@ -6371,29 +6355,28 @@ declaraciones y desreferenciaciones:
 \end{enumerate}
 \end{enumerate}
 
-Además, después de todas las comas que haya en listas de inicialización,
-de los puntos y coma de los bucles \verb!for! o de los argumentos de una función
-debe haber una coma y un espacio debe rodear los paréntesis de estructuras
-de control (nota: llamada a función no es una estructura de control), es decir:
-
+Also, after all the commas in initialization lists, the semicolons in the
+\verb!for! loop or the arguments of a function there must be an space and spaces
+must also surround the parenthesis of control structures, (note, function calls
+are not a control structure), that is:
 \begin{enumerate}
 \item \lstinline[style=C]!for (int i = 0; i < 10; ++i)!\verb! {!
 \item \lstinline[style=C]!int list[] = {1, 2, 3, 4, 5, 6};!
 \item \lstinline[style=C]!int res = pow(var1, var2);!
 \end{enumerate}
 
-\subsubsection{Estilo de las llaves}
-Hay varias combinaciones de estilo de las llaves que definen los bloques de
-código que componen los cuerpos de bucles, condicionales y demás estructuras
-de control. Hay dos estilos fundamentales: llaves K\&R y Allman.
-Las primeras se ponen en la misma línea que la estructura de control que
-las necesita, es decir:
+\subsubsection{Brace style}
+There are several combinations of style between the braces that define code
+blocks that make the body of functions, loops conditionals and other control
+structures. There are two fundamental styles: braces K\&R and Allman. The first
+ones are in the same line that the structure whose body they are opening, and
+the second ones in the next line.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de llaves estilo K\&R},
+caption={Example of braces in K\&R style},
 label={lst:KRBrackets}]
 int main(void) {
     return 0;
@@ -6401,13 +6384,13 @@ int main(void) {
 \end{lstlisting}
 \end{minipage}
 
-Las llaves Allman se ven así:
+Braces in Allman style look like this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de llaves estilo Allman},
+caption={Example of braces in Allman style},
 label={lst:AllmanBrackets}]
 int main(void)
 {
@@ -6416,30 +6399,28 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Hay otros estilos que combinan las tabulaciones de maneras distinta con las
-llaves, pero estas son las más importantes. Una manera que se puede ver habitualmente
-es que
-las definiciones de funciones (que son principalmente bloques de código de
-primer nivel) utilicen el estilo Allman, mientras que los bloques internos a
-éstas usen el estilo K\&R. Lo más importante es que utilices un estilo o una
-combinación racional de ellos y lo mantengas en todo el proyecto. En caso de
-añadir código a una base existente, aplica la vieja regla de: <<donde fueres
-haz lo que vieres>>, es decir, sigue el estilo que sigan en el proyecto en el
-que colabores.
+There are other styles that combine the indentation and the braces in a
+different way, but they're not relevant at this level. A way that is common is
+to use Allman style in the function declaration (that is a code block of the
+first level) and K\&R in the rest of the blocks. The most important thing is to
+use one style or the other, or a combination of them and maintain them in all
+the project. In case of adding code to an existing codebase, apply the old rule
+of ``when in Rome, do as Romans do'', that is, follow the style that is already
+in place in existing code of the project.
 
-\subsubsection{Declaración de variables, estructuras y enumerados}
-Hasta ahora, cada declaración de variable la hemos hecho en una línea distinta,
-y cada miembro de una estructura también. Esto no es necesario, se pueden
-declarar todas las variables de un mismo tipo en la misma línea, e incluso
-inicializarse. Veamos un ejemplo sencillo. Vamos a reescribir el programa
-\ref{lst:bidimensionalVector}: \nameref{lst:bidimensionalVector}, pero omitiré
-parte de él porque no ha cambiado.
+\subsubsection{Declarationf of struct, variables or enums}
+Up until now, each variable declaration has been written in a single line, and
+each member of the structure. This is not needed, you can declare all the
+variables of the same type in the same line, even initialize them. Let's see a
+simple example. We are going to rewrite the program
+\ref{lst:bidimensionalVector}: \nameref{lst:bidimensionalVector}
+but I am going to skip part of it that hasn't changed.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Declaración de variables en una misma línea},
+caption={Declaration of variable in the same line},
 label={lst:singleLineDeclaration}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -6454,24 +6435,23 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver en la línea 6, podemos declarar variables del mismo tipo
-en la misma línea, separando sus nombres por comas. Además, podemos incluso
-inicializarlas. Si vas a declarar punteros junto a variables de tipos no
-puntero, el asterisco que indica que esa variable es un puntero va pegado al
-nombre de la variable, como puede ver con \verb!matrix!. En el caso de la
-inicialización del puntero, podría ir en la misma línea, pero lo he movido
-a otra para impedir que la línea sea excesivamente larga.
+As you can see in line 6, we can declare variables in the same type in the same
+line, separating their names with commas. Also, we can even initialize them.
+If you're going to declare pointers in the same line of other variable that are
+not, the asterisk that indicates the variable is a pointer goes next to the name
+of the variable, as you can see with \verb!matrix!. In the case of initializing
+the pointer, it could be in the same line, but I have moved it to another
+because otherwise it would have been too long.
 
-En las estructuras se puede hacer lo mismo, es decir, declarar todos los
-miembros del mismo tipo en la misma línea, con los enumerados también se puede
-hacer, pero es convención que cada identificador de una estructura vaya en
-su propia línea. Veamos un ejemplo de ambas cosas:
+With the structs you can do the same, that is, declare all the member of the
+same type in the same line, with the enumerated types it is the same, although
+it is convention that each member of a struct is in its own line.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Declaración de miembros de un \textit{struct} en una sola línea},
+caption={Declaration of member of a \textit{struct} in a single line},
 label={lst:singleLineDeclarationStruct}]
 struct point_s {
     double x, y;
@@ -6489,41 +6469,35 @@ enum week_days {
 \end{lstlisting}
 \end{minipage}
 
-\subsubsection{Convenciones de nombres}
-Una de las cosas más importantes es que debes evitar el uso de los llamados
-\textbf{números mágicos}. Éstos son los valores literales que se incluyen en
-el código y que no se explican, se asignan a una variable y, en el peor de los
-casos, se usan en muchas partes del código. Si rescatas el ejemplo de mal código
-del programa \ref{lst:badStyle}, verás que nunca defino variables o macros para
-definir las columnas y filas de la matriz. Esto lo hago intencionadamente,
-porque es una mala práctica. Como puedes ver en el ejemplo de buen código,
-lo primero que hago es definir macros para estos conceptos, y, además, las
-defino con un cásting añadido a un tipo concreto, para controlar de qué tipo
-son, y las encierro entre paréntesis, para evitar los problemas que vimos en
-la sección sobre macros.
-En general, debes hacer esto, definir macros, variables y constantes para todo
-concepto o valor que haya en tu código, \textbf{especialmente si aparece varias
-veces}.
+\subsubsection{Name convention}
+One of the most important things you must avoid is the use of so called
+\textbf{magic numbers}. Those are the literal values that are included in the
+code and are not explained, they are assigned to a variable and, in the worst
+case, they're used in several parts of the code. If you rescue the example of
+bad code of the program \ref{lst:badStyle}, you will see that I never define
+variables to define the rows or columns of the matrix. I did this intentionally,
+because it is a bad thing to do. As you can see in the example of good code,
+the first thing I do is to define variables for these concepts. In general, we
+must define variables for all the concepts or values that in your code
+\textbf{specially if it appears several times}.
 
-Además, hay una serie de convenciones que vamos a reunir aquí sobre los nombres.
-Cuando te expliqué el nombre que se le podía poner a una variable, te dije de
-que existían el \textit{camel case} y el \textit{snake case} para escribir
-nombres con varias palabras. En C lo normal es usar el segundo, es decir:
-\verb!my_var!, así que en general será el que me hayas visto aplicar. Por otro
-lado, las constantes deben estar escritas en mayúscula, es decir:
-\lstinline[style=C]!const int LENGTH = 10;! es preferible a
-\lstinline[style=C]!const int length = 10;!, las macros siguen la misma
-convención como ya habrás podido notar.
+Also, there is a series of conventions that we are going to gather here about
+names. When I explained the name that a variable can have, I told you that they
+could be written in camel case or snake case. In C it is usual to use the
+second, that is: \verb!my_var!, so it will be the one I'll use in the examples,
+and that I have used up until now. On the other hand, constant should be written
+in uppercase, that is:  \lstinline[style=C]!const int LENGTH = 10;! is better
+than \lstinline[style=C]!const int length = 10;!.
 
-En general, los tipos terminan en \verb!_t!, como ya comentamos, ya sean estos
-renombramiento de tipos básicos o creación de estructuras. A los enumerados
-se les puede omitir su nombre de enumerado, es decir, es normal escribir:
+In general, the types end in \verb!_t!, as we commented, either if they're
+renaming of basic types or creation of structs. It is normal to omit the name
+of the enums, that is, it is usual to write:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de tipo enumerado con typedef},
+caption={Example of a enum with typedef},
 label={lst:typedefEnum}]
 typedef enum {
     MONDAY,
@@ -6537,84 +6511,104 @@ typedef enum {
 \end{lstlisting}
 \end{minipage}
 
-Las funciones deben tener nombres descriptivos, del mismo modo que sus argumentos,
-por ejemplo, es preferible:
+Function must have descriptive names, for example, it is better to write:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de función descriptiva},
+caption={Example of descriptive function},
 label={lst:descriptiveFunction}]
 int multiply_array_scalar(int *array, int array_size, int scalar);
 \end{lstlisting}
 \end{minipage}
 
-a
+than
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de función no descriptiva},
+caption={Example of non-descriptive function},
 label={lst:nonDescriptiveFunction}]
 int multi(int *a, int s, int n);
 \end{lstlisting}
 \end{minipage}
 
-En el primer caso queda claro qué hace la función y qué es cada argumento
-con un golpe de vista. En el segundo habría que acudir a la implementación
-para saber qué hace.
+In the first case it is clear what the function does and that each argument is,
+at first sight. In the second you'd have to go to the implementation to see what
+it does.
 
+\section{What is behind compilation}
+% Hasta ahora hemos dicho que crear un binario a partir de un archivo de código
+% fuente se llama compilar. Si bien esto es una expresión correcta, no es del todo
+% cierto. Hay varios procesos involucrados en lo que llamamos compilación:
+% \begin{enumerate}
+% \item Preprocesado: Prepara el código fuente para ser compilado, esto incluye
+% eliminar comentarios, expandir macros, ejecutar directivas y eliminar saltos de
+% línea.
+% \item Compilado: Crea el binario de cada archivo de código fuente que se utilice
+% en el proyecto.
+% \item Enlazado: Genera los binarios ejecutables propiamente dichos, para ellos
+% utiliza los binarios del paso anterior y crea enlaces entre ellos, ya sea
+% juntándolos en el mismo archivo o simplemente indicando dónde están los que
+% necesita.
+% \end{enumerate}
 
-\section{Lo que hay detrás de la compilación}
-Hasta ahora hemos dicho que crear un binario a partir de un archivo de código
-fuente se llama compilar. Si bien esto es una expresión correcta, no es del todo
-cierto. Hay varios procesos involucrados en lo que llamamos compilación:
+Up until now we hace said that creating a binary from a source code file is
+compiling. Although this is correct, is it not totally true. There are several
+processes involved in what we call compilation:
 \begin{enumerate}
-\item Preprocesado: Prepara el código fuente para ser compilado, esto incluye
-eliminar comentarios, expandir macros, ejecutar directivas y eliminar saltos de
-línea.
-\item Compilado: Crea el binario de cada archivo de código fuente que se utilice
-en el proyecto.
-\item Enlazado: Genera los binarios ejecutables propiamente dichos, para ellos
-utiliza los binarios del paso anterior y crea enlaces entre ellos, ya sea
-juntándolos en el mismo archivo o simplemente indicando dónde están los que
-necesita.
+\item Preprocessing: Prepares the code to be compiled, this includes deleting
+comments, expand macros, execute directives and delete whitespaces. More about
+macros, directives and comments later on.
+\item compiling: Creates the binary of each source code file that is used in
+the project.
+\item Linking: It generates the executable binaries properly said, to do so it
+uses the binaries generated in the last step and creates links between them,
+regardless it being joining them in the same file or simply linking one to the
+other indicating were it is.
 \end{enumerate}
 
-Esto introduce muchos conceptos nuevos que explicaré a continuación, pero lo
-principal es que esta va a ser la sección en que aprendas a hacer programas con
-más de un archivo de código fuente. Esto es útil porque, como has visto, en el
-momento en que un programa se hace un poco complejo, empieza a hacerse confuso
-subir y bajar por el fichero de código buscando lo que necesitas o modificando
-cosas. Por esto, todo proyecto serio de programación en C contiene varios
-archivos de código fuente. Algunos proyectos muy grandes pueden llegar a tener
-hasta decenas de miles o cientos de miles de archivos de código fuente.
-Voy a explicar ahora los tres procesos.
+This intorduces a series of new concepts I will explain now, but the fundamental
+here is that this is the section in which you're going to learn how to make
+programs with more than a source code file. This is useful because, as you saw,
+just when a program a bit complex, going up and down over the file starts to be
+confusing, specially to modify things. Because of this, every serious project
+in the C language contains several source code files. Some projects may reach
+the tens of thousands of files. Let's see the three steps described before.
 
-\subsection{Preprocesado}
-El preprocesado es la etapa que se realiza más discretamente, porque todo
-archivo de código fuente que se compile pasa primero por ella sin que tengamos
-que hace nada. En la introducción de esta sección he comentado que se realizan
-varias tareas, siendo la primera la eliminación de comentarios. Ya es hora de
-que te explique qué son los comentarios. Un comentario es una herramienta que
-nos permite introducir cualquier texto dentro del códido de tal modo que podamos
-explicar cosas, apuntar datos o cosas así. Veamos un ejemplo. Voy a incluir
-comentarios en el código del
-programa \ref {lst:pointStruct}: \nameref{lst:pointStruct}
+\subsection{Preprocessing}
+% El preprocesado es la etapa que se realiza más discretamente, porque todo
+% archivo de código fuente que se compile pasa primero por ella sin que tengamos
+% que hace nada. En la introducción de esta sección he comentado que se realizan
+% varias tareas, siendo la primera la eliminación de comentarios. Ya es hora de
+% que te explique qué son los comentarios. Un comentario es una herramienta que
+% nos permite introducir cualquier texto dentro del códido de tal modo que podamos
+% explicar cosas, apuntar datos o cosas así. Veamos un ejemplo. Voy a incluir
+% comentarios en el código del
+% programa \ref {lst:pointStruct}: \nameref{lst:pointStruct}
+
+Preprocessing is the most discrete step of the compilation process, because
+every source code file that is compiled passes through it and we do not have to
+do anything. In the introduction of this section I have said that several tasks
+are performes, first of those being the deleting of comments. It is time I
+explain to you what those are. A comment is a tool that allow us to introduce
+any arbitraty text in our code so we can annotate things, explain the code or
+things like that. Let's see an example. I am going to include comments in the
+program \ref {lst:pointStruct}: \nameref{lst:pointStruct}.
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de definición de estructura punto},
+caption={Example of program with comments},
 label={lst:comments1}]
 #include <stdio.h> //for printf
 #include <math.h>  //for sqrt
 
-//Definimos la estructura punto bidimensional.
+//We define a bidimensional point
 struct point_s {
     double x;
     double y;
@@ -6632,10 +6626,10 @@ int main(void)
 
     double diff_x = A.x - B.x;
     double diff_y = A.y - B.y;
-    /*Recordemos que la distancia
-    entre dos puntos es la raíz
-    cuadrada de la suma de los cuadrados
-    de la diferencia entre sus coordenadas*/
+    /*Remember that the distance
+    between two points is the square
+    root of the addition of the substraction
+    of their coordinates squared*/
     double distance = sqrt(diff_x * diff_x + diff_y * diff_y);
 
     printf("P1 : [%f, %f]\n", A.x, A.y);
@@ -6645,36 +6639,32 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Como habrás adivinado, los textos que salen en verde son los comentarios. Se ve
-claramente que son cualquier texto que queramos, y que no tienen nada que ver
-con código en C. El preprocesador los eliminará antes de pasarle el programa al
-compilador. Hay dos tipos de comentarios:
+As you may have guessed, the green texts are the comments. It is clear that they
+can be any text you may want, and that they have nothing to do with C code.
+The preprocessor will delete them before passing the code to the compiler.
+There are two kinds of comments:
 \begin{enumerate}
-\item Comentarios de una línea: Se empiezan con \verb!//!, son comentarios que
-hacen que el preprocesador elimine todo después de las barras inclinadas, éstas
-incluidas. Se pueden poner varios en líneas correlativas.
-\item Comentarios multilínea: Empiezan por \verb!/*!, y \textbf{terminan con}
-\verb!*/!. El comentario ignorará saltos de línea y cualquier carácter que
-haya hasta que se encuentre el final, como puedes ver en el ejemplo.
+\item One line comments: they start with \verb!//!, they're comments that
+make the processor to delete everything after the slashes, these included, up
+until the end of the line. You can put several in correlative lines.
+\item Multiline comments: they start with \verb!/*! and \textbf{end with}
+\verb!*/!. The preprocessor ignores the new lines and any character that is
+written up until the end of the comment, as you can see in the example.
 \end{enumerate}
 
-En general, puedes poner los comentarios que consideres oportunos, sobre todo,
-se comentan funciones que tengan algoritmos difíciles o cosas que no sean
-evidentes. Como nota, al ser el inglés la \emph{lingua franca} de esta época y
-estar además los lenguajes de programación basados en él, los comentarios del
-código se hacen siempre en inglés en entornos profesionales.
+In general, you can put the comments you deem necessary, specially, it is
+recommended to comment functions that are very difficult or thins that are not
+evident.
 
-
-El siguiente paso es la expansión de macros. Y te estarás
-preguntando qué es una macro. Una macro es una constante simbólica que definimos
-en el código y que el preprocesador sustituirá por su valor allá donde la
-escribamos. Veamos un ejemplo.
+The next step is the expasion of macros, and you may be wondering that a macro
+is. A macro is a symbolic contant that we define in the code and preprocessor
+will substitute it by its value where we write it, let's see an example.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Directiva \texttt{define}},
+caption={Macro creation},
 label={lst:defineDirective}]
 #include <stdio.h>
 
@@ -6690,31 +6680,28 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+In line 3 you can see the only nnew thing we have here, the directive
+\verb!define!. Directive start with a ound sign (\verb!#!). And we're about to
+unveil one of the misteries in our programs, the lines that start with
+\verb!#include! are directives, but let's avoid getting ahead of ourselves.
+This directives defines (I know, shocker) a symbol that the preprocessor will
+substitute with the one we have set in the definition of the macro. In this
+case, the symbol \verb"100". A common use of this is, like in the example,
+defining the size of arrays. Does this mean that every array must have its
+corresponding macro? No, only if it's going to be used in several places or has
+a meaning, for example the size of a list of tests.
 
-En la línea tres puedes ver la única novedad que tenemos aquí, la directiva
-\verb!define!. Las directivas empiezan con almohadilla (\verb!#!). Y ya vamos
-desvelando uno de los misterios que más tiempo llevan en nuestros programas, las
-líneas que contienen \verb!#include! son, efectivamente, una directiva. Pero
-hablemos de la directiva \verb!#define!. Esta directiva define (lógico, claro)
-un símbolo que será sustituido por otro por el preprocesador, en este caso,
-hemos definido que allá donde escribamos \verb!LIST_LENGTH!, el preprocesador
-lo sustiuirá por \verb!100!. Un uso común para esto es, como puedes ver,
-definir el tamaño de arrays. ¿Quiere decir esto que cada array debe tener
-su macro correspondiente? No, sólo si se va a usar en varios sitios o tiene
-un significado, por ejemplo, el tamaño de una lista de pruebas que vas a
-hacer al mismo código.
-
-Como las macros se expanden \textbf{antes} de la compilación, sí que puedes
-definir el tamaño de un array y la vez inicializarlo. Esto tiene una ventaja:
-cuando inicializas un array, pero faltan elementos, el resto se rellena a 0
-automáticamente, así que podemos escribir nuestros programas como:
-
+Since macros are substituted \textbf{before} compilation, you can, indeed,
+define the size of the array and initialize it at the same time. This has and
+advantage: when you initialize an array, but you do not use all the elements,
+the remaining are initialized to zero automatically, so you can write your
+programs like this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Uso de \texttt{define} con arrays},
+caption={Macro use with arrays},
 label={lst:defineArray}]
 #include <stdio.h>
 
@@ -6725,7 +6712,7 @@ int main(void)
     int list[LIST_LENGTH] = {};
     for(int ii = 0; ii < LIST_LENGTH; ++ii){
         if(list[ii] != 0){
-            printf("Hay elementos que no son 0.\n");
+            printf("There are elements that aren't  0.\n");
             break;
         }
     }
@@ -6733,32 +6720,33 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Ya te expliqué que una variable no se podía usar para indicar el tamaño de un
-array que inicializaras con una lista de inicialización
-porque esa variable podía valer lo que fuera (el
-compilador no puede saberlo, porque eso sólo se sabría al ejecutar el programa).
-Quizás te preguntes si una variable constante, por ejemplo,
-\verb!const int LENGTH=100;! podría valer. No, una variable marcada con
-\verb!const! sigue siendo una variable, porque hay mecanismos, algunos normales
-y otros producto de abusos del lenguaje C, que permiten que el valor de esa
-variable cambie. Haz una prueba: compila y ejecuta ese programa de ejemplo
-algunas veces (no compiles cada vez, sólo necesitas compilar si cambias el
-código). Verás que jamás se imprime el mensaje. Ahora, elimina la inicialización
-del array, deja la línea 7 como \verb!int list[LIST_LENGTH];! y después de
-compilar verás que casi siempre se imprimirá. Esto es porque, recuerda, lo que
-no inicializas tiene valores aleatorios.
+I explained to you that you cannot use a variable to define the size of an array
+that you want to initialize with an initialization list. This is the case
+because the compiler, which would need to know if the initialization list is too
+big or too small, cannot do so because the values of a variables is unknown
+until we execute the program. You may be wondering if a variable with the
+\verb!const! modifier would be an alternative. No, it will not compile with a
+variable also, because while it is marked as a read only variable, there are
+some mechanisms which can modify the value, some totally normal and others as
+consequences of abuses of the language or bad practices. Regarding the fact
+that when the initialization list is smaller than the size of the array the
+remaining positions are initialized to zero, you can make a test. Compile that
+last program an execute it a couple times, you'd see it never prints the
+message, now, delete the initialization of the array, leaving line 7 as
+\verb!int list[LIST_LENGTH];!, compile and execute again, and you'll see most
+often than not it prints the message.
 
-Pero las macros tienen una potencia increíble, porque admiten argumentos.
-Habrás notado que hay cosas que hacemos muy comúnmente, como por ejemplo hallar
-el cuadrado de un número, para eso podemos invocar a la función \verb!pow!, lo
-que implica compilar enlazando la biblioteca correspondiente, como vimos, o
-escribiendo \verb!var*var!, con una macro, podemos hacerlo más legible.
+Macros have an incredible power, because they can receive arguments. You may
+have noticed that there are things we do very often, like for example square a
+number, we use the function \verb!pow! for that, but it needs to compile with
+the math library in the same way that \verb!sqrt!, or writing \verb!var*var!,
+with a macro, we can do that more legible and without using functions.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Uso de macro con argumentos},
+caption={Macro with arguments},
 label={lst:macroWithArguments}]
 #include <stdio.h>
 
@@ -6766,30 +6754,29 @@ label={lst:macroWithArguments}]
 
 int main(void)
 {
-    for(int ii = 0; ii < 10; ++ii){
+    for (int ii = 0; ii < 10; ++ii) {
         printf("%d^2 = %d\n", ii, SQUARE(ii));
     }
 }
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, este programa funciona como se espera. Siendo esto así, ¿por
-qué no se usan macros para todo? El primer motivo es que se pueden convertir
-en un auténtico infierno para encontrar errores o problemas en tus programas.
-Esto es porque, recuerda, no son más que un copiar y pegar automático. Imagínate
-que hiciéramos un bucle con macros (cosa perfectamente posible), al final, ese
-bucle se traduciría en tantas líneas como iteraciones tenga el bucle. Así que si
-alguna de ellas es incorrecta, tienes que depurar sobre líneas que no existen ni
-puedes ver porque sólo existen después del preprocesado. Además, al ser un
-copiar y pegar automático, se pueden producir problemas porque no se comprueban
-tipos ni se respetan preferencias de operadores por ser una sustitución
-simbólica. Cambiemos un poco el programa anterior:
+As you can see, this program works as intended. Being this so practical, why
+aren't macros used for everything? The reason is that they can become a very
+difficult thing to understand or fix if there is an error. They're just a
+symbolic substitution, if you created a set of macros that repeated a block of
+code a set of times, in the fashion a loop would do, in case you got an error
+you'd have to look for it in lines that you cannot see because they haven't been
+substituted yet, and you'd have to compile each time to catch the marcro whose
+substitutiones is creating the error. Also, there may be problems because macros
+do not understand about types or priotity of operations, let's see an example of
+the risks.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de error por una macro},
+caption={Example of error because of a macro},
 label={lst:macroError}]
 #include <stdio.h>
 
@@ -6804,25 +6791,24 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Si lees este programa, pensaríamos que debería imprimir: 1, 2, 4, 9... Pero
-no es lo que pasa, imprime: 1, 3, 5, 7, 9... Y esto es así porque esta macro
-está mal escrita, haz el ejercicio de sustituir \verb!a! en la macro por
-\verb!ii+1! mentalmente, verás que sale: \verb!ii+1*ii+1!. Eso no es lo que
-querías escribir. La solución a esto es escribir \verb!a! entre paréntesis en la
-macro, quedando \verb!#define SQUARE(a) (a)*(a)!, pero aunque en este caso sea
-sencillo, sirva este ejemplo para demostrarte que las macros son peligrosas.
-Puedes usar macros con argumentos, pero se recomienda que sea para cosas
-sencillas, por ejemplo este cuadrado de un número, un valor absoluto, etc.
+If you read this program, you may expect that it prints: 1, 2, 4, 9... but
+it is not what it happens, it prints: 1, 3, 4, 7, 9... and this is like that
+because this macro is not properly written, make the mental exercise to
+substitute \verb!a! in the macro by \verb!ii+1!, you'd get that the result is
+\verb!ii+1*ii+1!. This is not what we intended. The solution for this is writing
+the argument of the macro between parenthesis, that is:
+\verb!#define SQUARE(a) (a)*(a)!, but even when it is an easy fix in this case,
+let this example server as a warning on how dangerous macros can be when used
+recklessly.
 
-Además, hay una versión de las macros que pone como una cadena de texto
-lo que se introduzca como argumento. Se hace con la almohadilla de nuevo,
-veamos el ejemplo.
+Also, there is a version of the macros that allows to write a text string the
+argument that is put inside it. Let's see how it is done and used.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Uso de macros con cadenas de texto},
+caption={Use of macros with strings},
 label={lst:macroText}]
 #include <stdio.h>
 
@@ -6837,36 +6823,90 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Como puedes apreciar, al poner \verb!#a! le estamos diciendo que sustituya
-\verb!a! por \verb!"a"!. No te lo he dicho, pero dos cadenas de texto escritas
-como literales, juntas, se convierten en una, es decir: \verb!"Hola"" Mundo"!
-es equivalente a \verb!"Hola Mundo"!. Y después hemos escrito \verb!a! para que
-la sustituya de manera normal. Estos serían los fundamentos más importantes
-sobre las macros.
+As you can see, when you write \verb!#a! inside the definition of the macro,
+we're asking it to substitute \verb!a! by \verb!"a"!. As we saw in the program
+\ref{lst:longprint} when we write several string literals separated only by
+whitespaces, they're effectivelly treated as a single one. Later we have written
+\verb!a! so it is substituted normally.
 
-La siguiente directiva que nos importa es, por fin, la directiva \verb!include!.
-Es la directiva que hemos usado para poder utilizar una variedad de funciones
-como \verb"printf" o \verb!malloc!. Esto es por lo que hace la directiva:
-incrusta el contenido de un archivo de código fuente en el tuyo. Sí, lo has
-oído bien, cuando escribes \verb!#include <stdio.h>!, lo único que estamos
-haciendo es pegar en este archivo de código los contenidos de un archivo
-distinto, en este caso, \verb!stdio.h!. Es extraño que sea un archivo con
-extensión \verb!.h!, si todos los programas los hemos escrito en un archivo
-acabado en \verb!.c!. Esto es porque este archivo es un archivo de
-\textbf{cabeceras}, en este tipo de archivo, del que veremos más adelante
-ejemplos y te enseñaré a hacer, se escriben sólo definiciones, es decir:
-declaraciones de funciones, declaraciones de variables globales, de tipos
-nuevos...
-
-Pero, de momento, puedes experimentar con esta directiva escribiendo estos
-dos archivos: \verb!main.c!, el que ya teníamos, y \verb!other.c!. En el primero
-escribe esto:
+This is an application of macros that transform the arguments in strings, in
+general, when you use that feature in a program intensively you may want to
+create a macro that stringifies (converts to string) the arguments, and, most
+importantly, allows to write the value of macros that are not strings (numbers)
+as strings.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de directiva \texttt{include}, archivo principal},
+caption={Macro to stringify},
+label={lst:stringifyMacro}]
+#include <stdio.h>
+
+#define STR_HELPER(a) #a
+#define STR(a) STR_HELPER(a)
+#define PRINT_INT(integer) printf(STR(integer)" = %d\n", integer)
+
+int main(void)
+{
+    for (int ii = 0; ii < 10; ++ii) {
+        PRINT_INT(ii);
+    }
+}
+\end{lstlisting}
+\end{minipage}
+
+Here it is shown how the macros are used to print firstly the name of the
+variable and then then the value. This is, also, useful when you have macros
+with numeric values you want to turn into a string, a case would be this:
+
+\noindent
+\begin{minipage}[H]{\linewidth}
+\mbox{}
+\begin{lstlisting}[style=C,
+caption={Converting numeric macros to string},
+label={lst:stringifyMacroAndMacro}]
+#include <stdio.h>
+
+#define STR_HELPER(a) #a
+#define STR(a) STR_HELPER(a)
+
+#define ARRAY_SIZE 10
+
+int main(void)
+{
+    int array[ARRAY_SIZE];
+    printf("The size of the array is "STR(ARRAY_SIZE)".\n");
+}
+\end{lstlisting}
+\end{minipage}
+
+The detail I want you to pay attention to is the fact that, in this case, since
+it is a macro and not a variable what is passed to \verb!STR!, it is substituted
+by its \textbf{value} and not its name. You can use this to define strings,
+regardless of its use alongside \verb!printf! or not.
+
+The next directive we're going to look into is, at last, \verb!include!. This is
+the directive we have used to be able to use a variety of functions, like
+\verb!printf! or \verb!malloc!. This is what the directive does: it embeds the
+content of one file into other. Yes, you have read it well, when you write
+\verb!#include <stdio.h>!, the only thing you're doing is to paste in this file
+the contents of another file, in this case \verb!stdio.h!. It is weird it is a
+file with \verb!.h! extension, if all the other programs we have written are
+in a file ended in \verb!.c!. This is because this files is a \textbf{header}
+file, in this kinf of files, of which we will see more later on, only
+definitions are written, that is: function declarations, global variables, new
+types...
+
+Nevertheless, at the moment, you can experiment with this directive writting
+these two files: \verb!main.c!, which we already had, and \verb!other.c!. In the
+first one, write this:
+
+\noindent
+\begin{minipage}[H]{\linewidth}
+\mbox{}
+\begin{lstlisting}[style=C,
+caption={Example of \texttt{include} directive, main file},
 label={lst:include1}]
 //main.c
 #include <stdio.h>
@@ -6875,27 +6915,27 @@ label={lst:include1}]
 int main(void)
 {
     int a = 10;
-    printf("a ahora vale: %d\n", a);
+    printf("a is now: %d\n", a);
     multiply(&a, 2);
-    printf("a ahora vale: %d\n", a);
+    printf("a is now: %d\n", a);
 }
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, al incluir \verb!other.c!, estamos usando comillas en vez de
-los signos de menor que y mayor que. Esto es porque cuando a la directiva le
-indicamos el nombre del archivo entre menor que y mayor que, los busca en los
-directorios predefinidos que el sistema tiene para cabeceras. Si pones comillas,
-los busca en donde está este archivo de código fuente que lleva la directiva
-\verb!include!. Por ello, cuando utilices archivos que no estén en esos
-directorios, debes tener esto en cuenta. En el archivo \verb!other.c! irá este
-contenido:
+As you can see, when including \verb!other.c!, we're using quotes instead of the
+less than and greater than sign we used with the other include directives. This
+is because when the directive receives the name of a file surrounded by less
+than and greater than, the C preprocessor looks for the file in certain
+directories the system has configured where header files go. When you use
+quotes, it looks for them in the directory where the source file is. Because of
+that, when you use files that are not in those special directories, you must
+take this into account. The file \verb!other.c! must have this content.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de directiva \texttt{include}, archivo incluido},
+caption={Example of \texttt{include} directive, included file},
 label={lst:include2}]
 //other.c
 void multiply(int* a, int b){
@@ -6904,21 +6944,19 @@ void multiply(int* a, int b){
 \end{lstlisting}
 \end{minipage}
 
-Si miras el contenido de ambos archivos, simplemente estamos <<sacando>> la
-función a otro archivo y hemos usado la directiva para que desde el archivo
-principal se escriba todo el contenido del segundo en el primero. No obstante;
-una regla de oro es que nunca debes incluir archivos de código fuente, sino esos
-archivos de cabecera que te presenté antes. Sin embargo;
-para poder hacer esto, debemos primero ver los dos pasos siguientes de la
-creación del binario.
+If you look at the content of both files, we're simply ``putting out'' the
+function to other file and we have used the include directive from the main file
+so all the content of the secondary file gets written in the main one.
+Nevertheless; a golden rule is that you should never include source code files,
+only header files. But, to do so, we must discuss fristly the next two steps
+of compilation.
 
-Antes de llegar allí, sin embargo; quiero que veas un par de directivas muy
-interesantes: \verb!ifndef!, \verb!ifdef! y
-\verb!endif!, que siempre van juntas. Su nombre
-es más o menos explicativo, pero se trata de lo siguiente, estas directivas
-comprueban si una macro está definida, y si según esté o no, el código
-entre \verb!ifdef/ifndef! y \verb!endif! se incluirá o no. Veamos un ejemplo
-sencillo.
+Before arriving there, nonetheless; I want you to see a couple of very
+interesting directives, \verb!ifndef!, \verb!ifdef! and \verb!endif!, that go
+together. Their names is more or less self explanatory, but they do this: these
+directives check if a macro is defined and, according to it being defined or
+not, the code between \verb!ifdef/ifndef! and \verb!endif! will be included or
+not. Let's see an example.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -6932,58 +6970,56 @@ label={lst:ifdefAndIfndef}]
 int main(void)
 {
 #ifndef MY_MACRO
-    printf("¡Hola mundo!\n");
+    printf("Hello, world!\n");
 #else
-    printf("¡Adiós Mundo!\n");
+    printf("Good bye, world!\n");
 #endif
 }
 \end{lstlisting}
 \end{minipage}
 
-Aquí puedes ver que usamos \verb!ifndef!, \verb!else! y \verb!endif!, creo
-que es muy explicativo, pero simplemente, cuando \verb!MY_MACRO! no está
-definida, el código que resulta del preprocesado imprimirá <<¡Hola, mundo!>>;
-cuando sí lo está (en el \verb!else!), el código resultante
-imprimirá <<¡Adiós Mundo!>>. Las macros se pueden definir desde la línea de
-comandos a la hora de compilar (ten en cuenta que aquí ni siquiera nos
-interesa su valor, tan solo si existe o no) así que esto permite
-modelar nuestra compilación a distintos entornos.
-Para definir una macro en el comando de compilación con gcc simplemente
-agregar: \verb!-DNOMBRE_MACRO=valor!, por ejemplo, en el caso que acabo
-de presentarte: \verb!-DMY_MACRO=0!. Pruébalo, compila el programa anterior
-con esta orden: \verb!gcc -o main.exe main.c! y ejecútalo, imprimirá <<¡Hola,
-mundo!>>, si lo compilas con esta: \verb!gcc -o main.exe main.c -DMY_MACRO=0!,
-imprimirá <<¡Adiós, mundo!>>.
+Here you can see that we use \verb!ifndef!, verb!else! and \verb!endif!, I think
+itis easy to see, but simply, when \verb!MY_MACRO! is \textbf{not} defined,
+the code resulting from the preprocessing will print ``Hello, World!''; when is
+is defined, it will print ``Good bye, world!''. Macros can be defined from the
+command line when compiling (mind that we are not interested in their value,
+just if they're defined or not) so this allows us to shape our compilation to
+different environments. To define a macro in the compilation command with GCC
+simply add \verb!-DMACRO_NAME=value!, for example, in the case I have just
+shown: \verb!-DMY_MACRO=0!. Test it, compile the program with this command:
+\verb!gcc -o main.exe main.c! and execute it, it will print ``Hello, world!'',
+if you compile it with \verb!gcc -o main.exe main.c -DMY_MACRO=0! it will print
+``Good bye, world!''. If, instead of \verb!ifndef!, we used \verb!ifdef! the
+behaviour would be the opposite.
 
-Por ejemplo, se usa para
-hacer que existan o no impresiones por pantalla que sólo deben verse en
-compilaciones usadas para hallar errores en el código, pero no en la compilación
-final, la que se vendería, por ejemplo. Estas directivas son muy importantes
-por algo que veremos en la sección siguiente.
+For example, it is used to make some printing orders to exist or not depending
+on how we compile the program, to make some messages to appear when compiling
+the program to test it, but making them not to appear in the program version
+that would get sold, for example. These directives are important for something
+we will see in the next section.
 
-\subsection{Compilación de objetos}
-El siguiente paso es el de la compilación propiamente dicha. Es un paso
-muy sencillo, pero con implicaciones muy interesantes. Lo que has venido
-haciendo hasta ahora es compilar un binario de un único fichero de código
-fuente. Pero si ejecutaras la orden de compilación de otro modo:
-\begin{verbatim}
-gcc -c <fichero de código fuente>
-\end{verbatim}
+\subsection{Object compilation}
+The next step is the compilation, \textit{stricto sensu}. It is a very simple
+step, but with very interesting implications. What you have been done up until
+now is compiling a program with just a source file. But if you executed the
+compilation command in another way:
+\begin{lstlisting}[style=terminalStyle]
+\$ gcc -c <source code file>
+\end{lstlisting}
 
-Esto generará un fichero con el mismo nombre que el de código, pero con la
-extensión \verb!.o!. Esto es un fichero de código \textbf{objeto}. Estos
-ficheros son un punto intermedio entre el código fuente en C y el ejecutable,
-es un punto intermedio porque estos archivos tienen aún información sobre
-símbolos (variables, funciones...) etc. Si compilas con esta opción el programa
-Hola Mundo que escribimos al principio, verás que \textbf{no} puedes ejecutar
-este archivo de código objeto, pero estos archivos son los ingredientes que
-usaremos en nuestra marmita para poder componer por fin un ejecutable con
-varios códigos objeto.
+This will generate a file with the same name of the source file, but with the
+\verb!.o! extension. This is \textbf{Compiled Object File}, or object file for
+shorts. These files are an intermediate point between the source code in C and
+the executable, it is so because these files still have information about
+symbols (variables, functions...). If you compile with thisoption the program
+Hello World we wrote the first time, you'd see you \textbf{cannot} execute
+this object file, but those files are the ingredients we will use in our
+crucible to build an executable with several files.
 
-Para hacer esto quiero que recuperes los ficheros \verb!main.c! y \verb!other.c!
-y \textbf{elimines} la línea donde incluías \verb!other.c!. Si ahora intentas
-compilar el archivo \verb!main.c! con la orden
-\verb!gcc -c main.c! el compilador lanzará un \emph{warning} como este:
+To do so I want you to remember the files \verb!main.c! and \verb!other.c! and
+\textbf{delete} the lines where you included \verb!other.c!. If now you try to
+compile to file \verb!main.c! with the order \verb!gcc -c main.c! the compiler
+will throw a warning like this one:
 
 \begin{lstlisting}[style=terminalStyle]
 main.c: In function 'main':
@@ -6992,65 +7028,63 @@ main.c:8:5: warning: implicit declaration of function 'multiply' [-Wimplicit-fun
       |     ^~~~~~~~
 \end{lstlisting}
 
-Nos dice que hemos declarado implícitamente la función \verb!multiply!, eso
-significa que el compilador no ha encontrado la definición de la función en el
-código fuente, es decir, te advierte que esta función se queda pendiente de
-existir tal y como está usada aquí (nombre, tipo de retorno y argumentos).
-Quizás esto te parezca una locura, pero así es, en C se pueden declarar
-funciones simplemente llamándolas porque se espera que \textbf{estén en otros
-códigos objeto}. De ahí que los códigos objeto aún guarden información sobre
-los nombres de las funciones, porque así cuando los juntas todos, se juntan
-las piezas de este puzzle que es nuestro ejecutable.
+It tells to us that we have declared implicitly the function \verb!multiply!,
+that means that the compile hasn't found the definition of the function in the
+source code, that is, it warns you that this functions is pending on existing
+as it has been used (name, return type and arguments). Maybe this looks like
+madness, but it is true, in C you can declare functions simply by calling them
+because it is expected that they \textbf{they are in other object files}.
+That's the reason that object files still save information about names of
+functions, because in that way, when you stick them all together, you get
+the whole puzzle, the executable.
 
-Ahora, debemos crear el código objeto del otro archivo, simplemente ejecuta
-el mismo comando, pero sobre \verb!other.c!. Ahora tendrás dos archivos:
-\verb!main.o! y \verb!other.o!. Ya tenemos las piezas, para juntarlas,
-simplemente ejecutarías:
-\begin{verbatim}
-gcc -o main.exe main.o other.o
-\end{verbatim}
+Now, we must create the object code of the other file, simply executing the same
+command, but with \verb!other.c!. Now you will have two files: \verb!main.o! and
+\verb!other.o!. We already have all the pieces, but to assemble them together,
+you would simply execute:
+\begin{lstlisting}[style=terminalStyle]
+\$ gcc -o main.exe main.o other.o
+\end{lstlisting}
 
-Esto generará un ejecutable que podrás ejecutar normalmente y verás que,
-efectivamente, funciona. Como comprenderás, es muy mala idea que cuando compilas
-un archivo de código fuente haya funciones que existen simplemente porque las
-usas, imagínate el horror de tener que compilarlo todo para luego descubrir que
-has llamado mal a una función (por ejemplo, con un número equivocado de
-argumentos). Si has experimentado con los ejercicios, habrás visto que muy
-sencillo cometer esos errores y que el compilador es, de hecho, tu mejor aliado
-para señalártelos. En la solución a esto es donde entran los archivos de cabecera
-y los archivos de código. Como ya vimos en la sección \ref{funciones}, se pueden
-declarar en un sitio y definir en otro, y es aquí donde esto nos resulta más
-útil. Todas las funciones pueden ir declaradas en un fichero de cabeceras, de
-tal manera que el compilador \textbf{conozca} la cabecera de la función y
-pueda generar el objeto comprobándola. Para ello, vamos a escribir el archivo
-de cabeceras que corresponde a \verb!other.c!, es decir, \verb!other.h!. Es muy
-sencillo, como sólo tenemos una función, el archivo será tal que así:
-
+This will generate an executable that you can execute normally and you will see
+that, effectivelly, it works. As you may have guessed, it is a very bad idea
+that when you compile a source code file in which there are several functions
+the compiler cannot tell you if you're using them correctly and they exist.
+If you have experimented with the exercises, you would have seen it is very easy
+to commit errors and use functions with the wrong arguments or misspell the name
+of a function. The compiler is your best ally to find them. Is in solving this
+where the header files and the source code files come in place. As we saw in
+section \ref{funciones}, you can declare functions in a place and define them in
+another, and this is where that is very useful. All function can be declared in
+a header file, in such a way that the compile \textbf{knows} the signature of
+the functions and can generate the code checking againt those definitions.
+To do so, we're going to write the header file that goes with \verb!other.c!,
+that is, \verb!other.h!. It's very easy, as we only have one function, the file
+would be like this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Archivo de cabecera},
+caption={Header file},
 label={lst:headerFile}]
 //other.h
 void multiply(int* a, int b);
 \end{lstlisting}
 \end{minipage}
 
-Hay que cambiar \verb!other.c!, simplemente \textbf{incluyendo} la propia
-cabecera. Esto lo hacemos así porque, si nos equivocamos al definir la función,
-por ejemplo, imagínate que se nos olvida el asterisco, el compilador nos dirá
-que hemos redefinido la función porque, al haberla declarado en dos maneras
-distintas, sería como dos funciones con el mismo nombre, y eso no está
-permitido. Quedaría así:
-
+You need to change \verb!other.c!, simply \textbf{including} the header. We do
+things like this because, if we make a mistake defining the function, for
+example, imagine that we forget the asterisk, the compiler will tell us that
+we have redefined the function because we have declared it with a set of
+arguments but defined it with another, that would be like two functions with
+the same name, which is not permitted.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Archivo de definiciones con cabecera incluida},
+caption={Definition file with included header},
 label={lst:fileCofHeader}]
 //other.c
 #include "other.h"
@@ -7060,13 +7094,13 @@ void multiply(int* a, int b) {
 \end{lstlisting}
 \end{minipage}
 
-Finalmente, en \verb!main.c! incluiremos el archivo de cabeceras. Quedaría así:
+Finally, in \verb!main.c!, we will include the header file too:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Archivo principal con cabeceras incluidas},
+caption={Main file with included headers},
 label={lst:fileCofHeader}]
 //main.c
 #include <stdio.h>
@@ -7075,15 +7109,15 @@ label={lst:fileCofHeader}]
 int main(void)
 {
     int a = 10;
-    printf("a ahora vale: %d\n", a);
+    printf("a is now: %d\n", a);
     multiply(&a, 2);
-    printf("a ahora vale: %d\n", a);
+    printf("a is now: %d\n", a);
 }
 \end{lstlisting}
 \end{minipage}
 
-Ahora, para generar el binario, simplemente tenemos que generar ambos
-objetos y después el ejecutable con estas órdenes:
+Now, to generate the binary, we simply have to generate both objects and later
+on the executable with these orders:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -7095,19 +7129,19 @@ gcc -o main.exe main.o other.o
 \end{lstlisting}
 \end{minipage}
 
-Si observas, el compilador ya no nos lanza el \emph{warning} de que hemos
-usado la función sin una declaración previa. Pero hay un problema, el código
-de \verb!other.h! será incrustado en todos los archivos que utilicen la función,
-porque en todos ellos estará la directiva de inclusión. Si dejamos esto tal y
-como está, no podríamos usar la función en otro archivo, porque el compilador
-vería esto como una redefinición. Incluyo aquí todos los archivos para que
-tengas toda la información.
+If you pay attention, you'd see the the compiler no longer throws the warning
+about the use of the function without defining it. But there is a problem, the
+code \verb!other.h! would be embeded in all the files that use the function,
+because in all of them the directive would be present. If we leave this like
+it is, we couldn't use the function in another files, because the compiler would
+see this as a redefinition. I will include here all the files of an example of
+this.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de redefinición -- \texttt{point.h}},
+caption={Redefinition example -- \texttt{point.h}},
 label={lst:redefInclude}]
 //point.h
 struct point_s{
@@ -7124,7 +7158,7 @@ double distance(const point_t* a, const point_t* b);
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de redefinición -- \texttt{point.c}},
+caption={Redefinition example -- \texttt{point.c}},
 label={lst:redefInclude}]
 //point.c
 #include "circle.h"
@@ -7151,7 +7185,7 @@ double distance(const struct point_s* a, const struct point_s* b) {
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de redefinición -- \texttt{circle.h}},
+caption={Redefinition example -- \texttt{circle.h}},
 label={lst:redefInclude}]
 //circle.h
 #include "point.h"
@@ -7175,7 +7209,7 @@ double diameter(const circle_t* c);
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de redefinición -- \texttt{circle.c}},
+caption={Redefinition example -- \texttt{circle.c}},
 label={lst:redefInclude}]
 //circle.c
 #include "circle.h"
@@ -7193,7 +7227,7 @@ double diameter(const circle_t* c) {
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de redefinición -- \texttt{main.c}},
+caption={Redefinition example -- \texttt{main.c}},
 label={lst:redefInclude}]
 //main.c
 #include <stdio.h>
@@ -7205,43 +7239,59 @@ int main(void)
 {
     point_t a = {1.1, 2.3};
     point_t b = {4.1, 3.3};
-    printf("La distancia entre a y b es: %f\n", distance(&a, &b));
+    printf("Distance between a and b is: %f\n", distance(&a, &b));
 
     circle_t circle = {a, 1};
-    printf("La el círculo tiene un área de: %f\n", area(&circle));
+    printf("The circle has an area of: %f\n", area(&circle));
 }
 \end{lstlisting}
 \end{minipage}
 
-Si intentas generar los objetos de todos los archivos de código fuente (los
-archivos de cabeceras no se compilan), verás que a la hora de compilar
-\verb!main.c! éste da errores sobre redefiniciones. Esto es porque, si sigues
-el <<rastro>> de las inclusiones, verás que \verb!main.c! incluye
-\verb!circle.h! y éste incluye \verb!point.h!. Por otro lado, el propio
-\verb!main.c! incluye \verb!point.h!, esto provoca que el contenido de éste
-último esté presente dos veces. Si bien en este ejemplo se podría solucionar
-sencillamente eliminando la inclusión de \verb!point.h! en el archivo principal,
-pero no podemos hacerlo, porque entonces no habría modo de usar las estructuras
-definidas en esa cabecera aquí. En proyectos con más archivos es una tarea
-imposible rastrear estos problemas
-para comprobar si incluyes un archivo más de una vez. Además, si hicieras esto,
-volveríamos a esa situación en que no podrías saber si estás usando bien las
-funciones en \verb!main.c!, porque no has incluido la cabecera correspondiente.
-Por esto, se usan los llamados \emph{include guards}.
+% Si intentas generar los objetos de todos los archivos de código fuente con
+% estas órdenes (los archivos de cabeceras no se compilan):
 
-Éstos son simplemente el uso de directivas de tipo \verb!ifndef endif! para
-hacer que, si un archivo de cabeceras se incluye más de una vez, las
-repeticiones sean archivos vacíos. Es costumbre que todos los archivos
-de cabeceras de un proyecto lleven uno, así que para cuando uses varios
-archivos de código te recomiendo que te acostumbres desde ahora a usarlos.
-Veamos cómo añadir un \emph{include guard} a \verb!point.h!
+If you try to build the object files with these commands (remember, header
+files are not compiled):
 
+\noindent
+\begin{minipage}[H]{\linewidth}
+\mbox{}
+\begin{lstlisting}[style=terminalStyle]
+gcc -c point.c
+gcc -c circle.c
+gcc -o main.exe main.c circle.o point.o -lm
+\end{lstlisting}
+\end{minipage}
+
+You can see that in the last command we have created the executable indicating
+the name of the source code file for \verb!main.c! instead of creating firtly
+and object, this is a way to save the step of creating the object for the main
+file (the one that contains the \verb!main! function) you will see that the last
+step throws error about redefinitions. This is because, if you follow the
+``trail'' of includes, you'd see that \verb!main.c! includes \verb!circle.h! and
+that it includes \verb!point.h!. On the other hand, the very \verb!main.c!
+includes \verb!point.h!, this makes that the content of the later to be
+duplicated. In this example it could be very well solved simply deleting the
+inclusion of the point header in the main file, but we can't do that, because
+deleting the inclusion would make impossible to use the structures defined there
+in the main file unless we include again \verb!point.h!, making mandatory to
+keep tracking any change in the includes for consequences. Also, it is
+adviceable that each file includes all it needs even when the headers are
+included in other ones already in use so it is clear what it is related with.
+When a project is very big, tracking this kind of duplicate includes is almost
+impossible, this is when the so called \textbf{include guards} come in.
+
+These are simply the use of directive of the kind \verb!ifndef endif! to make
+that, if a header file is included more than once, the repetitions of the file
+would be empty files. It is customary that header files in the project have one,
+so when you use several files for your programs I advice your to start using
+them now. Let's see how to add an include guard to \verb!point.h!.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de \emph{include guard}},
+caption={Example of include guard},
 label={lst:includeGuard}]
 //point.h
 #ifndef POINT_H
@@ -7260,19 +7310,16 @@ double distance(const point_t* a, const point_t * b);
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, lo que se hace es encerrar todo el contenido del archivo
-en un condicional del preprocesador.
-Si la macro \verb!POINT_H! no está definida, la definiremos,
-y con ella todo el código de la cabecera. Así, cuando se incluya por segunda
-vez, como dicha macro ya está definida, el \verb!ifndef! no se cumplirá y,
-a efectos del compilador, este archivo estará vacío. El nombre de la macro
-suele ser el nombre del archivo, sustituyendo los puntos por guiones bajos,
-si usaras directorios dentro de tu proyecto, lo ideal sería que la macro tuviera
-la ruta completa del archivo relativa al directorio donde guardes tu proyecto,
-por ejemplo, si este archivo estuviera en:
-\verb!proyecto/lib/math/geometry/include!, el nombre de la macro del
-\emph{include guard} debería ser:
-\verb!LIB_MATH_GEOMETRY_INCLUDE_POINT_H!.
+As you can see, what is done is to enclose all the content of the file in a
+preprocessor conditional. If the macro \verb!POINT_H! if not defined, we will
+define it and, with it, all the code of the header. In this way, when the file
+is included the second time, since said macro is already defined, the
+\verb!ifndef! wouldnt be true and, to the compiler, this file will be empty.
+The name of the macro tends to be the name of the file, substituting the dots
+by underscores, if you used directories inside your project, ideally the macro
+should have the complete path from the root of the project, for example, if the
+file is in \verb!project/lib/math/geometry/include!, the name of the macro for
+the include guard should be: \verb!LIB_MATH_GEOMETRY_INCLUDE_POINT_H!.
 
 
 \subsection{Enlazado}
