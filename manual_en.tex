@@ -63,7 +63,7 @@
 \usepackage{tikz}
 \usepackage{enumitem}
 \newlist{exercises}{enumerate}{1}
-\setlist[exercises]{label=\textbf{Ej. \arabic*:}, wide}
+\setlist[exercises]{label=\textbf{Ex. \arabic*:}, wide}
 \newlist{stack}{enumerate}{6}
 \setlist[stack]{leftmargin=*, label=\arabic*.}
 \lstdefinestyle{C}{
@@ -110,7 +110,7 @@
     stringstyle=\color{red}, % string color
     backgroundcolor=\color{white},
     captionpos=b,
-    morekeywords={si,mientras,retornar,para,desde,hasta,en,otro,caso,FALSO,CIERTO,algoritmo,es,igual,no,menor,mayor,que},
+    morekeywords={if,while,return,for,from,to,in,other,case,TRUE,FALSE,algorithm,equals,not,less,greater,than},
     breaklines=true,
     literate=
             {Á}{{\'{A}}}1
@@ -6540,21 +6540,6 @@ at first sight. In the second you'd have to go to the implementation to see what
 it does.
 
 \section{What is behind compilation}
-% Hasta ahora hemos dicho que crear un binario a partir de un archivo de código
-% fuente se llama compilar. Si bien esto es una expresión correcta, no es del todo
-% cierto. Hay varios procesos involucrados en lo que llamamos compilación:
-% \begin{enumerate}
-% \item Preprocesado: Prepara el código fuente para ser compilado, esto incluye
-% eliminar comentarios, expandir macros, ejecutar directivas y eliminar saltos de
-% línea.
-% \item Compilado: Crea el binario de cada archivo de código fuente que se utilice
-% en el proyecto.
-% \item Enlazado: Genera los binarios ejecutables propiamente dichos, para ellos
-% utiliza los binarios del paso anterior y crea enlaces entre ellos, ya sea
-% juntándolos en el mismo archivo o simplemente indicando dónde están los que
-% necesita.
-% \end{enumerate}
-
 Up until now we hace said that creating a binary from a source code file is
 compiling. Although this is correct, is it not totally true. There are several
 processes involved in what we call compilation:
@@ -7322,193 +7307,177 @@ file is in \verb!project/lib/math/geometry/include!, the name of the macro for
 the include guard should be: \verb!LIB_MATH_GEOMETRY_INCLUDE_POINT_H!.
 
 
-\subsection{Enlazado}
-El enlazado es la fase final del proceso de creación de un ejecutable. En él,
-lo que se hace es juntar los códigos objeto y las diferentes
-\textbf{bibliotecas} (en inglés: \textit{libraries})
-necesarias para el funcionamiento del ejecutable. Ya
-sabemos qué son los códigos objeto, y ya has usado varios para crear un
-ejecutable, pero ahora vamos a centrarnos en las bibliotecas.
+\subsection{Linking}
+Linking is the final step to create an executable. In it, what it is done is to
+assemble all the object files and different \textbf{libraries} needed for the
+creation of the executable. You already know what object files are, and you have
+already used several of them to create an executable, now we're going to take a
+deep look into libraries.
 
-Una biblioteca es, en términos conceptuales, un conjunto de funcionalidades que
-se compilan y distribuyen en un paquete que el usuario de la misma puede
-utilizar en sus programas. La principal ventaja es que el código fuente de una
-biblioteca es prácticamente imposible de reconstruir a partir de la misma, y,
-sobre todo, de una manera comprensible. Esto es una ventaja porque el código
-fuente está sujeto a propiedad intelectual, y, si bien es común que existan
-proyectos de código abierto, muchas bibliotecas comerciales se distribuyen sin
-acceso al código.
+A library is, from a conceptual point of view, a set of functionalities that are
+compiled and distributed as a whole in a packet that the programmer that wants
+to use it can incorportate to his programs. The main advantage is that source
+code of a library is practically impossible to recover from the library itself,
+and, specially, in a comprehensible manner. This is an advantage because the
+source code is subject of intellectual property and, if it is common to have
+open source projects, many commercial libraries are distirbuted without access
+to the code.
 
-Además, las bibliotecas trasladan la responsabilidad del código de las mismas
-a quien las vende o distribuye, descargando al usuario de éstas de la tarea
-de fabricar
-el binario cuando cambie el código. Son una herramienta de distribución de
-\emph{software} imprescindible. De hecho, ya has usado bibliotecas, todas las
-funciones que has usado hasta ahora que venían dadas simplemente poniendo
-alguna directiva de inclusión de una cabecera (\verb!malloc!, \verb!printf!...)
-residen en distintas bibliotecas \textbf{proporcionadas como parte de tu
-sistema operativo Linux}. Cuando el sistema operativo se actualiza, estas
-bibliotecas podrían cambiar y por tanto su funcionalidad verse actualizada.
-Esto puede implicar que necesites recompilar tus programas para ver esos cambios
-o no, dependiendo de qué tipo de bibliotecas utilices, habiendo dos tipos:
+Also, libraries move the responsibility of the code inside them to the vendor,
+relieving the user of them of the workload of creating the binary once the code
+there fails. They're an esential tool to distribute software. As a matter of
+fact, you have already used libraries, all the functions you have used up until
+now that came simply from using the include directive (\verb!malloc!,
+\verb!printf!...) are located in different libraries that \textbf{are
+distributed as part of your operating system}. When the operating system
+updates, these libraries may change and therefore their functionality may change
+also. This may implicate you need to recompile your programs to see those
+changes or not, depending on which type of libraries you use, there are two
+kinds:
 
 \begin{enumerate}
-\item Bibliotecas dinámicas: Son aquéllas que se cargan en memoria cuando el
-programa se ejecuta, de ahí su nombre, pues se cargan sólo cuando son
-necesarias.
-\item Bibliotecas estáticas: Son aquéllas que se combinan con el binario en
-tiempo de compilación. Esto implica que cuando se cambia una biblioteca de este
-tipo se deben recompilar los binarios que la usen.
+\item Dynamic libraries: Those are the ones that are loaded into memory when
+the program executes, hence the name, since they are only loaded when they're
+needed.
+\item Static libraries: Those are the ones that combine with the binary in
+compilation (linking) time. This implicates that when a library of this kind
+changes, the binaries that use it need to be recompiled to update themselves.
 \end{enumerate}
 
-Las bibliotecas, como el ejecutable, \textbf{son gestionadas por el sistema
-operativo}, es decir, los ejecutables que utilicen bibliotecas solicitarán al
-sistema operativo (sin que el programador deba hacer nada a nivel de código
-fuente) que las cargue cuando sea necesario. Además, es él el que gestiona
-las versiones, permitiendo al programador de un binario indicar que su
-ejecutable sólo funcionará con determinada versión de una biblioteca dinámica
-pero no con otras.
+The libraries, like the executable, \textbf{are managed by the operating
+system}, that is, the executables that use libraries would ask the operating
+system (without the programmer neded to do anything in the source code) to load
+them when it is needed. Also, it is the one that manages the versions, allowing
+the programmers of a binary to indicate that their executable would only work
+with certain versions of the libraries it uses.
 
-En general, cuando se generan bibliotecas se utilizan herramientas que
-automatizan la compilación de todos los códigos objeto y el enlazado de
-bibliotecas. Pero voy a mostrarte cómo se haría <<a mano>>.
+In general, when libraries are involved, either created or used, the programmers
+use certain toold that automate the creation of the object files and the
+libraries themselves. Nevertheless, I am going to show you how it would be done,
+``by hand''.
 
-Supongamos que queremos hacer una biblioteca con nuestra estructura punto y
-nuestra estructura círculo y que la vamos a llamar \verb!libGeometry!.
-Es convencional que todas las bibliotecas empiecen por \verb!lib!.
-El primer paso es generar el código objeto,
-pues de él nos valemos tanto para crear ejecutables como para crear bibliotecas.
-\begin{verbatim}
-gcc -c point.c
-gcc -c circle.c
-\end{verbatim}
+Let's suppose we want to create a library with our point struct and our circle
+struct and that we're going to call it \verb!libGeometry!. It is convention that
+all libraries start by \verb!lib!. The first step is to generate the object
+code, because we use it both for creating executable and libraries.
+\begin{lstlisting}[style=terminalStyle]
+\$ gcc -c point.c
+\$ gcc -c circle.c
+\end{lstlisting}
 
-Una vez hecho eso, creamos la biblioteca, para ello utilizamos este comando:
-\begin{verbatim}
-gcc -shared -o libGeometry.so point.o circle.o
-\end{verbatim}
+Once you have done that, we create the library, to do so we will use this
+command:
+\begin{lstlisting}[style=terminalStyle]
+\$ gcc -shared -o libGeometry.so point.o circle.o
+\end{lstlisting}
 
-Utilizamos la opción \verb!shared! para indicar que estamos compilando
-una biblioteca dinámica. Ahora, para crear el ejecutable, debemos enlazar con
-la biblioteca:
+We use the option \verb!shared! to indicate that we're building a dynamic
+library. This will create our library file: \verb!libGeometry.so!, now we
+can build the executable using the library instead of the object code directly.
+You can do so with this command:
+\begin{lstlisting}[style=terminalStyle]
+\$ gcc -L. -Wl,-rpath=. -o main.exe main.o -lGeometry -lm
+\end{lstlisting}
 
-\begin{verbatim}
-gcc -shared -o pointLib.so point.o circle.o
-\end{verbatim}
+This command is a bit complicated, the option \verb!-L! allows us to indicate in
+what directory are the libraries for the compilation, this is done indicating
+the dot directory \verb!.!, that means this very directory. On the other hand,
+the option \verb!-Wl,-rpath=! allows us to indicate where the library file must
+be looked for in \textbf{execution time}, in the same fashion, we write a dot.
+The rest of the command is the same, but we add the linking of the libraries:
+our own and the math library, with option \verb!-lm!. Now, if you execute the
+program with the command \verb!./main.exe!, it will work correctly. You can
+check that the library links dynamically, to do so, delete the file, you can do
+it with the command \verb!rm libGeometry.so!. If you try to execute the program,
+it will not work, because it will try to load the library when executing the
+program.
 
-Esto creará nuestro archivo de biblioteca, \verb!pointLib.so!, ahora podemos
-compilar el ejecutable utilizando la biblioteca en vez de los códigos objeto
-directamente. Para ello se usaría este comando:
+In the case of a static library, these are created in a simpler way, compile the
+the object like before and create the static library:
+\begin{lstlisting}[style=terminalStyle]
+\$ ar rvs libGeometry.a point.o circle.o
+\end{lstlisting}
 
-\begin{verbatim}
-gcc -L. -Wl,-rpath=. -o main.exe main.o -lGeometry -lm
-\end{verbatim}
+Now we can compile including the libraty (we need to keep adding the \verb!-lm!
+because we use the function \verb!sqrt! that is in the mathematical library):
+\begin{lstlisting}[style=terminalStyle]
+\$ gcc -o main.exe main.o libGeometry.a -lm
+\end{lstlisting}
 
-Este comando es un poco complicado, la opción \verb!-L! nos permite indicar
-en qué fichero deben buscarse las bibliotecas para la compilación, esto se hace
-indicando la ruta punto (\verb!.!), que significa este directorio. Por otro
-lado, la opción \verb!-Wl,-rpath=! nos permite indicar dónde debe buscarse
-el archivo de la biblioteca en el momento de la ejecución,
-igualmente, escribimos punto. El resto del
-comando es igual, pero añadimos el enlazado de las dos bibliotecas: la nuestra y
-la biblioteca matemática, con la opción \verb!-lm!. Ahora, si ejecutas el
-programa con el comando \verb!./main.exe!, funcionará perfectamente.
-Para comprobar que la biblioteca se enlaza dinámicamente, prueba a eliminarla,
-puedes hacerlo con el comando \verb!rm libGeometry.so!. Si ahora ejecutas el
-programa, no funcionará, porque lo buscará en tiempo de ejecución.
+To check it is static, delete \verb!libGeometry.a! and you will see that the
+executable keeps working. This is because the library is embeded in the
+executable when you create it. This makes the result similar to use all the
+object files, but it still allows the easy \textbf{distribution} of software.
+Also, this allows us to create conceptual software units that are bigger in
+object files and that are conviniently in a single file, simplifying our
+processes of creating and distributing programs.
 
-En el caso de una biblioteca estática, éstas se crean de manera más sencilla,
-crea los objetos como antes, y ahora crea la biblioteca estática:
+\section{Standard library functions}
+The standard library of C is a library that is included in all the programs that
+are compiled in C in Linux. This is like that because it contains most of the
+functions that are needed to perform basic tasks, for example: \verb!malloc! and
+\verb!free! are in it. Although there is a header called \verb!stdlib.h!, most
+of functions that can be used without linking additional libraries are in the
+standard library. We're going to talk about some of these functions and
+show why they're needed even in the most basic programs.
 
-\begin{verbatim}
-ar rvs libGeometry.a point.o circle.o
-\end{verbatim}
+\subsection{Memory management}
+Although we have seen the most basic functions for memory management:
+\verb!malloc! and \verb!free!, there are other functions that are useful and
+it's good to know them. These are \verb!calloc!, \verb!realloc! and
+\verb!memset!. The first two enable us to allocate memory and the last one
+is useful to set the same value of all the bytes in a memory zone. They're used
+often in programs with several memory operations.
 
-Ahora se puede compilar incluyendo la biblioteca (tenemos que seguir añadiendo
-\verb!-lm! porque usamos la función \verb!sqrt! que está en la biblioteca
-matemática):
-
-\begin{verbatim}
-gcc -o main.exe main.o libGeometry.a -lm
-\end{verbatim}
-
-Para comprobar que es estática, eliminar \verb!libGeometry.a! y verás que el
-ejecutable sigue funcionando. Esto es porque la biblioteca se incrusta en
-el momento en que realizas el ejecutable con todo sus códigos objeto. Esto hace
-que el resultado sea similar a simplemente utilizar todos los códigos objeto,
-pero sigue permitiendo la \textbf{distribución} sencilla del \emph{software}.
-Además, así nos permite crear unidades conceptuales de software mayores que
-los códigos objeto de un único fichero, simplificando nuestros procesos de
-creación y distribución de los programas.
-
-
-\section{Funciones de la biblioteca estándar}
-La biblioteca estándar de C es una biblioteca que se incluye en todos los
-programas compilados en C en Linux. Esto es así porque contiene la mayoría
-de funciones que son implescindibles para realizar tareas básicas, por ejemplo:
-\verb!malloc! y \verb!free! están en ella. Aunque haya una cabecera que se llame
-\verb!stdlib.h!, la mayoría de funcionalidades que se pueden usar sin enlazado
-de bibliotecas extra (como la matemática) están en la biblioteca estándar.
-En esta sección vamos a hablar de algunas de estas funciones y a demostrar por
-qué son necesarias incluso en niveles básicos.
-
-\subsection{Manejo de memoria}
-Aunque ya hemos visto las funciones más básicas para el manejo de memoria:
-\verb!malloc! y \verb!free!, hay otras funciones que son útiles que está bien
-que conozcas. Éstas son \verb!calloc!, \verb!realloc! y \verb!memset!. Las dos
-primeras sirven para reservar memoria y la última sirve para poner a un mismo
-valor todos los bytes de una zona de memoria. Suelen verse mucho en programas
-con muchas operaciones de memoria.
-
-La primera de ellas: \verb!calloc! es una función que nos permite indicar la
-reserva de varios framentos de un tamaño concreto, que se reservarán en una
-zona contigua. Para empezar, veamos la declaración de la función:
+The first of them: \verb!calloc! is a function that allows us to indicate the
+memory allocation os several blocks of a concrete size, that will be allocated
+in a contiguous zone. To start, let's see the signature of the function:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Declaración de la función \texttt{calloc}},
+caption={Signature of function \texttt{calloc}},
 label={lst:callocSignature}]
 void *calloc(size_t nmemb, size_t size);
 \end{lstlisting}
 \end{minipage}
-Como puedes ver, al igual que su <<hermana>> \verb!malloc!, devuelve un
-puntero a \verb!void!, que después podrá ser asignado a cualquier tipo de
-puntero. Sin embargo, recibe dos argumentos: el número de elementos que vas
-a reservar y el tamaño de los elementos. Si estás pensando que una llamada a
-esta función es equivalente a un \verb!malloc! multiplicando los dos argumentos,
-tienes razón, pero hay \textbf{una diferencia}: la memoria reservada con
-\verb!calloc! será inicializada a \textbf{ceros}. Esto provoca que algunos
-programadores utilicen una llamada a \verb!calloc! con el primer argumento
-valiendo uno para reservar una zona de memoria que esté inicializada a ceros.
 
-La siguiente función, \verb!realloc!, es más interesante, es una función que nos
-permite \textbf{redimensionar} y automáticamente mover, si fuera necesario,
-una zona de memoria, su declaración es la siguiente:
+As you can see, in the same way that its ``sibling'' \verb!malloc!, it returns
+a pointer to \verb"void", that can be assigned to any type of pointer.
+Nevertheless, it receives two arguments: the numbers of elements you are going
+to allocate space for and the size of the elements. If you're thinking that a
+call to this function is equivalent to calling \verb!malloc! multiplying both
+arguments, you'd be right, be there is a \textbf{caveat}: the memory reserved
+with \verb!calloc! will be initialized with \textbf{zeroes}. This makes some
+programmers to use a call to \verb"calloc" with the first argument being one to
+allocate a memory zone that is initialized to zero.
+
+The next function, \verb!realloc!, is more interesting, it is a function that
+allow us to \textbf{resize} and, automatically move, if needed, a memory zone,
+the signature is as it follows:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Declaración de la función \texttt{realloc}},
+caption={Signature of function \texttt{realloc}},
 label={lst:callocSignature}]
 void *realloc(void *ptr, size_t size);
 \end{lstlisting}
 \end{minipage}
-Como puedes ver, recibe un puntero como primer argumento, éste es el puntero
-de la zona de memoria \textbf{que queremos redimensionar} y, como segundo argumento,
-recibe el tamaño nuevo, \textbf{en bytes}, de la zona de memoria. En este caso hay
-dos posibilidades, que estés ampliando la zona inicial o que la estés
-encogiendo. En ninguno de los dos casos tienes garantizado que la zona de
-memoria sea la misma, así que debes comprobar que no ha devuelto \verb!NULL! y
-además volver a guardar el valor del puntero, porque ha podido cambiar.
-Además, si el puntero que se le da a esta función es nulo, simplemente se
-comporta como \verb!malloc!, esto es útil para poder usarla en bucles sin tener
-que mezclarla con una llamada a \verb!malloc! inicial.
-Para ilustrar el uso de esta función, implementaremos con ella el programa
-\ref{lst:mallocAndFree} donde demostramos el primer uso de reserva de memoria
-dinámica.
+
+As you can see, it receives a pointer as first argument, this is a pointer to
+the memory zone we want to resize and, as second arguments, the new size,
+\textbf{in bytes} of the memory zone. In this case there are two possibilities,
+you are either enlarging the zone or shrinking it. The function gives no
+guarantee in any case that the memory region is going to stay in the same place,
+so you must check it hasn't returned \verb!NULL! and save the value again
+because it may have changed. Also, if the pointer that the function receives is
+a null pointer, it simply behaves as \verb"malloc", this is useful then you use
+them in loops without needed to use \verb!malloc! before starting the loop.
+To show the use of this function we will write with it the program
+\ref{lst:mallocAndFree} where we showed the fisrt use of dynamic memory.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -7544,7 +7513,7 @@ int main(void)
     int length;
     int* result = erase_reps(array, 24, &length);
     if (NULL == result) {
-        printf("Ha habido un error de memoria\n");
+        printf("There's been an error with memory\n");
         return -1;
     }
     for (int ii = 0; ii < length; ++ii) {
@@ -7555,58 +7524,55 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Si comparas ambos programas, verás que en la primera tuvimos que declarar un
-array para poder tener un sitio en el que guardar los datos hasta que sepamos
-cuántos hay que alojar. La desventaja de esto es que después tenemos que copiar
-los datos a la nueva zona que vamos a devolver y reservamos con \verb!malloc!,
-en este caso en que usamos \verb!realloc!, dejamos que sea el gestor de memoria
-del sistema operativo el que se preocupe de esto, y, siendo sensatos, es poco
-probable que al encoger una zona de memoria se mueva el contenido, así que
-podemos asumir que nos ahorraremos la copia la mayoría de veces. Ojo, repito:
-poco probable; pero posible.
+If you compare both programs, you'd see that in the first version we had to
+declare an array to have a place to save the the data until we knew the real
+size. The disadvantage of this is that later we had to copy data to the new zone
+we were going to return and that we allocated with \verb"malloc" before.
+In this case we leave the memory manager of the operating system shrink the
+memory block for us and, being sensible, it is not very probably that when
+shrinking a memory block it gets moved, although it is possible, so you will
+save the computational effort to do so in many cases.
 
-La siguiente función es también interesante, \verb!memset! es una función que se
-encuentra declarada en la cabecera \verb!string.h!. Y esto tiene sentido porque,
-al poner todos los bytes de una zona de memoria al mismo valor, se usa mucho
-cuando se utilizan cadenas de texto, para permitir rellenar un texto con el
-mismo carácter. La función tiene esta forma:
+The next function is also interesting, \verb!memset! is a function that is
+declared in header \verb!string.h!. This makes sense because, since it puts
+every byte to the same value in a memory block, it gets used a lot alongside
+strings, to fill it with the same letter. The function has this signature:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Declaración de la función \texttt{memset}},
+caption={Signature of function \texttt{memset}},
 label={lst:memsetSignature}]
 void *memset(void *s, int c, size_t n);
 \end{lstlisting}
 \end{minipage}
-El primer argumento es el puntero es donde vas a escribir los cambios, el
-segundo es el valor que vamos a escribir \textbf{en cada byte} y el último
-el número de bytes que se van a escribir. El típico ejemplo de uso para esto
-es cuando necesitas inicializar a ceros una zona de memoria. Esto es típico
-cuando reservas memoria para alguna estructuras cuyo valor necesitas controlar
-o que requiere que sea inicializada así. En ejemplos posteriores las veremos.
-El ejemplo que voy a poner, sin embargo, es más original. Imagina que
-quieres imprimir una carra de progreso en modo de texto que tenga este aspecto:
+
+The first argument is the pointer where you are going to write the changes, the
+second is the value we are going to write in \textbf{each byte} of the memory
+zone and the last argument is the number of bytes you're going to write. A very
+typical example of this is when putting al bytes in memory to zero, this is
+often done when you reserve memory for some structs whose values you need to
+initialize or that requieres to be initialized with that value. In later
+examples we will see them. The example that I am going to show now is a bit more
+original. Imagine that you want to show a progress bar like this one:
 \begin{verbatim}
 [#############################.....................]
 \end{verbatim}
-Imagino que ves por dónde voy. Para que la barra se imprima de manera
-<<bonita>>, tengo que presentarte un  nuevo caracter especial: \verb!\r!, que
-se llama retorno de carro, es decir, lleva el punto de impresión al principio
-de la línea, permitiéndote sobreescribirlo. Además, voy a usar una función
-llamada \verb!usleep!, que nos permite pausar el programa durante algún tiempo,
-si no, el programa haría la secuencia muy deprisa. Finalmente, la función
-\verb!fflush! te permite \textbf{forzar} a la terminal a que imprima caracteres
-que estén pendientes, esto lo hacemos porque, como no imprimimos ninguna línea
-nueva, la terminal imprimiría sólo cada cierto tiempo, fastidiando el efecto.
 
+I think you are guessing where I want to get to. To print this bar with a
+pleasing aesthetic I have to show you a new special character, called carriage
+return, which is introduce in strings with this sequence: \verb!\r!. This
+character takes the printing back to the start of the line, allowing you to
+overwrite it. Also, I am going to use a function called \verb!usleep!, that
+allows us to pause the program for some time, otherwise, the program would make
+all the priting so quickly we won't be able to see the effect.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Utilización de la función \texttt{memset}},
+caption={Use of the function \texttt{memset}},
 label={lst:memsetExample}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -7617,64 +7583,62 @@ label={lst:memsetExample}]
 #define BAR_LENGTH ((size_t)100)
 
 void print_bar(int progress) {
-    //el resto de chars serán cero
+    //all the other chars will be initialized to zero
     char bar[BAR_LENGTH + 3] = { '[' };
-    //dejamos espacio al final para el último cero
+    //we leave space at the end for the last null char
     bar[ARRAY_SIZE(bar) - 2] = ']';
-    //escribimos las almohadillas que indican completado
+    //we write the punds signs that symbolize the completed part
     memset(bar + 1, '#', progress);
-    //escribrimos los puntos que indican la parte sin completar
+    //we write the dots that symbolize the pending part
     memset(bar + 1 + progress, '.', BAR_LENGTH - progress);
-    //imprimimos y volvemos al principio de la línea
+    //we print and go back to the start of the line
     printf("%s\r", bar);
-    //obligamos a la terminal a actualizarse inmediatamente
+    //this function makes the terminal to update all instantly
     fflush(NULL);
 }
 
 int main(void)
 {
     for (int ii = 0; ii <= 100; ++ii) {
-        print_bar(ii); //imprimimos la barra
-        usleep((unsigned int)(2.50 * 100000)); //esperamos
+        print_bar(ii); //we wprint the bar
+        usleep((unsigned int)(2.50 * 100000)); //we wait
     }
-    //imprimimos una línea nueva para que el prompt salga
-    //en la siguiente
+    /*
+      we print a new line to the prompt shows
+      in the next line
+    */
     printf("\n");
 }
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, la función que imprime una barra dado determinado progreso
-es muy simple. Debido a que aparecen varias cosas que no había explicado antes,
-he comentado el código exhaustivamente. Aquí lo hago en español, pero, como
-ya dijimos, en cualquier entorno profesional los comentarios se hacen en inglés.
+As you can see, the function that prints the bar given a certain percentage is
+very simple. Due to the fact there are several things I haven't explaing before,
+I have commented the code exhaustively.
 
-Otra función muy útil es la que nos permite \textbf{copiar} lo que hay en una
-zona de memoria a otra. Esto es especialmente útil porque nos permite copiar
-de una parte a otra cualquier tipo de dato sin tener que hacer un bucle, cuando
-un algoritmo copia muchas veces de un sitio a otro, al final esos simples
-bucles pueden hacer el código más difícil de leer. Como con las demás, vamos
-a ver su declaración:
-
+Another useful function is one that allows us to \textbf{copy} what is in one
+memory region to another. This is specially useful because it allows us to copy
+any kind of data without using a loop, when an algorithm copies several things
+sometimes the loops that need to be added make the function more complex.
+Let's see its signature:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Declaración de \texttt{memcpy}},
+caption={Signature of function \texttt{memcpy}},
 label={lst:memcpy}]
 void *memcpy(void *dest, const void *src, size_t n);
 \end{lstlisting}
 \end{minipage}
 
-Recibe tres argumentos, el primero es la zona de memoria donde copiaremos
-los datos, el segundo la zona de memoria desde la que los copiaremos
-y el tercero el número de bytes que queremos copiar. Para recordar qué argumento
-va primero (si el destino o el origen), yo recuerdo que funciona como una
-asignación, es decir, el destino va a la izquierda. Veamos un ejemplo, imagínate
-una función que nos permite insertar un elemento en la posición que queramos de
-un array.
-
+It receives three arguments, the first one is the memory zone where you want to
+copy the data, the second is the memory zone from which we will copy the data
+and the third argument is the amount of data in bytes you want to copy. To
+remember which arguments goes first (the destiny or the origin) I use the trick
+of saying to myself that it works like an assignment, that is, the destiny goes
+first. Let's see an example, imagine a function that allows u to insert an
+element in the position we want in an array.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -7698,56 +7662,52 @@ int *insert_at(int *list,
 \end{lstlisting}
 \end{minipage}
 
-La función es bastante sencilla, simplemente copiamos desde la primera posición
-a la posición de inserción, copiamos el elemento que queremos insertar (esto
-lo podríamos hacer con un operador de asignación, pero ya que estamos en el
-negocio...) y después copiamos los elementos que vienen después del que
-queríamos insertar.
+The function is very simple, it simply copies from the first position to the
+position we want to insert the element, then copies the element, which we could
+do simply with an assignment, and then we copy the elements after the one we
+wanted to insert.
 
-
-\subsection{Manejo de cadenas de texto}
-Quizás hayas notado que, debido a que los \emph{strings} en C son simplemente
-arrays y a que no podemos hacer una serie de cosas con ellos de manera sencilla,
-siempre ocurre que es complicado manejarlos. Si no, ya te comunico que utilizar
-cadenas de texto en C intensivamente es algo ligeramente (si no mucho) más
-engorroso que con otros lenguajes. Pero hay muchas funciones que nos ayudan
-a manejarlos. Veamos de qué funcionalidades disfrutamos:
-
+\subsection{Managing strings}
+Maybe you have noticed that, due to the fact the strings in C are simply char
+vectors or arrays and that some things are not easy to do with them, managing
+text is a bit difficult more often than not. If you didn't come to this
+realization I can tell you that indeed, managing text in C is a bit more
+difficult than in other languages. But there are several functions to make our
+life easier. Let's see some of the functionality we have available:
 \begin{enumerate}
-\item Comparar cadenas y ordenarlas lexicográficamente
-\item Saber la longitud de cadenas de texto.
-\item Duplicar una cadena.
-\item Crear cadenas nuevas con formato determinado.
+\item Comparate texts strings and order them alphabetically.
+\item Get the lenght of a string.
+\item Duplicate a string.
+\item Create new strings with format.
 \end{enumerate}
 
-Como puedes ver, tenemos una enorme cantidad de funcionalidades a nuestra
-disposición para manipular cadenas de texto. Estas funciones están todas en las
-cabeceras \verb!string.h! y \verb!stdio.h! (la misma que \verb!printf!).
-Vayamos funcionalidad por funcionalidad.
+As you can see, we have a very big number of functionality available to us to
+manipulate strings. These functions are all in the headers \verb!string.h! and
+\verb!stdio.h! (the same one than \verb!printf!). Let's see function by
+function.
 
-En general, las variables básicas se comparan con el operador \verb!==!, pero
-las cadenas de texto en C son punteros. Si hicieras una comparación con este
-operador, simplemente compararías las direcciones de ambas cadenas que, salvo
-que fueran la misma, nunca serían iguales. Supongo que, con lo que ya sabes del
-lenguaje, podrás deducir cómo se hace la comprobación: simplemente un bucle que
-compare carácter a carácter hasta que se llegue al final de uno de los dos, que
-debería ser el mismo número de iteraciones para que sean iguales. La función
-para hacer esto es \verb!strcmp!.
+In general, variables of basic types are compared with the operator \verb!==!,
+but strings in C are pointers. If you compared with this operator, you'd be
+comparing simply the memory addresses in which both strings are stored, and,
+unless they're the same, they wouldn't be equal. I guess that with that you know
+of the language you could write a function that compares to strings and checks
+if they're equal. Simply write a loop that checks if both strings are equal char
+by char and checks that the length is the same. The function that does this for
+us is \verb!strcmp!.
 
-En general, cuando comparas cosas en un lenguaje, invocas un operador o una
-función que devuelve cierto si son iguales y falso si son distintos. Por
-ejemplo: \verb!a == b!. Pero en este caso, \verb!strcmp! devuelve un número
-menor que cero si la primera cadena es anterior a la segunda en orden
-lexicográfico (alfabético), \textbf{cero si son iguales} y un número mayor
-que cero si la segunda es anterior a la primera. Veamos un ejemplo de su uso,
-vamos a realizar un programa que indique si una sucesión de cadenas está en
-orden alfabético.
+In general, when you compare things in programming, you invoke an operator or
+a function that return true if the operands are equal or false if they're
+different. For example \verb!a == b!. But in this case, \verb!strcmp! returns a
+negative number is the first string goes before in alphabetical order, zero if
+they are equal, and a possitive number if the first chain goes later in
+alphabetical order. Let's see an example of its use, let's make a program that
+indicates if a set of strings in is alphabetical order.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de uso de \texttt{strcmp}},
+caption={Signature of function \texttt{strcmp}},
 label={lst:strcmp}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -7757,15 +7717,15 @@ int main(int argc, char const* argv[])
 {
 
     if (argc < 3) {
-        printf("Necesitamos al menos dos palabra.\n");
+        printf("We need at least two words.\n");
         return EXIT_FAILURE;
     }
 
 
     for (int ii = 1; ii < argc - 1; ++ii) {
         if (0 < strcmp(argv[ii], argv[ii+1])) {
-            printf("Las palabras introducidas como argumento no"
-                   " están en orden alfabético\n");
+            printf("The words introduced as argument are not"
+                   " in alphabetical order.\n");
             return EXIT_FAILURE;
         }
     }
@@ -7775,20 +7735,20 @@ int main(int argc, char const* argv[])
 \end{lstlisting}
 \end{minipage}
 
-El condicional es un poco confuso, pero suele pasar cuando utilizamos
-\verb!strcmp!, queremos que los argumentos anteriores sean menores que los
-posteriores, por lo que debemos comprobar si el resultado de \verb!strcmp! es
-mayor que cero (o, tal y como está escrito, si cero es menor que ese resultado)
-porque indicaría que es la palabra en la siguiente posición la que iría antes,
-es decir, que están desordenadas. Por otro lado, mira el bucle, empezamos
-desde la posición uno, porque en la cero está el nombre del programa y
-terminamos en la anterior a la última, porque dentro del bucle comprobamos
-la siguiente posición, y no hay siguiente a la última.
+The conditional is a bit confusing, but it tends to happend when we use
+\verb!strcmp!, we want the arguments that have come before to be less than the
+one we are examining now, so we have to check if the result of performing
+\verb!strcmp! is greater than zero (or, as it is written in the code, if zero is
+less than the result of calling the function) because it would indicate that
+the word in the next position goes before this one, that is, they're not in
+order. Also, look at the loop, we start in position one because position zero is
+the name of the program and we stop before the last one, because inside the loop
+we check the next position, and there is no next position to the last one.
 
-La siguiente función que nos ocupa es \verb!strlen!, que nos dice la longitud
-de una cadena de texto, eso sí: \textbf{sin contar el carácter nulo}. Para
-empezar, antes de ver la \emph{signature} de la función, vamos a hacer el
-ejercicio de hacer una función que realice esta sencilla tarea:
+Next function we're going to look into is \verb!strlen!, which tells us the
+length of a string, \textbf{without counting the null chacracter}. For starters,
+before writting the signatrue of the function, let's make the exercise of
+making our own function that does the same as a simple task:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -7811,17 +7771,27 @@ size_t my_own_strlen(const char* string)
 \end{lstlisting}
 \end{minipage}
 
-La función es muy simple, pero quiero que notes una cosa que se ve bien en
-esta implementación (implementación es una manera de decir realización, es
-decir, cómo está hecho):
-si el \emph{string} no contiene ningún carácter nulo,
-esta función leerá lo siguiente que haya en memoria sin parar, lo que, como
-ya sabes, suele provocar que los programas fallen y se cierren. Por esto,
-ten cuidado al usar la función, porque llamarla sobre un puntero a \verb!char!
-sin un carácter nulo provocaría errores en el programa.
+The function is very simple, but I want you to notice something that is very
+evident in this function, if the string does not contain any null character,
+this function would read the next thing in memory without stopping, which,
+as you already know, tends to make the programs fail and close. Because of this,
+be careful when using the function, because calling it over a string without
+a null character would make any program fail.
 
-Rápidamente, la función que duplica cadenas de texto es \verb!strdup!, y su
-\emph{signature} es ésta:
+The signature of the real \verb!strlen! is like this:
+
+\noindent
+\begin{minipage}[H]{\linewidth}
+\mbox{}
+\begin{lstlisting}[style=C,
+caption={Signature of function \texttt{strlen}},
+label={lst:memcpy}]
+size_t strlen(const char *s);
+\end{lstlisting}
+\end{minipage}
+
+Briefly, the function that duplicates the strings is \verb!strdup! and its
+signature is as follows:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -7832,50 +7802,45 @@ label={lst:ownStrlen}]
 char *strdup(const char *s);
 \end{lstlisting}
 \end{minipage}
-Simplemente es una función a la que le pasas por argumento la cadena que quieres
-duplicar y devuelve un puntero a una zona de memoria con este mismo contenido.
-Sin embargo, debes liberar los dos, si el primero se reservó con memoria
-dinámica, porque no es una operación que mueve, sino que copia.
 
-Por ejemplo, un uso común para esta función es cuando estás creando una
-estructura de datos que almacene cadenas de texto, como ya vimos en el programa
-\ref{lst:constantArguments}: \nameref{lst:constantArguments}, es útil que
-ciertas estructuras de datos se manejen sólo mediante llamadas a funciones,
-por ello, en vez de hacer lo que hacemos allí: primero el \verb!malloc! y
-después la copia, podemos usar \verb!strdup!, para hacerlo en menos líneas.
-Un buen ejercicio sería que reescribieras ese programa utilizando esta nueva
-función.
+It is simply a function to which you pass as an argument the pointer to the
+string you want to duplicate and return a pointer to the memory block in which
+it copied the same content. Nevetherless, you must free both zones, if the first
+one was reserved with dynamic allocation, because this function does not move,
+it copies.
 
-Y llegamos al punto más importante de esta sección, el formateado de una cadena
-de texto a partir de variables. Esto ya lo has estado haciendo con la función
-\verb!printf!. Para poder hacer esto, existen varias funciones:
+For example, a common use of this function is when you are creating a struct
+that stores strings as we saw in the program \ref{lst:constantArguments}:
+\nameref{lst:constantArguments}, it us useful that certain structs are managed
+only with functions. You can come back to the program and change the call to
+malloc for the string and the copy by a call to \verb!strdup!.
+
+We reach the most important point of this section, the formatting of a string
+from a set of variables. This is what we have been doing with \verb!printf!.
+To do this, there are several functions:
 \begin{enumerate}
-\item \verb!sprintf!: Permite hacer los mismo que \verb!printf!, pero a un
-puntero a \verb!char!.
-\item \verb!fprintf!: Es la misma idea, pero con ficheros, del mismo modo de
-las funciones de escritura y lectura de archivos, recibe un puntero de tipo
-\verb!FILE!.
+\item \verb!sprintf!: Allows to make the same than \verb!printf!, but prints to
+a char pointer (array or vector) instead than to the terminal.
+\item \verb!fprintf!: It is the same idea, but with files, it just receives a
+\verb"FILE" pointer instead of a \verb"char" pointer.
 \end{enumerate}
 
-De nuevo, este es un manual de C, y pretendo que siga siendo más o menos
-estrictamente eso, pero me es conveniente presentarte un ejemplo de caso de uso
-para estas funciones. En informática, a veces, para transmitir información,
-por ejemplo, por Internet o entre máquinas de cualquier modo realizamos un
-proceso que se llama \textbf{serialización}. Este proceso es la conversión de
-datos residentes en la memoria de alguna máquina a texto. Esto se hace porque
-las máquinas pueden usar maneras distintas para guardar información en su
-memoria, por ejemplo, hay ordenadores cuyos bytes están ordenados <<al revés>>.
-Esto quiere decir que el número 10.669 que en hexadecimal es:
-0x29AD se compone de dos bytes (recuerda, cada byte son dos dígitos
-hexadecimales), en la memoria de algunos ordenadores estará guardado como
-0x29~AD y en otras como 0xAD~29. Para evitar este tipo
-de confusiones, convertirmos nuestros datos en cadenas de texto.
+Again, this is a C manual, and I want it to be continue being more or less
+strictly that, but is convinient for me to set you an example of the use of
+these functions. In computer science, sometimes, to transmit information we
+perform a process called \textbf{serialization}. This process is the conversion
+of data from how it is stored in memory to text format. This is done because
+different computers may use different ways to store things in memory, for
+example, there are computers that store byte ``backwards''. This means that for
+the number 10.669 which in hexadecimal is: 0x29AD is composed of two bytes
+(remember, each byte is two hexadecimal digits), in the memory of some computers
+it would be saved as 0x29~AD and in others it would be 0xAD~29. To avoid this
+type of confusions, we convert them to text strings.
 
-Volviendo al ejemplo del programa \ref{lst:constantArguments}. Podríamos
-crear una función que creara esta serialización de la estructura, por ejemplo,
-en el caso de una persona llamada José Pérez Martínez, querríamos serializarlo
-así:
-
+Coming back to the example in the program \ref{lst:constantArguments}. We could
+create a function that creates this serialization of the struct, for example,
+in the case of a person called José Pérez Martínez, we would like to serialize
+it like this (again, remember that Spanish names have two surnames):
 \begin{verbatim}
 {
     "name":"José",
@@ -7884,15 +7849,15 @@ así:
 }
 \end{verbatim}
 
-Veamos como quedaría la función (recuerda que sería añadida al programa
-que he citado antes) a la que llamaremos \verb!person_to_string!. Esta función
-quedaría como:
+Let's see how this function could be written (remember that it must be added to
+the program I have quoted before) and we will call it \verb!person_to_string!.
+This function would be like this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo básico de \texttt{sprintf}},
+caption={Basic example of \texttt{sprintf}},
 label={lst:sprintfExample}]
 char* person_to_string(const person_t *p){
     char preliminar[1024] = {};
@@ -7911,28 +7876,22 @@ char* person_to_string(const person_t *p){
 \end{lstlisting}
 \end{minipage}
 
-Para que se lea mejor, he escrito todos los argumentos de la función en una
-línea distinta. En el caso del segundo argumento, el formato, lo he dividido
-en varias, si observas un poco verás que no hay comas en esas líneas. Eso es
-porque dos literales de \textit{string} escritos juntos son como uno solo. Ese
-<<juntos>> incluye si sólo los separan espacios en blanco. Ten en cuenta que
-esas líneas nuevas no aparecen en el \textit{string}, por eso debemos poner
-\verb!\n! al final igualmente.
-Además,
-observa como utilizamos un array para formatear el texto porque, como ya es
-habitual, no sabemos cuánto mide, una vez lo hemos formateado,
-usamos \verb!strdup! para devolver una cadena del tamaño correcto.
+I have written all the arguments of the function in a different line and I have
+divided the format (the second argument) in several lines, if you look closely
+you'd see there is no comma between those lines. Again, remember than string
+literals separated just by whitespaces are just one. Also, look at how we use
+an array to format the text because, as it is common already, we do not know
+how long it is, once we have formated it, we use \verb"strdup" to return a
+string of the correct size.
 
-No obstante este uso de la función es simple, aún queda un detalle: el valor que
-devuelve la función. Tanto \verb!printf! como  \verb!sprintf! y todas las
-funciones de esta familia devuelven un entero que indica
-\textbf{el número de carácteres impresos}
-(sin contar el caracter nulo que incluyen para que el \emph{string} resultante
-esté bien formado).
-Esto es de suma utilidad cuando quieres imprimir varias cosas en el mismo
-\emph{string}. Veamos un ejemplo, imagina un programa que, análogamente,
-serializa un array de enteros, si el array es {1,2,3,4,5} la serialización
-quedaría como:
+Nevertheless, this use of the function is very simple, there is a left out
+detail I want to mention, that is the value returned by the function. Both
+\verb!printf! and \verb!sprintf! and all the functions of this family return an
+integer that is the \textbf{number of characters printed} (not counting the
+null character at the end of the string). This is very useful when you want to
+print several things in the same string. Let's see an example, imagine a
+program that, in a similar way, would serialize an array, if the array is
+{1,2,3,4,5} the serialization would be:
 
 \begin{figure}[H]
 \begin{verbatim}
@@ -7945,17 +7904,16 @@ quedaría como:
 ]
 \end{verbatim}
 \end{figure}
-La solución más inmediata sería usar \verb!sprintf! para imprimir todos los
-enteros, pero tenemos un problema, no sabemos cuántos números hay, así que
-no podemos escribir en el formato que pide la función los especificadores
-necesarios. Por eso vamos a imprimir con un bucle que utilice el valor
-de retorno de la función.
+The most immediate solution would be to use \verb!sprintf! to print all the
+integers, but we have a problem, we do not know how many numbers there are,
+so we cannot write the format that the function needs. That's why we're going
+to print on a loop in the return value of the function.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de uso avanzado de \texttt{sprintf}},
+caption={Example of an advances use of \texttt{sprintf}},
 label={lst:sprintfExample}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -7983,7 +7941,7 @@ char* integer_array_to_string(const int* array, size_t array_size)
     }
     printed_chars += sprintf(res + printed_chars, "]");
 
-    // desbordamiento
+    // overflow
     if(printed_chars >= MAX_STRING_SIZE){
         return NULL;
     }
@@ -8002,25 +7960,24 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Si ves cómo hemos escrito la función, aprovechamos este valor de retorno para
-concatenar cada impresión, el mecanismo es muy sencillo, si hemos impreso,
-por ejemplo, tres letras, debemos sumar a la posición inicial ese número.
-Además, usamos un condicional dentro del bucle para impedir que se imprima
-una coma en el último elemento. Después del bucle, imprimimos el corchete de
-cierre y, finalmente, hay un condicional que comprueba que no hemos impreso
-más caracteres de los que habíamos previsto. Nota que utilizamos \verb!>=!
-porque debemos provisionar que el último \verb!char! es un cero (\verb!\0!).
+If you see how I have written the function, we use thir return value from
+\verb!sprintf! to concatenate the strings, the mechanism is very simple, if we
+have printed a certain numbers of characters we must add to the pointer the
+number of characters printed. Also, we use a conditional inside the loop to
+avoid printing the last comma in the last element. After the loop, we print the
+closing bracket and, finally, a conditional checks that we haven't printed more
+characters that the ones we provisioned for. Notice that we use \verb!>=!
+because we have to provision for the last null characters.
 
-No obstante, tenemos un problema, aunque somos capaces de decir cuándo se ha
-desbordado el \emph{buffer} inicial que proveímos, \textbf{no podemos impedir
-que se desborde}. Esto tiene implicaciones muy serias, porque una vez escribes
-en zonas de memoria en que no deberías, no sabes qué puede ocurrir. Por suerte,
-hay una variación de la función que estamos usando que nos ayudará en este
-propósito. Ésta se llama \verb!snprintf!, y tiene la misma \textit{signature}
-que la anterior, pero añade un argumento: el número \textbf{máximo} de
-caracteres que debe imprimir, de este modo, nunca desbordará nuestro
-\emph{buffer}. Veamos cómo se implementaría el mismo programa usando esta
-función.
+Nonetheless, we have a problem, although we can know when the space has been
+overflown, that is, when we have used more characters than the ones we had, we
+can't \textbf{avoid} this from happening. This has very serious implications,
+because once you write in a memory zone, you do not know what can happen.
+Luckily, there is a variation of the function we're using that will help us to
+avoid such predicament. it is called \verb!sprintf!, and has the same signature
+that the last one, but it adds an argument: the \textbf{maximun} number of
+character that you want to print, in this way, it will never overflow our
+memory. Let's see how this could be used in the same program.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -8031,7 +7988,7 @@ label={lst:snprintfExample}]
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX_STRING_SIZE ((size_t) 100)
+#define MAX_STRING_SIZE ((size_t) 65536)
 #define ARRAY_SIZE(array) ((sizeof((array)))/(sizeof((array)[0])))
 
 char* integer_array_to_string(const int* array, size_t array_size)
@@ -8061,7 +8018,7 @@ char* integer_array_to_string(const int* array, size_t array_size)
     printed_chars += snprintf(res + printed_chars,
                              MAX_STRING_SIZE - printed_chars,
                              "]");
-    // desbordamiento
+    // overflow
     if(printed_chars >= MAX_STRING_SIZE){
         return NULL;
     }
@@ -8083,46 +8040,46 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, el segundo argumento de la función es el límite de caracteres
-que podemos seguir imprimiendo. Siempre restamos a la longitud del buffer
-lo que ya llevamos impreso, así, si ya hemos impreso 100 letras, nos quedan
-65536--100. Por otro lado, ten en cuenta que \verb!snprintf! devuelve siempre
-el número de caracteres que se imprimirían, es decir, sin contar con que se
-realice la impresión o no. A la hora de imprimir, el carácter nulo del final
-cuenta, es decir, si a una llamada a \verb!snprintf! le pasas como límite
-un tres e intentas imprimir \verb!"abc"!, devolverá tres, pero no escribirá
-el carácter nulo.
+As you can see, the second argument of the function is the limit of characters
+that we can keep printing. We calculate this substracting from the length of the
+array what we have already printed, in that way, if we have alrady printed
+100 characters, we have 65536--100 available. On the other hand, take into
+account that \verb!snprintf! return always the number of characters that
+\textbf{would be} printed regardless of the limit of characters set by the
+second argument of the function. When printing, the null character at the end
+of the string counts, that is, if a call to \verb!snprintf! receives as limit
+three and you tring to print \verb!abc!, it would return 3, but it won't write
+the last letter, because it always write the null character (unless the limit
+is zero).
 
-Ten cuidado, debes comprobar que el argumento del límite no es negativo,
-porque está definido como un tipo sin signo, por lo que si le pasaras un número
-negativo, sería un número positivo y aleatorio. En este código, lo comprobamos
-en el bucle.
+Be careful, you need to check that the argument for the limit is not negative,
+because it is defined as an unsigned integer, therefore if you pass a negative
+number, it will a random positive integer. In this code, we check it in the
+loop condition.
 
-\subsubsection{Especificadores posicionales}
-Al principio del manual te enseñé a imprimir cosas para que pudieras probar
-tus programas, pero lo hice de una manera básica para no abrumarte al inicio
-de este manual. No obstante; aprovecho que hemos vuelto a utilizar funciones
-de manipulación de texto para desarrollar algo que me dejé entonces en el
-tintero. Estos son los especificadores posicionales, ya sabemos qué es un
-especificador, indican, dentro del formato, qué tipo dato tiene el argumento
-que queremos escribir en esa posición. El problema de este sistema, sencillo,
-es que provoca problemas cuando se repite la misma variable varias veces.
+\subsubsection{Positional specifiers}
+In the start of the manual I taught you to print things so you could test your
+programs, but I did so in a very concise way to avoid consufing you.
+Nevertheless; I take this chance of coming back to printing functions to
+develop something I left on the table then. This is positional specifiers,
+we already know what a specifier is, they indicate, inside the format, which
+data type has the argument we're going to print in that operation. The problem
+of this system, which is simple, is that it creates problems when you cant to
+print something several times in the same printing operation.
 
-Si, por ejemplo, necesitamos imprimir varias veces la misma variable, no
-tiene ningún sentido que le pasemos varias veces a la función de impresión.
-Por ejemplo, imagínate una función que simulara una partida de nacimiento,
-incluyendo el nombre de los padres, es decir, para un padre
-llamado Fernando García Pérez y una madre llamada María Fernández López,
-si el nombre de pila del niño fuera
-Federico, su nombre sería Federico Garía López y deberían incluirse los tres.
-La función es trivial, vamos a implementarla simplemente con lo que sabemos:
-
+If, for instance, we need to print several times the same variable, there is
+no use in passing it as argument several times. For example, imagine a function
+that simulates a birth certificate, including the name of the parent, for a
+father called Fernando García Pérez and a mother called María Fernández López,
+if the name of the child were Federico, his name would be Federico García López
+and the thee names would be included in the printing. The function is trivial,
+let's write it applying what we know up until now.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de impresión con argumento repetido},
+caption={Example of printing with repeated argument},
 label={lst:repeatedMessages}]
 #include <stdbool.h>
 #include <stdio.h>
@@ -8139,7 +8096,7 @@ char *son_name(const person_t *father, const person_t *mother,
                const char *first_name) {
     const int STRING_LENGHT = 65536;
     char res[STRING_LENGHT];
-    char *format = "===PARTIDA DE NACIMIENTO===\n"
+    char *format = "===BIRTH CERTIFICATE===\n"
                    " - Nombre del Padre: %s %s %s\n"
                    " - Nombre de la madre: %s %s %s\n"
                    " - Nombre del hijo: %s %s %s\n";
@@ -8161,18 +8118,19 @@ int main(void) {
 \end{lstlisting}
 \end{minipage}
 
-La función es sencilla, pero repetimos argumentos, como he introducido antes,
-eso no sólo no es eficiente, sino que puede inducir a errores, porque tienes
-que ir contando los argumentos. Cuando hay pocos, unos cinco o menos, es
-factible, si son muchos más y además hay repeticiones, es sencillo perderse,
-por ello, puedes indicar que se imprima el argumento de determinada posición.
-Esto nos permite pasárselos sólo una vez a la función. Veamos cómo.
+The function is simple, but we repeat arguments, as we introduced before,
+this is not only inefficient, but also error prone, because you have to keep
+count of the position of the arguments. When there are not many, less than five
+for instance, it is easy, but, the moment the number starts to be bigger than
+that, getting lost is a real possibility. Hence, telling the function
+to print in that place the argument in certain position is a nice solution,
+because it allows us to pass each argument just once to the function.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de impresión con argumento repetido y especificador posicional},
+caption={Example of positional specifier},
 label={lst:repeatedMessagesPos}]
 typedef struct person_s {
     char *name;
@@ -8205,18 +8163,16 @@ int main(void) {
 \end{lstlisting}
 \end{minipage}
 
-El primer cambio es que ahora los dos últimos especificadores son especiales,
-un especificador posicional empieza como todos, con un signo de porcentaje,
-después la posición en forma de número, un símbolo de dolar y el indicador
-del tipo, en este caso, una ese, de \textit{string}. Como puedes ver, nos
-ahorramos la repetición de los argumentos.
+The first change is that now the two last specifiers are special, a positional
+specifier starts as everyone, with a percentage symbol, the the position, as
+a number, a dollar sign and the indicator of the data type, in this case an
+s, because it's a string.
 
-\subsection{Manejo de errores y manual}
-Ahora que hemos visto muchas funciones y sabemos cómo se compila un programa
-quiero volver a un ejemplo de programa muy sencillo de algunas secciones atrás,
-el programa \ref{lst:exampleRemove}: \nameref{lst:exampleRemove}. Si incluimos el
-archivo de cabecera \verb!errno.h! podemos reescribir el programa
-de este modo:
+\subsection{Error management and manual}
+Now we have seen several functions and you know how to compile a program I want
+to come back to an example program from some sections before, the program
+\ref{lst:exampleRemove}: \nameref{lst:exampleRemove}. If we include the header
+file \verb!errno.h! we can rewrite the program in this way:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -8254,24 +8210,22 @@ int main(int argc, char const *argv[]) {
 \end{lstlisting}
 \end{minipage}
 
-Como has visto en el programa \ref{lst:exampleRemove} compruebo el valor de
-retorno de la función que he llamado y, si es cero (lo que suele indicar éxito)
-devuelvo yo mismo \verb!EXIT_SUCCESS!, terminando el programa. En cambio, si
-el valor devuelto no es cero, entramos en un \verb!switch! sobre una variable
-que no conocemos. En él, utilizamos una serie de valores que tampoco están
-presentes en el programa. Esto es porque hemos incluido la cabecera
-\verb!errno.h!. Esto nos permite utilizar la variable global
-\verb!errno!.
+As you saw in the program \ref{lst:exampleRemove} I check the return value of
+the function I am calling and, if it's zero (what tends to indicate success)
+I return \verb!EXIT_SUCCESS!, ending the program. Otherwise, if the returned
+value is not zero, we go into a \verb"switch" about a variable we do not know.
+In it, we use a series od values that are not present in the program either.
+This is because we have included the header \verb!errno.h!. This allows us to
+use the global variable \verb!errno!.
 
-Esta variable existe para que cuando llamemos a alguna función que la utilice
-para notificar errores, su valor será escrito en consecuencia del error a uno
-de los valores también definidos como macros en la cabecera. Por ejemplo, aquí
-hemos contemplado algunos de los casos. Sin embargo; se presenta la pregunta
-de cómo saber qué funciones utilizan esta variable global y cuáles no, y qué
-valores hay. Para esto se utiliza el \textbf{manual}. Esta es una función de
-los sistemas operativos Linux en la que puedes invocar el comando \verb!man!
-para encontrar información sobre una función o cabecera. Por ejemplo, prueba
-a escribir en una terminal
+The variable exists do when we call some function that uses it to notify errors,
+its value would be assigned in consequence to some of the values defined in the
+header. For example, here we have prepared for some of the cases. Nevetherless;
+a question arises: how to know which functions use this variable and which don't
+and what values are present. To do this, the \textbf{manual} is used. This is a
+function of Linux operating systems in which you can call the \verb!man! command
+to find information about any function or header. For example, try to write in
+a termina this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -8281,7 +8235,7 @@ a escribir en una terminal
 \end{lstlisting}
 \end{minipage}
 
-Verás que sale un resultado que empieza por:
+You would see a result that start with:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -8306,25 +8260,24 @@ DESCRIPTION
 \end{lstlisting}
 \end{minipage}
 
-En las pantalla de manual te mueves con las flechas del teclado y sales de ellas
-pulsando la tecla q. Si quieres saber el contenido de cualquier cabecera
-(funciones, variables...) o la \textit{signature} de cualquier función, sólo
-debes escribir \verb!man! seguido del nombre de la cabecera o función. Si
-consigues resultados que no son lo que buscabas, ejecuta \verb!man 3 <nombre>!
-en su lugar. El manual tiene información sobre otras cosas (como comandos),
-pero la sección tres es la que habla de funciones de C.
+In manual screens you move the dispaly with the arrow keys and go out of the
+manual hitting q. If you want to know the content of any function (functions,
+variables...) or the signature of any function, just write \verb!man! next to
+the name of the header or function. If you get results that are not what you
+were looking for, execute \verb!man 3 <name>!. The manual has information about
+other things, like linux commands, but section three is the one that contains
+information about the C functions.
 
-
-\subsection{Ejercicios de la sección}
+\subsection{Exercises of the section}
 \begin{exercises}[resume*]
-\item Reescribe el ejercicio 15 prescindiendo del array estático de punteros
-a \verb!char!. (Usa \verb!realloc! y \verb!strdup!.
+\item Rewrite the program of exercise 15 not using the static pointer array
+(Use \verb!realloc! and \verb!strdup!).
 
-\item Escribe un programa que reciba un número indeterminado de palabras como
-argumentos y los ordene alfabéticamente y que, después, los imprima.
-\item Haz un programa que reciba como argumento una palabra y un número. Si el
-número es cero, debe convertir la palabra a minúscula, si el número es distinto
-de cero, debe convertirla a mayúscula. Por ejemplo:
+\item Write a program that receives an unknown number of words as arguments and
+shorts them alphabetically and, later, prints them.
+\item Write a program that receives as argument a word and a number. If the
+number is zero, it must turn the word into uppercase, it the number is not
+zero, it must turn it into lowercase.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -8337,10 +8290,10 @@ usa
 SPQR
 \end{lstlisting}
 \end{minipage}
-Pista: Consulta la tabla ASCII para saber qué distancia hay entre una letra
-mayúscula y una minúscula.
-\item Crea un programa que dado un número como argumento imprima una pirámide
-como esta de tantos pisos como el número indicado:
+Clue: Check the ASCII table to know what distance is there between a lowercase
+letter and an uppercase letter.
+\item Make an program that given a number as an argument, prints a pyramid like
+this one with as many lines as the number indicates:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -8352,42 +8305,43 @@ como esta de tantos pisos como el número indicado:
     %
 \end{lstlisting}
 \end{minipage}
-Nota: utiliza la función \verb+memset+.
-\item Escribe un programa que reciba una serie de puntos y de nombres para
-cada uno y después los imprima en orden de su distancia al origen de menor a
-mayor. Ejemplo de ejecución:
+Note: Use \verb+memset+.
+
+\item Write a program the receives a series of points and names for each one
+and then prints them according of their distance to the origin, from nearest to
+furthest. For example:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[style=terminalStyle]
-\$ main.exe 2 3 Valencia 4 5 Cuenca -1 3 Vizcaya
--1 3 Vizcaya
-2 3 Valencia
-4 5 Cuenca
+\$ main.exe 2 3 Cincinnati 4 5 Indianapolis -1 3 Birmingham
+-1 3 Birmingham
+2 3 Cincinnati
+4 5 Indianapolis
 \end{lstlisting}
-Nota: crea una estructura llamada \verb!tagged_point! que maneje los
-\textit{strings} como se ve en el programa
-\ref{lst:structConstPointers}, pero utilizando la función \verb!strdup!.
+Note: create an struct called \verb!tagged_point! that manages the strings as
+is seen in the program
+\ref{lst:structConstPointers}, but using \verb!strdup!.
 \end{minipage}
 \end{exercises}
 
 
-\section{Lógica avanzada}
-Hasta ahora nos hemos conformado con utilizar cualquier tipo entero
-(generalmente \verb!int!) para almacenar valores lógicos, pero esto se puede
-evitar, ahorrando espacio y creando un tipo de dato que nos permita almacenar
-propiamente un tipo lógico. Este tipo es el tipo \verb!bool!. Para poder
-usar este tipo debes incluir la cabecera \verb!stdbool.h!. Además, este tipo
-añade dos nuevas palabras reservadas: \verb!true! y \verb!false!. Palabras
-que simbolizan, como puedes imaginar, un valor lógico cierto y uno falso.
+\section{Advanced logic}
+Up until now we have been contempt with using any integer type (generally,
+\verb!int!) to store logic values, but this can be avoided, saving space by
+creating a datatype that allows us to store properly a logic type. This type is
+\verb!bool!. To be able to use this type you must include the header
+\verb!stdbool.h!. Also, this type adds two new keywords: \verb!true! and
+\verb!false!. Words that symbolize, as you can imagine, a true and a false
+logical value.
 
-Veamos un ejemplo de uso de este tipo en acción:
+Let's see the use of this type in action:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo del uso del tipo \texttt{bool}},
+caption={Example of us of \texttt{bool}},
 label={lst:bool1}]
 #include <stdio.h>
 #include <stdbool.h>
@@ -8400,90 +8354,79 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-No existe un especificador para imprimir booleanos, pero si usas el
-especificador \verb!%d!, verás que ese programa imprime <<1>>. Es decir, si
-somos diligentes almacenando los valores lógicos en el tipo booleano,
-podemos asumir que un valor lógico cierto siempre será igual a 1.
-Sin embargo, seguimos teniendo un problema, que es la utilización de un byte
-entero para un valor que podría ser almacenado en un bit. Este problema viene
-del hecho de que los ordenadores no se direccionan porciones de memoria más
-pequeñas que bytes. Sin embargo; esto no quiere decir que no podamos manipular
-los bits concretos de un byte, por ejemplo, poner a cero un bit concreto,
-invertirlos... para eso utilizamos operadores a nivel de bit.
+There is not a specifier to print booleans, but if you use the \verb!%d!
+specifier, you'd see that the problem prints ``1''. That is, if we are rigorous
+storing our logic values in the boolean type, we can assume that a true logic
+value is always equal to 1. Nevetherless, we still have a problem, that is the
+use of a whole byte to store a value that could be stores in a bit. This problem
+comes from the fact that computers do not memory blocks smaller than a byte.
+Nevertheless, that doesn't mean we can't manipulate the concrete bits inside a
+byte, for example, set a bit to zero, invert them... for those tasks we use
+bit-level operators.
 
-\subsection{Operadores a nivel de bit}
-Voy a ser sincero, esta sección no sabía muy bien dónde encajarla, es decir,
-no encontraba el sitio donde incluirla en el manual.
-Al principio pensé incluirla después de los operadores lógicos, por la
-similitud gráfica que ahora verás,
-pero la utilidad de éstos era muy difícil de enseñar
-en ese momento del manual, o en ese momento de tu aprendizaje, mejor dicho.
-Así que mejor los vemos ahora.
-Hay varios operadores a nivel de bit, estos son:
+\subsection{Bit-level operators}
+I am going to be sincere, I didn't know where to put this section, that is,
+I didn't find a place to put it in the manual. At the start I thought about put
+it after the logic operators, but the utility of these was difficult to explain
+at that moment. So it is better to learn them now. There are several bit-level
+operators, these are:
 \begin{enumerate}
-\item Conjunción a nivel de bit, denotada en matemáticas por el punto
-medio ($\cdot$), se realiza con el operador \verb!&!.
-\item Disyunción a nivel de bit, denotada por $+$, se realiza con el operador
-\verb!|!.
-\item Negación a nivel de bit, denotado del mismo modo que la negación lógica,
-se realiza con el operador \verb!~!.
-\item Desplazamiento hacia la izquierda, operador binario que mueve todos los
-bits de un tipo entero a la izquierda tantas posiciones como indique el segundo
-operando. Se realiza con el operador \verb!<<!.
-\item Desplazamiento hacia la derecha, operador binario que mueve todos los
-bits de un tipo entero a la derecha tantas posiciones como indique el segundo
-operando. Se realiza con el operador \verb!>>!.
+\item Bit level conjunction, written in math as $\cdot$, it is done with
+\verb!&!.
+\item Bit level disjunction, written in math as $+$, it is done with \verb!|!.
+\item Bit level negation, written in math in the same that logic negation,
+it is done with \verb!~!.
+\item Bit shifting to the left, binary operator that moves all the bits of
+an integer type to the left as many times as the second operand indicates.
+It is done with the \verb!<<! operator.
+\item Bit shifting to the right, binary operator that moaves all the bits of
+an integer type to the right as many positions as the second operand indicates.
+It is done with the \verb!>>! operator.
 \end{enumerate}
+What bit-level means is that, applying these operators to two integer variables,
+the operator generates another integer whose value would be the result of
+generating the logic operation that the operator does, but bit by bit. That is,
+the result of the a conjunction bit by bit is a new integer value in which each
+bit is the result of the conjuntion of the two bits in that position in the
+operands.
 
-Lo que quiere decir que lo hagan a nivel de bit es que, aplicando estos
-operadores a dos tipos enteros, el operador genera otro entero cuyo valor será
-el resultado de realizar la operación lógica indicada por el operador, pero bit
-a bit. Es decir, la conjunción a nivel de byte entre dos números es otro número
-en que cada uno de sus bits será el resultado de la conjunción
-de los bits en esa posición en los operandos.
+To understand this correctly you need to understand how the binary numbers are
+represented inside the computer. You already know how the unsigned integers are
+represented, in binary, that is, as we saw it in section \ref{numericSystems}.
+Nevetherless; negative numbers are representes un a special way. There are
+several ways to represent signed numbers in binary, the most naive would be just
+to reserve a bit, the first generally, for the sign, if the bit is zero, it is a
+possitive number, if it's a one, it's a negative number. In this way, number
+7 would be 00000111 and -7 is 10000111, but the problem of this representation
+is that we have 0 and -0. And since we're computer programmers, we don't like to
+waste a valuable number. Because of this, signed numbers are in
+\textbf{two's complement}.
 
-Para que endiendas esto bien tienes que entender cómo están representados los
-enteros en el ordenador. Ya sabes cómo están representados los enteros sin
-signo, en binario natural, es decir, como lo que vimos en la sección
-\ref{numericSystems}. Sin embargo; los números negativos se representan
-de un modo especial.
-Hay varias maneras de representar los números con signo
-en binario, la más ingenua es dedicar un bit (el primero, generalmente) al signo
-y el resto al valor. De este modo, en un entero de ocho bits el número 7 sería
-00000111 y el número -7 es 10000111, pero el problema de esta representación
-es que tenemos el número 0 y el -0. Y como somos informáticos,
-nos molesta sobremanera desperdiciar un preciado número. Por esto,
-los números con signo se representan en \textbf{complemento a dos}.
-
-En este sistema de representación, los números positivos coinciden con su
-representación en binario natural, sin embargo, los números negativos se
-representan con su complemento, para hallar el complemento a dos de un número
-hay que seguir este proceso.
+In this system, positive numbers coincide with their natural binary
+representation, nevertheless, negative numbers are represented with their
+complement, to get the complement of the number, you need to follow these steps:
 \begin{enumerate}
-\item Invertir todos sus bits (el decir, pasar los ceros a unos y
-los unos a ceros).
-\item Sumarle uno al resultado anterior.
+\item Invert all the bits (that is, turn zeroes into ones and ones into zeroes).
+\item Add one to the result of the last operation.
 \end{enumerate}
-Por ejemplo, volvamos al número 7 y a los ocho bits:
 $$
 7_{\left(10\right.} = 00000111_{\left(2\right.}; \;\;
 \overline{00000111} = 11111000; \;\;
 +\matrix{                      11111000\cr
         \underline{\hphantom{0000000}1}\cr
                               11111001
-}\to -7_{\left(10\right.} = 11111001_{\left(\mathrm{CA}2\right.}
+}\to -7_{\left(10\right.} = 11111001_{\left(\mathrm{2C}\right.}
 $$
-La ventaja de esta representación es que, además, el primer bit sólo es uno
-cuando el número es negativo, así que es el primer bit sigue indicando el signo,
-como en la representación ingenua que te comenté al principio. Otra ventaja de
-esto es que sólo existe una representación del cero, que cuenta como número
-positivo, porque su primer bit es cero. Esto explica por qué cuando enunciamos
-los rangos de los tipos básicos, los tipos enteros siempre llegaban a números
-con valores absolutos una unidad mayores en el lado negativo que en el positivo,
-el \verb!char!, por ejemplo, tiene un rango que va desde -128 a 127.
+The advantage of this representation is that, also, the first bit is just one
+when the number is negative, so the first bit keeps being an indicator of the
+sign, as in the naive representation we discussed before. Another advantage of
+this system is that there is just one zero representation, which is count as a
+possitive number. This explains why, when we were seeing the range of basic
+types, integer types had always a possitive range that was one unit smaller than
+the negative range, the \verb!char!, for example, comes from -128 to 127.
 
-Volvamos a los operadores a nivel de bit, sea un \verb!char! que valga
--7 y otro que valga 12:
+Let's come back to the bit-level operators, let a \verb!char! be -7 and another
+be 12, let's see how their bit-level conjuntion would be calculated:
 $$
 a = -7_{\left(10\right.} = 11111001_{\left(\mathrm{CA}2\right.} \;\;
 b = 12_{\left(10\right.} = 00001100_{\left(\mathrm{CA}2\right.}\;\;
@@ -8492,42 +8435,54 @@ a \cdot{} b = \cdot{}\matrix{11111001\cr
                               00001000}
 $$
 
-En cuanto a los desplazamientos, es sencillo, sea por ejemplo el propio número
-7, es decir: 00000111, si le aplicamos un desplazamiento hacia la izquierda
-de dos bits, se convertiría en 00011100, en decimal: 28. Si no lo has notado ya,
-te lo digo yo, desplazar bits hacia la izquierda es una manera rápida de
-multiplicar por dos. Por otro lado, si desplazamos a la derecha, quedaría
-00000001, los unos que ya no caben, se eliminan, como puedes ver. Análogamente
-a lo anterior, desplazar a la derecha es equivalente a dividir entre dos (en
-división entera, claro).
+Shifting is a simple operation, let's choose for example the number 7 again,
+that is: 00000111, if we apply a left shift of two bit, it would turn into
+00011100, in decimal, 28. If you haven't notices it already, I say it now,
+shifting bits to the left in binary is the same than multiplying the number by
+two. On the other hand, if we shift bits to the right, it would be: 00000001,
+the ones that do not fit, are erased, as you can see. This operation, logically,
+is equivalent to dividing the number by two (in integer division).
 
-La mayor utilidad para esto es que nos permite establecer algo que los
-informáticos llamamos \emph{flags}. Es decir, nos permite utilizar los bits de
-una variable entera para indicar sendas variables lógicas. Por ejemplo, podemos
-crear una función que serialice un objeto de tipo persona, con estas opciones:
+% La mayor utilidad para esto es que nos permite establecer algo que los
+% informáticos llamamos \emph{flags}. Es decir, nos permite utilizar los bits de
+% una variable entera para indicar sendas variables lógicas. Por ejemplo, podemos
+% crear una función que serialice un objeto de tipo persona, con estas opciones:
+% \begin{enumerate}
+% \item Serializar con nombres legibles para personas, es decir,
+% <<apellido>> en lugar de, por ejemplo <<last\_name\_1>>.
+% \item Serializar con espacios o no entre caracteres de contro, es decir,
+% \verb!"last_name_1" : "Johnson"! en vez de \verb!"last_name_1":"Johnson"!.
+% \item Serializar en varias líneas.
+% \end{enumerate}
+
+The best use for this is that it allows us to stablish something programmers
+call flags. That is, it allows us to use the individual bits of an integer
+variable to indicate several logic variables. For example, we can create a
+function that serializes an object of type person, with these options:
 \begin{enumerate}
-\item Serializar con nombres legibles para personas, es decir,
-<<apellido>> en lugar de, por ejemplo <<last\_name\_1>>.
-\item Serializar con espacios o no entre caracteres de contro, es decir,
-\verb!"last_name_1" : "Johnson"! en vez de \verb!"last_name_1":"Johnson"!.
-\item Serializar en varias líneas.
+\item Serialize with legible names, that is: ``first last name'' instead of,
+for example, ``last\_name\_1''.
+\item Serialize with spaces or without them betwen control characters, that is,
+\verb!"last_name_1" : "Johnson"! instead of \verb!"last_name_1":"Johnson"!.
+\item Serialize in several lines.
 \end{enumerate}
 
-En general, si estas opciones \textbf{fueran excluyentes}, no se pudieran dar
-dos juntas, podríamos codificarlas simplemente con un enumerado, pero como no
-lo son, deben ser variables lógicas separadas, el problema es que esto
-obligaría a que la función recibiera tres argumentos booleanos. Para esto
-utilizaremos las \textit{flags}, vamos a asignar a cada opción un bit, y vamos
-a crear un tipo enumerado donde cada opción tenga el valor de un entero
-con ese bit puesto a uno. Para pasar varias opciones el usuario simplemente
-debe hacer una disyunción a nivel de bit con las opciones.
-Veamos la implementación de todo esto:
+In general, if these options \textbf{were exclusive}, they couldn't be together,
+we could codify them simply as an enumerated type, but since they're not, they
+must be different logical variables, the problem with this is that it would
+force us to pass three boolean arguments to the function. To avoid this, we're
+going to use the so-called flags, we are going to assign a bit to each option,
+and we are going to create an anumerated type where each option has the value
+of an integer with that bit set to one. To pass several options, the user
+can simply perform a bit-level disjunction with the options. Let's see how this
+would be written.
+
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:options},
-caption={Implementación de opciones con operaciones a nivel de bit}]
+caption={Implementation of flags with bit-level operations}]
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8547,7 +8502,7 @@ typedef struct person_s {
 
 char *serialize_person(const person_t *person,
                        serialization_options_t opts) {
-    char *field_names_legible[] = {"Nombre", "Apellido", "Edad"};
+    char *field_names_legible[] = {"Name", "Surname", "Age"};
     char *field_names_normal[]  = {"name", "last_name", "age"};
     char **field_names          = NULL;
     char *separator             = NULL;
@@ -8582,56 +8537,51 @@ int main(void) {
 \end{lstlisting}
 \end{minipage}
 
-El tipo enumerado de la línea 8 quizás asusta un poco, pero si recuerdas cuando
-los explicamos, a un enumerado le puedes explicitar el valor numérico de cada
-valor, aquí utilizamos el operador de desplazamiento a la izquierda para
-crear valores que sólo tengan un bit a uno, en posiciones distintas. Podría
-haberles asignado a mano los valores 1, 2 y 4, pero con el desplazamiento veo
-mejor y no me equivoco al calcular porque sé que siempre tiene que salir
-\verb!1 <<! y después el número consecutivo.
+The enumerated in line 8 is a bit intimidating, but if you remember when
+we explained them, an enumerated type can be defined with custom values for
+each symbol, here we use the left shift operator to create values that have only
+one bit set to one, in different positions. I could have assign them the values
+1, 2, 4, but with the shifting I can see the flag value better because I know
+it must be \verb!1 <<! and then a consecutive number, I don't need to keep
+multiplying by two.
 
-Después está la difinición de la estructura persona, que no tiene nada
-especial. En la línea 20 llegamos a la función de serialización, como es normal,
-recibe un puntero constante a la estructura que va a serializar y las opciones.
-Al principio declaramos variables, nada fuera de lo normal. Lo interesante
-empieza en la línea 28, estoy calculando variables booleanas para cada una de
-las opciones, es decir, estoy decodificando las \textit{flags}. El modo es
-simple, al hacer la conjunción de las opciones con cada opción individual,
-el resultado será cierto si esa \textit{flag} está levantada, falso en otro
-caso. Vamos a verlo rápidamente con la opción de la multilínea. Si
-\verb!MULTIPLE_LINES = 1 << 2!, es decir 00000100, y  las opciones son, por
-ejemplo, 00000101, al hacer la conjunción quedaría 00000100, es decir, un valor
-distinto de cero y por tanto cierto.
+After the definition of the struct person, which has nothing special. In line 20
+we reach the function to serialize and, as is logical, it receives a constant
+pointer to the struct and the options. At the start we declare variables,
+nothing uncommon. The interesting thing is in line 28, I am calculating boolean
+variables from the flags that come from the last arguments, for each one of the
+flags. The way is very simple, when you make a conjunction with a flag value
+and the actual options passed as an argument, it will be true if the flag was up
+in the argument, false otherwise. Let's see the multiline option as an example.
+If \verb!MULTIPLE_LINES = 1 << 2!, that is, 00000100, and the options are, for
+example, 00000101, performing the conjuntion it would be, 00000100, that is
+a value different from zero and therefore, true.
 
-En la siguientes línea utilizo un artefacto del lenguaje
-que es útil cuando tienes muchas operaciones que se basan en valores lógicos.
-Se llama operador ternario, y su nombre radica en que es un operador con tres
-operandos, su sintaxis es como sigue: \verb!condition ? valor1 : valor2!,
-el operador devolverá el \verb!valor1! si la condición es cierta, si no,
-devolverá el \verb!valor2!. Ten cuidado, porque ambos valores deben tener el
-mismo tipo. Aquí lo utilizo para definir los separadores de campo, de línea y
-los nombres de los campos en la serialización.
-El final de la función no tiene nada que no hayas visto antes, me aprovecho
-mucho de utilizar aquí especificadores posicionales.
+In the next line I use a language artifact called ternary operator, which is
+useful when you have several operations based in logical values. It is called
+ternary because it takes \textbf{three} operands, its syntax is like it follows:
+\verb!condition ? value1 : value2!, the operator would return \verb!value1! when
+the condition is true, and \verb!value2! when the condition is false. Be
+careful because both values must have the same type. I use it here to define
+the separators of field, line and the names for the serialization.
 
-Finalmente, en la función \verb!main! llamamos a la de serialización con las
-opciones, simplemente las unimos todas con una disyunción a nivel de bit.
-Ten cuidado de no confundirte cuando utilices opciones y utilizar sin
-intención un operador lógico.
+Finally, in function \verb!main! we call the serialization function with the
+options, simply we chain them all together with a bit-level disjunction. Be
+careful not to misspell when you use uptions and use wrongly the logic operator.
 
-Por otro lado, hay una operación que me gustaría comentarte aparte, que es
-cuando tenemos la necesidad de bajar un \textit{flag} concreto de un conjunto de
-opciones, por ejemplo, imagina que queremos serializar primero con todas las
-opciones y después sin la opción de multilínea, podríamos crear las opciones
-en ambas llamadas, pero si quisiéramos, podríamos guardar las opciones en una
-variable, usarlas y después bajarle esa bandera. Para hacer esto hay que hacer
-una conjunción con la negación de la bandera. Veamos cómo se haría:
+On the other han, there is an operation I'd like to talk you about, that is
+when we need to pull down a flag inside a flag group. Imagine we wanted to
+serialize a struct with all the options but immediately after one without one of
+them, for example, we want to pull down the multiline flag, we could create the
+options in both calls, but, if we wanted, we could save the options in a
+variable, use them and then pull that flag down. To do so you must make a
+conjunction with the negation of the flag value. Let's see how it would look.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:setFlagOff},
-caption={Ejemplo de bajada de una bandera}]
+caption={Example of pulling down a flag}]
 int main(void) {
     person_t myself = {"Francisco", "Rodríguez", 26};
     char *text      = NULL;
@@ -8652,138 +8602,139 @@ int main(void) {
 \end{lstlisting}
 \end{minipage}
 
-Dicho así queda un poco contraintuitivo, veámoslos con este ejemplo, en la línea
-12, \verb!opts! vale 00000111, la opción \verb!CONTROL_ESPACES! es 00000010,
-si la negamos, quedaría 11111101, si haces la conjunción bit a bit de ese valor,
-verás que todos quedarían como estuvieran en \verb!opts!, salvo el
-correspondiente a \verb!CONTROL_ESPACES!, que será forzosamente cero porque
-cualquier valor al que se le haga la conjunción con cero será cero.
-Así es como bajas una bandera en una serie de opciones. Ten en cuenta que
-para todas las operaciones a nivel de bit existen sus equivalentes de
-asignación, es decir: \verb!|=!, \verb!&=!, \verb!~=!, \verb!<<=! y
-\verb!>>=!, así que podríamos escribir la línea en cuestión aquí de este modo:
-\lstinline[style=C]!opts &= ~CONTROL_ESPACES;!
+This is a bit counterintuitive, let's see it with the values in the example, in
+line 12, \verb!opts! is 00000111, optione \verb!CONTROL_SPACES! is 00000010, if
+we invert or negate it, we get 11111101, if you make the conjunction bit by bit
+with that value, you'd see that all of them would remain as they were before,
+but the one corresponding to the flag, that one would be forced to become zero.
+That's how you pull down a flag in a series of options. Be aware that, for all
+bit-level operation there are the operators that combine them with assignment,
+that is: \verb!|=!, \verb!&=!, \verb!~=!, \verb!<<=! and \verb!>>=!, so we could
+rewrite the line we were talking about as:
+\lstinline[style=C]!opts &= ~CONTROL_ESPACES;!.
 
-\section{Algoritmos}
-Un algoritmo, como ya explicamos en la introducción, es el conjunto de pasos
-que debes seguir para conseguir un objetivo. Los programas que hemos hecho
-tienen una serie de objetivos, que cumplen mediante algoritmos. En esta sección
-quiero dar las primeras pinceladas sobre ellos, y, sobre todo, presentar
-algunos que te permitan interiorizar algunos patrones de código. Además, en
-secciones posteriores podremos utilizar estos simples algoritmos para introducir
-conceptos más complicados (y útiles) del lenguaje.
+\section{Algorithms}
+An algorithm, as we explained in the introduction, it the set of steps you must
+follow to reach a goal. The programs we have done have a series of goals, that
+are fulfilled using algorithms. In this section, I want to explain the first
+concepts about them and, specially, present some that would allow you to
+interiorize some code patterns. Also, in later sections we could use these
+simple algorithms to introduce more complex concepts.
 
-Lo primero que vamos a ver es cómo expresar un algoritmo, un algoritmo se
-a veces se expresa en lenguaje natural, es decir, como hablamos las personas,
-si ya tenemos el código que lo ejecuta, también estamos expresando el algoritmo,
-pero a veces es necesario utilizar herramientas intermedias, primero: porque
-puede ser difícil codificar el algoritmo directamente sin pensarlo antes y,
-segundo: porque hacer esto nos permite pensar en él sin tener que pensar en los
-artefactos concretos del lenguaje que vamos a utilizar, lo que nos permite
-dejar ese trabajo para más tarde.
+The first thing we're going to do is see how to express an algorithm, an
+algorithm can be explained sometimes in normal language, that is, as humans
+talk, if we already have code that executes it, we are also expressing the
+algorithm, but sometimes it is needed to use middle ground tools, firstly:
+because it could be difficult to codify the algorithm directly without thinking
+about it before and, secondly: because doing this allows us to think about it
+without thinking about the concrete artifacts of the language we are going to
+use, which allows us to leave that work for later on.
 
-Estas maneras intermedias son variopintas, por ejemplo, los diagramas del flujo
-que utilicé en su momento son una de ellas. Otra manera es el
-\textbf{pseudocódigo}, éste es un concepto que permite expresar los algoritmos
-de modo estructurado, utilizando artefactos básicos de cualquier lenguaje de
-programación: condicionales, bucles, llamadas a función... pero de una manera más
-laxa. Veámoslo con un ejemplo: el algoritmo que nos permite eliminar las
-repeticiones en un array expuesto en el programa \ref{lst:mallocAndFree}:
-\nameref{lst:mallocAndFree}.
+% Estas maneras intermedias son variopintas, por ejemplo, los diagramas del flujo
+% que utilicé en su momento son una de ellas. Otra manera es el
+% \textbf{pseudocódigo}, éste es un concepto que permite expresar los algoritmos
+% de modo estructurado, utilizando artefactos básicos de cualquier lenguaje de
+% programación: condicionales, bucles, llamadas a función... pero de una manera más
+% laxa. Veámoslo con un ejemplo: el algoritmo que nos permite eliminar las
+% repeticiones en un array expuesto en el programa \ref{lst:mallocAndFree}:
+% \nameref{lst:mallocAndFree}.
+
+These ways of expressing them are plentyful, for example, flow diagrams
+as I used them to explain how loops worked are one way. Another is the
+\textbf{pseudocode}, this is a concept that allows us to express algorithms
+in a structured way, using basic artifacts of any programming language but in a
+more relaxed way. Let's see it with an example: the algorithm that allos us to
+delete the repetitions in an array as explained in the program
+\ref{lst:mallocAndFree}: \nameref{lst:mallocAndFree}.
 
 \begin{lstlisting}[style=pseudoCode]
-algoritmo eliminar_repeticiones :=
-entrada: array
-solución = {}
-para ii desde 0 hasta tamaño(array) - 1:
-    elemento = array[ii]
-    único = CIERTO
-    para jj desde 0 hasta ii - 1:
-        elemento2 = array[jj]
-        si elemento es igual a elemento2:
-            único = FALSO
-    si único
-        añadir elemento a solución
-retornar solución
+algorithm erase_reps :=
+input: array
+solution = {}
+for ii from 0 to size(array) - 1:
+    element = array[ii]
+    unique = TRUE
+    for jj from 0 to ii - 1:
+        element2 = array[jj]
+        if element equals element2:
+            unique = FALSE
+    if unique
+        add element to solution
+return solution
 \end{lstlisting}
 
-Como puedes ver, se entiende mejor lo que hace, porque nos estamos librando
-de varios aspectos del lenguaje que no nos interesan, por ejemplo: asumimos
-que podemos saber el tamaño del array sin necesidad de preocuparnos de dónde
-viene; no tenemos que convertir las variables lógicas a números, podemos
-asumir que añadir un elemento a un array es autoexplicativo, podemos ignorar
-que hay reserva dinámica y simplemente decir que devolvemos el array. Visto
-así, es un poco inútil, pero piensa que escribir esto \textbf{antes} de la
-labor de codificación nos habría ayudado.
+As you can see, it is more easy to understand, because we are getting rid of
+several aspects of the language we're not interested in now, for example:
+assume we can know the size of the array without the need to worry about where
+it comes from; we do not have to convert the logic variable to numbers; we
+can assume that adding an element to the array is self-explanatory; we can
+ignore dynamic memory allocation and simply say we return an array. Doing this
+after you already have the code is useless, but think about how useful this
+could have helped.
 
-El problema del pseudocódigo es que podemos hacer <<trampas>>, es decir,
-siempre podemos obviar varias cosas importantes que, a la hora de traducirlo a
-código real, no sean triviales. Por eso, puedes decidir tú hasta qué punto
-obvias o incluyes los artefactos del lenguaje. En este caso, por ejemplo,
-podríamos incluir el asunto de que las dimensiones de los arrays no pueden
-ser sabidos desde dentro de una función \textit{per se}.
+The problem of pseudocode is that we can ``cheat'', that is, we can always
+ignore some important things that, when trying to write it in real code,
+are not obvious. Because of this, you can dedice how much of it you ignore or
+include. In this case, for example, we could have included the fact that the
+dimension of the array can't be known inside a function \textit{per se}.
 
-\subsection{Recursividad}
-A la hora de definir algunos algoritmos, se definen utilizándolos a ellos
-mismos, es decir, parte de ellos incluye su propia utilización. Un ejemplo
-clásico de este tipo de algoritmos es el número factorial. Sea $n$ un número
-entero, $n$ factorial se denota como $n!$, que es igual a la multiplicación de
-todos los números desde 1 hasta $n$. Es decir:
+\subsection{Recursivity}
+When defining some algorithms, they are defined used themselves, that is, part
+of themselves includes their own use. A classic example of this is the factorial
+number. Being $n$ a natural number, the factorial of $n$ is written as $n!$,
+which is equal to multiplying the all the numbers from 1 to $n$, that is:
 
 $$
 n! = \prod^{n}_{i=1}{i}= 1\!\cdot\!2\!\cdot\!3\!\cdot\!4\dots{}n
 $$
 
-Siguiendo con el pseudocódigo, la manera de definir esto más evidente
-es la \textbf{iterativa}, es decir, la que utiliza repeticiones mediante
-bucles, las soluciones iterativas se contraponen frecuentemente a soluciones
-\textbf{recursivas}. Veamos el pseudocódigo de esta manera de resolver el
-problema:
-
+Continuing with the pseudocode, the most evident way to define this is the
+\textbf{iterative}, that is, the one that uses repetitions with loops, iterative
+solutions tend to be opposed to recursive definitions. Let's see the pseudocode
+for this way of solving the problem:
 
 \begin{lstlisting}[style=pseudoCode]
-algoritmo factorial :=
-entrada: n
-resultado = 1
-para i desde 1 hasta n:
-    resultado = resultado*i
-retornar resultado
+algorithm factorial :=
+input: n
+result = 1
+for i from 1 to n:
+    result = result*i
+return result
 \end{lstlisting}
 
-Sin embargo; podemos sencillamente definir el factorial a partir de sí mismo,
-volvamos a su definición matemática:
+Nevetherless; we can simply define the factorial function using itself,
+let's go back to its mathematical definition:
 $$
 n! = \prod^{n}_{i=1}{i}= n\!\cdot\!\!\prod^{n-1}_{i=1}{i} = n\left(n-1\right)!
 $$
 
-Entonces, si seguimos con este razonamiento, podemos definir el pseudocódigo
-como:
+Therefore, if we continue with this reasoning:
 
 \begin{lstlisting}[style=pseudoCode]
-algoritmo factorial :=
-entrada: n
-si n es igual a 0:
-    retornar 1
-retornar factorial(n - 1) * n
+algorithm factorial :=
+input: n
+if n equals 0:
+    return 1
+return factorial(n - 1) * n
 \end{lstlisting}
 
-Si saltamos a la implementación, veremos que es tan sencillo como que la función
-se llama a sí misma. Como ya bien sabes, una función puede llamar a otra, y así
-sucesivamente, pero nada dice que esa función no se llame a sí misma. El
-único problema que tiene esto es que, si se diseña mal, se puede incurrir en
-llamadas infinitas, esto provocaría que, como cada llamada sin finalizar
-que se acumula añade a datos a la pila, ésta terminara por acabarse y nuestro
-programa fallaría.
-Para ver la comparación en la implementación con ambas soluciones, crearemos
-dos versiones de la misma función, la iterativa y la recursiva, a la primera
-la llamaremos \texttt{factorial\_interative} y a la segunda
+If we jump right to the implementation, we will see that is is as easy as the
+function calling itself. As you very well know, a function can call another,
+and so on, but nothing avoids us to call the very function we're executing right
+now. The only problem this presents is that, if it is poorly designed, you can
+make the function to call itself indefinitely, this would make that, since
+each non-finished call adds things to the stack, this would end up filling up
+totally and the program will fail.
+To see this comparison in the programs with both solutions, we will create both
+versions of this function, the iterative one and the recursive, the first one
+would be called \verb!factorial\_interative! and the second is
 \texttt{factorial\_recursive}.
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, caption={Ejemplo final de variables},
+\begin{lstlisting}[style=C,
+caption={Comparison of iterative and recursive algorithms},
 label={lst:factorialIterativeVsRecursive}]
 unsigned long factorial_recursive(int n)
 {
@@ -8807,57 +8758,54 @@ unsigned long factorial_iterative(int n)
 \end{lstlisting}
 \end{minipage}
 
-Este ejemplo es tan clásico porque se aprecian bien las diferencias de las dos
-formas de resolver el problema y, además, se aprecian bien las partes de una
-función recursiva. Una función recursiva, en términos generales, debe tener dos
-componentes: un caso base y la llamada (o llamadas) recursivas.
-El primero está aquí
-representado por el condicional, una función recursiva se basa en utilizar
-una definición circular, es decir, defines una función usándola a ella misma,
-para poder salir de ese ciclo, debe haber un momento en que demos la respuesta
-por sabida. Este caso base es cuando $n$ es igual a cero, caso en que la respuesta
-es inmediata porque sabemos por definición matemática que es 1. La llamada
-recursiva es la siguiente línea.
+This example is classic, and it is so because you can see very well the
+differences between the implementations and, also, the parts of a recursive
+function. A recursive function, in general terms, it must have two components:
+the so-called base case and the recursive call (or calls).
+The earlier is here represented by the conditional, a recursive function is
+so because it is defined in a circular way, that is, it calls itself, to be able
+to go out of that cycle, you need to have a moment in which the function has an
+evident solution. In this case is when $n$ is equal to zero, case in which the
+answer is 1, because that's the mathematical definition. The recursive call is
+in the next line.
 
-Comparando las dos soluciones, la primera es lo que se llama más <<elegante>>,
-en el sentido de que es una definición más legible (tanto así que podría decirse
-que es trivial) mientras que la iterativa es más larga y menos trivial. Sin
-embargo; es en general más eficiente la versión iterativa de un algoritmo que
-su versión recursiva. Esto es porque las sucesivas llamadas a función tienen
-cierto coste, obligan a hacer copias de datos, cada vez que invoques a la
-función, $n$ será copiada en la pila, una copia encima de otra, hasta que llegues
-a la invocación del caso base. En ese momento, la llamada del caso base
-retornará y se empezará a desenrollar esa sucesión de llamadas a la función.
+Comparing the two solutions, the first one if what is called ``more elegant'',
+in the sense that it is more legible (so much one could say it is trivial) while
+the iterative is longer and less obvious. Nevetherless; the iterative solutions
+are more efficient than the recursive. This is because the several calls to the
+function add up into the stack, and they have a cost, each time you call this
+function, $n$ will be copied into the stack, until you reach the call that
+corresponds to the base case. In that moment, the call to the base case will
+return and this succession of calls will unroll itself.
 
-Por contraposición, la solución iterativa no tiene esa necesidad de copiar nada,
-ni de ir llamando a funciones una y otra vez, es un simple bucle. Es razonable
-pensar que la primera será más lenta. Déjame que lo compruebe y te dé los
-resultados para que puedas verlo. La solución recursiva tarda 1,7431 veces más
-que la solución iterativa, por lo que se puede apreciar que es más lenta.
-Además, recuerda la pila, utiliza más memoria.
-En resumen: los algoritmos iterativos son más rápidos que sus contrapartes
-recursivas, pero menos elegantes.
+On the other hand, the iterative solucion has no need to copy anything,
+nor keep calling the functions again and again, it is a simple loop. Is it
+reasonable, therefore, to think that the first solution will be slower. Let me
+to check it and I will come back with the results so you can see it. The
+recursive solution is slower than the iterative, being 1.7431 times slower,
+therefore it is noticeable worse.Also, remember the stack, it uses more memory.
+To sum it up: iterative algorithms thend to be faster than their recursive
+counterparts, but less elegant.
 
-Otro ejemplo más claro de las diferencias entre ambos métodos se puede ver en
-el cálculo de la sucesión de Fibonacci. Someramente: esta sucesión fue creada
-por un matemático italiano en el siglo \textsc{xiii}, cuyo nombre da a esta
-sucesión. Es una sucesión que se define así: los dos primeros elementos son 1,
-y los demás se definen como la suma de los dos anteriores (ya
-se ve que aquí hay un caso base y una definición recurrente). Matemáticamente se
-definiría así:
+Another classic example to appreciate the differences between both ways to write
+a function can be seen in the succession of the Fibonacci series. Shallowly:
+this succession was created by an Italian mathematician in the \textsc{xiii}
+century, whose name was given to his succession. It is defined in this way:
+the two first elements of it are 1, and the others are defined as the addition
+of the two last terms (you can see here the base case and the recursive
+definition). Mathematically, it would be defined in this way:
 $$
 a_1 = 1, a_2 = 1, \forall_{n=3}^{\infty}\left(a_n = a_{n-1} + a_{n-2}\right)
 $$
 
-Creo que entiendes que esto, iterativamente, se puede resolver con un bucle,
-como el cálculo del factorial. Así que saltemos a la definición recursiva:
-
+I think you understand that, this could be written iteratively with a loop, in
+a similar way to the factorial. So we will jump right to the recursive
+definition.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, caption={Función para el cálculo de la suceción
-de Fibonacci},
+\begin{lstlisting}[style=C, caption={Function to calculate Fibonacci succession},
 label={lst:funFibonacci}]
 unsigned long fibonacci(unsigned int n) {
     if (n < 3) {
@@ -8868,94 +8816,92 @@ unsigned long fibonacci(unsigned int n) {
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, seguimos el mismo patrón: un condicional que comprueba el caso
-base y una llamada recursiva. El caso base es lógico, el primer y segundo
-elemento son uno, así que se devuelve uno siempre que $n$ sea menor que tres.
-Por otro lado, esto hace que también devolvamos uno cuando se introduce cero,
-pero esto es una simplificación que nos podemos permitir. Es la llamada
-recursiva la que nos interesa, como puedes ver, hay dos llamadas a esta función
-por cada llamada que no sea un caso base. Esto es importante, porque debes tener
-claro en qué orden se ejecutan estas llamadas, por esto, vamos a representarlo
-aquí.
+As you can see, we follow the same pattern: a conditional that checks if we're
+in the base case and a recursive call. The base case is simple, the first and
+second element are one, therefore this is the value we must return if $n$ is
+less than 3. The recursive call is the one we are interested in, as you can see,
+there are two recursive calls, for each call that is not the base case. This is
+important, because you must have a clear idea of in which order these calls are
+made. Hence I am going to represent it here:
 \begin{itemize}
-\item Llamamos a la función para el valor 5
+\item We call the function for the value 5.
     \begin{itemize}
-        \item Se llama a la función para el valor 4
+        \item The function is called for the value 4.
         \begin{itemize}
-            \item Se llama a la función para el valor 3
+            \item The function is called for the value 3.
             \begin{itemize}
-                \item Se llama a la función para el valor 2
-                \item Se devuelve 1.
+                \item The function is called for the value 2.
+                \item 1 is returned.
             \end{itemize}
             \begin{itemize}
-                \item Se llama a la función para el valor 1
-                \item Se devuelve 1.
+                \item The function is called for the value 1.
+                \item 1 is returned.
             \end{itemize}
-            \item Se devuelve 2
+            \item 2 is returned.
         \end{itemize}
         \begin{itemize}
-            \item Se llama a la función para el valor 2
-            \item Se devuelve 1.
+            \item The function is called for the value 2.
+            \item 1 is returned.
         \end{itemize}
-    \item Se devuelve 3
+    \item 3 is returned.
     \end{itemize}
     \begin{itemize}
-        \item Se llama a la función para el valor 3
+        \item The function is called for the value 3.
         \begin{itemize}
-            \item Se llama a la función para el valor 2
-            \item Se devuelve 1.
+            \item The function is called for the value 2.
+            \item 1 is returned.
         \end{itemize}
         \begin{itemize}
-            \item Se llama a la función para el valor 1
-            \item Se devuelve 1.
+            \item The function is called for the value 1.
+            \item 1 is returned.
         \end{itemize}
-        \item Se devuelve 2
+        \item 2 is returned.
     \end{itemize}
-    \item Se devuelve 5
+    \item 5 is returned.
 \end{itemize}
 
-Estas listas anidadas expresarían cómo funciona la secuencia de llamadas a las
-funciones recursivas. Puedes observar varias cosas, la primera es que, incluso
-para una llamada pequeña, el quinto elemento, se realiza un gran número de
-llamadas a función. Por otro lado, si lo miras bien, se repiten un montón de
-cálculos, la llamada para tres se repite dos veces, la llamada a dos tres
-veces... y esto sólo para el valor de $n$ igual a cinco. Esto te da la medida
-de que la implementación recursiva de este tipo de funciones es muy ineficiente.
-Técnicas más avanzadas permiten mitigar esto. En conclusión, es
-muy poco recomendable realizar esta implementación.
+These nested lists would represent how the sequence of calls to the recursive
+functions. You can see several things, the firt one being that even for a
+small value of $n$, five, a high number of calls are performed. On the other
+hand, a lot of the calls are done more than once, the call for three is repeated
+three times, the call for two, three times... and this is only when the original
+$n$ is five. This gives you an idea that the recursive solution for this is
+very inefficient. More advanced thechniques allow to solve this. To sum it up,
+this way of writting this is not very good.
 
-Y, si esto es así, si los algoritmos recursivos son así de ineficientes, lo
-lógico sería pensar que no se utilizan. Sí, se utilizan porque hay algoritmos
-que están definidos simplemente de un modo recursivo, es decir, que no es
-posible implementar iterativamente (o dicha implementación sería una
-simulación de la recursividad que aportaría poco), pero esos algoritmos son más
-complicados y serían problemáticos como primeros ejemplos del concepto de
-recursividad.
+And, if this is the case, if recursive algorithms are so inefficient, the
+logical conclusion would be to think they're not used. On the contrary, they are
+used a great deal, because there are algorithms that are defined just
+recursively, that is, they're not an iterative algorithm we have defined with a
+recursion. Those algorithms would be difficult to show now and won't leave clear
+the basic structure of the recursive algorithms.
 
-\subsection{Algoritmos de ordenación}
-Uno de los conjuntos de algoritmos más elementales que existen en el conjunto
-básico de algoritmos de ordenación, entre ellos veremos los siguientes:
+\subsection{Sorting algorithms}
+Una of the most basic kinds of algorithms are the sorting algorithms, among
+them we will see the following ones:
 \begin{enumerate}
-\item De burbuja.
-\item Selección.
-\item Inserción.
+\item Bubble Sort.
+\item Selection.
+\item Insertion.
 \item \textit{Quick sort}.
 \end{enumerate}
-Esto es así porque esta tarea (ordenar un vector o array) es muy común y permite
-una enorme cantidad de innovación, muchos autores de trabajos científicos se
-esfuerzan en proponer mejoras en estos algoritmos. Además, es una operación
-muy común y básica en la informática. Los primeros algoritmos son más bien
-sencillos, así que hablaremos directamente sobre la implementación en C, pero
-los dos últimos necesitarán de una explicación más pausada.
 
-El algoritmo de la burbuja se basa en comparar cada elemento con el siguiente
-y, si no están en orden, intercambiarlos. Veamos cómo se haría:
+This is like the case because this task (sorting a vector or array) is very
+common and allows us to deploy a big amount of innovation, many authors of
+scientifical works are putting sfforts still in improving these algorithms.
+Also, it is an operation very common in computing. The first algorithms are more
+or less simple, so we will speak directly over the C implementation, but the
+last two will need a more thorough explanation.
+
+The bubble sort algorithm is based upon comparing each element with the next one
+and, if they're not in the correct order, swap them. Let's see how this could be
+done.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Implementación del algoritmo de la burbuja},
+caption={Bubble sort implementation},
 label={lst:bubbleSort}]
 void bubble_sort(int *list, int list_size) {
     for (int ii = 0; ii < list_size - 1; ++ii) {
@@ -8971,40 +8917,38 @@ void bubble_sort(int *list, int list_size) {
 \end{lstlisting}
 \end{minipage}
 
-Es el algoritmo de ordenación más simple, porque, como puedes ver, se compone
-de dos bucles anidados y un condicional. Rápidamente: recorres el array,
-pero como estás comparando con el siguiente elemento, paras una posición antes.
-Si el elemento anterior (\verb!list[jj]!) es mayor que el que viene después,
-los cambias. Para cambiarlo simplemente guardas uno en una variable auxiliar,
-asignas el otro al primero y finalmente pones la variables auxiliar en el
-hueco libre. Esto, hecho una sola vez, provocaría que el elemento más grande
-subiera al último puesto del array. Y he usado el verbo subir porque es de
-este tránsito del que deriva el nombre del algoritmo, porque los elementos
-suben como burbujas de aire en el agua.
-De hecho, puedes probar
-a ejecutar la función cambiando la condición del primer bucle a \verb!ii < 1!.
-Y verás como sólo el último elemento está siempre en orden.
+This is the simplest sorting algorithm because, as you can see, it is made out
+of just two nested loops and an a conditional. Quickly: you iterate over the
+array, but since you're checking with the next element, you stop one position
+before the end. If the first element (\verb!list[jj]!) is greater than the one
+that comes after, you swap them. To swap them you simply sabe one in an
+auxiliary variable, you assign the second to the first, and the the auxiliary
+variable to the second. This, done only once, would make the greater element to
+float up to the last position. And I have said ``float'' because this is where
+the name of the algorithm comes from, because each element goes to the highest
+position as a bubble in water. As a matter of fact, you can try and execute
+the program after changing the condition of the first loop to \verb!ii < 1!.
+You will see how only the last element is the one ordered.
 
-Este algoritmo tiene una ventaja fundamental: utiliza muy poca memoria. Es más,
-si obviamos las variables auxiliares, los argumentos en la pila y demás, la
-única memoria ocupada es la variable auxiliar, es decir, el tamaño del tipo
-de dato que estés ordenando, en este caso: cuatro bytes. En informática casi
-siempre se hace un compromiso (en inglés: \textit{trade-off}) entre memoria y
-velocidad. Los algoritmos que consumen más memoria para hacer lo mismo suelen
-ser más rápidos que los diseñados para ocupar poca memoria. El algoritmo de
-la burbuja es un ejemplo claro.
+This algorithm has a very clear advantage: it uses very little memory. More so,
+if we ignore the auxiliary variables for the loops, the stack arguments and
+such, the only occupied memory is the auxiliary varuable, that is, the size
+of the datatype that you're ordering, in this case: four bytes. In computer
+science there is always a trade-off between memory and speed. Algorithms that
+use much memory to do the same tend to be faster than the ones that use very
+little memory. Bubble sort is a good example of this.
 
-Como añadido, vamos a prestar atención a la realización del intercambio de
-elementos: como es algo que voy a usar en todos o casi todos los algoritmos,
-vamos a crear una función llamada \verb!swap!, que nos permita intercambiar
-rápidamente dos elementos de tipo entero. Veamos cómo quedaría el algoritmo
-de la burbuja y cómo sería la definición de la función.
+As a final conclusion, we're going to pay some attention to the realization of
+the swapping: since it is something I am going to use in several of the
+algorithms, we're going to create a function called \verb!swap!, that allows us
+to swap two elements of integer type. Let's see how the algorithm would end up
+with this function defined.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Implementación de \texttt{swap} y uso en algoritmo de la burbuja},
+caption={Implementation of \texttt{swap} and use in bubble sort},
 label={lst:bubbleSwap}]
 void swap(int *a, int *b)
 {
@@ -9026,11 +8970,10 @@ void bubble_sort(int* list, int list_size)
 \end{lstlisting}
 \end{minipage}
 
-El siguiente algoritmo es el de selección. Este algoritmo se basa en elegir
-(seleccionar) el elemento menor y ponerlo en la última posición del array
-que tengamos ordenada. Al principio no hay ninguna, cuando hayas puesto una,
-deberás poner el siguiente elemento después de esa, y así sucesivamente,
-veámoslo:
+The next algorithm is selection. This algorithm looks for (selects) the smallest
+element in the array and puts it in the last position of the array we have
+ordered. At the begining there is none, when you have put one, you must put the
+next element in the position next to that one, and so on, let's see it:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -9056,95 +8999,88 @@ void selection_sort(int *list, int list_size)
 \end{lstlisting}
 \end{minipage}
 
-Esta implementación es un poco ingenua, porque nunca comprobamos si el elemento
-siguiente al ordenado resulta estar ordenado. Es evidente que una implementación
-un poco más inteligente añadiría una variable para discernir esto, queda como
-ejercicio. Con la implementación que tenemos, podemos ver bien cómo funciona,
-que es lo que nos interesa. La quinta línea es un poco complicada porque junto
-dos declaraciones con sus inicializaciones, pero ya hay que ir acostumbrándose.
+If you think about it, this algorithm uses slightly more memory that the bubble
+sort. In this case we must maintain always in memory the value and the position
+of the smallest element. On the other hand, it is a bit faster that bubble sort,
+why? Because, in the worst case scenario, bubble sort performs
+$\frac{n(n-1)}{2}$ comparisons ($n$ being the length of the array),
+the same than this one and, nevertheless,
+performs much more swaps, because elements go ``step by step'' to their
+position, instead of directly like here. Hence in the worst case scenario, this
+algorithm would perform just $n-1$ swaps, while bubble sort may need as many
+as comparisons (because each comparison would execute a swap).
 
-Si te das cuenta, este algoritmo ocupa marginalmente más memoria que el de la
-burbuja. En este caso debemos mantener siempre en memoria el valor y la
-posición del elemento más pequeño. En cambio, es un poco más rápido, ¿por qué?
-Porque en el peor de los casos, este algoritmo hace $n!$ comparaciones y
-$n$ intercambios. En el algoritmo de la burbuja haremos las mismas comparaciones
-y, sin embargo, haremos muchos más intercambios, porque los elementos van
-<<pasito a pasito>>, no a su lugar directamente como en este caso.
-
-El siguiente algoritmo es el de inserción. En el anterior elegíamos el elemento
-más pequeño y lo poníamos al principio, en este, el razonamiento es el
-contrario, crearemos una lista que definiremos como ordenada, inicialmente
-vacía, después, cogeremos un elemento de la lista original y lo insertaremos
-en la posición que le corresponda en la lista ordenada. De este modo, la lista
-ordenada siempre permanecerá así. Veamos un pseudocódigo más claro:
+The next algorithm is the insertion one. In the last one, we choose the smallest
+element and we put it at the start, in this one, the reasoning is the opposite,
+we create a list that we will define as ordered, initially empty, and later we
+will pick an element from the original list and insert it ordered in the correct
+position in the sorted list. In this way, the ordered list will always stay
+sorted. Let's see some pseudocode:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=pseudoCode]
-algoritmo insertion_sort :=
-entrada: array
-lista_ordenada = {}
-para i desde 0 hasta size(array):
-    insertar_ordenado(lista_ordenada, array[ii])
-array = lista_ordenada
+algorithm insertion_sort :=
+input: array
+sorted_list = {}
+for i from 0 to size(array):
+    insert_sorted(sorted_list, array[ii])
+array = sorted_list
 \end{lstlisting}
 \end{minipage}
 
-El problema de esto es que insertar en una lista ordenada es algo lo
-suficientemente complejo como para necesitar su propia definición. Vamos
-a definir un algoritmo que inserte un elemento en una lista, pero que
-\textbf{cuenta con que ya está reservada la memoria}.
+The problem if this pseudocode is that inserting in an ordered list is something
+complex enough that will need its own definition. Let's define the algorithm to
+insert an element in a list, but that \textbf{is already allocated in memory}.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=pseudoCode]
-algoritmo insertar_ordenado :=
-entrada: array, elemento
-insertado = 0
-para i desde 0 hasta size(array):
-    si array[ii] es mayor que elemento:
-        insertar(array, elemento, ii)
-        insertado = 1
+algorithm insertar_ordenado :=
+input: array, element
+inserted = 0
+for i from 0 to size(array):
+    if array[ii] is greater than element:
+        insert(array, element, ii)
+        inserted = 1
         break
-si no insertado:
-    insertar(array, elemento, ii)
+if not inserted:
+    insert(array, element, ii)
 \end{lstlisting}
 \end{minipage}
 
-Pero seguimos teniendo el problema de cómo insertar, en general, un elemento
-en una posición dada, para esto utilizaremos otro algoritmo:
+But we still have the problem of inserting, in general, an element in a given
+position, therefore, we will use another algorithm.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=pseudoCode]
-algoritmo insertar :=
-entrada: array, elemento, posición
-insertado = 0
-para i desde size(array) hasta 0 en paso de -1:
+algorithm insert :=
+input: array, element, position
+inserted = 0
+for i from size(array) to 0 stepping in -1:
     array[ii] = array[ii - 1]
-array[posición] = elemento
+array[position] = element
 \end{lstlisting}
 \end{minipage}
 
-Es un poco confuso, pero lo que hacemos es, primero, mover los elementos
-posteriores a la posición donde queremos insertar una posición a la derecha,
-abriendo así el hueco para el nuevo elemento, después, insertamos el elemento.
-Como puedes ver, ya en este algoritmo tenemos que hacer acopio de una serie
-de funciones intermedias. Aunque este algoritmo se suele implementar
-de un modo más sencillo, aquí lo vamos a hacer así para que empieces a ver
-la utilidad de extraer el comportamiento en funciones más pequeñas que se
-entiendan mejor en vez de escribir funciones muy largas. La implementación
-de las funciones auxiliares sería tal que:
-
+It is a bit confusing, be what we do is, firt, move the elements after the
+position in which we want to insert the new element one position right, opening
+the space for the new element, after that, we insert the element. As you can
+see, in this algorithm we have to use some intermediate functions. Although this
+overall sorting algorithm may be implemented in a simpler way, we're going to
+do it like this so you can see the real power of using functions that allow you
+to split the tasks in smaller ones. The implementation of the functions would
+be as follows.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Algoritmos auxiliares al de inserción},
+caption={Auxiliary algorithms for insertion sort},
 label={lst:insertionAuxiliar}]
 void insert_at(int* list, int list_size, int position, int element)
 {
@@ -9175,7 +9111,7 @@ void insert_at_ordered(int* list, int list_size, int element) {
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Algoritmo de inserción},
+caption={Insert algorithm},
 label={lst:insertionSort}]
 void insertion_sort(int* list, int list_size)
 {
@@ -9190,47 +9126,45 @@ void insertion_sort(int* list, int list_size)
 \end{lstlisting}
 \end{minipage}
 
-Este algoritmo es el que usamos inconscientemente para ordenar objetos físicos
-cuando los tenemos. Si tuvieras los números $\left\{5,4,6,9,8\right\}$,
-probablemente cogerías el cinco y lo pondrías después del cuatro, verías que el
-seis está en orden, después verías el nueve y lo pondrías detrás del ocho.
-De todos modos, si has pensado que lo que tú harías sería selección, sí, sería
-posible que te resultara cómodo hacer eso también.
+This algorithm is the one we tend to use unconsciously to sort physical objects
+when we have them. If you had to sort the numbers $\left\{5,4,6,9,8\right\}$,
+you'd probably get the five and put it after four, then you'd see six is in
+order then you'll see nine and put it after eight. Anyways, if you have thought
+that you'd do selection, yes, it could be possible some people sort things in
+that way too.
 
-Pero la manera en que lo hemos implementado es muy ingenua, utilizamos muchos
-más pasos de los necesarios. Hay una manera más sencilla si nos damos cuenta
-de que podemos realizar todas las operaciones en la misma lista. Para ello
-voy a ponerte un ejemplo, imagínate la lista:
+The way we have implemente it is very ingenous, we use many more steps than
+needed. There is a simpler way if we realize that we can do all the operations
+in the same list. To give you an example, imagine the list:
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 \textbf{2}&\textbf{6}&2&5&7\\\hline
 \end{tabular}
-
-Las celdas en negrita son los elementos de la lista ordenada, lo que vamos
-a hacer es guardanos el siguiente elemento después de ellos en una variable,
-es decir, el dos. Después, vamos a mover todos los elementos de la lista ordenada
-mayores que dos una posición a la derecha, quedando el array así:
+Cells in boldtext are the elements of the sorted list, what we are going to do
+is to save the next element after them in a variable, that is, two. After that,
+we're going to move all the elements from the sorted list greater than two a
+position right, leaving the array in this way:
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 \textbf{2}&\color{white}2\normalcolor&\textbf{6}&5&7\\\hline
 \end{tabular}.
-Con una posición vacía, como puedes ver. Ese hueco se utiliza
-para colocar el elemento que está en la variable que hemos mencionado antes,
-quedando el array así:
+With an empty position, as you can see. This cell is used to put in place the
+element that was saved in a variable as we said before, ending the array like
+this:
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 \textbf{2}&\textbf{2}&\textbf{6}&5&7\\\hline
 \end{tabular}
-Si sigues a mano esta ejecución verás que nos guardaríamos el cinco, moveríamos
-el seis, pondríamos el cinco a la izquierda del seis; nos guardaríamos el siete
-volveríamos a mover el seis, pondríamos siete en el hueco libre y el array
-quedaría ordenado. La implementación de esto sería, por ejemplo, la siguiente:
+If you continue by hand this execution you'd see that we will save the five,
+we will move six, we will put five on the left of the six; we would sabe seven
+and we will move the six back, we could put seven in the free position and the
+array would end up ordered. The implementation of this would be as follows:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:insertionOptimized},
-caption={Implementación alternativa de ordenación por inserción}]
+caption={Alternative implementation of insertion algorithm}]
 void insertion_sort_optimized(int *array, int array_size)
 {
     int element;
@@ -9249,63 +9183,65 @@ void insertion_sort_optimized(int *array, int array_size)
 \end{lstlisting}
 \end{minipage}
 
-La lógica de esto quizá es menos evidente. El bucle exterior es
-muy sencillo, recorremos todo el array \textbf{desde la segunda posición}.
-Nos guardamos el elemento siguiente a los ordenados en la variable
-\verb!element!. Después, en este bucle \verb!for! interno moveremos todos los
-elementos de la lista ordenada a la derecha una posición, en orden inverso,
-por eso \verb!jj! disminuye de uno de uno. Cuando hemos encontrado el elemento
-que es mayor, paramos (\verb!break!). Finalmente, ponemos el elemento en su
-sitio.
+The logic of this is perhaps less evident. The outter loop os very simple, we
+iterate over all the array \textbf{from the second position}. We save the
+the next element to the sorted ones in the variable \verb!element!. Aftet that,
+in this inner \verb!for! loop we will move all the elements of the sorted list
+to the right one position, doing this is easier backwards, that's why \verb!jj!
+is decremented instead of incremented as has been usual. When we have found the
+first element that is greater, we stop (\verb!break!). Finally, we put the
+saved element on its place.
 
-Finalmente, llegamos al algoritmo \textit{Quick Sort}, que, como puedes ver,
-no se basa en cómo lleva a cabo la tarea de ordenación sino por una cualidad
-muy interesante del mismo: es un algoritmo muy rápido. Si recuerdas lo que he
-dicho unos párrafos antes, en informática, velocidad y memoria ocupada son
-valores ortogonales (perpendiculares, cuando uno se propicia, es en detrimento
-del otro). Me interesa especialmente que lo veas porque \textbf{es un algoritmo
-recursivo}. Y es uno de esos algoritmos que es puramente así.
-Además, como es más complejo (como probablemente hayas podido deducir), vamos a
-ver primero su pseudocódigo.
+Finally, we reach the Quick sort algorithm, whose name, as you can see, is not
+descriptive of how it sorts, but of a nice quality it has: it is very fast. If
+you remember what I said a few paragraphs before, in computing, speed and
+memory are fighting metrics, that is, when you favour one, the other gets worse.
+I am very interested that you see this algorithm because it is \textbf{a
+recursive algorithm}. And it is one of those that is purely this way. Also,
+since it's more comple, as you may have guessed, let's see its pseudocode first.
+
 
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[style=pseudoCode]
-algoritmo quick_sort :=
-entrada: array
-lista_pequeña = {}
-lista_grande  = {}
-pivote        = array[0]
-si size(array) es igual a 1:
-    res = {pivote}
-    retornar res
-para i desde 0 hasta size(array):
-    si array[i] es menor que pivote:
-        añadir(array[i], lista_pequeña)
-    en otro caso:
-        añadir(array[i], lista_grande)
-lista_pequeña_ordenada = quick_sort(lista_pequeña)
-lista_grande_ordenada  = quick_sort(lista_grande)
-res = juntar(lista_pequeña_ordenada, pivote, lista_grande_ordenada)
-retornar res
+akgorithm quick_sort :=
+input: array
+little_list = {}
+big_list = {}
+pivot = array[0]
+if size(array) equals 1:
+    res = {pivot}
+    return res
+for i from 0 to size(array):
+    if array[i] is less than pivot:
+        add(array[i], little_list)
+    else:
+        add(array[i], big_list)
+little_list_sorted = quick_sort(little_list)
+big_list_sorted = quick_sort(big_list)
+res = join(little_list_sorted, pivot, big_list_sorted)
+return res
 \end{lstlisting}
 \end{minipage}
 
-Este algoritmo se resume en lo siguiente: el caso base es cuando la lista
-es de tamaño uno, porque una lista de un elemento siempre está ordenada.
-Cuando no estamos en el caso base, creamos dos listas: en una irán los elementos
-menores que el pivote, y en otra los demás. El pivote es sencillamente un
-elemento cualquiera de la lista, a este nivel es irrelevante cuál, aunque
-su elección influye mucho en la eficiencia del algoritmo en casos especiales,
-es decir, con arrays concretos.
-La implementación de este algoritmo es la siguiente:
+This algorithm can be summed up in the following: the base case is when the list
+has only one element, because a list with only one element is always sorted.
+When we're not in the base case, we create two lists: the elements smaller than
+the pivot will go in one, and the ones equal or bigger will go in the other.
+The pivot is simply any element of the list we want to sort. At this level it is
+not relevant, even when its selection affect very much edge cases, that is,
+with concrete arrays. After making both lists, we will call Quick Sort on both
+lists, and we will save both sorted lists returned by the algorithm. The result
+would be the concatenation of the sorted list of smaller elements, the pivot and
+the sorted list of bigger elements.
+The implementation of this algorithm would be as follows:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Implementación de \textit{Quick Sort}},
+caption={Implementation of Quick Sort},
 label={lst:quick_sort}]
 int *quick_sort(int *list, int list_size)
 {
@@ -9360,170 +9296,165 @@ int *quick_sort(int *list, int list_size)
 \end{lstlisting}
 \end{minipage}
 
-El algoritmo es un poco más complicado así que lo que era en el pseudocódigo,
-pero debes seguirlo paralelamente a aquél. Lo primero es la declaración de todas
-las variables. De nuevo, vamos a empezar a declarar varias juntas, o si no las
-funciones de harían interminables. Nota que inicializamos sin comprobar
-nada la variable \texttt{res} (que es donde guardaremos el resultado)
-llamando a \texttt{malloc} para reservar un vector del mismo tamaño de la lista.
-No hay peligro porque llamar a \texttt{malloc} para reservar cero bytes es
-totalmente seguro. Después, como ya es normal en nuestras funciones recursivas,
-comprobamos si estamos o no en el caso base, el caso base es tanto una lista
-que mida uno como una lista vacía. Ambas listas están ordenadas por definición.
+The algorithm is a bit more complex in this way that it was in pseoudocode, but
+you must follow parallelly to it. The first thing we do declare all the
+variables. Again, we are going to declare them together, otherwise functions
+would be very long. Notice that we initialize without checking anything about
+\texttt{res} (which is where we save the result) calling \verb!malloc! to
+allocate a vector of the same size of the list. There is not danger in calling
+\texttt{malloc} with a size that equals zero, it is safe. After that, as is usual
+in our recursive functions, we check if we're or not in the base case, the base
+case is a list with zero element or a list with one element. Both are sorted by
+definition.
 
-Después, empieza el caso recursivo, lo primero es leer el valor del pivote,
-lo hacemos ahora porque antes de comprobar el tamaño de la lista no sabemos
-si hay primer elemento. Ahora reservamos memoria para las listas de los
-elementos mayores y menores que el pivote respectivamente. Esto también lo hemos
-visto antes: como no sabemos cuánto pueden medir, utilizamos un umbral superior,
-en este caso es evidente que ninguna de estas listas puede medir más que el
-tamaño de la lista original. Después entramos en el bucle que cribará qué
-elementos van a cada lista. Como aquí estamos limitados por las restricciones de
-C, tenemos que hacerlo así: copiamos el elemento en cuestión a la posición
-siguiente al final de la lista (que es igual a su tamaño) y aumentamos
-en uno el tamaño. Cuando hemos terminado el bucle, procedemos a redimensionar
-las listas de elementos mayores y menores al tamaño real que deben tener. Del
-mismo modo que con \verb!malloc!, si se llama con un tamaño de cero no hay
-problemas, además, es equivalente a llamar a \verb!free!, pero el puntero
-sigue siendo válido para pasarse a esta función.
+After this, the recursive case starts, the first thing is to read the value of
+the pivot, we do it now because we're not ensured the list has at least one
+element. Now we allocate memory for the lists of the bigger elements and the
+smaller elements. We have already seen this before: we do not know how long
+they would be, but it is obvious that neither of these lists can be longer than
+the original ones. After this we go inside a loop that will sift the the
+elements that go in any of the lists. Since we're limited here by C, we need to
+do this in this way: we copy the first element of the positions next to the end
+of the list (which is equal to the size of a list) and we increment in one the
+size. Note that this loop starts in one, this is to avoid copying the pivot,
+because if we did evaluate it in the loop, we will be duplicating it.
+Once we have finished that loop, we redimensionate the lists to their real
+size. In the same wat than with \verb!malloc!, if you call \verb!realloc! with a
+zero size, there is not problem, the pointer returned is still valid
+to be passed to \verb"free", and you need to do so.
 
-Ahora que ya tenemos ambas listas, simplemente llamamos al mismo \textit{Quick
-Sort} que nos otorgará las listas ordenadas. Del mismo modo que cuando
-te expliqué cómo utilizar \verb!memcpy!, copiamos juntos la lista de elementos
-menores, el pivote y la lista de elementos mayores. Una vez hecho esto, sólo
-nos queda liberar la memoria que hemos utilizado para almacenar datos
-auxiliares. En este caso, las cuatro listas. Es evidente que con todas estas
-reservas de memoria este algoritmo consume mucho más que los anteriores, pero,
-además, recuerda lo que pasa con las funciones recursivas, esta memoria que
-hemos reservado se quedará bloqueada hasta que se terminen las llamadas
-recursivas, es decir, cada llamada tendrá sus propias copias de las listas.
-Esto explica, además, por qué \textit{Quick Sort} es un algoritmo que
-no modifica la lista que se le pasa sino que
-\textbf{devuelve el resultado en otra}.
+Now we have both lists, we simply call the same Quick Sort that will return us
+the sorted lists. In the same that when we learnt how to use \verb!memcpy!,
+we copy together the list of smaller elements, the pivot and the list of bigger
+elements.
 
-Ahora que ya hemos visto el algoritmo conceptual y la implementación de los
-algoritmos de ordenación, vamos a comparar su rendimiento en términos de tiempo
-de ejecución. Lo que voy a hacer es crear un vector de un tamaño grande, lo voy
-a ordenar con un algoritmo, volveré a introducir datos aleatorios en el vector,
-lo volveré a ordenar y así sucesivamente. Los resultados son, para 262.144
-elementos:
+Now we have seen the conceptual algorithm and the implementation of several
+sorting algorithms, we're going to compare their performance in terms of
+execution time. What I am going to so is to create a vector a big size, I am
+going to sort it with an algorithm, I will introduce random data to the vector,
+I will sort it again and so on for a number of times. The results are, for
+262,144 elements:
 
 \begin{table}[H]
 \begin{tabularx}{\linewidth}{|Y|R|}
 \hline
-\textbf{Algoritmo}    &\multicolumn{1}{c|}{\textbf{Tiempo $(s)$}}\\\hline
-Burbuja               &243,0596                                \\\hline
-Selección             &71,2807                                 \\\hline
-Inserción             &56,7917                                 \\\hline
-Inserción (optimizado)&37,1698                                 \\\hline
-\textit{Quick Sort}   &0,0656                                  \\\hline
+\textbf{Algorithm}    &\multicolumn{1}{c|}{\textbf{Time $(s)$}}\\\hline
+Bubble sort           &243.0596                                \\\hline
+Selection             &71.2807                                 \\\hline
+Insertion             &56.7917                                 \\\hline
+Insertion (optimized) &37.1698                                 \\\hline
+Quick Sort            &0.0656                                  \\\hline
 \end{tabularx}
-\caption{Tiempos de ejecución de los distintos algoritmos}
+\caption{Execution time of the different sorting algorithms}
 \label{tab:sortingTimes}
 \end{table}
 
-Como puedes ver, en cada algoritmo se realiza una mejora bastante importante
-respecto al anterior, pero es muy llamativo que \textit{Quick sort} destaque
-tanto. Como reflexión: yo no le pondría a un algoritmo que he hecho yo
-un nombre tan poco modesto si no fuera al menos mayormente cierto. Sin embargo;
-hay ciertos aspectos que hay que tener en cuenta en un algoritmo como estos
-más allá de que sean rápidos, por ejemplo, como ya dijimos, \textit{Quick sort}
-consume mucha más memoria que todos los demás. Si utilizáramos este algoritmo
-en ciertas máquinas quizás nos viéramos con problemas de memoria. Además, hay
-una cualidad de los algoritmos llamada \textbf{estabilidad}, que representa
-cómo de constante para diferentes casos es el uso de tiempo, memoria, o ambas.
-En el caso de estos algoritmos, los únicos estables son el de burbuja y el de
-selección. Esto quiere decir que los resultados de los demás pueden variar mucho
-en ciertos casos, por lo que si trabajas en sistemas donde esos casos ocurren
-con cierta frecuencia o donde la estabilidad es más importante
-que la velocidad media, quizás debas usar uno de los
-algoritmos más lentos.
+As you can see, in each algorithm there is an improvement from the other ones,
+but it is striking that Quick Sort is so much ahead of the others. As a thought:
+I wouldn't call any algorithm in such a way if it weren't true. Nevetherless,
+there are some caveats you need to know about these algorithm beyond their
+speed. For example, as we said, Quick Sort uses much more memory than all the
+others. If we used this algorithm in certain machined we may have been limited
+by memory. Also, there is a quality of algorithms called \textbf{stability},
+which represents how constant the use of memory, time or both things is when
+the data introduced changes. In the case of these algorithms, the only two that
+are stable are bubble sort and selection. This means that results of the other
+ones can change a lot in certain cases, hence of working in environments where
+these cases happen frequently or where stability is more important that average
+speed, maybe you should use one of the slower algorithms.
 
-El ejemplo más flagrante de esto es lo que le pasa al último algoritmo con
-el vector más desfavorable. Para \textit{Quick sort} el peor caso es, irónicamente,
-un array que ya esté ordenado (o que esté ordenado inversamente). Si vuelves a
-su descripción o a su implementación, verás fácilmente
-por qué, al elegir el primer elemento como pivote,
-si está ordenado, consistentemente todos los elementos caerán en la lista de
-elementos mayores, es decir, por cada nivel de recursividad sólo disminuiremos
-el vector en una posición. Eso implica que, en este caso, para un vector de mil
-posiciones, haremos mil llamadas recursivas que harán sendas copias del vector
-midiendo éstas mil, 999, 998, etc. Eso es insostenible a la mínima que el
-vector sea muy grande. Vamos a comparar el algoritmo de selección
-(que es estable), con \textit{Quick Sort} en un vector ya ordenado.
+The most evident example of this is the last algorithm, which behaves poorly
+in the worst case scenario. For Quick Sort, the worse scenario is, ironically,
+an already ordered array (or inversely ordered). Is you come back to its
+description or implementation, you'd see why easily. If the array is ordered,
+all the elements would follow consistently in either the bigger elements list or
+the smaller elements list, because we use the first element as our pivot. This
+means that each level of recursivity we will reduce the problem in just one
+element. This implies that, in this case, for a vector of a thousand elements,
+we will perform a thousand recursive calls that will make as many copies of the
+vector with sizes 999, 998, and so on. This is not sustainable with any sizeable
+vector. Let's compare the selection algorithm (which is stable) with Quick Sort,
+with an already sorted vector.
 
-El primer hecho que te llamará la atención es que no puedo utilizar la misma
-cantidad de elementos que en la comparación anterior, esto es porque mi
-ordenador no cuenta con memoria suficiente para que \textit{Quick Sort} termine
-bajo estas condiciones. He utilizado un vector de 65.536 elementos. El
-algoritmo de selección tarda 4,58 segundos y \textit{Quick Sort} tarda, ni más
-ni menos que 21,55. Aquí es donde entra en juego la estabilidad, selección
-es de media peor, pero nunca tarda mucho más. De hecho, como sí que puedo
-ejecutar el algoritmo de selección sobre 262.144, vamos a que cuánto tarda y
-compararlo con el resultado bajo el vector aleatorio.
+% El primer hecho que te llamará la atención es que no puedo utilizar la misma
+% cantidad de elementos que en la comparación anterior, esto es porque mi
+% ordenador no cuenta con memoria suficiente para que \textit{Quick Sort} termine
+% bajo estas condiciones. He utilizado un vector de 65.536 elementos. El
+% algoritmo de selección tarda 4,58 segundos y \textit{Quick Sort} tarda, ni más
+% ni menos que 21,55. Aquí es donde entra en juego la estabilidad, selección
+% es de media peor, pero nunca tarda mucho más. De hecho, como sí que puedo
+% ejecutar el algoritmo de selección sobre 262.144, vamos a que cuánto tarda y
+% compararlo con el resultado bajo el vector aleatorio.
 
-Selección tarda 72,05 segundos, como puedes ver, casi exactamente lo mismo
-que con un vector aleatorio. Además, el consumo de memoria es siempre el mismo,
-cualidad que comparte con los algoritmos anteriores a él.
-Esto demuestra que hay que tener
-en cuenta más factores aparte de lo rápido que sea un algoritmo, pero todas
-estas cosas sería objeto de un libro en sí mismo y de un curso de agoritmia que
-no ha lugar, el motivo de esta sección es más bien enunciar la existencia de
-este tipo de problemas y mostrar la importancia de la elección e implementación
-de algoritmos para tareas incluso tan prosaicas como ordenar un array.
+The first fact that strikes to when reading the table is that I can't use the
+same length of the vector that in the last tests, this is because my computer
+has not enough memory so Quick Sort finish correctly under these circumstances.
+I have used a vector with 65,536 elements. The selection algorithm takes 4.58
+seconds and Quick Sort takes, no more or less than 21.55. Here is where
+stability, selection is en average worse, but is never much slower than that.
+As a matter of fact, since I can execute selection over 262,144, let's see how
+much it takes and compare it with the random vector.
 
-\subsection{Búsqueda}
-La búsqueda es otra de las tareas más importantes de un informático o
-programador, pero la búsqueda depende de dónde estés buscando. Hasta ahora sólo
-conocemos la estructura del array o del vector, que en relación a la búsqueda
-son indistinguibles. La búsqueda es, dado un valor, encontrar en la estructura
-el valor dado, o la primera ocurrencia de él. Es evidente cómo resolver este
-problema en general, un bucle que compruebe si el elemento concreto del vector
-es igual al elemento que queremos buscar. Si esto es así, se devuelve el
-índice donde se encuentra, si no, se devuelve un valor que generalmente es -1
-o cualquier negativo.
+Selection takes 72.05 seconds, as you can see, almost exactly the same that
+with the random vector. Also, the memory consumption is always the same, quality
+it shares with the algorithms that were explained before it. This shows that
+there are things you must take into account apart from the average execution
+time of an algorithm. All those factors would be object of a book by themselves,
+and of an algorithms course which is not what we're doing here, the reason of
+this section is enunciate the existence of these kinds of problems and show the
+importance of the election and implementation os algorithms for tasks even as
+simple as sorting an array.
 
-Pero hay una manera de buscar más rápidamente en un array o vector, si éste está
-ordenado, puedes buscar con la búsqueda binaria. Se llama binaria porque te
-mueves en dos direcciones: empiezas en el medio del array y compruebas si éste
-es menor que el que buscas, vas hacia delante en el array un cuarto de su
-longitud, repites la operación y vuelves a dividir entre dos la distancia que
-saltas. Veamos el pseudocódigo.
+\subsection{Search}
+Searching is another of the most important things a programmer uses, but search
+depends a lot on where you're searching. Up until now we only know arrays or
+vectors, which regarding searching, are the same. Searching is, given a value,
+finding in the structure you're searching in the same value, or its first
+occurrence. It is evident how to solve this problem in general, a loop that
+checks if the concrete element it equal to the element we're searching for. If
+this is the case, you can return the index you have found the element in,
+otherwise, a value to indicate it hasn't been found is returned, generally -1
+or any negative value.
 
+But there is a way to search faster in the array or vector, if this is sorted,
+you can perform binary seach. It is called binary because you move in both
+directions: you start in the center of the array and check is this element
+is greater or less than the element you're looking for, if it is greater, you
+go to the left part of the array, and repeat the search there, dividing the
+number of elements you're searching among. Let's see the pseudocode:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[style=pseudoCode]
-algoritmo búsqueda_binaria :=
-entradas: array, objetivo
+algorithm binary_search :=
+input: array, target
 
-mientras array no es igual a {}:
-    pos = centro(array)
-    elemento = array[pos]
-    si elemento es igual a objetivo:
-        retornar pos
-    si elemento es menor que objetivo:
-        array = mitad_después(array, pos)
-    si elemento es mayor que objetivo:
-        array = mitad_antes(array, pos)
+while array not equals {}:
+    pos = center(array)
+    element = array[pos]
+    if element equals target:
+        return pos
+    if element is less than target:
+        array = right_half(array, pos)
+    if element is greater than target:
+        array = left_half(array, pos)
 
-retornar -1
+return -1
 \end{lstlisting}
 \end{minipage}
 
-Básicamente, aprovechamos que el array o vector está ordenado para que, cuando
-elegimos una posición, sepamos que necesariamente el elemento que buscamos
-está en la mitad del array que quede después o antes de este elemento. Dividimos
-pues el tamaño del problema entre dos en cada iteración de este proceso hasta
-que queda sólo el elemento que buscamos (si sólo hay uno) o nada, y por tanto
-no existe el elemento.
-
+Basically, we take advantage from the fact that the array or vector ir sorted
+so, when we choose a position, we know that, necessarily the element we choose
+must be either in the left side or on right side of the array. We divide by two
+the size of the problem in each iteration, until there is an element that is
+equal to our target, or none, therefore the element is not present in the
+vector. Let's see the implementation:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Implementación del algoritmo de búsqueda lineal},
+caption={Binary seach algorithm implementation},
 label={lst:binarySearch}]
 int binary_search(int* array, int array_size, int target)
 {
@@ -9547,120 +9478,71 @@ int binary_search(int* array, int array_size, int target)
 \end{lstlisting}
 \end{minipage}
 
-Como en C dividir arrays es complicado, vamos a realizar el juego con las
-posiciones. Definimos un umbral inferior y otro superior que serán
-los límites de la zona donde queremos buscar (la parte del array donde
-puede estar el elemento buscado). Lo que hacemos es siempre situarnos
-en el medio de esa zona del array y comprobar si hemos dado con el elemento
-que queremos, si no, vemos si es menor o mayor que donde estamos. Si el objetivo
-es mayor que donde estamos, movemos el límite inferior aquí,
-decir: sabemos que lo que buscamos no puede estar antes de la posición actual.
-Si el objetivo es menor, sabemos que debe estar antes. Si en algún momento los
-límites colisionan, es que nos hemos quedado sin zona que buscar y devolveremos
--1.
+Since dividing array in C is complicated, let's play with the positions. We
+define a lower and an upper bound, which will be the limits of the part of
+the array we're looking for the element. What we do is to set ourselves in each
+iteration in the middle zone of the array and check is we have found the
+element, if not, we check if it's greater than or less than the target. If the
+target is greater than this point in the array, we know that our element, if
+present, is in the right size, that is, later positions, otherwise, we know
+it is in the left size, in the earlier positions. If we reach the situation in
+which the limits collide (that is, they are the same), we have ruled out all the
+possible positions and, therefore, the element is not present in the array.
 
-La ventaja que tiene este algoritmo reside en un comentario que he dejado caer
-unos pocos párrafos atrás, cada vez que comprobamos si un elemento es el que
-buscamos, dividimos el problema entre dos. Esto quiere decir que, de media,
-haremos $\log_{2}{\left(n\right)}$ comprobaciones. En el caso de la búsqueda <<normal>>, en
-cualquier array, de media haremos $\frac{n}{2}$ comprobaciones. Esto hace que
-sea un algoritmo más deseable, aunque hay que tener en cuenta que el array
-debe estar ordenado, y si no lo estaba, esto tiene un coste. Lo ideal es
-que se utilice con arrays que se mantengan siempre ordenados, es decir, donde
-las inserciones se hagan ordenadas, pero eso tiene un coste a su vez porque
-hay que mover los elementos en la operación de inserción.
+The advantage of this algorithm resides precisely in something I have gone
+through quickly some paragraphs before, each time we check if an element is the
+one we want, we divide the problem by two. This means that, on average, we will
+make $\log_{2}{\left(n\right)}$ checks. In the case of the ``normal'' search,
+on average, we will make $\frac{n}{2}$ checks. This makes this algorithm more
+desirable, although we must take into account that the array must be sorted and,
+if it is not, we must order it, which has a computational cost. Ideally this
+algorithm is used with structures that are always sorted, that meand, where
+insertions are performed ordered, but this has a cost because you need to move
+elements in the insertion operation (in a similar fashion to what we did in
+the selection sorting algorithm).
 
-%\subsection{Cómo dividir funcionalidad entre distintos archivos}
-%Aunque esto es en sentido estricto un manual de programación, y no de
-%ingeniería del \emph{software}, tenemos que hablar de algunos consejos sobre
-%cómo dividir tu funcionalidad en distintos archivos, ahora que ya saber hacerlo.
-%Como la mejor manera de aprender a montar en bicicleta es montando, vamos a
-%utilizar un ejemplo para ver de qué manera podemos dividir entre archivos
-%funcionalidades distintas. Vamos a hacer un programa que calcule el camino
-%más corto entre en un punto A y un punto B en un mapa. Para ello, deberemos
-%hacer estas cosas:
-%
-%\begin{enumerate}
-%\item Crear mapas
-%\item Guardar mapas en un archivo y leerlos de él
-%\item Encontrar el camino de un punto A al punto B sabiendo que es el más corto.
-%\end{enumerate}
-%
-%En general, lo primero que se suele hacer cuando te encuentras con un problema
-%complejo es preguntarse qué vamos a modelar en nuestro sistema. Un modelo es,
-%en términos generales, una simplificacion de la realidad que nos permite
-%entenderla y actuar sobre ella o predecirla. En informática, cuando tienes una
-%realidad, lo primero es crear un modelo de datos que nos permita manejarlo
-%dentro del lenguaje de programación.
+\section{Generic algorithms}
+Now we already know what an algorithm is in its most fundamental terms and that
+we know some of those that are complex to some degree, we can take one step
+further: make those algorithms ``purer'', made them in such a way that they are
+just a succession of steps to calculate something, but they ignore the data type
+they're operating on. This being said, it's a bit confusing, but you're going to
+understand it easily. In the last section we have implemented several algorithms
+that work with arrays and, even when I didn't say it, if you come back now and
+look at the example code, you will see they're all integer vectors, not of any
+other type. The problem is that, as you may guess, the process for sorting an
+array of integers and an array is similar, or even equal, to sorting
+any data type that supports to be ordered. For example, floating point numbers.
 
+You may think that we can always copy the code to sort integers and substitute
+\verb!int! for \verb!double!. We could, but this way of proceeding has a very
+big caveat: it duplicated code. Duplicate code is bad becase of two reasons:
+it makes our executables bigger, and our code in general \textbf{less
+maintainable}. Put in a simple way, it is more difficult to send such code to
+anybody so they can understand it easily and, in the case of some error or not
+defined behaviour, we had to find every version of the functions or piece of
+code with the problem and rewrite it as many times as it is duplicated to solve
+the error. Furthermore, we're programmers, our drive is to do more with less.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+To do this we have generic tools, the first one being the pointer to
+\verb!void!. When I presented it \verb!NULL! to you alongside the dynamic memory
+allocation, I told you that \verb!malloc! return a \verb!void! pointer that will
+be converted implicitly to any other pointer type. Also, later I told you about
+\verb!realloc! and \verb!free! they receive \verb!void! pointers that you do not
+need to convert to such type to pass. To sum it up: in C the \verb!void! pointer
+has an implicit conversion to all the types, and all the type to \verb!void!.
 
-\section{Algoritmos genéricos}
-Ahora que ya sabemos qué es un algoritmo en sus términos más elementales y
-que conocemos algunos con una complicación suficiente como para retarnos,
-podemos dar un paso más: hacer que estos algoritmos sean más <<puros>>, sean
-simplemente un conjunto de instrucciones, pero sean ignorantes de qué tipo
-de dato van a recibir o de qué operación van a realizar. Dicho así, esto es
-confuso, pero lo vas a entender fácilmente. En la sección anterior hemos
-implementado varios algoritmos que manejan arrays, y, aunque no lo he dicho,
-si retrocedes ahora y miras el código de ejemplo, siempre verás que son
-arrays o vectores de enteros, nunca de otro tipo de dato. El problema es que,
-como supondrás, el proceso de ordenación de un array de enteros es similar
-al de un array de cualquier tipo de dato que admita ordenación. Por ejemplo,
-de decimales.
-
-Pensarás que, entonces, siempre podemos copiar el código de la ordenación de
-elementos de tipo \verb!int! y sustituir \verb!int! por \verb!double!.
-Podríamos, pero esta manera de proceder tiene un defecto muy problemático:
-duplica código. Duplicar código es malo por dos motivos: hace nuestros
-ejecutables más grandes, y nuestro código en general \textbf{menos mantenible}.
-Dicho en términos entendibles, es más difícil que le pases ese código a alguien
-y lo entienda rápido y, en caso de haber un error o comportamiento no definido,
-lo resuelva rápido. Imagínate que encontramos un error en la implementación de
-la función de ordenación, sea la que sea. Tendríamos que rastrear a mano todas
-las copias para eliminar ese error. Además, somos programadores:
-nuestro objetivo es hacer más con menos.
-
-Para esto tenemos dos herramientas genéricas, la primera es el puntero a
-\verb!void!. Cuando te prensenté el puntero a \verb!NULL! y la reserva
-de memoria dinámica te dije que \verb!malloc! devuelve un puntero a \verb.void.
-que luego se convertirá a cualquier tipo que necesites. Es decir, el puntero
-a \verb.void. se convierte implícitamente en el que tú quieras, con la
-asignación. Además, después, \verb.realloc. o \verb.free. rediben punteros a
-\verb.void. que no necesitas convertir para pasárselo. En resumen: en C el
-puntero a \verb.void. tiene conversión implícita a todos los tipos, y todos
-los tipos a \verb!void!.
-
-Esto tiene una potencia enorme, porque podemos recibir un puntero a \verb"void"
-cuando no sepamos lo que vamos a recibir. El problema es que un puntero de este
-tipo \textbf{no se puede desreferenciar}. Como ya te dije en su momento,
-no se puede interpretar un puntero a \verb!void!. Sólo se puede interpretar
-si asumimos algún tipo y asignamos este puntero sin tipo a uno con él.
-Por ejemplo, veamos una función que invierta un array
-\textbf{de cualquier tipo}.
+This is very powerful, because we can receive a \verb!void! pointer when we do
+not know that to receive. The problem is that a pointer of this type \textbf{
+cant' be dereferenced}. As I said before, you cannot interpret a pointer to
+\verb!void!. You can only decode it if you convert it to a type first. For
+example, let's write a function that inverts an array \textbf{of any type}.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Inversión de arrays de cualquier tipo},
+caption={Inversion of an array of any type},
 label={lst:genericArrayInversion}]
 void invert_array(void* array, int array_size, int type_size)
 {
@@ -9677,38 +9559,36 @@ void invert_array(void* array, int array_size, int type_size)
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, se parece mucho a como lo harías sabiendo su tipo, pero hay
-que recibir como argumento el tamaño del tipo de dato. Lo que hacemos en
-el bucle es crear dos punteros que representan los dos elementos que tenemos
-que intercambiar, no podemos hacerlo con variables porque no sabemos el tipo.
-Estos punteros no son necesarios, pero, siendo sinceros, sin ellos las líneas
-quedan totalmente ilegibles. Después, usamos la función \verb!memcpy! para poder
-mover el elemento en la posición \verb!ii! a una variable auxiliar, el elemento
-en la posición opuesta (\verb!ii - 1 - array_size!) a la i-ésima y después desde
-la variable al elemento opuesto.
+As you can see, it is very similar to that you would do if you knew the type,
+but you need to receive as an argument the size of the data type. What we do in
+the loop if to create two pointers that represent the elements we need to swap,
+we can't do it with variables because we do not know the type. These pointers
+are not needed, but being sincere, without them the lines would be very
+difficult to read. After that, we use \verb!memcpy! to being able to move the
+element in position \verb!ii! to an auxiliary variable, and the element in the
+opposite position (\verb!ii - 1 - array_size!) to the i\textsuperscript{th}
+position and later the variable to the opposite element.
 
-Lo primero que se nota es algo evidente: una función sencilla enseguida se
-convierte en algo más complicado de leer, porque no podemos usar operadores,
-sino que tenemos que usar llamadas a función. Pero debes admitir que, ahora,
-podemos invertir todos los tipos de arrays sin duplicar nada de código. También
-hay una cuestión importante: mientras que el operador de asignación y saber
-el tipo provoca que el compilador pueda mapear las operaciones que escribas con
-operaciones del procesador para mover bytes en paquetes de cuatro u ocho, por
-ejemplo, haciéndolo así, \verb!memcpy! se ve obligado a copiar byte a byte.
-Esto hace que los algoritmos genéricos creados así sean más lentos que sus
-contrapartes específicas.
+The first thing to notice is very obvious: a functions that was very simple
+becomes somewhat more difficult to read, because we cannot use operator, but we
+have to use function calls. You must admit that, now, we can reverse all the
+kind of array without suplicating code. There is also an important matter here,
+while the assignment operator and know the type allow the compiler to map the
+operations you write with operations inside your processor to move bytes
+in packs of four or eight, for example. Doing this like this, with
+\verb!memcpy!, you force the computer to copy byte by byte. This makes generic
+algorithms written in this way a bit slower than their specific counterparts.
 
-Hay muchos ejemplos de algoritmos que bien pueden utilizar esta técnica, pero
-sólo con esto no podemos terminar de solucionar el problema. Vamos a crear
-una función que imprima un array de elementos genéricos. La función, con las
-herramientas que tenemos, quedaría así:
-
+There are several examples of algorithms that could use well this technique, but
+with only this tool we cannot solve the problem completely. We are going to
+create a function that prints an array of generic elements. The function, with
+the tools we have, would look more or less like this.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Imprimir arrays de varios tipos},
+caption={Print arrays of several types},
 label={lst:genericPrintf}]
 void print_array_generic(void*       array,
                          size_t      array_size,
@@ -9749,33 +9629,31 @@ void print_array_generic(void*       array,
 \end{lstlisting}
 \end{minipage}
 
-Aquí necesito saber el tipo, no sólo su tamaño, por una razón: el especificador
-de impresión necesita el tipo exacto. Lo que hago es declarar un \verb!enum!
-para poder indexar los tipos en un array de especificadores. Además, en el
-\verb!switch! utilizo un truco: cada caso está en un bloque de código diferente
-(recuerda que se pueden crear bloques de código sin que estén asociados
-a una estructura), así en cada uno la variable \verb!var! puede ser del tipo
-que queramos. Esto es un paso hacia delante, pero sigue siendo una función
-bastante mala. Es como si hubiéramos pegado todas las funciones para cada tipo
-y las hubiéramos metido en la misma. Es un avance, sí, porque, aunque mantenemos
-los mismos fragmentos de código duplicado, al menos ahora están todos juntos.
+Here I need to know the type, not only the size, for a reason: the specifier
+to print needs the eaxt type. What I do is to declare a \verb!enum! and to be
+able to index the types in an specifier array. Also, in the \verb!switch! I use
+a little trick: every case is in a different code block (remember you can create
+code blocks without them being associated to any control structure), hence in
+all of them the varuable \verb!var! can be of a different type. This is a step
+forward, but continues being a very bad function. It is like we had stuck
+together all the function for every type and we had put them in the same
+function.  It is a step forward, yes, because, even when we have all the same
+code pieces, they're at least all together.
 
-Pero lo ideal es que pudiéramos recibir desde fuera la manera de imprimir, sería
-deseable que el usuario de la función nos diera una función que a su vez
-contuviera el comportamiento de impresión. Es decir, de algún modo debemos
-poder convertir un comportamiento, un algoritmo, una función, al final del día,
-en algo que se pueda pasar, mover, trasladar de un sitio a otro. En C hay un
-mecanismo concreto para hacer esto que nos otorga un poder enorme:
-los punteros a función.
+Ideally we'd want to receive from outside the way we need to print, it could
+be desirable that the user of the function gave us another one that contained
+the printing behaviour. That is, in some way we need to turn a behaviour,
+an algorithm, a function, at the end of the day, in something you can pass,
+move, translate from one place to another. C has a mechanism to make this that
+allows us a lot of versatility: function pointers.
 
-Un puntero a función es un puntero (es decir, una dirección de memoria) que
-apunta a las instrucciones que se ejecutarán en esa función. Estos punteros nos
-permiten, como formulé antes, transferir, comunicar, a funciones de nuestro
-programa comportamientos específicos. Cada tipo de función que se puede
-declarar es un tipo de puntero distinto. Una función, como vimos en su momento,
-se define por su tipo de retorno y por el tipo de los argumentos que recibe.
-Esto quiere decir que, por ejemplo, estas dos funciones son iguales a estos
-efectos.
+A function pointer is a pointer (that is, a memory address) whtat points to
+instruction that will be executed in said function. These pointers allow us to,
+as I said before, transfer, communicate, specific behaviours to another parts of
+our program. Every type of cuntion that can be declared is a different type of
+pointer. A function, as we saw before, is defined by its return type and the
+types of the arguments is receives. This means that, for example, these two
+functions are equal in terms in those terms.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -9785,26 +9663,26 @@ int multiply(int x, int y);
 \end{lstlisting}
 \end{minipage}
 
-Si cada función es un tipo, quizás estés pensando, debe tener un nombre por
-el que referenciarlo y una manera de declararlo y de usarse. Sí, pero no, las
-funciones no se pueden inicializar como variables, si quisieras guardar el
-puntero de una función, podrías asignarlo a un puntero a \verb!void!.
-Sin embargo; se recibe como argumento. Para que una función reciba un puntero
-a función como argumento se usa este esquema:
+If every function is a type, you may be thinking that it must have a name to
+reference is and a way to declare and use it. Yes, but no. Functions cannot
+be initialized like variables, is you wanted to save the pointer to a function,
+you could assign is to a \verb!void! pointer. Nevetherless; it is received
+as argument. To make the function receive a function pointer, this syntax is
+used.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[style=C]
 tipo_de_retorno (nombre) (tipo1, tipo2...)
-// por ejemplo
+// for example
 int(foo)(int, int)
 \end{lstlisting}
 \end{minipage}
 
-Con un ejemplo todo se ve mejor, veamos algo sencillo: cómo hacer una función
-que reciba otra función y la ejecute. Por ejemplo, vamos a hacer una función
-que reciba otra con esta signatura: \lstinline[style=C]!void (void)! y la ejecute
-diez veces.
+Since everything is clearer with an example, let's see something easy: how to
+make a function that receives another and exeuted it. For example, let's make
+a function that receives one with this signature:
+\lstinline[style=C]!void (void)! and executes it ten times.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -9818,31 +9696,30 @@ void execute_10_times(void (foo)()) {
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, lo único distinto es la declaración de la función, que ya
-hemos tratado. La llamada a la función \verb!foo! se hace como cualquier otra.
-Nos queda la otra cara de esta moneda, cómo se llama a la función
-\verb!execute_10_times!. Esto es bien sencillo, porque el puntero de una función
-es, simplemente, su nombre sin los paréntesis, así que la llamada quedaría como:
+As you can see, the only diffent thing is the declaration of the function, which
+we have trated before. The call to \verb!foo! is like any other. We have the
+other side of the coin, how to call the function \verb!execute_10_times!. This
+is very simple, because the pointer to a function is simply its name without
+parenthesis, so the call would be like follows:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[style=C, label={lst:foocall},
-caption={Llamada a una función que recibe un puntero a función}]
+caption={Call to a function that receives a function pointer}]
 execute_10_times(print_a);
 \end{lstlisting}
 \end{minipage}
 
-Hecho esto, volvamos a la función de impresión genérica, pero esta vez haremos
-que, a su vez, reciba una función que ejecute la impresión de un único elemento.
-Tenemos que elegir la signatura de esta función, como es una función que
-imprime, lo normal es que no devuelva nada y que reciba sólo el elemento
-que queramos imprimir. Si recibiera el elemento en sí mismo, volveríamos
-al problema de que hay que definir su tipo. Lo que haremos es una función
-que reciba un puntero a \verb!void! y no devuelva nada. Ojo, esa función será
-hecha por quien use nuestra función de impresión de arrays, no por nosotros,
-salvo que seamos el mismo individuo, claro. Para el ejemplo, enseñaré ambas
-funciones.
-
+Once this is done, let's come back to the generic printing function, but this
+time we will make that it receives a function that prints just a single element.
+We hace to choose the signature of this function, since it is a function that
+prints, it is only logical that it does not return anything and that receives
+just the element that we want to print. If it received the element itself,
+we would have the same problem, we would have to define its type. What we would
+do is a function that receives a pointer to \verb!void! and return nothing.
+Beware, this function will be written by the person that uses our generic array
+printing function, not by us, unless we're the same person, of course. For the
+example, I will show both functions.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -9890,51 +9767,47 @@ int main(int argc, char** argv)
 \end{lstlisting}
 \end{minipage}
 
-La función genérica de impresión es sencilla, es simplemente un bucle que
-recorre el array y le pasa el puntero correspondiente a la función de impresión
-que se le pasa como argumento. Como es lógico, necesito el puntero al array,
-la longitud del mismo y, al ser un puntero a \verb!void!, necesito el tamaño
-del tipo. Como puedes ver, para darle un poco de vidilla he hecho que la
-función reciba dos cadenas: una como separador, que imprimiré después de
-todos los elementos (menos el último, de ahí el condicional) y un terminador,
-que se imprimirá después del array. La que podríamos denominar función
-de impresión específica, es decir: \verb!print_int!, es una función terriblemente
-simple, sólo llama a \verb!printf! haciendo un cásting a puntero a entero
-y desreferenciándolo.
+The generic printing function is very simple, it is simply a loop that iterates
+over the array and passes the pointer to the printing function that receives as
+argument. Logically, I need the pointer to the array, the length of it and,
+since it is a \verb!void! pointer, I need the size of the data type. As you can
+see, to spice it a bit, I have added two functionalities to the function: a
+separator character, that will be printed after all the elements (but the last
+one), and an ending character, that will print after the array. What we could
+call the specific priting function, that is: \verb!print_int!, it a very simple
+function, it just calls \verb!printf! performing casting from the pointer and
+dereferencing it.
 
-Es cierto que este modelo de función nos lleva al mismo problema, si
-queremos imprimir tipos distintos, tendremos que definir funciones distintas.
-Sí, pero piensa una cosa: hemos hecho que el código que se duplique sea ínfimo,
-porque son funciones triviales de una línea, además, una vez salimos de los
-tipos básicos que podríamos, contando sus variantes, agrupar en 10 funciones,
-aproximadamente, se acaba la duplicidad de código. Esto es así porque cualquier
-otra estructura requeriría una función o bien de impresión o bien de conversión
-a cadena de texto hecha a medida para ella.
+It is true that this function model takes us into the same problem, if we want
+to print different types, we had to define new different functions. This is
+true, but think about this: we have reduced the amount of duplicated code to
+its minimum expression, because they're trivial functions of one line. Also,
+once we are out of basic types, that would be more or less ten specifiers, the
+code it not duplicated anymore, because any other struct or type would need a
+custom function written by the creator of such new type.
 
-Como habrás podido notar, la sintaxis para declarar que una función recibe
-otra como argumento es complicada y, además, rompe el patrón de una lista
-de argumentos que, hasta ahora, era siempre una sucesión de tipos y nombres
-separados por comas. Con esta sintaxis para punteros a función se
-incluyen varios paréntesis. C permite definir un tipo para los punteros
-a función. Es decir, aún descubrimos otra faceta de la poderosa palabra
-\verb!typedef!. Veamos cómo se haría y pondré comentarios de algunos ejemplos
-de funciones que pertenecerían a ese tipo.
+As you may have noticed, the syntax to declare a function that receives another
+as argument is complicated and, also, breaks the pattern of an argument list
+that, up until now, was always a succession of types and names separated by
+commas. With this syntax for pointers, several parenthesis are included. C
+allows to define a type for the function pointers. That is, we are discovering
+yet again another use of \verb!typedef!. Let's see how it would be done and I
+will commen of some example of functions that would belong to that type.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Definición de tipos puntero a función},
+caption={Function pointer type definition},
 label={lst:functionPointerTypedef}]
 typedef void(print_fun_t)(void*); //ej: void print_int(void* a);
 typedef void(*malloc_t)(void); //ej: void* malloc(void);
 typedef int(sum_t)(int, int); // ej: int sum(int a, int b);
 \end{lstlisting}
 \end{minipage}
-Presta atención porque, si la función devuelve un puntero, el asterisco va
-dentro de los paréntesis, junto al nombre del tipo, no fuera. Si hiciéramos en
-el programa la primera definición, podríamos cambiar nuestra función genérica
-por:
+Pay attention because, if the function returns a pointer, the asterisk goes
+inside the parenthesis, next to the type name, not outside. If we made in the
+program the first definition, we could change our generic function to:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -9950,41 +9823,40 @@ void print_array_generic(void*       array,
                          print_fun_t print_foo);
 \end{lstlisting}
 \end{minipage}
-Queda mucho más claro, porque el último argumento se identifica,
-como cualquier otro, por un tipo y un nombre.
+It is must clearer, because the last argument is identified, as any other, by
+a type and a name.
 
-La utilidad de esto se puede ver muy bien en funciones que ya hemos tratado,
-las funciones de ordenación. Ahora mismo esas funciones siempre ordenan vectores
-de enteros y, además, siempre de menor a mayor. Esto presenta varias posibles mejoras,
-la primera es evidente, tenemos que poner punteros a \verb!void! y utilizarlos,
-pero el otro es más interesante. Esta segunda mejora es: sólo podemos utilizar
-una relación de orden. Es decir, sólo podemos ordenar números y de menor a
-mayor, no podemos comparar estructuras, no podemos comparar cadenas de texto
-alfabéticamente, pero podríamos si utilizáramos estas nuevas herramientas.
-Para generalizar una función de ordenación necesitaríamos el tamaño del tipo que
-vamos a ordenar y una función de comparación.
+The utlity of this can be very well seen in a kind of functions we have seen
+before, the sorting functions. Right now those functions sort integer vectors
+and, also, always from smallest to biggest. This present several improvements,
+the first one is evident, we have to receive \verb!void! pointers and use them,
+but the other is more interesting. This second one is: we can use only a way to
+sort. That is, we can only sort numbers and from smallest to biggest, we can't
+order structs, we can't comparate strings alphabetically, but we could if we
+used those new tools. To generalize a sorting function we would need the size of
+the data type and a function to compare the elements.
 
-Las funciones de comparación son un tipo muy concreto, se llaman
-predicados, y son funciones que devuelven un valor lógico ante un conjunto
-de argumentos. Así que el prototipo de la función que tenemos que
-recibir sería una que devolviera un valor lógico entero y recibiera dos punteros
-a \verb!void!. De nuevo, recibe dos punteros a \verb!void! para ser compatible
-con nuestra función genérica, aunque el predicado sí debe saber qué
-tipo está comparando, lógicamente.
+Comparison functions are a very concrete type, they're called predicates, and
+they're functions that return a logic value over a set of arguments. A precidate
+evaluates a proposition (remember the section about logic), but over the
+arguments. In this case, a precidate to sort would be: function that checks if
+the first element is less than the second one. Hence the signature of this
+funtion would return a logic value and will receive two \verb!void! pointers.
+Again, it receives two pointer to \verb!void! to be compatible with out generic
+function, internally, the comparison functions knows which type is behind the
+\verb!void! pointer.
 
-Vamos a usar el algoritmo más sencillo de ordenación que tenemos, el de la
-burbuja, para ilustrar esto, esto es así porque una implementación genérica
-de, por ejemplo, \textit{Quick Sort} sería más compleja y larga, y me interesa
-que veas el concepto del puntero a función y de punteros a \verb!void!
-trabajando, no que te pierdas en una función de 40 líneas. Además, para verlo
-mejor, vamos a utilizar un caso concreto: una función que ordene cadenas
-de texto alfabéticamente, usando \verb!strcmp!.
+We are going to use the simpler algorithm we have, the bubble sort, to
+illustrate this. I am doind this because a generic implementation of, for
+example, Quick Sort, would be more complex and longer, and I am more interested
+in the concept of function pointer and \verb!void! pointer. Also, we're going to
+see an application, sorting of text chain alphabetically.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Definición de \texttt{bubble\_sort} genérico},
+caption={Generic \texttt{bubble\_sort} definition},
 label={lst:bubbleSortGeneric}]
 typedef int(comparator_t)(const void*, const void*);
 
@@ -10015,22 +9887,25 @@ void generic_bubble_sort(void*        array,
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, definimos el tipo de nuestra función de comparación, la cual
-devolverá un entero y recibirá dos punteros constantes a \verb!void!, y esto
-es importante, la definición de un tipo puntero a función no tiene conversiones
-implícitas de ningún tipo. Esto es: como hemos definido la función tal que
-recibirá dos punteros constantes a \verb!void!, una función que reciba punteros
-no constantes no será de este tipo y no se podrá usar como tal, ten esto en
-cuenta.
+As you can see, we define the type of our comparison function, which will return
+and integer and will receive two constant pointers to \verb!void!, and this is
+important, the definition of a pointer type hasn't got any implicit conversions.
+That is: since we have defined the function in such a way it will receive two
+constant pointers, a function that receives no constant pointers will not be
+the same type and hence couldn't be used. Mind this when using function
+pointers.
 
-Después tenemos la función de intercambio en su versión genérica, es decir,
-en vez de usar el operador de asignación, utilizaremos la función de copia
-de memoria con el tamaño del tipo. Y después, la función genérica de ordenación.
-Como puedes ver, simplemente hemos sustituido el condicional por la negación
-de la llamada a la función. Recuerda cómo funcionaba el algoritmo de la burbuja:
-cuando el elemento i-ésimo es \textbf{mayor} que el siguiente, se intercambian.
-Es decir: cuando \textbf{no} se cumple el predicado de que elemento $i$ sea
-menor que el siguiente.
+After that, we have the swap function in its generic function, that is, instead
+of using the assignment operator, we will use the memory copy operation with the
+size of the type. Later, the generic sorting function. As you can see, we have
+simply substituted the old conditional by one that calls the function we
+received as argument. Remember how bubble sort worked: when the
+i\textsuperscript{th} element is \textbf{greater than} the next one, they swap.
+That is: when \textbf{is it not} true the predicate that the
+i\textsuperscript{th} element is less than the next one. The advantage that
+comes from it being a predicate is that we could check if the element is
+greater, to sort the vector backwards, or use custom predicates for several
+structs.
 
 Dentro del bucle debemos calcular primero los punteros de los elementos. Esto
 es así por legibilidad, pero podríamos escribir las expresiones en la propia

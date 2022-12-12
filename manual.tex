@@ -1972,7 +1972,8 @@ eso el lenguaje C ofrece la estructura \texttt{else-if}, en que <<enganchamos>>
 una cláusula \texttt{if} al \texttt{else} de otro condicional. Así, sólo si
 no se ha cumplido la condición anterior, se evaluará esta nueva, y si se cumple
 se ejecutarán las instrucciones que haya dentro, veámoslos con un ejemplo de
-código que implementa lo que he descrito antes.
+código que implementa (implementar llevar a cabo algo, se use mucho como
+sinónimo de <<escribir el código de esta idea>>) lo que he descrito antes.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -7830,31 +7831,24 @@ nuestra estructura círculo y que la vamos a llamar \verb!libGeometry!.
 Es convencional que todas las bibliotecas empiecen por \verb!lib!.
 El primer paso es generar el código objeto,
 pues de él nos valemos tanto para crear ejecutables como para crear bibliotecas.
-\begin{verbatim}
-gcc -c point.c
-gcc -c circle.c
-\end{verbatim}
+\begin{lstlisting}[style=terminalStyle]
+\$ gcc -c point.c
+\$ gcc -c circle.c
+\end{lstlisting}
 
 Una vez hecho eso, creamos la biblioteca, para ello utilizamos este comando:
-\begin{verbatim}
+\begin{lstlisting}[style=terminalStyle]
 gcc -shared -o libGeometry.so point.o circle.o
-\end{verbatim}
+\end{lstlisting}
 
 Utilizamos la opción \verb!shared! para indicar que estamos compilando
-una biblioteca dinámica. Ahora, para crear el ejecutable, debemos enlazar con
-la biblioteca:
-
-\begin{verbatim}
-gcc -shared -o pointLib.so point.o circle.o
-\end{verbatim}
-
-Esto creará nuestro archivo de biblioteca, \verb!pointLib.so!, ahora podemos
+una biblioteca dinámica.
+Esto creará nuestro archivo de biblioteca, \verb!libGeometry.so!, ahora podemos
 compilar el ejecutable utilizando la biblioteca en vez de los códigos objeto
 directamente. Para ello se usaría este comando:
-
-\begin{verbatim}
-gcc -L. -Wl,-rpath=. -o main.exe main.o -lGeometry -lm
-\end{verbatim}
+\begin{lstlisting}[style=terminalStyle]
+\$ gcc -L. -Wl,-rpath=. -o main.exe main.o -lGeometry -lm
+\end{lstlisting}
 
 Este comando es un poco complicado, la opción \verb!-L! nos permite indicar
 en qué fichero deben buscarse las bibliotecas para la compilación, esto se hace
@@ -7872,17 +7866,17 @@ programa, no funcionará, porque lo buscará en tiempo de ejecución.
 En el caso de una biblioteca estática, éstas se crean de manera más sencilla,
 crea los objetos como antes, y ahora crea la biblioteca estática:
 
-\begin{verbatim}
-ar rvs libGeometry.a point.o circle.o
-\end{verbatim}
+\begin{lstlisting}[style=terminalStyle]
+\$ ar rvs libGeometry.a point.o circle.o
+\end{lstlisting}
 
 Ahora se puede compilar incluyendo la biblioteca (tenemos que seguir añadiendo
 \verb!-lm! porque usamos la función \verb!sqrt! que está en la biblioteca
 matemática):
 
-\begin{verbatim}
-gcc -o main.exe main.o libGeometry.a -lm
-\end{verbatim}
+\begin{lstlisting}[style=terminalStyle]
+\$ gcc -o main.exe main.o libGeometry.a -lm
+\end{lstlisting}
 
 Para comprobar que es estática, eliminar \verb!libGeometry.a! y verás que el
 ejecutable sigue funcionando. Esto es porque la biblioteca se incrusta en
@@ -8039,7 +8033,7 @@ es cuando necesitas inicializar a ceros una zona de memoria. Esto es típico
 cuando reservas memoria para alguna estructuras cuyo valor necesitas controlar
 o que requiere que sea inicializada así. En ejemplos posteriores las veremos.
 El ejemplo que voy a poner, sin embargo, es más original. Imagina que
-quieres imprimir una carra de progreso en modo de texto que tenga este aspecto:
+quieres imprimir una barra de progreso en modo de texto que tenga este aspecto:
 \begin{verbatim}
 [#############################.....................]
 \end{verbatim}
@@ -8272,6 +8266,18 @@ ya sabes, suele provocar que los programas fallen y se cierren. Por esto,
 ten cuidado al usar la función, porque llamarla sobre un puntero a \verb!char!
 sin un carácter nulo provocaría errores en el programa.
 
+La \textit{signature} de la función \verb!strlen! de verdad es la siguiente.
+
+\noindent
+\begin{minipage}[H]{\linewidth}
+\mbox{}
+\begin{lstlisting}[style=C,
+caption={Declaración de la función \texttt{strlen}},
+label={lst:memcpy}]
+size_t strlen(const char *s);
+\end{lstlisting}
+\end{minipage}
+
 Rápidamente, la función que duplica cadenas de texto es \verb!strdup!, y su
 \emph{signature} es ésta:
 
@@ -8483,7 +8489,7 @@ label={lst:snprintfExample}]
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX_STRING_SIZE ((size_t) 100)
+#define MAX_STRING_SIZE ((size_t) 65536)
 #define ARRAY_SIZE(array) ((sizeof((array)))/(sizeof((array)[0])))
 
 char* integer_array_to_string(const int* array, size_t array_size)
@@ -8543,7 +8549,8 @@ el número de caracteres que se imprimirían, es decir, sin contar con que se
 realice la impresión o no. A la hora de imprimir, el carácter nulo del final
 cuenta, es decir, si a una llamada a \verb!snprintf! le pasas como límite
 un tres e intentas imprimir \verb!"abc"!, devolverá tres, pero no escribirá
-el carácter nulo.
+la última letra, porque siempre se escribe el carácter nulo (salvo que el límite
+que se le pase sea cero).
 
 Ten cuidado, debes comprobar que el argumento del límite no es negativo,
 porque está definido como un tipo sin signo, por lo que si le pasaras un número
@@ -8935,7 +8942,7 @@ con valores absolutos una unidad mayores en el lado negativo que en el positivo,
 el \verb!char!, por ejemplo, tiene un rango que va desde -128 a 127.
 
 Volvamos a los operadores a nivel de bit, sea un \verb!char! que valga
--7 y otro que valga 12:
+-7 y otro que valga 12, veamos cómo se calcularía su conjunción a nivel de bit:
 $$
 a = -7_{\left(10\right.} = 11111001_{\left(\mathrm{CA}2\right.} \;\;
 b = 12_{\left(10\right.} = 00001100_{\left(\mathrm{CA}2\right.}\;\;
@@ -8960,7 +8967,7 @@ crear una función que serialice un objeto de tipo persona, con estas opciones:
 \begin{enumerate}
 \item Serializar con nombres legibles para personas, es decir,
 <<apellido>> en lugar de, por ejemplo <<last\_name\_1>>.
-\item Serializar con espacios o no entre caracteres de contro, es decir,
+\item Serializar con espacios o no entre caracteres de control, es decir,
 \verb!"last_name_1" : "Johnson"! en vez de \verb!"last_name_1":"Johnson"!.
 \item Serializar en varias líneas.
 \end{enumerate}
@@ -9042,7 +9049,7 @@ haberles asignado a mano los valores 1, 2 y 4, pero con el desplazamiento veo
 mejor y no me equivoco al calcular porque sé que siempre tiene que salir
 \verb!1 <<! y después el número consecutivo.
 
-Después está la difinición de la estructura persona, que no tiene nada
+Después está la definición de la estructura persona, que no tiene nada
 especial. En la línea 20 llegamos a la función de serialización, como es normal,
 recibe un puntero constante a la estructura que va a serializar y las opciones.
 Al principio declaramos variables, nada fuera de lo normal. Lo interesante
@@ -9235,7 +9242,8 @@ la llamaremos \texttt{factorial\_interative} y a la segunda
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, caption={Ejemplo final de variables},
+\begin{lstlisting}[style=C,
+caption={Comparación de algoritmos recursivos e iterativos},
 label={lst:factorialIterativeVsRecursive}]
 unsigned long factorial_recursive(int n)
 {
@@ -9308,7 +9316,7 @@ como el cálculo del factorial. Así que saltemos a la definición recursiva:
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
-\begin{lstlisting}[style=C, caption={Función para el cálculo de la suceción
+\begin{lstlisting}[style=C, caption={Función para el cálculo de la sucesión
 de Fibonacci},
 label={lst:funFibonacci}]
 unsigned long fibonacci(unsigned int n) {
@@ -9508,20 +9516,18 @@ void selection_sort(int *list, int list_size)
 \end{lstlisting}
 \end{minipage}
 
-Esta implementación es un poco ingenua, porque nunca comprobamos si el elemento
-siguiente al ordenado resulta estar ordenado. Es evidente que una implementación
-un poco más inteligente añadiría una variable para discernir esto, queda como
-ejercicio. Con la implementación que tenemos, podemos ver bien cómo funciona,
-que es lo que nos interesa. La quinta línea es un poco complicada porque junto
-dos declaraciones con sus inicializaciones, pero ya hay que ir acostumbrándose.
-
 Si te das cuenta, este algoritmo ocupa marginalmente más memoria que el de la
 burbuja. En este caso debemos mantener siempre en memoria el valor y la
 posición del elemento más pequeño. En cambio, es un poco más rápido, ¿por qué?
-Porque en el peor de los casos, este algoritmo hace $n!$ comparaciones y
-$n$ intercambios. En el algoritmo de la burbuja haremos las mismas comparaciones
-y, sin embargo, haremos muchos más intercambios, porque los elementos van
+Porque en el peor de los casos, este algoritmo hace $\frac{n(n-1)}{2}$
+comparaciones (siendo $n$ el tamaño del array), las mismas que la burbuja y
+$n-1$ intercambios. En el algoritmo de la burbuja haremos las
+mismas comparaciones y, sin embargo, haremos muchos
+más intercambios (tantos como comparaciones), porque los elementos van
 <<pasito a pasito>>, no a su lugar directamente como en este caso.
+Consecuentemente el algoritmo de la burbuja ejecutaría, en el peor caso, tantos
+intercambios como comparaciones, sin embargo, este algoritmo sólo ejecutaría
+$n-1$ intercambios.
 
 El siguiente algoritmo es el de inserción. En el anterior elegíamos el elemento
 más pequeño y lo poníamos al principio, en este, el razonamiento es el
@@ -9711,14 +9717,14 @@ que es mayor, paramos (\verb!break!). Finalmente, ponemos el elemento en su
 sitio.
 
 Finalmente, llegamos al algoritmo \textit{Quick Sort}, que, como puedes ver,
-no se basa en cómo lleva a cabo la tarea de ordenación sino por una cualidad
-muy interesante del mismo: es un algoritmo muy rápido. Si recuerdas lo que he
-dicho unos párrafos antes, en informática, velocidad y memoria ocupada son
-valores ortogonales (perpendiculares, cuando uno se propicia, es en detrimento
-del otro). Me interesa especialmente que lo veas porque \textbf{es un algoritmo
-recursivo}. Y es uno de esos algoritmos que es puramente así.
-Además, como es más complejo (como probablemente hayas podido deducir), vamos a
-ver primero su pseudocódigo.
+su nombre no se basa en cómo lleva a cabo la tarea de ordenación sino por una
+cualidad muy interesante del mismo: es un algoritmo muy rápido. Si recuerdas
+lo que he dicho unos párrafos antes, en informática, velocidad y memoria ocupada
+son valores ortogonales (perpendiculares, cuando uno se propicia, es en
+detrimento del otro). Me interesa especialmente que lo veas porque
+\textbf{es un algoritmo recursivo}. Y es uno de esos algoritmos
+que es puramente así. Además, como es más complejo
+(como probablemente hayas podido deducir), vamos a ver primero su pseudocódigo.
 
 
 \noindent
@@ -9750,7 +9756,10 @@ Cuando no estamos en el caso base, creamos dos listas: en una irán los elemento
 menores que el pivote, y en otra los demás. El pivote es sencillamente un
 elemento cualquiera de la lista, a este nivel es irrelevante cuál, aunque
 su elección influye mucho en la eficiencia del algoritmo en casos especiales,
-es decir, con arrays concretos.
+es decir, con arrays concretos. Después, llamaremos a \emph{Quick Sort} sobre
+ambas listas y la lista ordenada se compondrá de concatenar la lista ordenada
+de elementos más pequeños que el pivote, el pivote y la lista ordenada
+de elementos más grandes que el pivote.
 La implementación de este algoritmo es la siguiente:
 
 \noindent
@@ -9833,11 +9842,12 @@ tamaño de la lista original. Después entramos en el bucle que cribará qué
 elementos van a cada lista. Como aquí estamos limitados por las restricciones de
 C, tenemos que hacerlo así: copiamos el elemento en cuestión a la posición
 siguiente al final de la lista (que es igual a su tamaño) y aumentamos
-en uno el tamaño. Cuando hemos terminado el bucle, procedemos a redimensionar
+en uno el tamaño. Nota cómo el bucle empieza en la posición uno, esto es así
+porque de no ser así estaríamos duplicando el pivote.
+Cuando hemos terminado el bucle, procedemos a redimensionar
 las listas de elementos mayores y menores al tamaño real que deben tener. Del
 mismo modo que con \verb!malloc!, si se llama con un tamaño de cero no hay
-problemas, además, es equivalente a llamar a \verb!free!, pero el puntero
-sigue siendo válido para pasarse a esta función.
+problemas, el puntero devuelto sigue siendo válido para pasarse a esta función.
 
 Ahora que ya tenemos ambas listas, simplemente llamamos al mismo \textit{Quick
 Sort} que nos otorgará las listas ordenadas. Del mismo modo que cuando
@@ -9968,14 +9978,13 @@ elegimos una posición, sepamos que necesariamente el elemento que buscamos
 está en la mitad del array que quede después o antes de este elemento. Dividimos
 pues el tamaño del problema entre dos en cada iteración de este proceso hasta
 que queda sólo el elemento que buscamos (si sólo hay uno) o nada, y por tanto
-no existe el elemento.
-
+no existe el elemento. Veamos la implementación:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Implementación del algoritmo de búsqueda lineal},
+caption={Implementación del algoritmo de búsqueda binaria},
 label={lst:binarySearch}]
 int binary_search(int* array, int array_size, int target)
 {
@@ -10020,49 +10029,8 @@ sea un algoritmo más deseable, aunque hay que tener en cuenta que el array
 debe estar ordenado, y si no lo estaba, esto tiene un coste. Lo ideal es
 que se utilice con arrays que se mantengan siempre ordenados, es decir, donde
 las inserciones se hagan ordenadas, pero eso tiene un coste a su vez porque
-hay que mover los elementos en la operación de inserción.
-
-%\subsection{Cómo dividir funcionalidad entre distintos archivos}
-%Aunque esto es en sentido estricto un manual de programación, y no de
-%ingeniería del \emph{software}, tenemos que hablar de algunos consejos sobre
-%cómo dividir tu funcionalidad en distintos archivos, ahora que ya saber hacerlo.
-%Como la mejor manera de aprender a montar en bicicleta es montando, vamos a
-%utilizar un ejemplo para ver de qué manera podemos dividir entre archivos
-%funcionalidades distintas. Vamos a hacer un programa que calcule el camino
-%más corto entre en un punto A y un punto B en un mapa. Para ello, deberemos
-%hacer estas cosas:
-%
-%\begin{enumerate}
-%\item Crear mapas
-%\item Guardar mapas en un archivo y leerlos de él
-%\item Encontrar el camino de un punto A al punto B sabiendo que es el más corto.
-%\end{enumerate}
-%
-%En general, lo primero que se suele hacer cuando te encuentras con un problema
-%complejo es preguntarse qué vamos a modelar en nuestro sistema. Un modelo es,
-%en términos generales, una simplificacion de la realidad que nos permite
-%entenderla y actuar sobre ella o predecirla. En informática, cuando tienes una
-%realidad, lo primero es crear un modelo de datos que nos permita manejarlo
-%dentro del lenguaje de programación.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+hay que mover los elementos en la operación de inserción (de una menra similar
+a como hicimos en el algoritmos de ordenación por selección).
 
 \section{Algoritmos genéricos}
 Ahora que ya sabemos qué es un algoritmo en sus términos más elementales y
@@ -10095,7 +10063,7 @@ Para esto tenemos dos herramientas genéricas, la primera es el puntero a
 de memoria dinámica te dije que \verb!malloc! devuelve un puntero a \verb.void.
 que luego se convertirá a cualquier tipo que necesites. Es decir, el puntero
 a \verb.void. se convierte implícitamente en el que tú quieras, con la
-asignación. Además, después, \verb.realloc. o \verb.free. rediben punteros a
+asignación. Además, después, \verb.realloc. o \verb.free. reciben punteros a
 \verb.void. que no necesitas convertir para pasárselo. En resumen: en C el
 puntero a \verb.void. tiene conversión implícita a todos los tipos, y todos
 los tipos a \verb!void!.
@@ -10418,8 +10386,12 @@ vamos a ordenar y una función de comparación.
 
 Las funciones de comparación son un tipo muy concreto, se llaman
 predicados, y son funciones que devuelven un valor lógico ante un conjunto
-de argumentos. Así que el prototipo de la función que tenemos que
-recibir sería una que devolviera un valor lógico entero y recibiera dos punteros
+de argumentos.
+Un predicado básicamente evalúa una proposición (recuerda la seción sobre
+lógica), pero sobre sus argumentos. En nuestro caso, un predicado para ordenar
+sería: función que compruebe que el primer elemento es menor que el segundo.
+Así que el prototipo de la función que tenemos que
+recibir sería una que devolviera un valor lógico y recibiera dos punteros
 a \verb!void!. De nuevo, recibe dos punteros a \verb!void! para ser compatible
 con nuestra función genérica, aunque el predicado sí debe saber qué
 tipo está comparando, lógicamente.
@@ -10481,8 +10453,11 @@ de memoria con el tamaño del tipo. Y después, la función genérica de ordenac
 Como puedes ver, simplemente hemos sustituido el condicional por la negación
 de la llamada a la función. Recuerda cómo funcionaba el algoritmo de la burbuja:
 cuando el elemento i-ésimo es \textbf{mayor} que el siguiente, se intercambian.
-Es decir: cuando \textbf{no} se cumple el predicado de que elemento $i$ sea
-menor que el siguiente.
+Es decir: cuando \textbf{no} se cumple el predicado de que elemento i-ésimo sea
+menor que el siguiente. La ventaja de que esto sea un predicado es que ahora
+podemos comprobar si es mayor, en vez de menor, para ordenar al revés el
+vector, o podemos usar, como hemos dicho, funciones de comparación para
+estructuras concretas.
 
 Dentro del bucle debemos calcular primero los punteros de los elementos. Esto
 es así por legibilidad, pero podríamos escribir las expresiones en la propia
