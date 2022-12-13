@@ -4181,7 +4181,7 @@ If you look at the function we have written, inside it we declare a point that
 symbolizes the \textbf{origin of coordinates}. What we do is that if one of the
 pointers to the structs is \verb!NULL!, we understand that such point is
 the origin of coordinates. What we do is assigning to our arguments (which
-are pointers) the direction to this local variable we have declared. Remember:
+are pointers) the address to this local variable we have declared. Remember:
 the arguments that a function receives are \textbf{copies} of the values. In
 this case, our argument is a pointer to a struct. Assigning to our argument
 other value \textbf{we are not altering the original structure}, because we
@@ -9907,16 +9907,16 @@ comes from it being a predicate is that we could check if the element is
 greater, to sort the vector backwards, or use custom predicates for several
 structs.
 
-Dentro del bucle debemos calcular primero los punteros de los elementos. Esto
-es así por legibilidad, pero podríamos escribir las expresiones en la propia
-función de intercambio. Ten en cuenta que debemos multiplicar, de nuevo,
-\verb!ii! por el tamaño del dato. Recuerda: son punteros a \verb!void!, no
-entra en juego la aritmética de punteros, son direcciones de memoria
-absolutas. Una vez calculados simplemente llamamos a la función de intercambio.
+Inside the loop we must calculate firstly the pointers to the elements to
+evaluate. Thisis done this way for legibility, we could write the expressions
+in the swap function. Mind that we need to to multiply, again, \verb!ii! by the
+size of the data type. Remember: they're \verb"void" pointers, so pointer
+arithmetic does not count in this case. Once calculated we call the swapping
+function.
 
-Debemos tener en cuenta también la función de comparación. En el caso de un
-\textit{string} es interesante porque uno puede confundirse debido a que los
-punteros se suman sobre punteros. Veamos cómo es la función de comparación:
+We must mind also the comparison function. In the case of a string is it
+interesting because pointers are added upon pointers. Let's see the comparison
+function.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -9931,97 +9931,100 @@ int compare_strings(const void* one, const void* two) {
 \end{lstlisting}
 \end{minipage}
 
-Es muy interesante porque puedes ver la primera línea, que introduce algo
-que no habíamos visto. Esta función recibe dos punteros constantes de
-\verb!void!. Estos punteros son, en realidad, punteros a punteros a \verb!char!,
-es decir: \verb!char**!. Pero como los hemos recibido como constantes, no
-podemos hacerles cásting a ese tipo, el compilador nos diría, hablando claro:
-<<estás haciendo cásting de un puntero constante a uno que no lo es, podrías
-modificar el contenido>>. Pero si pusiéramos el modificador \verb!const!
-primero de todo como hemos hecho siempre el compilador seguiría lanzándonos
-esa advertencia. La clave es que lo que es constante es lo que, por ejemplo,
-\verb!one! apunte, es decir, la constancia está pegada al contenido de
-\verb!one! y \verb!two!. Si escribiéramos \verb!const char**! seguiríamos
-pudiendo modificar el contenido al que apunta tal dirección. Vamos a verlo
-con un dibujo:
+It is very interesting because you can see in the first line, that introduced
+something we haven't seen before. This function receives two constant pointers
+to \verb!void!. These pointers are, in reality, pointers to \verb!char!
+pointers, that is: \verb!char**!. But since we have declared them as constants,
+we cannot cast them to that type (or assign them), the compiler would tell us,
+in concise words: ``you're performing a casting of a constant pointer to one
+that is not, you could modify the contents''. But if we put the \verb!const!
+modifier on the leftmost side of the type, the compiler could keep throwing
+the same error. The key is that, what is constant here, is what \verb!one!
+points to. If we wrote \verb!const char**! we could be still able to modify
+the content that address is pointing to. Let's see it with a drawing.
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{const_char_pointer_pointer}
-    \caption{Puntero a carácter constante}
+    \caption{Pointer to pointer to constant \texttt{char}}
     \label{img:constcharpointerpointer}
 \end{figure}
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{char_pointer_const_pointer}
-    \caption{Puntero a puntero constante a \texttt{char}}
+    \caption{Pointer to constant pointer to \texttt{char}}
     \label{img:charconstpointerpointer}
 \end{figure}
 
-Vamos a explicarlo despacio, si miras el primer dibujo, es <<a lo que estamos
-acostumbrados>>, cada asterisco es un nuevo nivel de puntero, así que puedes
-leer la declaración desde la izquierda y construirá los tipos. Empecemos:
-nos encontramos \verb!const!, lo que venga ahora es constante, después
-\verb!char!, ahora llega un asterisco, el asterisco inicia un nuevo nivel, así
-que este puntero \textbf{no} será constante, porque no tiene un \verb!const!
-a la derecha y, finalmente, otro nivel de puntero, que tampoco será constante.
-Ahora que ya tienes los tres grupos, los inviertes, es decir: puntero no
-constante, a puntero no contante, a \verb!char! constante.
+Let's explain it slowly, if you look at the first picture, it is ``what we are
+used to'', each asterisk is a new pointer level, so you can read the declaration
+from left to right and will build the types. Let's start: we find \verb"const",
+what comes first is constant, after that, we know it is a \verb!char!, now it
+comes an asterisk, the asterisk starts a new pointer level, so this pointer will
+not be constant, because there is not \verb!const! to its right and, finally,
+another pointer level, which isn't constant either. Now we have the three
+groups, you invert them, which would be: non constant pointer to non constant
+pointer to constant \verb!char!.
 
-En el caso siguiente tenemos un \verb!char!, después un asterisco, es decir,
-un nivel de puntero, lleva const a la derecha, así que es constante, y después
-otro puntero, sin constancia. Es decir, invirtiéndolo: puntero no constante a
-puntero constante a char no constante. En ambos casos, en el diagrama, he
-señalado en rojo los valores que no puedes cambiar, como puedes ver, en el
-superior no podemos cambiar los \textit{strings}, pero sí los punteros
-intermedios. En el caso de abajo, por el contrario, podemos modificar los
-caracteres, pero no los punteros del array intermedio.
+The next case we have is a \verb!char!, after it an asterisk, that is, a pointer
+level, is has a \verb"const" on the right, so it is constant, and later another
+pointer, without \verb"const". That is, inverting it: non constant pointer to
+constant pointer to non constant \verb"char". In both cases, in the picture, I
+have drawn in red the values you cannot change, as you can see, in the first one
+we cannot change the strings, but we can change the intermediate pointers. In
+the second case, on the contrary, we can modify the characters, but not the
+pointers of the intermediate array.
 
-Una de las implicaciones de las funciones genéricas es la siguiente: se
-introduce una sobrecarga inevitable, por dos motivos. El primero es que las
-funciones que utilizan punteros a \verb!void! tienen que hacer cálculos
-explícitos que se harían implícitamente. No voy a entrar en detalles de
-arquitectura de computadores, pero los ordenadores tienen en sus procesadores
-instrucciones que manejan datos como enteros de cuatro bytes y números decimales
-(y algunos más). Al tener que copiar byte a byte, impedimos que se utilicen y,
-además, tenemos que darle más vueltas al bucle de copia, lo cual es más costoso.
-El segundo es que cuando se llama a una función de manera normal el
-compilador cuenta con ello para saber cómo generar el binario. Cuando ésta
-es un argumento, esta tarea se le hace más complicada, porque no sabe qué
-función es hasta el momento de la ejecución. Para hacer esto patente, vamos
-a hacer una comparación con el tiempo que tarden ambas versiones en ordenar
-65.536 y 131.072 elementos. Vamos a comparar ambas cargas de trabajo porque
-quiero que veas una cosa.
+One of the implications of the generic functions is, as I said before, a
+decrease in the performance of the algorithms. I already mentioned the two
+reasons that make this so. The first one is that using void pointers, some
+calculations that could be done in an implicit way (like copying numbers from
+one place to another, either integers or decimals) are done explicitly and byte
+by byte. I am not going to dive into details of computer architecture, but
+computers know how to copy packs of four of eight bytes fast, because they know
+that's the size of integers and doubles (being able to do so with up to eight
+bytes is one od the advantages of 64 bit computers). When we copy byte by byte,
+we avoid this optimization and, also, we need to loop several times for copying
+loops, which would be operators in other way. The other reason is that the
+compiler has more information about the code when the functions are called
+``as they are'', if they're in variables and passed ar arguments, it has less
+information which makes the prgram slower. To make this visible, we are going to
+perform a comparison between the specific version and the generic one, sorting
+and array of 65.536 and 131.072 integers.
 
 \begin{table}[H]
 \begin{tabularx}{\linewidth}{|c|R|R|}
 \hline
-\textbf{Función}&\textbf{N=35.536}&\textbf{N=131.072}\\\hline
-Específica&16,21&64,61\\\hline
-Genérica&41,20&164,44\\\hline
-\textbf{Ratio}&0,39&0,39\\\hline
+\textbf{Function}&\textbf{N=35.536}&\textbf{N=131.072}\\\hline
+Specific&16.21&64.61\\\hline
+Generic&41.20&164.44\\\hline
+\textbf{Ratio}&0.39&0.39\\\hline
 \end{tabularx}
 \caption{Tiempos de ejecución de los distintos algoritmos}
 \label{tab:sortingTimes}
 \end{table}
 
-Como puedes ver, la versión genérica tarda más, pero he calculado un dato
-importante a ese respecto: el ratio entre el tiempo del algoritmo específico y
-el algoritmo genérico. Como puedes ver, aunque el algoritmo genérico es peor
-que el específico, la buena noticia es que esa diferencia es constante, es
-decir: no empeora con el tamaño del vector. Esto hace que, si podemos asumir
-el aumento de tiempo, la solución sea escalable, que es una manera que se tiene
-en informática de decir que puedes hacer crecer algo sin quedarte sin recursos
-rápidamente.
+As you can see, the generic version takes more time, but I have calculated the
+ratio between the specific version and the generic one and you can see that
+\textbf{it remains constant}. This means that, independently of the size of
+the vector, it makes the generic algorithm scalable, which is a word used in
+computing to say that the problem can be enlarged without the performance
+declining. The conclusion is that, if you can take the performance hit in
+general terms, you can implementing the generic version without the fear that
+big problems are solved very slowly.
 
-Un ejercicio muy interesante sería que programaras la versión genérica de
-\textit{Quick Sort} y que, además, hicieras estas mismas mediciones. Para
-medir el tiempo puedes utilizar este código:
+% Un ejercicio muy interesante sería que programaras la versión genérica de
+% \textit{Quick Sort} y que, además, hicieras estas mismas mediciones. Para
+% medir el tiempo puedes utilizar este código:
+
+An interesting exercise would be that you wrote the generic version of Quick
+Sort and that you also perform these measurements. To measure times you can use
+this code:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Cómo medir el tiempo},
+caption={How to measure time},
 label={lst:measure_times}]
 #include <stdio.h>
 #include <time.h>
@@ -10038,7 +10041,7 @@ int main(int argc, char** argv)
 
     clock_gettime(CLOCK_REALTIME, &start_ts);
     start = timespec_to_double(&start_ts);
-    // Aquí el código que quieres medir.
+    // The code you can to measure here
     clock_gettime(CLOCK_REALTIME, &stop_ts);
     stop = timespec_to_double(&stop_ts);
     printf("Hemos tardado: %lf\n", stop - start);
@@ -10046,41 +10049,41 @@ int main(int argc, char** argv)
 \end{lstlisting}
 \end{minipage}
 
-La función \verb!clock_gettime! es una función para medir el tiempo de un modo
-peculiar, en sistemas Linux se mide el tiempo desde el primero de enero de
-1970. Así, la estructura \verb!timespec! indica el tiempo pasado desde entonces
-como un conjunto de segundos más los correspondientes nanosegundos en sus dos
-miembros. Como eso es poco práctico he creado una pequeña función para
-convertirlo a número decimal y así poder restarlo cómodamente. Después,
-simplemente mido el tiempo antes y después del código que quiero saber cuánto
-tarda y los resto, como puedes ver.
+The function \verb!clock_gettime! is a function to measure time in peculiar
+mode, in Linux systems time is measured from January first 1970. Therefore,
+the struct \verb!timespec! indicates the time elapsed since then as a number
+of seconds plus the corresponding nanoseconds in the respective members. Since
+this is not practical I have created a little function to translate that struct
+to decimal number so you can substract it comfortably. After that, you can
+measure the time before and after and later I substract the strart time from the
+end time and I print it, as you can see.
 
-\section{Ejemplo completo de programa}
-Esta sección está al final porque, si hasta ahora hemos visto cada parte del
-lenguaje en detalle y por sí misma, en esta vamos a intentar montar todas las
-piezas en una gran fotografía. Para esto vamos a utilizar y refinar un ejemplo
-que ha sido recurrente en el manual: la gestión de una estructura que almacena
-los datos de una persona, pero vamos a conseguir separar bien al usuario de la
-funcionalidad interna del código que se encague de eso.
+\section{Complete example of program}
+This section it at the end because we have seen each part of the language in
+detail and by itself, in this one we're going to assemble all the pieces in a
+big picture. To do so we're going to use and refine an aexample that has been
+recurrent in the manual: the management of a struct that stores the data of a
+person, but we're going to achieve to separate the user of the functions from
+the internal functionality of the code.
 
-Lo que haremos es crear un archivo de código fuente llamado \verb!person.c! y
-su correspondiente archivo de cabeceras, \verb!person.h!, en este archivo
-incluiremos funcionalidad para crear una estructura persona, cambiar
-sus atributos, leerlos y serializarla. Además, vamos a ver un interesante
-artefacto del lenguaje para poder impedir que el usuario se entrometa en
-nuestra estructura y pueda alterar los datos de manera incorrecta. Por ejemplo:
-asignando los punteros a una zona de memoria que no controlemos desde estas
-funciones proporcionadas para manipular la estructura de datos.
+What we will do is to create a file in source code called \verb!person.c! and
+its corresponding header file, \verb!person.h!, in this file we will include
+functionality to create a person struct, change its attributes, read them and
+serialize them. Also, we're going to see and interesting artifact of the
+language to avoid the user to change the internal fields of our structs. For
+example: we assign pointers to memory zone that we do not control from this
+functions that we're going to provide to manipulate the struct.
 
-Lo primero que voy a hacer es crear el archivo de cabeceras porque ya hemos
-definido de una manera muy concreta la funcionalidad de este código fuente.
-Aquí hay una cosa interesante que podremos comentar, veamos el archivo:
+
+The first thing I am going to do is to create the header file because we have
+already defined in a very concrete way the functionality of this source code.
+Here is a very interesting thing, let's see the file.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo final de programa -- \texttt{person.h}},
+caption={Final example of program -- \texttt{person.h}},
 label={lst:finalExPerson_h}]
 #ifndef PERSON_H
 #define PERSON_H
@@ -10110,14 +10113,13 @@ char *person_to_string(const person_t *p);
 \end{lstlisting}
 \end{minipage}
 
-Y aquí puedes ver una de las cosas interesantes de este ejemplo final: estamos
-declarando el tipo \verb!person_t!, pero no el \textit{struct} al que da nombre,
-esto quiere decir que cualquier archivo de código fuente que incluya este
-\textbf{no} podrá saber la definición de tal \textit{struct}. La implicación de
-esto es que no podrá declarar variables de este tipo, tan solo punteros, puede
-declarar un puntero, porque todos los punteros tienen el mismo tamaño. Si
-intentáramos declarar una variable de este tipo, el compilador lanzaría un error
-como el siguiente:
+Here you can see one of the interesting things of this final example: we are
+declaring the type \verb!person_t! but not the \verb!struct! it gives a name to,
+this meand that any source code file that includes this header \textbf{wouldn't}
+know the definition of the struct. This implies that the user of the header
+will not be able to declare variable of this type, but he will be able to
+declare pointers, because all pointers have the same size. If we tried to
+declare a variable of this type, the compiler will throw an error like this one:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -10130,30 +10132,29 @@ main.c:5:14: error: storage size of 'francis' isn't known
 \end{lstlisting}
 \end{minipage}
 
-Este es el mecanismo que nos permite impedir que el usuario altere el contenido
-de la estructura fuera de nuestro control (como comentamos en el programa
-\ref{lst:structConstMain}) porque, del mismo modo que no conoce el tamaño del tipo,
-tampoco conoce los miembros de esta estructura, así que no puede accederse a
-ellos. Nota, además, como no hemos incluido ninguna cabecera en \verb!person.h!.
-Si necesitáramos cabeceras, por ejemplo, la cabecera \verb!stdint.h! contiene
-definiciones de tipo útiles como aquéllos de tamaño fijo: \verb!int8_t!,
-\verb!int16_t!, etc.; si quisiéramos definir alguna función con un argumento
-de este tipo o de tipo de retorno, sí sería necesario que incluyéramos esta
-cabecera. Si las necesitamos en las implementaciones (en las declaraciones de
-esctructuras, en las definiciones de funciones...), será en el archivo de
-código fuente (en el \verb!.c!) donde las incluiremos.
+This is the mechanism that allows us to avoid the user to change the content of
+the struct outside of our control (as we commented in program
+\ref{lst:structConstMain}) because, in the same we the user doesn't know the
+size of the type, it doesn't know the members of this struct, so he can't
+access them. Notice, also, since we haven't included any header in
+\verb!person.h!. If we needed them, for example the header \verb!stdint.h!
+contains definitions of useful types like those of standard size: \verb!int8_t!,
+\verb!int16_t!, etc.; if we wanted to define some function with an argument of
+these types or a function with a return type of these, it'd be needed to
+include the header. If we needed them in the implementation (in the declaration
+of struct, in the function definitions...), we will include those headers in the
+source code (in the \verb!.c! file).
 
-El siguiente archivo es, precisamente, este archivo de código fuente:
-\verb|person.c|. Es bastante largo, así que vamos a incluirlo en tres secciones:
-la sección de declaración de tipos (que sólo contendrá uno), las funciones de
-manipulación del contenido de la estructura y, finalmente, la de recuperación
-de la información.
+The next file is, precidely, this source code file: \verb!person.c!. This is
+long, so I will include it in three sections: type declaration (which will
+contain just one), the struct manipulation functions and, finally, the ones
+to retrieve the information from the struct.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:finalExDefinition},
-caption={Ejemplo final de programa -- \texttt{person.c} definiciones}]
+caption={Final example of program -- \texttt{person.c} definitions}]
 #include <string.h> //strdup, memset
 #include <stdlib.h> //malloc
 #include <stdio.h>  //snprintf
@@ -10189,25 +10190,22 @@ void destroy_person(person_t *p)
 \end{lstlisting}
 \end{minipage}
 
-Aquí podemos ver la defininión del tipo del que en la cabecera hicimos un
-\verb!typedef!, este estilo de declaración de un tipo se llama declaración
-anticipada o, en inglés, \textit{forwarding declaration}. Aquí, aparte de la
-definición del tipo propiamente dicho, tenemos las funciones que lo crean
-y que lo destruyen. Como esta estructura contiene elementos reservados con
-memoria dinámica, debemos proveer al usuario una manera de liberar los recursos
-de la estructura. Como puedes ver, en las funciones de creación reservamos
-espacio \textbf{para la propia estructura} y para sus campos.
+Here we can see the definition of the type that in the header we renamed with
+\verb!typedef!, this style of declaration of a type is called a forwarding
+declaration. Here, apart from the proper type definition, we hace the functions
+that create is and destroy it. Since this struct contains elements allocated
+dynamically, we must provide the use a way to liberate the resources of the
+struct. As you can see, in creation functions we allocate space
+\textbf{for the very struct} and for its fields.
 
-Debemos reservar
-nosotros dinámicamente la estructura aparte de sus campos porque, recordemos,
-fuera de este archivo de código fuente no podremos declarar más que punteros,
-y ese puntero no tendrá espacio para nada si no lo declaramos. Después,
-reservamos memoria para el contenido al que apuntarán los \textbf{miembros}
-de la estructura.
-En la función de destrucción, simétricamente, liberamos primero los contenidos
-y después la propia estructura. Nota, además, cómo hemos declarado todos los
-argumentos que hemos podido como constantes, para que el usuario no tenga dudas
-de si vamos a modificar datos que nos proporcione.
+We must allocate ourselves dynamically the memory for the struct in addition
+to the members because, remember, outside this file the source code file can't
+declare anything but pointers, and that pointer will not have space for anything
+if we do not allocate it. After that, we allocate memory for the content the
+members of the struct point to. In the destruction function, simmetrically,
+we free the the contents of the members and later the struct itself. Notice,
+also how we have declared we could as constants, because in this way the user
+will not doubt if we're going to modify the data he provides us with.
 
 Las siguientes funciones son las que nos permiten sobreescribir los datos:
 
@@ -10215,7 +10213,7 @@ Las siguientes funciones son las que nos permiten sobreescribir los datos:
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:finalExSetter},
-caption={Ejemplo final de programa -- \texttt{person.c} manipulación}]
+caption={Final example of program -- \texttt{person.c} manipulation}]
 void person_set_name(person_t *p, const char *name)
 {
     free(p->name);
@@ -10235,19 +10233,19 @@ void person_set_age(person_t *p, unsigned int age)
 \end{lstlisting}
 \end{minipage}
 
-Como puedes ver, las funciones son simples, liberamos la memoria de los campos
-y después le asignamos la duplicación del argumento que se nos pasa. De nuevo,
-observa cómo hemos definido como constantes los argumentos del mismo modo que
-hicimos en la función de creación. Las funciones no devuelven nada (\verb!void!)
-porque no tendríai sentido. Aunque siempre podrían devolver un entero que
-actuara como código de error, por ejemplo si la reserva de memoria fallara,
-se podría indicar devolviendo un número menor que cero.
+As you can see, the functions are simple, we free the memory of the members and
+then we assign to them the duplication of the argument we have received. Again,
+look at how we have defined as constant the arguments in the same way we did in
+the creation. Functions do not return anything (\verb!void!) because it won't
+have any sense. Although we could return an integer to act as an error code,
+for example if the memory reserve failed, you could return a number less than
+zero.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:finalExGetter},
-caption={Ejemplo final de programa -- \texttt{person.c} recuperación}]
+caption={Final example of program -- \texttt{person.c} retrieval}]
 const char *person_get_name(const person_t *p)
 {
     return p->name;
@@ -10278,27 +10276,26 @@ char *person_to_string(const person_t *p)
 \end{lstlisting}
 \end{minipage}
 
-Aquí debes notar que devolvemos punteros contantes a \verb!char!, precisamente
-para impedir que el usuario libere, manipule o cambie el contenido de los campos
-del \textit{struct}. Sin embargo; en la función de serialización (que he
-reducido a su versión más simple) devuelvo un puntero no constante porque la
-responsabilidad de liberar es del usuario de la funcionalidad, no de esta
-biblioteca. Además, en esta última función puedes ver que podemos
-\textbf{eliminar} una macro con la directiva \verb!#undef!. Esto es útil cuando
-necesitas inicializar un array, como aquí, pero no quieres contaminar de
-símbolos el código fuente. Así, si otra función usara strings de otro tamaño,
-podríamos usar el mismo nombre, como si la macro fuera una variable distinta.
-De nuevo: ten cuidado, las macros trabajan a nivel de preprocesado, por lo que
-no estás definiendo ninguna variable en la función, sólo una región de código
-donde un símbolo se sustituirá por otro.
+Here you must notice that we return constant pointer to \verb!char!, precisely
+to avoid the user to free, manipulate or change the content of the fields of
+the struct. Nevetherless; in the serialization function (which I have written in
+the most simple way) I return a non constant pointer because the responsibility
+of freeing the pointer is the user's, not of this library. Also, in this last
+function you can see we can delete a macro with the directibe \verb!#undef!.
+This is useful when you need to initialice an array, like here, but you do not
+want to pollute the source code with symbols. Hence, if another function used
+strings with other sizes, we could use the same name, like these macros being
+a different variable. Again: be careful, macros work at a preprocessor level,
+so you're not defining any new variable in the function, just a region in the
+code where a symbol will be substituted by another.
 
-Finalmente, en el archivo principal podemos utilizar la funcionalidad:
+Finally, in the main file we can use this functionality:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:finalExMain},
-caption={Ejemplo final de programa -- \texttt{main.c}}]
+caption={Final example of program  -- \texttt{main.c}}]
 #include "person.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -10323,21 +10320,27 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Aquí se puede ver cómo se utilizan estructuras con este patrón de diseño.
-Primero la reservas, después la usas, la puedes manipular y, finalmente, la
-liberas, todo ello con las funciones proporcionadas junto con el tipo de dato.
-Con este patrón, el usuario de la funcionalidad que hemos programado tiene
-menos capacidad para <<hacer algo mal>>.
+% Aquí se puede ver cómo se utilizan estructuras con este patrón de diseño.
+% Primero la reservas, después la usas, la puedes manipular y, finalmente, la
+% liberas, todo ello con las funciones proporcionadas junto con el tipo de dato.
+% Con este patrón, el usuario de la funcionalidad que hemos programado tiene
+% menos capacidad para <<hacer algo mal>>.
 
-Ahora, vamos a ver rápidamente cómo se podría compilar, para recordarlo. Primero
-lo haremos utilizando el código objeto y, después, crearemos una biblioteca
-dinámica y la enlazaremos. Para compilar utilizando el código
-objeto seguiremos estos pasos:
+Here you can see how these struct with this design patter are used. First you
+reserve them, later you use them, you can manipulate them, and, finally, you
+liberate it, all of it done with the functions provided by the same library
+that provided the struct. With this pattern, the user is less capable of
+committing some errors.
+
+Now, let's see quickly how this could be compiled, to remember it. Firstly we
+will do it using object files and, later, we will create a dynamic library and
+link it to the executable. To compile using the object files we will use these
+steps.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \begin{enumerate}
-\item Crear el código objeto de \verb!person.c!
+\item Create the object code for \verb!person.c!.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -10346,7 +10349,7 @@ objeto seguiremos estos pasos:
 \$ gcc -c person.c
 \end{lstlisting}
 \end{minipage}
-\item Crear el código objeto de \verb!main.c!
+\item Create the object code for \verb!main.c!.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -10355,7 +10358,7 @@ objeto seguiremos estos pasos:
 \$ gcc -c main.c
 \end{lstlisting}
 \end{minipage}
-\item Crear el ejecutable con ambos códigos objeto
+\item Create the executable with both object codes.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -10367,12 +10370,12 @@ objeto seguiremos estos pasos:
 \end{enumerate}
 \end{minipage}
 
-Para la biblioteca, seguiremos estos pasos:
+For the library, we will use these steps:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \begin{enumerate}
-\item Crear el código objeto de \verb!person.c!
+\item Create the object file of \verb!person.c!
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -10381,7 +10384,7 @@ Para la biblioteca, seguiremos estos pasos:
 \$ gcc -c person.c
 \end{lstlisting}
 \end{minipage}
-\item Crear una biblioteca con este código objeto:
+\item Create a library with that object file:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -10390,7 +10393,7 @@ Para la biblioteca, seguiremos estos pasos:
 \$ gcc -shared -o libperson.so person.o
 \end{lstlisting}
 \end{minipage}
-\item Crear el código objeto de \verb!main.c!
+\item Create the object code of \verb!main.c!
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -10399,7 +10402,7 @@ Para la biblioteca, seguiremos estos pasos:
 \$ gcc -c main.c
 \end{lstlisting}
 \end{minipage}
-\item Crear el ejecutable usando la biblioteca:
+\item Create the executable using the library:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -10411,60 +10414,14 @@ Para la biblioteca, seguiremos estos pasos:
 \end{enumerate}
 \end{minipage}
 
-En este ejemplo final se han visto ejemplos de la mayoría de conceptos que
-se han explicado en el manual: variables, punteros, memoria, reserva dinámica,
-estructuras, macros, enlazado, compilación y constancia y signo. Es mucha
-información en pocas páginas, pero permite tener una foto global de todo
-si ya se ha leído antes con detenimiento.
+In this final example we have seen examples of most of the concepts that have
+been explained in the manual: variables, pointers, memory, dynamic allocation,
+structs, macros, linking, compilation, constance and signedness. It is much
+information in a few pages, but allows ut to have a global image of all that
+has been explained before in detail.
 
-%\subsection{Ejercicio de la sección}
-%En esta sección voy a proponer un último ejercicio, pero detallado, que permita
-%practicar todos o casi todos los conceptos vistos en el manual. El ejercicio es
-%crear un proyecto que incluye las siguientes funcionalidades:
-%\begin{itemize}
-%\item Manejo de una estructura <<coordenada>> que permita almacenar
-%una coordenada bidimensional (un punto) con un \textbf{nombre} que sea una
-%cadena de texto. Esta cadena de texto debe manejarse con funciones que impidan
-%que el usuario deje la estructura en un estado inconsistente.
-%    \begin{itemize}
-%    \item Debe poderse calcular la distancia entre dos puntos. Se recibirán
-%    punteros y si uno de ellos o los dos es \verb!NULL! se tomará por el punto
-%    de origen.
-%    \item Debe poderse ordenar un vector de puntos por su distancia al origen.
-%    Idealmente, debería usarse el algoritmo \textit{Quick Sort}.
-%    \item Debe poderse cambiar el nombre de un punto si destruirlo y crearlo
-%    de nuevo con una función para tal fin.
-%    \end{itemize}
-%\item Manejo de una estructura <<polígono>> que tenga un conjunto de puntos
-%de los descritos anteriormente. Hay que tener en cuenta que cada punto estará
-%conectado con el siguiente y el anterior; menos el último, que estará conectado
-%al penúltimo y al primero, y el primero, que estará conectado al segundo y
-%al último.
-%    \begin{itemize}
-%    \item Deberá poderse modificar un polígono añadiendo o eliminando puntos
-%    al final.
-%    \item Deberá poderse insertar un punto en una posición dada de un polígono.
-%    \item Deberá poderse calcular el centro del polígono como la media de las
-%    coordenadas de un punto.
-%    \end{itemize}
-%\item Se deben crear funciones que permitan hacer estas tareas con estructuras
-%que simbolicen y aumenten las funcionalidades de los vectores,
-%idealmente, de cualquier tipo:
-%    \begin{itemize}
-%    \item Insertar en cualquier posición
-%    \item Insertar al final
-%    \item Conocer la longitud del vector
-%    \item Vaciar el vector
-%    \item Eliminar un elemento de la posición del vector
-%    \item Ordenar el vector
-%    \item Crear un vector con una longitud dada, relleno de un valor concreto
-%    \end{itemize}
-%Las dos primeras funcionalidades deben estar en una biblioteca llamada
-%\verb!libGeo.so! y la siguiente en \verb!libVector.so!. Se debe crear un
-%programa que utilice todas las funcionalidades y las pruebe.
-%\end{itemize}
 
-\section{Anexo A: soluciones a ejercicios}
+\section{Annex A: exercises solutions}
 \begin{exercises}
 \item Escribe un programa y declara en él una estructura que defina un círculo
 en dos dimensiones (su centro y su radio). Y haz que el programa declare una
