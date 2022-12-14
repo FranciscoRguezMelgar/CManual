@@ -262,38 +262,39 @@ enlightening definition. It allows us to start, though, programming is to write
 programs, therefore, to know what programming is, we need to know what a program
 is.
 
-A program is the set of instructions that a computer follows to perform a
+A program is the set of instructions a computer follows to perform a
 concrete task. As an example, if you were a computer, and we made a program to
 make you buy a coffee in a vending machine, the program that you as living
 computer would follow would be something like this:
 
 \begin{enumerate}
-    \item Get up, if you're sit
-    \item Walk to the coffe machine
-    \item Choose the coffe you'd like to have
-    \item Read the price of the coffee
-    \item Put coins up to the price in the slot for coins
-    \item Push the button of the desired variety of coffee
-    \item Wait until it's done
+    \item Get up, if you're sit.
+    \item Walk to the coffe machine.
+    \item Choose the coffe you'd like to have.
+    \item Read the price of the coffee.
+    \item Put coins up to the price in the slot for coins.
+    \item Push the button of the desired variety of coffee.
+    \item Wait until it's done.
     \item Pick up the coffee, and be careful no to scorch yourself!
 \end{enumerate}
 
 Put that way, it would be wonderful to tell to your computer, or to any
 computer, something like ``solve this differential equation'' or ``predict the
-weather of tomorrow.'' Sadly, this is where the craftiness of the programmer
-comes in. Computers do not understand the language of humans. They do not know
+weather of tomorrow''. Sadly, this is where the craftiness of the programmer
+comes in. Computers do not understand the humans' language. They do not know
 what weather is nor what a coffe is. Computers only understand mathematical
 operations (and not a lot) and logic operations. If you do not know what logic
 is, as a science, do not worry, we will talk about it later.
 The programmer must be able to turn a complex
 task into a set of instructions a computer understands.
 
-Finally, we could say that programming is ``articulate complex tasks in human
-language in terms of simple tasks that a computer understands''.
+Finally, we could say that programming is ``articulate complex tasks that are
+expressed in human language in terms of simple tasks that a computer
+understands''.
 
 \subsection{How does one program?}
 Now we know \textbf{what} programming is, let's see how it is done, in
-general terms. Following the methaphor I used before, a ``program'', as we
+general terms. Following the simplification I used before, a ``program'', as we
 understand it, is a text file (or several) where those instruction the computer
 needs to do something are. As I said before, computers understand a somewhat
 small number of instructions, and, as a matter of fact, they only understand
@@ -304,7 +305,7 @@ bits, digits in a numeric system that contains only two figures: zero and one.
 If we apply the definition of the last chapter, to program, we must write
 programs in zeroes and ones. To understand the magnitude of this, the program
 Firefox, the web browser, occupies around 500~KB, or, what is the same, half a
-million of bytes. A byte is eight bits. This means that the programmer that,
+million of bytes. A byte is eight bits. This means that the programmer who,
 supposedly, wrote Firefox would have had to write a continous file of four
 millions of zeroes and ones. It is only logical to think this is not the case.
 
@@ -353,8 +354,9 @@ going to suppose you are using the Windows subsystem for Linux, or WSL. The
 first step is to install the Windows characteristic that allows us to
 do that. Hit the Windows key and the letter R. Write in the little window that
 pops up \verb!optionalfeatures! and hit enter. A window will pop up
-where you should look for the element ``Windows subsystem for Linux'', check the
-box in the left of the option and push accept. Restart when it is asked for it.
+where you should look for the element ``Windows subsystem for Linux'', check
+the box in the left of the option (if it is already checked do not uncheck it)
+and click accept. Restart when it is asked for it.
 After it, you will go to the Microsoft Store app and will look for ``Ubuntu''.
 Go to the first result and install it. After that, go to the start menu and
 open the app (Ubuntu). It will take a moment to install. After it completes,
@@ -362,9 +364,9 @@ it will ask you to input an username and a password. Just a note: when you start
 writing the password you will not see anything, don't worry, it's supposed to
 be like that, just write the password, it will ask you to input it twice, if
 you did it differently, it will tell you to do it again. Be sure to remember
-the username and password. When you are done, you will looking at a black screen
-with a text that will read \verb!{user}@{machine_name}:~$!. Congratulations,
-you have installed a Linux you can use in Windows.
+the username and password. When you are done, you will be looking at a black
+screen with a text that will read \verb!{user}@{machine_name}:~$!.
+Congratulations, you have installed a Linux you can use in Windows.
 
 This black window that only contains letters is called a terminal, and it is
 a way to interact with the computer that has been in use since decades ago.
@@ -430,11 +432,11 @@ like I'm going to show you now:
     \label{img:extensions}
 \end{figure}
 
-In this figure, each directory has linked to it those inside it, and all of them
+In this figure, each directory has those inside it linked to it, and all of them
 show where the directory \verb!..! which is inside them goes. As you can see, to
 reach a path like \verb!/usr/games! we only have to ``hop'' from a directory to
 the next. If we wanted to come back, we can use the fictional directories that
-point to the father of the directory we're in (\verb!..!).
+point to the parent of the directory we're in (\verb!..!).
 
 The case of the root
 directory is special, because its parent directory is the same directory. In
@@ -457,14 +459,14 @@ another. There are two types of paths:
     \verb!Beethoven_symphony.mp4!.
 \end{enumerate}
 
-The text it shows up everytime you hit enter is called a prompt and, in general,
-it shows you your username, the machine where you are and after that, your
-working directory, if it fits in the screen. I am going to substitute the prompt
-just for a dollar sign in the examples I show you, so it fits better in the
-page. When you first started your terminal it showed a tilde (\verb!~!) because
-that's an alias of your home directory, which is a route in Linux systems where
-the user stores his personal files. Generally speaking, that route is in
-\verb!/home/<username>! for example \verb!/home/john!.
+The text that shows up everytime you hit enter is called a prompt and, in
+general, it shows you your username, the machine where you are and after that,
+your working directory, if it fits in the screen. I am going to substitute
+the prompt just for a dollar sign in the examples I show you, so it fits better
+in the page. When you first started your terminal it showed a tilde (\verb!~!)
+because that's an alias of your home directory, which is a route in Linux
+systems where the user stores his personal files. Generally speaking, that
+route is in \verb!/home/<username>! for example \verb!/home/john!.
 
 Now we are going to learn to see what is inside a directory, the command that
 allows us to do so is \verb!ls!, if you type it and hit enter you'd see...
@@ -633,7 +635,7 @@ does not start with the root directory is a relative path, and the directory
 dot \verb!.! is a relative path. When the terminal gets a command from the user,
 it looks for a program with that name in a series of directories that are
 configured in your operating system. If you want to execute any other program
-(or other things you can execute, but I won't get tangled on them now) you must
+(or other things you can execute, but I won't get tangled on them) you must
 indicate a path, relative or absolute. To make the terminal understand we are
 introducing a path and not a command, we start it by dot, that is, this very
 directory. When you hit enter, you should see something like this:
@@ -647,7 +649,7 @@ Hello, world!
 \end{lstlisting}
 \end{minipage}
 
-You you have compiled your first program, may be you are a bit disappointed,
+You have compiled your first program, maybe you are a bit disappointed,
 since you do not understand what it does, or how it does it. Hence it is the
 moment we adquire a compromise with each other. That is, if you do not
 understand something that appears in the programs we are going to see together,
@@ -665,12 +667,12 @@ my programs as to files called \verb!main.exe! mainly.
 
 \subsection{Text editor}
 You edited your first program with the notepad, but editing code in that way
-if a bit unbearable. Partially this is so because it is usual to use specialized
+is a bit unbearable. Partially this is so because it is usual to use specialized
 editors that colorize the words that are important in the concrete programming
 language you are using and help you with things like knowing where the bracket
 that closes the one your looking at now. I am going to leave here a list of
 some common editors used with C code. I will not assume you are using any
-concrete one, so choose the one you like. I use the first one, but may be for
+concrete one, so choose the one you like. I use the first one, but maybe for
 your first steps you may stick to Notepad++, which is simpler, and jump
 to another one when you feel more comfortable writing more complex programs.
 \begin{enumerate}
@@ -788,7 +790,7 @@ check it up. If you look there, you will see that the letter a has the value
 97. After that, we assign to other char a numeric value, in line 7 you can see
 we declare a variable without assigning a value to it. That is totally okay, but
 beware!, \textbf{a variable to which you have not assigned a value has a random
-value}. This is why many teachers would advice you that everytime you declare a
+one}. This is why many teachers would advice you that everytime you declare a
 variable you should give it a value immediately. This process (giving value to
 a variable for the first time) is called ``initialize'' a variable.
 
@@ -832,8 +834,8 @@ variable \verb!b!, therefore, it will have a value of 2, now. Since seeing this
 is difficult, I am going to include in the next example a series of lines with
 the word \verb!printf! in them, you may remember it from our first program.
 Later on, I will teach you to use it, but, at the moment, simply copy this
-program in your file of source code and compile it as we did before. (Copying
-things from a PDF tends to be problematic, therefore type it yourself, also, it
+program in your source code file and compile it as we did before. (Copying
+things from a PDF tends to be troublesome, therefore type it yourself, also, it
 will serve as typing practice.)
 
 \noindent
@@ -905,7 +907,7 @@ If you compile it, the compiler will throw a series of messages called warnings.
 Those warnings warn you that, while something is correct, it seems it contains
 some error. For example, if you wrote ``I did not know your Belgian'' the
 sentence would be technically correct, it would mean you didn't know a Belgian
-person related in some way to the person you're talking to, regardless, more
+thing related in some way to the person you're talking to, regardless, more
 probably, you wanted to say  ``I did not know you're Belgian ''. If we compile
 and execute, something like the following should appear in the terminal.
 
@@ -936,7 +938,7 @@ This is because, as we will see later on, they do not represent numbers in a
 totally correct way, and that's why they can be positive and negative infinity.
 
 Let's take some time for the problem of decimal numbers. If you know how binary
-code works, you would know that a binary number of $n$ bits you can represent
+code works, you would know that a binary number of $n$ digits you can represent
 $2^n$ numbers. In the case of decimal numbers, we use one complex system called
 IEEE 754. I am not going to go into detail here, but the main problem of this
 way of representing numbers is that it is not only not exact (for example,
@@ -947,7 +949,7 @@ between 1.10 and 1.11, it is possible they cannot distinguish 10000000.10 from
 
 As you have seen here, there are allowed assignments and forbidden ones. The
 allowed ones (those the compiler does not see as something bad), are called
-implicit conversions, their names comes from the fact you do not need to do
+implicit conversions, the name comes from the fact you do not need to do
 anything to make them happen, for example, assigning a char value to an integer
 variable. Later on I will teach you to perform conversions between data types
 explicitly.
@@ -1069,7 +1071,7 @@ the operators in a table and later on we will see examples on how to use them.
 \bf Operator & \bf Description \\ \hline
 \tt + & Addition. Adds integers and decimals together and between them. \\\hline
 \tt - & Substraction. Substracts from the left operand the value of the right operand. \\\hline
-\tt / & Division. Return the result of the division of the left operand by the right one. Note that, \textbf{if both operands are integers}, the operator performs integer operation, that is, \textbf{without decimals}. \\\hline
+\tt / & Division. Returns the result of the division of the left operand by the right one. Note that, \textbf{if both operands are integers}, the operator performs integer operation, that is, \textbf{without decimals}. \\\hline
 \tt * & Multiply. Asterisk has many functions in C, but this is the first of them you will discover. The type of the multiplication of two integer is always a \textbf{double}.\\\hline
 \tt ++ & Increment. Makes a number (either integer or decimal) go up one unit, it can be prefix (before the operand) or postfix (after the operand).\\\hline
 \tt -{}- & Decrement. Works as the increment, but it makes the number to go down one unit. \\\hline
@@ -1141,7 +1143,6 @@ the value of the operation to other variable, that other variable will have
 a different value depending on if we write it in the postfix or prefix way,
 let's see it in the code.
 
-
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
@@ -1179,7 +1180,7 @@ its value in one unit. Nevertheless; depending on if we write it as prefix
 value or another. If we do it prefix, the value
 of the expression of the operation
 would be the value of \verb!a! \textbf{after} it increments its value, if we
-do it as a postfix operator, the value will be \textbf{without the increment}.
+do it as a postfix operator, the value will be \textbf{before the increment}.
 
 Following the line of increment and decrement operators, there are also
 operators that put together the assignment with other mathematical operations,
@@ -1202,7 +1203,8 @@ common than a variable that is an \texttt{int} gets assigned to a \texttt{char}
 because you know its result is inside the range of values a \texttt{char} can
 hold. Casting is a word that means the process of putting molten metals inside
 a shaped container what will make the metal to retain that shape when it
-solidifies. Nevertheless, it has its limits, laws of logic still apply, and you
+solidifies, is it a methaphor of what we are doing changing the type of a value.
+Nevertheless, it has its limits, laws of logic still apply, and you
 cannot make a \texttt{char} to hold more than 127, for example, regardless of
 casting.
 
@@ -1262,7 +1264,7 @@ of a \texttt{float} is not good enough in the bigger values to have
 problems distinguishing one unit from the next. I am going to be sincere with
 you, this does not happen, the \texttt{float} is precise enough in the limits
 of the integer to tell whole units apart, but I write it in the table to remind
-you that you may look at the precission of the integers. Where I write casting
+you that you may look at the precission of the decimals. Where I write casting
 and I precise there can be an overflow I mean you're performing cast from
 a bigger type to a smaller one, so that is not generally acceptable unless you
 check yourself that the value of the casted expression fits into the new type.
@@ -1361,8 +1363,8 @@ As I introduced in the last section, it is convenient to be able to make the
 program do one thing or the other according to a condition. Also, it is possible
 (as a matter of fact it's essential) to repeat instructions according to
 conditions. This is called altering the flow of the program, because instead
-of execute one line after he next, the computer can jump to a place to another,
-either forwards or backwards.
+of execute one line after he next, the computer can jump from
+a place to another, either forwards or backwards.
 
 \subsection{Conditional sentences}
 Conditional sentences are the ones that allow us to make the program flow
@@ -1420,7 +1422,7 @@ diagram.
 \label{img:fluxIgEq}
 \end{figure}
 
-What you're seeing is called a flow diagram, despise the fancy name, it is very
+What you're seeing is called a flow diagram, despite the fancy name, it is very
 easy to read. You start in the black dot in the top of the diagram,
 and you follow the arrow, a diamond means a \textbf{decision}, according to what
 is inside the decision (a condition), one branch or the other will be taken.
@@ -1438,7 +1440,7 @@ In the section \ref{section:queEsLaProgramacion} I mentioned logic as a science.
 Concretely we are going to apply propositional logic, or first order logic.
 In this logic we have \textbf{facts} that can be only \textbf{true} or
 \textbf{false}, and they relate with each other with three operators. Let's see
-and example, and then we will hop to the theory.
+an example, and then we will hop to the theory.
 
 Imagine a fire extinguishing system that works in this manner: ``If the
 temperature is greater than 50\centigrade, the fire sprinklers will start
@@ -1516,7 +1518,7 @@ negated expression, for example $\overline{p}$.
 \label{tab:andTruthTable}
 \end{table}
 
-The conceptual meaning of the operations are intuitive, but I will explain it
+The conceptual meanings of the operations are intuitive, but I will explain it
 here to tell some details. The conjunctios is true only when \textbf{both}
 of the operand are true, and is like joining two propositions with ``and'' in
 English. ``It is raining and it's cold'' is true only if at the same time it's
@@ -1555,9 +1557,9 @@ label={lst:firstLogicProgram}]
 #include <stdio.h>
 int main(void)
 {
-    int temperature:greater_than_50 = 1;
+    int temperature_greater_than_50 = 1;
     int smoke = 0;
-    int aspersores = temperatura_mayor_50 || smoke;
+    int sprinklers = temperature_greater_than_50 || smoke;
 }
 \end{lstlisting}
 \end{minipage}
@@ -1588,7 +1590,7 @@ table and let's improve the program we had before.
 \label{tab:logicOperators}
 \end{table}
 
-Now you know comparison operators, let's make a program that checks is a given
+Now you know comparison operators, let's make a program that checks if a given
 value is in the interval $\left(a, b\right]$, that is, between $a$ and $b$,
 including $b$, without including $a$.
 
@@ -1596,7 +1598,7 @@ including $b$, without including $a$.
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Primer programa con operaciones de comparación},
+caption={First program with comparison operations},
 label={lst:firstComparingProgram}]
 #include <stdio.h>
 int main(void)
@@ -1970,7 +1972,7 @@ variables that are local (those declared in the block you're in) have priority
 over those declared in more external blocks. This means you cannot access
 external variables if you have declared any with the same name in an inner
 block.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Now that you know that the scope is, let's explain some things of those I
 couldn't explain before. Firstly I want to tell you that outside the braces of
 our first program we can write things. Concretely, we can declare variables,
@@ -10319,12 +10321,6 @@ int main(void)
 }
 \end{lstlisting}
 \end{minipage}
-
-% Aquí se puede ver cómo se utilizan estructuras con este patrón de diseño.
-% Primero la reservas, después la usas, la puedes manipular y, finalmente, la
-% liberas, todo ello con las funciones proporcionadas junto con el tipo de dato.
-% Con este patrón, el usuario de la funcionalidad que hemos programado tiene
-% menos capacidad para <<hacer algo mal>>.
 
 Here you can see how these struct with this design patter are used. First you
 reserve them, later you use them, you can manipulate them, and, finally, you
