@@ -1972,7 +1972,7 @@ variables that are local (those declared in the block you're in) have priority
 over those declared in more external blocks. This means you cannot access
 external variables if you have declared any with the same name in an inner
 block.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Now that you know that the scope is, let's explain some things of those I
 couldn't explain before. Firstly I want to tell you that outside the braces of
 our first program we can write things. Concretely, we can declare variables,
@@ -2008,7 +2008,7 @@ the variables \texttt{x} and \texttt{y} in the only block we needed them, we
 could have declared them at the start of the program, or as global variables,
 but, since it was not necessary, we didn't do it.
 
-\subsection{Other jump onstructions: \texttt{switch} and \texttt{goto}}
+\subsection{Other jump instructions: \texttt{switch} and \texttt{goto}}
 You know the most important way to make the flow of the program diverge, but
 there are other two that still have some utility, I have already named them in
 the title: \texttt{switch} and \texttt{goto}. The first one behaves like a
@@ -2065,13 +2065,14 @@ a \verb!if!, but inside the parenthesis there is not a condition, but always a
 variable. That variable must be an integer type. After that, in the body
 of the \texttt{switch} there is a set of lines that start with \verb!case!,
 after that word you must write a literal value (it cannot be a variable) and
-then the lines you want to execute in case the the variable in the switch has
+then the lines you want to execute in case the variable in the switch has
 the value of this case. That set of instructions can end or not with an special
 instruction called \lstinline[style=C]!break;!. This instruction makes the
 flow of the program to exit the switch. We need this because if we didn't put
-it, the instructions in the following cases would execute also. If you execute
-the program as it is written, it will print only the message of the Thursday, but
-if you remove the breaks and recompile, it will print all days from Thursday on.
+it, the instructions in the following cases would be executed also. If you
+execute the program as it is written, it will print
+only the message of the Thursday, but if you remove the breaks and
+recompile, it will print all days from Thursday on.
 
 You would see there is a line that is not a \texttt{case}, but has been created
 with the instruction \texttt{default}. This is because this keyword allows us
@@ -2084,12 +2085,12 @@ line). In this case, the code associated with the default would be the code
 in the \texttt{else} at the end of the chain.
 
 The \texttt{switch} is an example of jumping to a label. A label is something
-special because it stablishes a point in the to which you can jump with or
-without a condition. The other instruction to jump to a label is \texttt{goto},
-let's see a simple example and, later, I will explain its most common use case.
-The code example for that case will be introduced in a later section, because
-it will be difficult to understand without advancing more in the contents of
-the language.
+special because it stablishes a point in the program to which you can jump with
+or without a condition. The other instruction to jump to a label is
+\texttt{goto}, let's see a simple example and, later, I will explain its most
+common use case. The code example for that case will be introduced in a
+later section, because it will be difficult to understand without advancing more
+in the contents of the language.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2113,6 +2114,7 @@ int main(void)
 }
 \end{lstlisting}
 \end{minipage}
+
 If you compile the program and execute it, you would see that it prints the
 first and last line, but not the second. This is so because we have used the
 \texttt{goto} instruction to jump to a later point in the program. The use
@@ -2122,7 +2124,7 @@ Therefore, until we haven't gone through other sections of this manual, I
 would discourage its ussage. I advise you to save gotos as a novelty more
 than a common-use tool.
 
-\subsection{Repeat instructions: loops}
+\subsection{Repeating instructions: loops}
 At the start of this section I expalined to you that making the computer to
 repeat instructions is necessary to make programs work, and here we're going
 to learn how: with \textbf{loops}. There two main kinds of loops:
@@ -2224,7 +2226,7 @@ done before evaluating the condition. Let's see an example.
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de programa con un bucle \texttt{do-while}},
+caption={Example of a program with a \texttt{do-while} loop},
 label={lst:doWhile}]
 #include <stdio.h>
 int main(void)
@@ -2233,7 +2235,7 @@ int main(void)
 
     do{
         variable = rand();
-        printf("Variable aleatoria = %d\n", variable);
+        printf("Random variable = %d\n", variable);
     }while(variable != 10);
 }
 \end{lstlisting}
@@ -2249,9 +2251,8 @@ switch that is it something that doesn't get used much, but when it does,
 it makes things much easier.
 
 \subsubsection{The \texttt{for} loop}
-
 The \texttt{for} loop is a loop that works like the while loop, but that does
-two things more: it executes an instruction \textbf{before executing anything
+two more things: it executes an instruction \textbf{before executing anything
 inside the loop} and other \textbf{at the end of each repetition}. Let's see
 the flow diagram and how it's written.
 \begin{figure}[H]
@@ -2349,7 +2350,7 @@ incremented in one. This kind of loop tends to be very used along something
 called arrays, which we will see later.
 
 \subsection{Loop interruption}
-Sometimes we want to end an execution of a loop in the middle of an iteration,
+Sometimes we want to end an execution of a loop in the middle of an it,
 in this case we are going to write a program that calculates the power of two
 that is greater or equal than a target.
 
@@ -2454,9 +2455,9 @@ label={lst:lapExample}]
 int main(void)
 {
     for(int ii = 0; ii < 2021; ++ii){
-        int bisiesto = ii % 400 == 0 ||
+        int leap = ii % 400 == 0 ||
                           (ii % 4 == 0 && !(ii % 100 == 0));
-        if(bisiesto){
+        if(leap){
             printf("The year %d is a leap year.\n", ii);
         }
     }
@@ -2498,14 +2499,14 @@ Also, the printing order is not in a conditional, because if we reach the line,
 we already know the number is a leap year.
 
 As it happened with \texttt{break}, this is not a better way to write a program,
-but I needed to invent some example with the limited content I have shown up
+but I needed to make up some example with the limited content I have shown up
 until now. Again, take \texttt{continue} as a novelty more than something that
 will be used often.
 \section{Data structures}
 Data structures are one of the most important things in programming and
-in computer science, until now the only structure you knew were variables, each
-one of a type and with a different name. This is the simplest structure, but
-very often we need more complex structures, in this section we will see two
+in computer science, up until now the only structure you knew were variables,
+each one of a type and with a different name. This is the simplest structure,
+but very often we need more complex structures, in this section we will see two
 simple data structures that C provides to the programmer: the array and
 the struct, or structure. Structure has a generic meaning as the one I used in
 the title, and the sepecific one of being the artifact of the C language I am
@@ -2533,7 +2534,7 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-In the example we have declared and array with ten position of type
+In the example we have declared and array with ten positions of type
 \texttt{int}. And here there is the first important thing: the elements in an
 array do not start from one, but from zero. That means that an array like this
 one with ten positions hasn't got a position number ten, but positions from
@@ -2561,7 +2562,7 @@ int main(void)
 \end{minipage}
 
 In this program we are declaring the array, assigning a value to the first
-possition and then using that value to assign that possition to another
+possition and then using that position to assign that value to another
 variable, the values of the first position of the array and the variable
 are not linked. If you remember what I said in the last section, we will
 use a lot of \texttt{for} loops alongside arrays.
@@ -2587,7 +2588,7 @@ We must make several considerations, the variable you have declared in a
 \texttt{for} loop when you access an array tends to be called \texttt{i}.
 It is just a personal habit of mine to call it \texttt{ii}, you can do it as
 you wish, but if you want other programmers to read your code easily, I would
-encourage you to use any of those two alternatives; secondly: look carefully
+encourage you to use any of those two alternatives; secondly, look carefully
 the loop, \texttt{ii} takes values from 0 to 9, which are the positions of
 the array, and it assigns to them the values of the variable we are using
 to access the array, so we wad number in it with values 0, 1... to 9.
@@ -2635,14 +2636,14 @@ reminiscence, where big operators like summations or products of series use
 indexes with these letters.
 
 \subsection{The struct}
-In C a struct is a ``pack'' of data from different type that has a name. It
+In C a struct is a ``pack'' of data from different types that has a name. It
 would be like groupping a series of variables and refer to them as a set.
 Which advantage has this got? We can create new types sticking together the
 basic ones. If you think about that, it's something very natural, a struct
 allows us to use the basic construction blocks of the language, basic types,
 and create new concepts with them. In general, we want all the parts of our code
 to be able to see these new types, so we will declare them outside all code
-blocks, in tye same way I told you a global variable is declared.
+blocks, in the same way I told you a global variable is declared.
 
 When we create a variable of this new type, we are \textbf{instantiating} a
 struct. In computer science instantiate is creating a variable of a given type.
@@ -2677,9 +2678,10 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-The data that are inside a struct are called \textbf{fields}, and they are
+The data that are inside a struct are called \textbf{fields} or
+\textbf{members}, and they are
 accessed with a dot. If you're thinking that makes the point an operator,
-you're right, dot is an operator that accesses to the fields in an struct.
+you're right, dot is an operator that accesses the fields in a struct.
 Notice that to declare a variables of the new struct type you need to
 put the keyword \lstinline[style=C]"struct" before, not only the name you gave
 to it.
@@ -2716,7 +2718,7 @@ int main(void)
 As you can see, the program works and does what it is suppossed to do... but
 it is quite confusing, the only thing that ``joins'' together the coordinates
 of any point is the name of the variable, also, you need to declare many
-variables . I think you can see that the very moment we start managing many
+variables. I think you can see that the very moment we start managing many
 points in a program, this could be something very difficult to understand.
 Let's see what would come out of using our new knowledge of the structures.
 
@@ -2766,7 +2768,7 @@ line you have been using to compile until now, it would end like:
 
 \subsection{Initialization lists}
 Both arrays an structs have a way to initialize them in a concise way. If you
-remember the chapter about variables, initializing a variables is give it
+remember the chapter about variables, initializing a variable is give it
 value for the first time. This way of doing so to arrays and structs is the
 initialization list. Let's see an example.
 
@@ -2783,7 +2785,7 @@ struct point_s {
 };
 int main(void)
 {
-    struct point_s punto1 = {1.1, 2.3};
+    struct point_s point1 = {1.1, 2.3};
     int my_array[10] = {1,2,3,4,5,6,7,8,9,10};
 }
 \end{lstlisting}
@@ -2791,16 +2793,16 @@ int main(void)
 
 In the case of the struct, the members are initialized in the order we declared
 when creating the new struct type. So in the example the x coordinate will be
-1.1 and the second 2.3. In the case of the array we have filled all the
+1.1 and the y 2.3. In the case of the array we have filled all the
 positions, if we put only some, the remaining will be initialized to zero.
 Be careful, because the initializers with brackets are good only to initialize,
 if we added to the program a line such as:
-\lstinline[style=C]!punto1 = {2.2, 4.6}! the
+\lstinline[style=C]!point1 = {2.2, 4.6}! the
 compiler wouldn't let you compile. The same would happen with the array. With
 the struct we can do something, initialize only the fields we want, omitting
 some, etc. This is done with a little confusing syntax. Let's use an example
 with an struct that stores a date. One of its variables is logic, tells if it
-is a leap year. It's something we can calculate, but it is not unusual to
+is a leap year. It's something we can calculate, but it is common to
 store data calculated of an struct on itself so you don't have to do it
 all the time.
 
@@ -2832,7 +2834,7 @@ the order. As we saw before the rule to know if a year is a leap year is more
 complex but this is just an example.
 
 I want to add as a conclusion that it is posible (and common) to declare arrays
-of struct and have struct that have arrays as fields. For example.
+of structs and have structs that have arrays as fields. For example.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2862,8 +2864,8 @@ Pay attention to the initialization list in line 12, in it the most external
 brackets indicate that we are initializing the struct \texttt{triangly}, after it,
 there is another level of brackets because we're initializing the member
 \verb"points", which is an array and, finally, for each element of that array
-we use an initialization list for each point. A clearer but longer way to write
-it would be:
+we use an initialization list, one for each point. A clearer but longer way to
+write it would be:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -2940,11 +2942,11 @@ fizzbuzz
 
 \section{Functions}
 \label{funciones}
-We are arriving to one of the most important parts of the manual. As you have
+We are arriving to one of the most important parts of the manual. As you
 have read in the title of the section, we are going to talk about functions.
 In programming, a function is almost a direct translation of what a function
 is in mathematics. Let's start there, in mathematics a function is an object
-that receives a series of arguments from certian domains and gives a result
+that receives a series of arguments from certain domains and gives a result
 that is in some codomain. In other words, it receives a set of mathematical
 objects each one from a type (numbers, vectors, matrixes...) and gives you a
 result of some type of mathematical items.
@@ -2975,7 +2977,7 @@ to have a name. For example: \verb!power!
 \item List of parameters (arguments) of the function, with their type, separated
 by a comma each one. In this case as example, two integers: \verb!base! and
 \verb!exponent!.
-\item Closing parenthesis (\texttt{(})
+\item Closing parenthesis (\texttt{)})
 \item As always, end the line with semicolon.
 \end{enumerate}
 
@@ -2990,7 +2992,7 @@ double power(int base, int power);
 \end{lstlisting}
 \end{minipage}
 
-But this function cannot be used, because we haven't defined it. Define a
+But this function cannot be used, because we haven't defined it. Defining a
 function is in a way like initializing a variable. And it is saying
 \textbf{what the function actually does}. To do that, we copy the definition of
 the function (without the semicolon) and we write a block of code. Which would
@@ -3023,9 +3025,10 @@ we can define its behaviour. In a function, the block of code that goes after
 the argument list is called \textbf{body}. Inside the body the arguments can
 be used as local variables. With this you can calculate the value you want the
 function to \textbf{return} and make C do so with the
-\lstinline[style=C]{return} (makes sense, doesn't it?). When you use this word,
-the function ends executing (you go out of it). Let's see how we can implement
-the function of the example that, if you didn't guess it by the name, calculates
+\lstinline[style=C]{return} (makes sense, doesn't it?) keyword.
+When you use this word, the function ends executing (you go out of it).
+Let's see how we can implement the function of the example that, if you
+didn't guess it by the name, calculates
 the power \verb!base! to \verb!exponent!. It would end up like this:
 
 \noindent
@@ -3054,7 +3057,7 @@ double power(int base, int exponent)
 
 The function does this: declares a variable called \verb!res! which will be
 where we will save the power we calculate. After that, we will use a
-\verb!while! loop to multiply of divide (according to if the exponent is
+\verb!while! loop to multiply or divide (according to if the exponent is
 possitive or negative) as many times as it's needed. At the end, we will return
 the result.
 
@@ -3070,7 +3073,7 @@ then you know writing $f(3)$ is the name as writing a nine.
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:functionInvocation},
-caption={Invocación de función en C}]
+caption={Function call in C}]
 #include <stdio.h>
 // Paste here definition of power
 int main(void)
@@ -3088,11 +3091,12 @@ int main(void)
 
 As you can see, the values returned by functions are used as those returned by
 operators, you can save them in arrays or assign them to variables. And, now
-we're here, let's expalin another thing, as you may have already guessed,
+we're here, let's explain another thing, as you may have already guessed,
 \verb!printf! is a function. What is particular about it is that it's an special
-function, its first argument (the format) is a pointer, which a new type I
-haven't explained to you before. At this level, all the functions we write will
-have a fixed number of arguments, which is the more common thing.
+function, its first argument (the format) is a pointer, which is a new type I
+haven't explained to you before and it receives a variable number of arguments.
+At this level, all the functions we write will
+have a fixed number of arguments, which is the more common thing, though.
 
 And, lastly, the keyword \lstinline[style=C]{void}. Void means and empty space.
 This is the word we use when we want to indicate that a function doesn't need
@@ -3102,7 +3106,7 @@ while functions in C are very much like mathematical functions, they're not
 exactly the same, because functions in C can manipulate other things that are
 not their arguments, the global variables. The most common example is
 \verb!printf!, that does a thing which is not returning anything, but
-manipulate the terminal, which is symbolized as a global variable of a concrete
+manipulating the terminal, which is symbolized as a global variable of a concrete
 type. I told you when I mentioned them that they weren't useful for us ``yet''.
 When you have several functions, sometimes you need to use global variables
 because they will be available in all the functions, but, as I told you, it is
@@ -3119,7 +3123,7 @@ Let's see it with an example:
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:functionByValue},
-caption={Demostración de que una función recibe copias de sus argumentos}]
+caption={Demonstration that a function receives copies of the arguments}]
 #include <stdio.h>
 
 void doble(int a){
@@ -3144,18 +3148,17 @@ I have already explained to you how to declare and define a function
 separatedly, but in all the examples I have always included only the definition.
 This is because in the definition we include the declaration. There are two
 reasons to do both things separatedly, the first one is that you want to
-separate your code in several files, thing we will do later on, but the second
+separate your code in several files, which we will do later on, but the second
 is that you need to define all the functions because they use each other, let's
 see an example of two functions, whose target is to print always
 ``Duck season'', and ``Rabbit season'', depending on which was called first,
 the order will be one or the other. The code would be something like this:
 
-
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:cyclicFunctions},
-caption={Declaration not separated from definition}]
+caption={Declaration separated from definition}]
 #include <stdio.h>
 
 void ducks(void){
@@ -3264,8 +3267,8 @@ them as arguments. I also want you to see that when you pass an array to a
 function in the list of arguments you must write: \verb!type name[]!, for
 example in both functions shown before: \verb!int array[]!. Also, a function
 \textbf{cannot return an array}, this is for reasons I will explain when we go
-deeply into topics of pointers. Finally, functions cannot receive bisimensional
-pointer, for similar reasons.
+deeply into topics of pointers. Finally, functions cannot receive bidimensional
+pointers, for similar reasons.
 
 
 \subsection{Exercises of the section}
@@ -3283,7 +3286,7 @@ itself is not composed nor prime.
 in the last section. To calculate the square root of a number you must use
 the function \verb!sqrt!, to be able to use it you should include at the
 begining of your program (just right under the line that says:
-\verb!#include zstdio.h>!) the line \verb!#include <math.h>! and add \verb!-lm!
+\verb!#include stdio.h>!) the line \verb!#include <math.h>! and add \verb!-lm!
 to the command to compile the programs, that would be:
 \verb!gcc -o main.elf main.c -lm!
 \item Write a function that receives an array of integers and a separator char
@@ -3302,12 +3305,12 @@ to the array \verb!{1,2,3,4}! and the char \verb!'\n'!, it will print:
 
 \item Write a function that encapsulates the program
 \ref{lst:linealSystemFinal}: \nameref{lst:linealSystemFinal}. The function must
-receive the coefficients if the equations ($a$, $b$, $c$, $d$, $e$ y $f$). It
-can receive them separatedly of in an array. To return the result you can create
+receive the coefficients of the equations ($a$, $b$, $c$, $d$, $e$ y $f$). It
+can receive them separatedly or in an array. To return the result you can create
 a struct that has two \verb"doubles".
 \item Write a function that normalizes the elements of an array of
-\verb!double!. Normalize is expressing all the elements in terms of the unit,
-so to normalize it you must divide all elements by the biggest element
+\verb!double!. Normalizing is expressing all the elements in terms of the unit,
+so to normalize it you must divide all elements by the biggest element.
 \end{exercises}
 
 \section{The Memory}
@@ -3381,7 +3384,7 @@ composed by figures, each one of those figures has a value depending on which
 \textbf{position} they occupy in the number. The more to the left they are in
 the number, the more they add to it. Remember when we learnt how numbers work,
 you had units, tens, hundreds, thousands... and so on and so forth. The system
-we use to write numebers is, therefore, positional, and decimal, because we have
+we use to write numbers is, therefore, positional, and decimal, because we have
 ten figures (from zero to nine). In binary it's the same, but with only two
 figures.
 
@@ -3391,7 +3394,7 @@ adds to the number the value of the figure multiplied by $n$ to the power of
 how many figures remain to the right of this one. As always, let's see it with
 and example: if we write the number 34,789, the calculation we perform to
 know how much it adds up is this one (remember that any number that is not zero
-powered to the zero power is one):
+powered to the zero power equals one):
 $$
 3\cdot10^4+4\cdot10^3+7\cdot10^2+8\cdot10^1+9\cdot10^0
 $$
@@ -3460,10 +3463,10 @@ If you are an user of computers, you may have heard sentences like
 ``this computer is a 32 bit computer'' or ``this computer is compatible with
 64 bit software''. That numbers of bits is the size of, between other things,
 the memory addresses. A computer of 32 bits has 32 bit memory addresses, hence
-it can address 2\textsuperscript{32} bytes. Newadays most computers are 64 bit,
+it can address 2\textsuperscript{32} bytes. Nowadays most computers are 64 bit,
 so most of them can address 2\textsuperscript{64} bytes of information
 theoretically. Of course, a computer will be always limited by the actual amount
-of memory it has which, in normal computers, is usually of a handful of
+of memory it has which, in normal computers, is usually around a handful of
 gigabytes.
 
 The problem is that 64 binary digits are too many to be read easily, look at
@@ -3495,7 +3498,7 @@ Let's go back to the example of the number we converted to binary before, 253,
 in binary it is 11111101, if we wanted to convert it to hexadecimal we would
 need to divide it in groups of four: 1111~1101. the number 1111 is 15, so it'd
 be F, and the number 1101 is a 13, so it would be D, therefore 253 would be
-equal to 0xDF. If the leftmost group is not a 4 byte group, you must put zeroes
+equal to 0xFD. If the leftmost group is not a 4 byte group, you must put zeroes
 on the left side. By the way, to convert from hexadecimal to binary, simply take
 every hexadecimal digit and convert it to binary again but, remember, each
 digit is a four byte binary number, so 0x33 would be 0011~0011. no 1111, that
@@ -3503,8 +3506,8 @@ would be a different number entirely. You're prepared to start learning how the
 memory of a computer works.
 
 \subsection{The memory map}
-One of the most common way to represent the memory of a computer is with a
-\textbf{memory map}, that is a drawing in the shape of a column in which the
+One of the most common ways to represent the memory of a computer is with a
+\textbf{memory map}, that is a drawing it in the shape of a column in which the
 contents of the memory are explained, indicating on the side the relevant
 addresses. Look at the following figure:
 
@@ -3514,6 +3517,7 @@ addresses. Look at the following figure:
     \caption{Mapa de memoria vacío}
     \label{img:emptyMemoryMap}
 \end{figure}
+
 In that figure we have drawn the whole computer memory in a column, with
 the lower addresses (near zero) in the top and the higher ones (closer to
 0xFF...) in the bottom. Generally I like more this representation, but in
@@ -3561,8 +3565,8 @@ less. By the way, in general terms, each level in the prefixes of multiplication
 of 1,000 is not 1,000, but 2\textsuperscript{10}, 1,024, when you're talking
 about bytes, if we were exhaustive,
 we should write GiB, MiB and so on, which is the correct way to indicate those
-prefixes that multiply by 1,024. What the operating system does is to alocate
-what we ask from him in the \textbf{physical} memory and gives us addresses of
+prefixes that multiply by 1,024. What the operating system does is to allocate
+what we ask from it in the \textbf{physical} memory and gives us addresses of
 that map of memory we think we have, and translates it. This process is the
 \textbf{memory virtualization}, and is one of the most important features of an
 operating system. Thanks to it, the programmer doesn't need to manage where the
@@ -3572,7 +3576,7 @@ and other processes have no information about what we're doing with ours.
 
 In this map of virtualized memory, which is efectivelly the one we're going to
 use, the operating system creates a set of \textbf{memory regions}, which are
-used to alocate different types of information of each program executing in a
+used to alocate different types of information of each process executing in a
 computer.
 Now I will show you a memory map with the most important regions, and I will
 explain what they are and why we care about them.
@@ -3585,7 +3589,7 @@ explain what they are and why we care about them.
 
 The text region is easy, it is were the instructions that your program is going
 to execute are stored. When I explained you what compilation was I told you we
-were going to transform our instructions in a binary the computer can execute.
+were going to transform our instructions into a binary the computer can execute.
 This is the section where it is stored. To generate a program, those
 instructions in binary are stored in the disk in the executable. When they load
 in memory, they go in this section. This section can't be directly read or
@@ -3610,7 +3614,7 @@ how this is done, firstly I need to explain you how a stack (in general terms)
 works.
 
 A stack is a data structure, like arrays or structs, which works in this way:
-when you put something in the stack, that element in on top, and when you pull
+when you put something in the stack, that element is on top, and when you pull
 out something from the stack, you can only pull out the last element, the one
 in the top of the stack. I am going to set a physical example: a can of the
 famous Pringles\textsuperscript{®} potato chips. The only chip that you can
@@ -3627,8 +3631,8 @@ existing once the function has returned.
 Maybe you're wondering why you can declare basic types variables or structs
 inside functions and return them, if they're going to be destroyed once the
 function is finished executing. That is because, in the same way the arguments,
-the return value when it is not an array get copied. Concretely it left in the
-top part of the pile so the \textbf{code where it called} of the function can
+the return value when it is not an array gets copied. Concretely is left in the
+top part of the stack so the \textbf{code which called} the function can
 copy it with an assignation. With array \textbf{we cannot use the assignment
 operator}, it is not how arrays are copied. As a matter of fact the compiler
 would throw an error if you tried assigning an array to another.
@@ -3636,9 +3640,9 @@ would throw an error if you tried assigning an array to another.
 Let's see an example of how the stack would look in the case of executing some
 of the example programs we've written. We're going to use the program
 \ref{lst:arraysAndFunctions}: \nameref{lst:arraysAndFunctions}.
-In this example you're going to see that in the pile there two names
+In this example you're going to see that in the stack there two names
 (\verb!my_array! and \verb!array!), but remember they \textbf{point to the same
-array}. They only copy the address it starts, not the elements.
+array}. They only copy the address it starts in, not the elements.
 \begin{table}[H]
 \centering
     \begin{subfigure}{0.33333\linewidth}
@@ -3828,7 +3832,7 @@ array}. They only copy the address it starts, not the elements.
 
 Now you know how the stack works and the implications it has in the arrays
 saved in it, we can see the last region and maybe the most important, the heap.
-This region stores the memory you ask from the operating system with a series of
+This region stores the memory you ask for from the operating system using a series of
 functions we're going to see. And you may be thinking: why would you do that if
 you can declare an array? Simple, this memory you ask the operating system for
 is always available to you \textbf{until you free it}. That means that,
@@ -3845,7 +3849,7 @@ You have already used pointers, but you didn't know what they were because I
 have chosen to explain other things first, although I have been anticipating
 its use.
 
-I told you before that when a functions received an array as an argument it
+I told you before that when a function receives an array as an argument it
 decays to a mere pointer. This means we do not copy the arrays functions
 receive, what we do is tell the function where the elements of the array are in
 memory. In this way, if it is necessary to perform a copy, we can do it, if
@@ -3880,8 +3884,8 @@ int main(void)
 In line 7 we declare a pointer variable for the first time, this is done with
 an asterisk that you see between the type of the variable and the name. This is
 where it is stablished that this pointer is associated to an \texttt{int}. In
-the next line we're assigning to this pointer the value of the address,
-\verb!a! is allocated. We use the operator \verb!&!. The name of the operator
+the next line we're assigning to this pointer the value of the address where
+\verb!a! is located. We use the operator \verb!&!. The name of the operator
 is ampersand. Said operator, infront of an expression, gives us the pointer to
 its type with the address said expression is stored in. Mind that, for this to
 work, this expression must be stored somewhere. That is, the temporal values
@@ -3901,7 +3905,7 @@ a is in address 0x7fffde738b6c and it is 2
 Then, let's see a practical case of what pointers are useful for, for example:
 we have said several times that a function receives a copy of the arguments but,
 what if we wanted to save that effort? If, for example, you wanted a function
-that multiplies a number by other, maybe you do not want to copy it, the
+that multiplies a number by another, maybe you do not want to copy it, the
 function returning the result and copying that result again in the variable,
 simply \textbf{leave the function work for you}. If we pass the pointer to our
 variable the function will be the one changing the value, let's see it.
@@ -3953,8 +3957,8 @@ the pointer and then the operator dot to access the field. For example, let
 \verb!x!, we had to write \verb!(*point_ptr).x!. It is not a problem, but I warn
 you that it is very common to have structs with pointers to other structs and so
 on... it can become pretty illegible in three or four times. That is why we have
-the arrow operator, to make the code before turn into simply:
-\verb!point_ptr->x!. I want to clarify that this operator access to the field,
+the arrow operator, to make that earlier code turn into simply:
+\verb!point_ptr->x!. I want to clarify that this operator accesses to the field,
 does not gives us a pointer to said field. That is, following the example,
 \verb!point_ptr->x! would be a \verb!double!, not a \verb!double*!. Later on we
 will see this operator in real use.
@@ -3969,7 +3973,7 @@ As always, let's see how it is done:
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:pointers2},
-caption={Arrays como punteros}]
+caption={Arrays as pointers}]
 #include <stdio.h>
 
 int main(void)
@@ -3977,11 +3981,11 @@ int main(void)
     int my_array[10] = {0,1,2,3,4,5,6,7,8,9};
     int* pointer_like_array = my_array;
     for (int ii = 0; ii < 10; ++ii) {
-        printf("array[%d] = %d\n",ii, my_array[ii]);
+        printf("array[%d] = %d\n", ii, my_array[ii]);
     }
     puts("========");
     for (int ii = 0; ii < 10; ++ii) {
-        printf("array[%d] = %d\n",ii, pointer_like_array[ii]);
+        printf("array[%d] = %d\n", ii, pointer_like_array[ii]);
     }
 }
 \end{lstlisting}
@@ -4021,9 +4025,9 @@ If you execute the program you would see that the addresses are four units
 apart. This is because when you add an integer to a pointer, even when said
 pointer is a memory address of a memory addressed by bytes, due to being a
 pointer to \textbf{integer}, that expression of adding an integer to it is
-translated in adding the integer multiplied by the size of an \verb!int!
+translated into adding the integer multiplied by the size of an \verb!int!
 (four bytes). After this, we use the asterisk operator so this pointer we have
-added a pointer is dereferenced. Using pointer arithmetic is useful when
+added a number is dereferenced. Using pointer arithmetic is useful when
 you want to pass to a function the pointer of a position of an array. For
 example:
 
@@ -4031,7 +4035,7 @@ example:
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:pointers4},
-caption={Ejemplo práctico de aritmética de punteros}]
+caption={Practical example of pointer arithmetic}]
 #include <stdio.h>
 void multiply(int* number, int other) {
     *number *= other;
@@ -4060,6 +4064,7 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 As an instance, if we use the function that multiplies a number without having
 to return it, we can write a function that does the same with an array (here
 you can appreciate how functions are a way to reuse code and avoid duplicating
