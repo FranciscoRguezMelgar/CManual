@@ -4512,7 +4512,7 @@ el archivo no existe, o no tienes permisos para abrilo, ese puntero será
 Muchas funciones que reciben un puntero
 usan \verb!NULL! para indicar un comportamiento especial. Por ejemplo, vamos a
 escribir una función que encapsule la funcionalidad del programa
-\ref{lst:pointNoStruct}, esto ha sido un ejercicio, así que si no lo has hecho,
+\ref{lst:pointStruct}, esto ha sido un ejercicio, así que si no lo has hecho,
 hazlo ahora; pero le vamos a dar un giro: en vez de recibir en la función las
 estructuras, vamos a recibir punteros. Primero, porque como ya te dije,
 ahorramos la copia de la estructura y además podemos usar \verb|NULL| para
@@ -4748,6 +4748,10 @@ int main(void)
 Aquí es donde entra en juego eso que te dije de que \verb!sizeof! es un operador
 y no una función. Si ves la línea 7, utilizamos \verb!sizeof! para hallar el
 tamaño del array y lo dividimos por el tamaño del primer elemento.
+Se puede ver que \verb!sizeof! no es una función porque, cuando calculamos el
+tamaño de una expresión, lo podemos utilizar sin paréntesis. Debes usar
+paréntesis, sin embargo, cuando calcules el tamaño de un tipo de dato por
+nombre.
 Cabe aclarar que \verb!sizeof! no necesita saber qué hay \textbf{dentro} de
 la primera posición, sólo el tipo de la expresión, en este caso \verb!array[0]!,
 que sería un \verb!int! y por tanto cuatro bytes. Podrías utilizar \verb!sizeof!
@@ -5632,8 +5636,7 @@ Las dos funciones se comportan más o menos igual, reciben un puntero, un tamañ
 otro número y finalmente el puntero a la estructura que simboliza el fichero.
 El primer puntero es de entrada para escribir y de salida para leer. Es donde
 pondremos nuestros datos, o la memoria para que la función lo escriba cuando
-leemos. Es un puntero a \verb!char!, que es el puntero que se utiliza para
-simbolizar una continuidad de datos genérico, es decir, un continuo de bytes.
+leemos.
 Estas funciones están hechas para escribir o leer objetos de un determinado
 tamaño, de ahí que existan los argumentos \verb!size! y \verb!nmemb!; el primero
 es el tamaño de cada uno de los objetos y el segundo el número de ellos que
@@ -6782,16 +6785,22 @@ desreferenciación de punteros, etc.). Además, en las declaraciones, el asteris
 debe estar siempre pegado o al tipo de dato, o al nombre de la variable. Es una
 cuestión de estilo, pero yo recomiendo que se adhieran los asteriscos al nombre
 de la variable, o, en su caso, del argumento de la función.
-Es decir:
+Algunos ejemplos de estas decisiones serían:
 \begin{enumerate}
-\item Espacia los operadores: \lstinline[style=C]!int var = a * 3 + ii!
-\item Los asteriscos deben ir pegados a las variables a las que afectan, en
-declaraciones y desreferenciaciones:
-\begin{enumerate}
-\item \lstinline[style=C]!double *var1;!
-\item \lstinline[style=C]!int function(int *arg1, void **arg2);!
-\item \lstinline[style=C]!int a = *ptr1 + *ptr2;!
-\end{enumerate}
+    \item Espacia los operadores: \lstinline[style=C]!int var = a * 3 + ii!
+    \item Los asteriscos pueden ir pegados a las variables a las que afectan, en
+    declaraciones y desreferenciaciones:
+    \begin{enumerate}
+        \item \lstinline[style=C]!double *var1;!
+        \item \lstinline[style=C]!int function(int *arg1, void **arg2);!
+        \item \lstinline[style=C]!int a = *ptr1 + *ptr2;!
+    \end{enumerate}
+    o bien, pegados al tipo de la variable or argumento:
+    \begin{enumerate}
+        \item \lstinline[style=C]!double* var1;!
+        \item \lstinline[style=C]!int function(int* arg1, void** arg2);!
+        \item \lstinline[style=C]!int a = *ptr1 + *ptr2;!
+    \end{enumerate}
 \end{enumerate}
 
 Además, después de todas las comas que haya en listas de inicialización,
@@ -8031,7 +8040,7 @@ segundo es el valor que vamos a escribir \textbf{en cada byte} y el último
 el número de bytes que se van a escribir. El típico ejemplo de uso para esto
 es cuando necesitas inicializar a ceros una zona de memoria. Esto es típico
 cuando reservas memoria para alguna estructuras cuyo valor necesitas controlar
-o que requiere que sea inicializada así. En ejemplos posteriores las veremos.
+o que requiere que sea inicializada así (por eso \verb!calloc! lo hace).
 El ejemplo que voy a poner, sin embargo, es más original. Imagina que
 quieres imprimir una barra de progreso en modo de texto que tenga este aspecto:
 \begin{verbatim}
@@ -8242,17 +8251,12 @@ ejercicio de hacer una función que realice esta sencilla tarea:
 \begin{lstlisting}[style=C,
 caption={Propia versión de \texttt{strlen}},
 label={lst:ownStrlen}]
-size_t my_own_strlen(const char* string)
-{
-    size_t res  = 0;
-    char   iter = string[res];
-
-    while ('\0' != iter) {
-        ++res;
-        iter = string[res];
+size_t my_own_strlen(const char* string) {
+    size_t iter = 0;
+    while ('\0' != string[iter]) {
+        iter++;
     }
-
-    return res;
+    return iter;
 }
 \end{lstlisting}
 \end{minipage}
@@ -8804,6 +8808,7 @@ como esta de tantos pisos como el número indicado:
 \noindent
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[style=terminalStyle]
+\$ ./main.exe 5
 %%%%%%%%%
  %%%%%%%
   %%%%%
@@ -10871,6 +10876,7 @@ int main(void)
     serialization = person_to_string(person);
     printf("%s\n", serialization);
     free(serialization);
+    destroy_person(person);
 }
 \end{lstlisting}
 \end{minipage}

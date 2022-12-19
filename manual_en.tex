@@ -2381,7 +2381,7 @@ target. We also make sure not to calculate any longer than the max number of
 steps that we want.
 The variables we need are: the counter of the steps we have done
 (\texttt{steps}) (the power we
-are testing), the maximun number of steps we are allowed to test
+are testing), the maximum number of steps we are allowed to test
 (\texttt{max\_steps}), then a
 variable called \texttt{number} that allows us to keep multiplying it by two
 and, finally, the \texttt{target} we want to check.
@@ -4064,7 +4064,6 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 As an instance, if we use the function that multiplies a number without having
 to return it, we can write a function that does the same with an array (here
 you can appreciate how functions are a way to reuse code and avoid duplicating
@@ -4094,11 +4093,12 @@ important so we will see them in later sections.
 
 Nevertheless; there is a differente between a \verb!char! array (or pointer when
 it is passed to a function) and an array of another data type. The function
-\verb!printf!, but in any place we say the size of the array, the number of
-elements on the memory the pointer points to. The functions that receive it must
+\verb!printf! receives a \verb!char! array, but in no place we say the size
+of the array, the number ofelements in the memory the pointer
+points to. The functions that receives it must
 have some mechanism to know how many there are. That way is that every text
 chain (called strings in programming) in C finishes in a \verb!char! with
-value zero. That is, when it is written \verb|"Hola, mundo!"| we are creating
+value zero. That is, when it is written \verb|"Hello, world!"| we are creating
 in a quick way an array of \verb!char! that contains \textbf{fourteen}
 \verb!char!, the letters you can see and a \verb!char! with value zero at the
 end. I am going to demonstrate this is the case with a little program:
@@ -4124,19 +4124,19 @@ int main(void)
 The first string will be printed correctly, but the second will print and,
 with all probability, after it, other characters will be printed, probably
 nonsense (execute the program a couple times, it may work well the first time).
-This is because since the second string is not ended in a char with
-value \verb!zero!, \verb!printf! doesn't know where to stop printing. Aside from
+This is because since the second string is not ended in a \verb"char" with
+value zero, \verb!printf! doesn't know where to stop printing. Aside from
 this way of working with them, \verb!char! arrays work like any other array and,
 when they're turned into pointers, like any other pointer. In later sections
 I will show how to manipulate text strings in more advanced ways.
 \subsubsection{The null pointer}
 There is an special value for all the types of pointer, which is the null
 pointer, or, as it is written in the language: \verb!NULL!. It is a \verb!void!
-pointer that is equal to zero. If you remember, the memory map that address
+pointer that is equal to zero. If you remember the memory map, that address
 would correspond to the text section, our program can't modify itself or read
 the binary instructions, among other things because part of that section is not
-our code, but the code of operating system which inserts itself in processes to
-allow us to do certain things. Hence the designers of the language used this
+our code, but the code of the operating system which inserts itself in processes
+to allow us to do certain things. Hence the designers of the language used this
 value to symbolize a pointer that is in a special state.
 
 One of the most important uses of this pointer is that it is used to express if
@@ -4144,8 +4144,8 @@ an operation has gone well or not. For example, when we open a file with a
 function called \verb!fopen!, this returns a pointer to a struct, if the file
 does not exist, or the program hasn't got permissions to open it, the pointer
 will be \verb"NULL". Many functions that receive a pointer use \verb!NULL! to
-express an special behaviour. For ecample, let's write a function that
-encapsulates the functionality of the program \ref{lst:pointNoStruct}, this has
+express an special behaviour. For example, let's write a function that
+encapsulates the functionality of the program \ref{lst:pointStruct}, this has
 been an exercise, so if you didn't do it yet, do it now; but we're going to
 give it a twist: instead of receiving the structs, let's receive pointer to the
 structs. First, because as I said you, we save ourselves copying the structs and
@@ -4190,13 +4190,13 @@ pointers to the structs is \verb!NULL!, we understand that such point is
 the origin of coordinates. What we do is assigning to our arguments (which
 are pointers) the address to this local variable we have declared. Remember:
 the arguments that a function receives are \textbf{copies} of the values. In
-this case, our argument is a pointer to a struct. Assigning to our argument
-other value \textbf{we are not altering the original structure}, because we
+this case, our argument is a pointer to a struct. Assigning other value
+to our argument \textbf{we are not altering the original structure}, because we
 haven't changed the value our argument points to, but the argument itself. Once
 this is done, we can calculate the distance in the same way we would do if they
 weren't pointers. What is the use of writing a function in this way? Finding
 the distance to the origin of coordinates is a common operation, doing things
-this way, we allow the program to call the function to do such calculation
+this way, we allow the programmer to call the function to do such calculation
 without declaring an extra struct to symbolize the origin.
 
 \subsection{Allocate and free memory}
@@ -4221,7 +4221,7 @@ use \verb!malloc! and \verb!free!.
 
 One of the advantages of dynamic memory allocation occurs when other part of
 the program performs a calculation whose result has an unknown size. For
-example, imagine a function that, given an array of number, returns a vector
+example, imagine a function that, given an array of numbers, returns a vector
 with an instance of every distinct number, that is, erases repetitions, let's
 call it \verb!erase_reps!. Functions cannot return arrays, that's something we
 already know, but the person that calls \verb!erase_reps! could declare an array
@@ -4231,8 +4231,8 @@ if we give to this function an array of $n$ positions, the result can only have,
 at most, $n$ positions. So we could declare an array of $n$ positions
 and tell the function to leave there the results. But there is a problem, how do
 we know which part is solution and wich part is excess? The only thing you could
-so is to return from \verb!erase_packets! the size of the solution. In this case
-you'd have to an array of $n$ positions of which you'd use a lesser amount.
+do is returning from \verb!erase_packets! the size of the solution. In this case
+you'd have an array of $n$ positions of which you'd use a lesser amount.
 You'd be wasting memory and, even when it does not look like a problem, it may
 become one very quickly.
 
@@ -4284,7 +4284,7 @@ int main(void)
 \end{minipage}
 
 In the line 2 of code we see how the line \verb!#include <stdlib.h>! makes its
-appearance, it is needed to use \verb!malloc! and \verb!free!. After it we have
+appearance, it is needed to use \verb!malloc! and \verb!free!. After it, we have
 the declaration of the function, we have made it return the pointer to the
 result and receive three arguments: the array from which we're erasing
 repetitions, the length of such array and a pointer to integer that will allow
@@ -4299,7 +4299,7 @@ the list of unique numbers in an array can't be longer than the array itself.
 This is also a common pattern: using an auxiliary data structure that we will
 copy to another with a more proper size and definitive.
 
-The next loop simply checks, for any element of the array, is that number
+The next loop simply checks, for any element of the array, if that number
 appears before. Pay attention to the inner loop, for each $i$ element of the
 array, we look at the elements before it (elements from 0 to $i$ not including
 $i$). If it is equal to the one we're examining now,
@@ -4310,9 +4310,10 @@ one, we increment the final length and copy this number to the preliminar array.
 When the length is already calculated and all the numbers are in the preliminary
 array, we can use \verb!malloc! to create the final solution.
 
-The \verb!malloc! return, as we have said, a pointer that indicates the start of
-the memory zone it has reserved for us. To do so, it receives the \textbf{size in
-bytes} we want. And you'll see here the \lstinline[style=C]{sizeof} operator.
+The call to \verb!malloc! returns, as we have said, a pointer that indicates
+the start of the memory zone it has reserved for us.
+To do so, it receives the \textbf{size in bytes}
+we want. And you'll see here the \lstinline[style=C]{sizeof} operator.
 Yes, I have said operator, not a function. As a matter of fact, you may have
 noticed that no function is in blue in the code examples, and \verb!sizeof!
 is. This is because it is a \textbf{unary} operator that gives us the size in
@@ -4320,7 +4321,7 @@ bytes of a type we write next to it between parenthesis. It is also capable of
 calculating the size of complex expressions, but we will see that later on.
 For now, just remember that \verb!sizeof(int)! is equal to the size in bytes of
 an integer. As you can see, I simply multiply the size of the integer by the
-number os positions that I know that are unique. The next loop, simply, copies
+number of positions that I know that are unique. The next loop, simply, copies
 from the preliminary solution to the definitive. Finally, we return the pointer
 allocated with \verb!malloc!.
 
@@ -4328,7 +4329,7 @@ In \verb!main! function we simply declare an array with several random numbers
 with repetitions, we call the function on them and show the result on the
 screen. You'd see that it works as it is intended. Note the use we make of the
 operator ampersand to pass to the function \verb!erase_reps! the pointer to
-a normal variable.
+a local variable.
 
 As a note, I have been using and mixing vector and array in this section and
 I didn't do it casually: a vector is a contiguous memory block that stores data,
@@ -4370,9 +4371,13 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-The fact that \verb!sizeof! is a operator and not a function comes into play
+The fact that \verb!sizeof! is an operator and not a function comes into play
 here. If you look at line 7, we use the operator \verb!sizeof! to get the size
-of the array and divide it by the size of the first element. Mind you that
+of the array and divide it by the size of the first element. Since it is
+an operator, you can see we do not need parenthesis in this instance, because
+we're calculating the size of an expression. Nonetheless;
+when calculating the size of a type, you need to put the parenthesis.
+Mind you that
 \verb!sizeof! doesn't need to know what is \textbf{inside} the first position,
 just the type of the expression (\verb!array[0]!) which would be an \verb"int".
 You could use \verb!sizeof! like this over memory that is not accessible and
@@ -4385,14 +4390,14 @@ can see it more clearly, but you could have put this expression directly in the
 passed the lenght of array to functions if we could know it. The answer is that
 we do not know it, because you must remember that, when a function gets an array
 passed as argument, this decays to be a mere pointer. The good side of vectors,
-nonetheless, is that since we reserve them using their size, you can assign it
+though, is that since we reserve them using their size, you can assign it
 to a variable before doing the allocation to use it later several times.
 
 And I still have another trick to teach you about this operator, and it is
 that allows us to write the calls to \texttt{malloc} in a way that favours some
 changes in the code. Imagine this call to malloc:
 \lstinline[style=C]{int *vector = malloc(length * sizeof(int));}.
-It is like the one we did before, but it presents a little problem, if we change
+It is like the one we did before, and it presents a little problem, if we change
 the type of the vector we must be very careful to also change the type that
 is inside the \texttt{malloc}, because, if not, we would be allocating less
 memory than we want. Nevertheless: let's remember that \verb!sizeof! allows us
@@ -4498,7 +4503,7 @@ to those memory addresses. Colors simply allow you to follow the different
 arrows more easily. Well, if you look at where I put the tag \verb!matrix!,
 you'd see it contains a memory address, this address references to a
 \textbf{vector of pointers}, that is, \verb!rows! pointers together. Each one of
-those pointers, to a contigous memory region in which the is an antire row
+those pointers, to a contigous memory region in which there is an antire row
 saved. I have only represented the first three rows, because otherwise the image
 would be too big.
 
@@ -4518,9 +4523,9 @@ As you can see, even when the array have been declared with two dimensions,
 there is not dereferenciation. That is: there is no moment in which you follow a
 second pointer. How is this possible? If you look to the map, you'd see the
 array is stored in a contigous memory region. This meand that C only needs to
-adquiere the start address of the array and, later, add what the indexes
+adquire the start address of the array and, later, add what the indexes
 inside the square brackets tell you. It's here where a problem arises when we
-try to pass a bidimensional array to a function. When the array reached the
+try to pass a bidimensional array to a function. When the array reaches the
 function, C doesn't know if that pointer is a bidimensional array or a vector
 of vectors, that is why, if you passed this array to a function that receives a
 double pointer (\verb!int**!), when performing, for example \verb!matrix[1][2]!
@@ -4531,12 +4536,12 @@ content as a pointer} to another vector and it would try to add 2 to that
 address to dereference it. The problem is that \verb!*(matrix+1)!
 \textbf{is not} a pointer, it is directly a number.
 
-C can do this because, in the same that I explained you how the operator
+C can do this because, in the same way that I explained you how the operator
 \verb!sizeof! works, we can see the C knows the size of an array as long as this
 does not decay to pointer, that is, you can know the size of an array in any
 scope inner to the one it was declared in.
 
-The logic conclusion of what we have just learnt is that maximun number of
+The logic conclusion of what we have just learnt is that the maximum number of
 dimensions of an array that any function can get is one, because it is the one
 that behaves as a pointer without problems. The fact that an array, by being
 declared in a unique order, is contiguous, makes arrays able to be accessed
@@ -4598,7 +4603,7 @@ solution I propose in the solution section.
 \item Write a program that creates a pointer of three levels of type \verb!int!,
 allocates memory for it correctly and fills it up with correlative values
 \textbf{starting in one} and later on it prints it in an understandable way.
-Finally, free it also in a way that the is no left unfreed memory at the end of
+Finally, free it also in a way that the is no unfreed memory left at the end of
 the program.
 \item Using the last program as base, create two functions, one to create a
 tridimensional matrix with dynamic memory given its three dimensions and another
@@ -4611,7 +4616,7 @@ to those types, which are qualities that create a slightly different type based 
 the original one. The first and most important is the \lstinline[style=C]!const!
 modifier. This allows us to indicate that the value of a variable is
 \textbf{read only}, that is, once we give it value, and we must do so when
-declaring it, we couldn't modify it. This is very useful to make sure we do not
+declaring it, we cannot modify it. This is very useful to make sure we do not
 introduce errors in the code when we use data that shouldn't be changed.
 
 For example, imagine a program that uses the number $\pi$. Let's say to
@@ -4651,10 +4656,10 @@ int main(void)
 \end{minipage}
 
 In line four you can see how we declare \verb!PI! as a constant of type
-\verb!double!. You can see, also, we are declaring it as a global variables. If
+\verb!double!. You can see, also, we are declaring it as a global variable. If
 you remember when I explained the scope and what global variables are, I told
 you they would be useful once we had functions. Here you can see one of the most
-common uses of them, when you define universal contants, as $\pi$, $e$ or the
+common uses of them, when you define universal constants, as $\pi$, $e$ or the
 gravitational constant $G$. But coming back to the constant, if you try to write
 an instruction that modifies the constant, the compiler would throw an error
 like this one:
@@ -4843,13 +4848,13 @@ int main(void)
 {
     struct person_s myself = person_create("Francisco", "Rodríguez", "Melgar");
 
-    printf("Esta persona es: %s %s %s\n", person_get_name(&myself),
+    printf("This person is: %s %s %s\n", person_get_name(&myself),
             person_get_last_name_1(&myself),
             person_get_last_name_2(&myself));
 
     person_set_name(&myself, "José");
 
-    printf("Esta persona es: %s %s %s\n", person_get_name(&myself),
+    printf("This person is: %s %s %s\n", person_get_name(&myself),
            person_get_last_name_1(&myself),
            person_get_last_name_2(&myself));
 
@@ -4859,11 +4864,11 @@ int main(void)
 \end{minipage}
 
 In this code you can see how we ``hide'' the user how we manage these pointers.
-To avoid him from chaging its content without using our functions, the functions
+To avoid him from changing its content without using our functions, the functions
 that return the pointers to be able to use them, for example to print them,
 return constant pointers. If you tried to do, for example:
 \lstinline[style=C]!person_get_name(&myself)[3] = 'a'! the compiler would throw
-and error. This is a tool to avoid the user of the struct from forgetting to
+an error. This is a tool to avoid the user of the struct from forgetting to
 free the memory when replacing a text by other.
 
 If you're paying attention, you may have noticed that all of this is a little
@@ -4876,7 +4881,7 @@ Another modifier I want to present to you is the sign, or better said, the
 absence of sign. The keywork \lstinline[style=C]!unsigned! allows us to
 declare variables and arguments of the same types of the basic types, but that
 can only contain positive integers. If you do not see at first sight why this is
-useful, this resides in that making a type unsigned you get a range doubled in
+useful, this resides in that making a type unsigned you get a doubled range in
 the possitive side. If a \verb"char" has a range of $[-127, 128]$, an unsigned
 char has a range of $[0, 255]$. Also, this allows to add meaning to your
 variables.
@@ -4916,6 +4921,7 @@ int main(void)
 
 I know it looks a bit cumbersome to write unsigned each time, later on we will
 see how to solve this.
+
 \subsection{Exercises of the section}
 The most appropiate exercise is for you to revise all the exercises we have done
 and rewrite the code having into account the const quality and the sign.
@@ -4987,13 +4993,14 @@ If you compile the program and execute it with those arguments, it will print
 this:
 
 \begin{lstlisting}[style=terminalStyle]
+\$./main.exe argument1 argument2 argument3
 ./main.exe
 argument1
 argument2
 argument3
 \end{lstlisting}
 
-And yes, as you can see, the first argument is the command you called the
+And yes, as you can see, the first argument is the path you called the
 program with, and this is important because, as you may deduct, this means
 that your programs always receives at least one. This first argument changes
 according to the order you executed your program with, for example, if instead
@@ -5137,8 +5144,9 @@ no sense.
 
 Finally, the files. Programs can delete, create, write and read from files.
 To do this, there are several ways, some more simple than others, because some
-are more standard and other depend on the operating system. In opposition to the
-other methods, files have a more complex life cycle. Life cycle in this context
+are more standard and others depend on the operating system. In opposition
+to the other methods, files have a more complex life cycle.
+Life cycle in this context
 refers to the description of when something starts to exist, exists and ceases
 to do so. For example, the life cycle of a dynamically reserved memory block is
 from the moment of their allocation to the moment it's freed, the one of an
@@ -5149,7 +5157,7 @@ Files are a concept that, again, the operating system manages, therefore we have
 to use functions to open, write, read from them and, finally, close them. If you
 have been paying attention, you may have seen the parallelism between this and
 memory allocation. The function to open a file is \lstinline[style=C]!fopen!,
-let's see its declaration.
+let's see its signature.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -5177,19 +5185,19 @@ we're opening the mode. In this argument you tend to write a literal that
 contains a series of letters, these letters are the attributes of the way you're
 going to open the file. Let's see which options we have.
 \begin{enumerate}
-    \item \verb!r!: Open the file just to read it, the reader head (more on this
-    later) is at the
-    start of the file. If the file does not exist, an error occurs and the
-    function returns \verb!NULL!.
-    \item \verb!r+!: Same as before, but it allows to write too.
-    \item \verb!w!: \textbf{Empties} the file or creates it if it doesn't exist.
-    The reading head is at the start, logically.
-    \item \verb!w+!: Like the last one, but allows to read too.
-    \item \verb!a!: Open the file to write in it, but \textbf{it does not empty
-    it}. It creates it if it doesn't exist, the head start at the end of the
-    file, to \textbf{append} data to it.
-    \item \verb!a+!: The file is created if it does not exist, data will be
-    written to the end of the file. It also allows reading.
+\item \verb!r!: Open the file just to read it, the reader head (more on this
+later) is at the
+start of the file. If the file does not exist, an error occurs and the
+function returns \verb!NULL!.
+\item \verb!r+!: Same as before, but it allows to write too.
+\item \verb!w!: \textbf{Empties} the file or creates it if it doesn't exist.
+The reading head is at the start, logically.
+\item \verb!w+!: Like the last one, but allows to read too.
+\item \verb!a!: Opens the file to write in it, but \textbf{it does not empty
+it}. It creates it if it doesn't exist, the head start at the end of the
+file, to \textbf{append} data to it.
+\item \verb!a+!: The file is created if it does not exist, data will be
+written to the end of the file. It also allows reading.
 \end{enumerate}
 
 In the description of the options I talk about something called the reading or
@@ -5202,7 +5210,7 @@ that was used was a video tape. If you put a tape in a video player, the head
 would start at the begining of the tape, if you watched let's say ten minutes
 of it, you could pause it, go do something and come back, it will be where you
 left it. You could rewind it, fast forward it, etc. Also, playing the video
-makes the head move forwards, that is: reading makes you rewind if you want
+makes the head move forwards, that is: reading makes rewinding needed from you
 to read the same thing again.
 All this being said, the read/write header is unique \textbf{per
 file and process}, this means that two programs can be reading or writing from
@@ -5238,8 +5246,7 @@ The two functions behave more or less the same, they receive a pointer, a size,
 another number a finally the pointer to the struct that symbolizes the file.
 The first pointer is the input to write and the output to read. It is where we
 will put our data, or the memory so the function can write the content
-of the file in it. It is a \verb!char! pointer, which is the kind of pointer
-used when you want to manage a generic stream of bytes. Both functions are
+of the file in it. Both functions are
 written with the idea of managing a number of items of a certain size in
 bytes, that's why we have \verb!size! and \verb!nmemb!. The first one is the
 size of the items we're writing or reading and the second the number
@@ -5264,16 +5271,17 @@ label={lst:fcloseSignature}]
 int fclose(FILE *stream);
 \end{lstlisting}
 \end{minipage}
-As you can see, it only receives the pointer to the file we can to close.
 
-Now we have shown the functions that are needed, let's an example on how to use
-files. A very usual program is one that copies a files from one directory to
+As you can see, it only receives the pointer to the file we want to close.
+
+Now we have shown the functions that are needed, let's see an example on how to
+use files. A very usual program is one that copies a files from one directory to
 another, like the command \verb!cp!, which is the one used in Linux to do so.
 Let's make a program that receives two arguments, the first one would be the
-file we want to copy and the second the folder we want to copy it to. The Linux
-command allows the use to specify a folder as destiny, but to make things
-simpler we will make this program to ask for a full path (name of the destiny
-file) included.
+file we want to copy and the second the path we want to copy it to. The Linux
+command allows to specify a folder as destiny, but to make things
+simpler we will make this program to ask for a full path, name of the destiny
+file included.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -5325,10 +5333,10 @@ int main(int argc, char const* argv[])
 
 As you can see, we have declared two variables of the pointer type to
 \verb!FILE!, we initialize them to \verb"NULL" and start the program. When you
-receive arguments it is adviceable to parse them first, because if they are not
+receive arguments it is adviceable to check them first, because if they are not
 correct, there is no purpose in continuing with the program. After that, we try
 to open the origin file, note that we open it just to read it and without
-emptying it, logically. If that call fails, the value it return would be
+emptying it, logically. If that call fails, the value it returns would be
 \verb!NULL! and we check this is not the case before continuing. We do the
 same with the destiny
 file, but this one is opened with the option \verb!r! that will empty the file
@@ -5339,15 +5347,15 @@ program). Finally, we use a loop to read byte by byte the origin file and write
 it in the destiny. As you can see, the loop condition is that it will keep
 looping as long as the reading function returns anything that is not zero.
 This is like so because both \verb!fwrite! and \verb!fread! return the number of
-items they have written or read. In this case, when \verb!fread! returns zero it
-is there is no more to read.
+items they have written or read. In this case, when \verb!fread! returns zero
+there is no more to read.
 
 I am going to take some time explaining the return value of the functions, as
 we said before, we pass to both \verb!fread! and \verb!fwrite! a size and a
 number of items we want to read or write. This would allow us for example to
 write or read a certain number of structs whose size we could know with
 \verb!sizeof!. The return value is the number os \textbf{items} read, not the
-number or bytes. When writing a stream of bytes directly, simply indicate that
+number of bytes. When writing a stream of bytes directly, simply indicate that
 the size is one and \verb!nmemb! is the numbers of bytes.
 
 You may be thinking that writing a program like this that reads one byte at a
@@ -5355,7 +5363,7 @@ time is a bit inefficient, and you're right. Each call to a function that
 manages things that are handled by the operating system is relatively costly,
 so it is intelligent to minimize them. In this case, we could read all the
 first file in memory and then close it and write it in the second, in just one
-order. The problem with this is that if you tried to cpy a 12~GB file it's
+order. The problem with this is that if you tried to copy a 12~GB file it's
 probable that you fill all the memory in the computer, in which case it simply
 hangs or closes the program. To avoid both extremes, what is done often is to
 read a block of a sensible size (for example 100~MB) and write it, and repeat
@@ -5423,7 +5431,7 @@ result of an assignment to another value. In this case we could save writing the
 comparison because putting a number in an if is the same that checking it is not
 zero.
 
-This is a basic use of reading and writing, but anochet thing that is done often
+This is a basic use of reading and writing, but another thing that is done often
 is \textbf{move the read/write pointer} without reading or writing. For example,
 imagine that we want to print a file in reverse order. We are in the same
 predicament as before, we could read all the file and then invert it, but it is
@@ -5457,7 +5465,7 @@ int main(int argc, char** argv)
     long  current_pos = 0;
     FILE* file = NULL;
     if (argc != 2) {
-        printf("Uso del comando: main.exe <archivo>\n");
+        printf("Use of the command: main.exe <file>\n");
         return EXIT_FAILURE;
     }
     file = fopen(argv[1], "r");
@@ -5512,7 +5520,7 @@ There are three points you can use as reference for the offset.
 100\textsuperscript{th} byte of the file. When using this point, you cannot use
 negative offsets, logically.
 \item \verb!SEEK_CUR!: It is the current position, you can use negative of
-positive displacements For example: \verb!fseek(100, SEEK_CUR);! could be used
+positive displacements. For example: \verb!fseek(100, SEEK_CUR);! could be used
 in a loop to read the bytes 100\textsuperscript{th},
 the 200\textsuperscript{th}, the 300\textsuperscript{th}...
 \item \verb!SEEK_END!: It is the end of the file, for example if you wanted to
@@ -5527,7 +5535,7 @@ size, if not, we use what we can. After that, we displace the head to the
 position we have calculated, and read the amount of bytes we calculated. We read
 and \textbf{displace the pointer back again} as many bytes as we read. After
 that we call the function that inverts the bytes we have read. After that,
-we update the variable that tell us where we are. Once we arrive to the first
+we update the variable that tells us where we are. Once we arrive to the first
 position of the file, we know we have finished. You must be careful,
 \verb!fseek! only works when it is possible to move the pointer to the place you
 tell it to. When it is not possible, it doesn't move the pointer and gives an
@@ -5577,11 +5585,11 @@ int main(int argc, char const *argv[]) {
 \end{minipage}
 
 The program is very simple, I call remove with the first
-argument (after the name of the program) and check is it has gone well.
+argument (after the name of the program) and check if it has gone well.
 
 \subsection{Exercises of the section}
 \begin{exercises}[resume*]
-\item Write a program that receives a set of number as arguments and prints
+\item Write a program that receives a set of numbers as arguments and prints
 their decomposition in prime factors, for example, if the arguments were:
 10, 8, 55 and 103, the result would be:
 
@@ -5624,22 +5632,23 @@ in memory completely. To do this you may follow these steps.
 \end{enumerate}
 
 \item Write a function that receives a word as an argument and indicates
-in which position (in bytes) a word is in a file. Return just the position of
+in which position (in bytes) the word is in a file. Return just the position of
 the first ocurrence, if the word does not exists, return a negative number.
 Write a program that, with that function, receives a path and a word as
 arguments and prints the result of searching for the word in the file.
 \end{exercises}
 
 \section{How to write readable and clear programs}
-All programming languages have a different degree of \textbf{readability}. This
-is the easily a programmer would be to read the code written by another one, and
-understand what it is doing without a high level of effort. The language is not
+All programming languages have different degrees of \textbf{readability}. This
+is how easy for a programmer would be to read the code written by another one,
+and understand what it is doing without a high level of effort.
+The language is not
 the only thing that affects the readability, the way one writes the code affects
 it at least as much, if not even more. Some advices to write more readable code
 are:
 \begin{enumerate}
 \item Use significative variable names, that is, instead of \verb!a!, call
-variables things like \verb!length!, \verb!days!, or something that had anything
+variables things like \verb!length!, \verb!days!, or something that has anything
 to do with their meaning, with what they are.
 \item Use function names that explain what the function is doing, in the same
 way, use names for the arguments that tell what they are, also.
@@ -5651,9 +5660,9 @@ of code and that I am going to present to you now. One is the keyword
 \lstinline[style=C]!typedef!. This keyword allows us to \textbf{give an alias
 to a datatype}. That is, it allows to give other names to datatypes. One of the
 most practical uses to this is that it allows us to refer with a single word to
-refer to a struct, so we save the fact of writing \verb!struct mystruct_s!,
+refer to a struct, so we save the task of writing \verb!struct mystruct_s!,
 you can't avoid to tell me it's a relief after writing so many programs full of
-the word \verb!struct!. Let's an example of this.
+the word \verb!struct!. Let's see an example of this.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -5681,7 +5690,7 @@ int main(void)
 
 This would be the most explicit way to do this. There is another alternative
 that we will see later on. From lines 1 to 4 there is nothing new, we simply
-declare the struct, it is line 6 that is the key, as you can see, we use the
+declare the struct, line 6 that is the key, as you can see, we use the
 word \verb!typedef! to define the type \verb!struct point_s! is going to be
 called also \verb!point_t!. Notice that, as you can see in line 14, we can keep
 using the old name of the types. All this being said, unless you want to
@@ -5727,7 +5736,7 @@ is shown. The circle struct hasn't got an struct name, we have only used it
 to define a type. This is simpler but it presents a problem, when you do this
 and the compiler needs to tell you
 there's been an error, they would be different depending on the technique we
-use. With the struct \verb!circle_t!, if we declare one function that receives
+use. With the struct \verb!circle_t!, if we declare a function that receives
 an argument of this type and cell it with a different type, creating an error,
 the message would be:
 \begin{lstlisting}[style=terminalStyle]
@@ -5735,7 +5744,7 @@ main.c:14:18: note: expected 'circle_t' {aka 'struct <anonymous>'} but argument 
    14 | int foo(circle_t c){
 \end{lstlisting}
 
-As you can see, it sayd to you the name the type had, and then it tries to
+As you can see, it says to you the name the type had, and then it tries to
 explian to you what it was originally, the problem is that, since we have
 defined the struct without a proper name, it has nothing to tell us, is an
 anonymous struct. And you may be wondering how can that be possible, well it is
@@ -5777,19 +5786,19 @@ Finishing this with this topic: if you look closely, everytime I have put name
 to a struct I have ended it with \verb!_s!, and each time I have written a
 \verb!typedef!, I have ended it with \verb!_t!. This is a convention, that is,
 it is something programmer do because of tradition, but it is not mandatory,
-not the compiler would throw an error or warning. Es suffix \verb!_s! is less
+nor the compiler would throw an error or warning. The suffix \verb!_s! is less
 important, but I strongly encourage you to end all the types you define with
 \verb"typedef" with \verb!_t!, firstly: because it is very common, almost
 everybody does it and, secondly: because editors understand that any
-identificator (name, nasically), ends with a \verb!_t! is a type, and they use
-it to give hints about what each thing is, for example, editor will colorize
+identifier (name, basically), ends with a \verb!_t! is a type, and they use
+it to give hints about what each thing is, for example, editors will colorize
 that word in the color that editor colorizes types automatically if it ends with
 \verb!_t!.
 
 Aside from this very practical use for us, there is another, it allows us to
 rename basic types, for example, we can rename the unsigned \verb!char! as
 \verb!byte_t!. In that way if we use our program to manage lists of bytes we can
-use this type and reader of our code will know what we're talking about.
+use this type and the reader of our code will know what we're talking about.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -5852,7 +5861,7 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-Even when this is posible, it is better to leave the const modifier as explicit,
+Even when this is posible, it is better to leave the const modifier explicit,
 that is, define types for what u need, but write the modifier \verb!const! when
 it is needed, instead of hiding it behind a typedef. It is a common practice
 to define unsigned types, but it is recommended that, unless the meaning of the
@@ -5860,7 +5869,7 @@ type implies it can't be negative (for example a length), putting some prefix in
 the name of the type. For example, you may see, if you read some code, types
 like \verb!uint32_t! which is a 32-bit integer (4 bytes) without sign.
 
-And for final trick, with \verb!typedef! this final trick is that, like arrays
+And for the final trick, with \verb!typedef! this final trick is that, like arrays
 of different positions are in a way different types, you can define a type from
 an array. What is thif useful for? Sometimes a set of things of a certain size
 is a concept itself. Eight bits are a byte, seven days is a week and a hand has
@@ -5886,11 +5895,11 @@ int main(void)
 \end{minipage}
 
 As you can see, \verb![3]! is on the right of the name of the new type, instead
-of on the left, which would be the untuitive. Simply remember if you want to do
-this. Anyway, in the same way that with contance, a type that is an array is
-something that is better to leave explicit.
+of on the left, which would be the untuitive. Simply remember that
+if you want to do this. Anyway, in the same way that with constance, a type
+that is an array is something that is better to leave explicit.
 
-The other tool to add meaning to our programs, semantics, is the \verb!enum!, or
+The other tool to add meaning to our programs, is the \verb!enum!, or
 enumerated type. This is a type in C that allows us to assign correlative
 numbers to a set of names, the classic examples (so classic they are almost
 hackneyed) are the following: days of the week, months in the year, colors of
@@ -5968,14 +5977,14 @@ int main(void)
 \end{minipage}
 
 Having an enumerated type allows us to write much more readable
-programs, which is what we wanted, because as you can see, the loop can read
-as: ``For a \verb!ii! from MONDAY to SUNDAY, if \verb!ii! is in the weekend,
+programs, which is what we wanted, because as you can see, the loop can be read
+as: ``For \verb!ii! from MONDAY to SUNDAY, if \verb!ii! is in the weekend,
 print is it, otherwise, print it is not''. Also, when printing the days, we can
-know the name of each simplt accessing the array of names. You may have noticed
+know the name of each simply accessing the array of names. You may have noticed
 that both in the declaration of \verb!ii! and in the body of the function I use
 the type \verb!int!. This is because ``inside'' an enumerated type is an
-integer, but to write things more clearly, we can define an anumerated type
-in the same wat we defined an struct.
+integer, but, to write things more clearly, we can define an anumerated type
+in the same way we defined an struct.
 
 To see that the legibility of the code has improven, look at how the checking
 in the function may be read as: ``if a day is SATURDAY, or SUNDAY, it's
@@ -5989,7 +5998,7 @@ year. The next program shows all the alternatives.
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo final de enumerados},
+caption={Final example of the enumerated types},
 label={lst:finalEnums}]
 #include <stdio.h>
 
@@ -6053,11 +6062,11 @@ they're good for, they're very good for it.
 Now we have talked about many tools of the language, it's time that we stablish,
 some rules to write our programs that I have left implicit and I'd like to write
 here. In this section we are going to see how the programs should be written
-beyond how they word, even, regardless of how efficient they are. When one works
+beyond how they work, even, regardless of how efficient they are. When one works
 in programming, there are several moments in which you're going to be more time
 reading other programmer's code that writing new code. Consequently you must
-write your programs with the intent that they are readable for other programmers
-to read. Let's see an example of a code fragment that could be trivial or
+write your programs with the intent that they are readable for other
+programmers. Let's see an example of a code fragment that could be trivial or
 undecipherable depending on how it is written.
 
 \noindent
@@ -6093,11 +6102,12 @@ free(a);
 Try to read the program \ref{lst:badStyle} and tell me if you know what it does.
 It is probable that, after five or ten minutes you can figure out it allocates
 a vector of vector, fills it up, prints it and frees it. As you can see, without
-spaces, without indenting them (indenting a line is putting space infront of it
-so they're displaced to the right), without whitelines between control
+spaces, without indenting them (indenting a line is putting spaces infront of it
+so it is displaced to the right), without whitelines between control
 structures and writing some lines next to the braces, it is almost impossible
 to read. Also, we haven't declared variables or constants that allow us to
-understand if the same value is like that by chance or symbolizes the same.
+understand if the same value appears several times
+by chance or symbolizes the same thing.
 I have also mixed arbitrarily different operators to access the vector. If
 we apply a series of improvements to how this is written, it will result in
 this:
@@ -6106,7 +6116,7 @@ this:
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Ejemplo de programa escrito con un buen estilo},
+caption={Example of a program with a proper style},
 label={lst:goodStyle}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -6143,8 +6153,8 @@ int main(void)
 \newpage
 
 As you can see, we have introduced several improvements: operators are
-surrounded by spaces, \verb!sizeof! is always used with parenthesis so they're
-more clear, we have used two constants to simbolize the size of the vector
+surrounded by spaces, \verb!sizeof! is always used with parenthesis so it is
+clearer, we have used two constants to simbolize the size of the vector
 instead of repeating five or ten all the time, we hace used always the same
 way to access the vectors and, finally, we have written each instruction in
 a line with the correct indentation. Let's see which steps must be followed
@@ -6156,7 +6166,7 @@ displaced to the right. This is one of the things you must do if you want to be
 taken seriously as a programmer, but there are several things about how to do
 it. The first decission you have to take is if you indent with tabulators or
 with spaces. A tabulator is a special caracter that indicates the text editor to
-align things to the next column in the display. The avantage of this is that
+align things to the next column in the display. The advantage of this is that
 tabulating with them you can make the editor you're using to take the columns to
 which the tabulators align as any size of spaces. This character is inserted
 with the tabulator key, which is the one that has this symbol:
@@ -6167,23 +6177,23 @@ $
     \left.\to\right|
 }
 $
-\normalsize or has the legend ``tab'' in it.
+\normalsize or has the legend ``tab'' on it.
 Another option is to indent with spaces, that is, instead of using that special
 character, you use a set number of spaces. In general, you do not hit space
-several times, but yo configure your editor in such way that when you hit the
+several times, but you configure your editor in such way that when you hit the
 tabulator key, it inserts the spaces you have configured as ``tab size'' or
 ``indent size''.
 
-This is one of things that would make programmer fight each other like religious
-zealots or hooligans of a football team, so the decission is yours.
+This is one of things that would make programmers fight each other like
+religious zealots or hooligans of a football team, so the decission is yours.
 Nevertheless; my honest opinion is that spaces are better since they give you
 more liberty to align longer lines that must be broken. Also, ansures that the
 code is going to be shown correctly in all the editors, since there is not
 configuration about how a space must be shown, but people may have different tab
-size configured.
+sizes configured.
 
 The general rule is that code blocks must have their instructions indented a
-level more than where they are define. You can see how I did this in the
+level more than where they are defined. You can see how I did this in the
 programs I have shown up until now. Each tabulation level must be the same as
 the others, that is, if you have chosen four spaces, you must indent always with
 four spaces, never mix. Also, if you're using tabulator characters, an
@@ -6196,10 +6206,10 @@ reasons: when lines are too long they tend to be more difficult to read, they
 avoid you from having several files opened at the same time and, also, in the
 improbable, but possible case you need to print your code, it would be difficult
 to do it properly. The last case does not affect you, but had affected me
-personally in several of the programs I have written as examples. The length of
-line of code in C is generally around 80 characters, ideally always less than
-that. To allow you to have in image, the lines I have inserted in the manual
-have around 71.
+personally in several of the programs I have written as examples. The maximum
+length of line of code in C is generally around 80 characters, sometimes 100,
+ideally always less than that. To allow you to have in image, the lines
+I have inserted in the manual have around 71.
 
 And what to do when the line is simply too long? There arw ways to write the
 lines in different styles. This way changes depending on how in a program you
@@ -6240,9 +6250,9 @@ label={lst:longprint}]
 #include <stdio.h>
 int main(void)
 {
-    printf("Este es un mensase importante, "
-           "por favor, mantente hidratado,"
-           " bebe agua");
+    printf("This is an important message, "
+           "stay hydrated, drink water and avoid "
+           "extreme heat situations.\n");
 }
 \end{lstlisting}
 \end{minipage}
@@ -6274,8 +6284,8 @@ int main(int argc, char** argv)
 Since I am not interested in what the program does, but only in the format, I am
 not going to include the function definition, but the function \verb!insert_at!
 creates a new array with the element given as last argument in the position that
-the second argument indicates. If we wanted that the line where that call occurs
-were separated in several ones, we could do do in these styles:
+the second argument indicates. If we wanted the line where that call occurs
+to be separated in several ones, we could do in these styles:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -6308,7 +6318,7 @@ of the fact that we are assigning the result of the call, we use this operation
 to perform the split, with a new line and an indentation level to the left.
 The three could be combined, but I like the second because it disallows weird
 alignments and also saves the more space. Some people may think it's overdoing
-things.
+it.
 
 The next place where you may need to split a line is the declaration of a
 function with several argument, for example, a function that prints a date given
@@ -6344,22 +6354,28 @@ In general terms most of the whitespaces what we write in our programs are to
 make it easier to read, because C is a language designed so the whitespaces
 don't matter as much. Normally, mathematical operators, logic, or of any kind
 should be surrounded by spaces, that is: it is preferred
-\lstinline[style=C]!a = b + 10;! to \lstinline[style=C]!a=b+10;!, it surrounds
+\lstinline[style=C]!a = b + 10;! to \lstinline[style=C]!a=b+10;!, I surrounded
 the assignment operator and the plus operator with spaces. Also, in declarations
 the asterisk must be always next to the data type, or to the name of the
 variables. It is a question of style, but I recommend to stick them to the
 name of the variable or argument. What is important is to do it in the same
 way everytime inside the same project.
-For example:
+Some examples of the styles we have enumerated before:
 \begin{enumerate}
-\item Space operators: \lstinline[style=C]!int var = a * 3 + ii!
-\item Asterisks should be next to the name of the variable or argument in
-declarations or to the one they're dereferencing:
-\begin{enumerate}
-\item \lstinline[style=C]!double *var1;!
-\item \lstinline[style=C]!int function(int *arg1, void **arg2);!
-\item \lstinline[style=C]!int a = *ptr1 + *ptr2;!
-\end{enumerate}
+    \item Space operators: \lstinline[style=C]!int var = a * 3 + ii;!
+    \item Asterisks being next to the name of the variable or argument in
+    declarations or to the one they're dereferencing:
+    \begin{enumerate}
+        \item \lstinline[style=C]!double *var1;!
+        \item \lstinline[style=C]!int function(int *arg1, void **arg2);!
+        \item \lstinline[style=C]!int a = *ptr1 + *ptr2;!
+    \end{enumerate}
+    or next to the type:
+    \begin{enumerate}
+        \item \lstinline[style=C]!double* var1;!
+        \item \lstinline[style=C]!int function(int* arg1, void** arg2);!
+        \item \lstinline[style=C]!int a = *ptr1 + *ptr2;!
+    \end{enumerate}
 \end{enumerate}
 
 Also, after all the commas in initialization lists, the semicolons in the
@@ -6374,8 +6390,8 @@ are not a control structure), that is:
 
 \subsubsection{Brace style}
 There are several combinations of style between the braces that define code
-blocks that make the body of functions, loops conditionals and other control
-structures. There are two fundamental styles: braces K\&R and Allman. The first
+blocks that make the body of functions, loops, conditionals and other control
+structures. There are two fundamental styles: K\&R braces and Allman. The first
 ones are in the same line that the structure whose body they are opening, and
 the second ones in the next line.
 
@@ -6415,7 +6431,7 @@ the project. In case of adding code to an existing codebase, apply the old rule
 of ``when in Rome, do as Romans do'', that is, follow the style that is already
 in place in existing code of the project.
 
-\subsubsection{Declarationf of struct, variables or enums}
+\subsubsection{Declaration of struct, variables or enums}
 Up until now, each variable declaration has been written in a single line, and
 each member of the structure. This is not needed, you can declare all the
 variables of the same type in the same line, even initialize them. Let's see a
@@ -6442,7 +6458,7 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-As you can see in line 6, we can declare variables in the same type in the same
+As you can see in line 6, we can declare variables of the same type in the same
 line, separating their names with commas. Also, we can even initialize them.
 If you're going to declare pointers in the same line of other variable that are
 not, the asterisk that indicates the variable is a pointer goes next to the name
@@ -6450,7 +6466,7 @@ of the variable, as you can see with \verb!matrix!. In the case of initializing
 the pointer, it could be in the same line, but I have moved it to another
 because otherwise it would have been too long.
 
-With the structs you can do the same, that is, declare all the member of the
+With the structs you can do the same, that is, declare all the members of the
 same type in the same line, with the enumerated types it is the same, although
 it is convention that each member of a struct is in its own line.
 
@@ -6479,22 +6495,23 @@ enum week_days {
 \subsubsection{Name convention}
 One of the most important things you must avoid is the use of so called
 \textbf{magic numbers}. Those are the literal values that are included in the
-code and are not explained, they are assigned to a variable and, in the worst
+code and are not explained, they are used in instructions and, in the worst
 case, they're used in several parts of the code. If you rescue the example of
 bad code of the program \ref{lst:badStyle}, you will see that I never define
 variables to define the rows or columns of the matrix. I did this intentionally,
 because it is a bad thing to do. As you can see in the example of good code,
 the first thing I do is to define variables for these concepts. In general, we
 must define variables for all the concepts or values that in your code
-\textbf{specially if it appears several times}.
+\textbf{specially if they appear several times}.
 
 Also, there is a series of conventions that we are going to gather here about
 names. When I explained the name that a variable can have, I told you that they
 could be written in camel case or snake case. In C it is usual to use the
 second, that is: \verb!my_var!, so it will be the one I'll use in the examples,
-and that I have used up until now. On the other hand, constant should be written
-in uppercase, that is:  \lstinline[style=C]!const int LENGTH = 10;! is better
-than \lstinline[style=C]!const int length = 10;!.
+and that I have used up until now. On the other hand, constants
+should be written in uppercase, that is:
+\lstinline[style=C]!const int LENGTH = 10;! is better than
+\lstinline[style=C]!const int length = 10;!.
 
 In general, the types end in \verb!_t!, as we commented, either if they're
 renaming of basic types or creation of structs. It is normal to omit the name
@@ -6514,7 +6531,7 @@ typedef enum {
     FRIDAY,
     SATURDAY,
     SUNDAY
-}week_days;
+} week_days;
 \end{lstlisting}
 \end{minipage}
 
@@ -6552,13 +6569,13 @@ compiling. Although this is correct, is it not totally true. There are several
 processes involved in what we call compilation:
 \begin{enumerate}
 \item Preprocessing: Prepares the code to be compiled, this includes deleting
-comments, expand macros, execute directives and delete whitespaces. More about
-macros, directives and comments later on.
+comments, expanding macros, execute directives and delete whitespaces. More
+about macros, directives and comments later on.
 \item compiling: Creates the binary of each source code file that is used in
 the project.
 \item Linking: It generates the executable binaries properly said, to do so it
 uses the binaries generated in the last step and creates links between them,
-regardless it being joining them in the same file or simply linking one to the
+regardless of it joining them in the same file or simply linking one to the
 other indicating were it is.
 \end{enumerate}
 
@@ -6571,21 +6588,11 @@ in the C language contains several source code files. Some projects may reach
 the tens of thousands of files. Let's see the three steps described before.
 
 \subsection{Preprocessing}
-% El preprocesado es la etapa que se realiza más discretamente, porque todo
-% archivo de código fuente que se compile pasa primero por ella sin que tengamos
-% que hace nada. En la introducción de esta sección he comentado que se realizan
-% varias tareas, siendo la primera la eliminación de comentarios. Ya es hora de
-% que te explique qué son los comentarios. Un comentario es una herramienta que
-% nos permite introducir cualquier texto dentro del códido de tal modo que podamos
-% explicar cosas, apuntar datos o cosas así. Veamos un ejemplo. Voy a incluir
-% comentarios en el código del
-% programa \ref {lst:pointStruct}: \nameref{lst:pointStruct}
-
 Preprocessing is the most discrete step of the compilation process, because
 every source code file that is compiled passes through it and we do not have to
 do anything. In the introduction of this section I have said that several tasks
-are performes, first of those being the deleting of comments. It is time I
-explain to you what those are. A comment is a tool that allow us to introduce
+are performed, first of those being the deletion of comments. It is time I
+explain to you what those are. A comment is a tool that allows us to introduce
 any arbitraty text in our code so we can annotate things, explain the code or
 things like that. Let's see an example. I am going to include comments in the
 program \ref {lst:pointStruct}: \nameref{lst:pointStruct}.
@@ -6645,7 +6652,7 @@ written up until the end of the comment, as you can see in the example.
 \end{enumerate}
 
 In general, you can put the comments you deem necessary, specially, it is
-recommended to comment functions that are very difficult or thins that are not
+recommended to comment functions that are very difficult or things that are not
 evident.
 
 The next step is the expasion of macros, and you may be wondering that a macro
@@ -6672,11 +6679,11 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-In line 3 you can see the only nnew thing we have here, the directive
-\verb!define!. Directive start with a ound sign (\verb!#!). And we're about to
+In line 3 you can see the only new thing we have here, the directive
+\verb!define!. Directive start with a pound sign (\verb!#!). And we're about to
 unveil one of the misteries in our programs, the lines that start with
 \verb!#include! are directives, but let's avoid getting ahead of ourselves.
-This directives defines (I know, shocker) a symbol that the preprocessor will
+This directive defines (I know, shocker) a symbol that the preprocessor will
 substitute with the one we have set in the definition of the macro. In this
 case, the symbol \verb"100". A common use of this is, like in the example,
 defining the size of arrays. Does this mean that every array must have its
@@ -6715,7 +6722,7 @@ int main(void)
 I explained to you that you cannot use a variable to define the size of an array
 that you want to initialize with an initialization list. This is the case
 because the compiler, which would need to know if the initialization list is too
-big or too small, cannot do so because the values of a variables is unknown
+big or too small, cannot do so because the values of a variable is unknown
 until we execute the program. You may be wondering if a variable with the
 \verb!const! modifier would be an alternative. No, it will not compile with a
 variable also, because while it is marked as a read only variable, there are
@@ -6730,7 +6737,7 @@ often than not it prints the message.
 
 Macros have an incredible power, because they can receive arguments. You may
 have noticed that there are things we do very often, like for example square a
-number, we use the function \verb!pow! for that, but it needs to compile with
+number, we use the function \verb!pow! for that, but you need to compile with
 the math library in the same way that \verb!sqrt!, or writing \verb!var*var!,
 with a macro, we can do that more legible and without using functions.
 
@@ -6761,7 +6768,7 @@ code a set of times, in the fashion a loop would do, in case you got an error
 you'd have to look for it in lines that you cannot see because they haven't been
 substituted yet, and you'd have to compile each time to catch the marcro whose
 substitutiones is creating the error. Also, there may be problems because macros
-do not understand about types or priotity of operations, let's see an example of
+do not understand about types or priority of operations, let's see an example of
 the risks.
 
 \noindent
@@ -6821,7 +6828,7 @@ we're asking it to substitute \verb!a! by \verb!"a"!. As we saw in the program
 whitespaces, they're effectivelly treated as a single one. Later we have written
 \verb!a! so it is substituted normally.
 
-This is an application of macros that transform the arguments in strings, in
+This is an application of macros that transforms the arguments in strings, in
 general, when you use that feature in a program intensively you may want to
 create a macro that stringifies (converts to string) the arguments, and, most
 importantly, allows to write the value of macros that are not strings (numbers)
@@ -6885,8 +6892,8 @@ content of one file into other. Yes, you have read it well, when you write
 \verb!#include <stdio.h>!, the only thing you're doing is to paste in this file
 the contents of another file, in this case \verb!stdio.h!. It is weird it is a
 file with \verb!.h! extension, if all the other programs we have written are
-in a file ended in \verb!.c!. This is because this files is a \textbf{header}
-file, in this kinf of files, of which we will see more later on, only
+in a file ended in \verb!.c!. This is because this file is a \textbf{header}
+file, in this kind of files, of which we will see more later on, only
 definitions are written, that is: function declarations, global variables, new
 types...
 
@@ -6919,9 +6926,9 @@ less than and greater than sign we used with the other include directives. This
 is because when the directive receives the name of a file surrounded by less
 than and greater than, the C preprocessor looks for the file in certain
 directories the system has configured where header files go. When you use
-quotes, it looks for them in the directory where the source file is. Because of
-that, when you use files that are not in those special directories, you must
-take this into account. The file \verb!other.c! must have this content.
+quotes, it looks for them in the directory where the source code file is.
+Because of that, when you use files that are not in those special directories,
+you must take this into account. The file \verb!other.c! must have this content.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -6945,7 +6952,7 @@ of compilation.
 
 Before arriving there, nonetheless; I want you to see a couple of very
 interesting directives, \verb!ifndef!, \verb!ifdef! and \verb!endif!, that go
-together. Their names is more or less self explanatory, but they do this: these
+together. Their names are more or less self explanatory, but they do this: these
 directives check if a macro is defined and, according to it being defined or
 not, the code between \verb!ifdef/ifndef! and \verb!endif! will be included or
 not. Let's see an example.
@@ -7003,7 +7010,7 @@ This will generate a file with the same name of the source file, but with the
 \verb!.o! extension. This is \textbf{Compiled Object File}, or object file for
 shorts. These files are an intermediate point between the source code in C and
 the executable, it is so because these files still have information about
-symbols (variables, functions...). If you compile with thisoption the program
+symbols (variables, functions...). If you compile with this option the program
 Hello World we wrote the first time, you'd see you \textbf{cannot} execute
 this object file, but those files are the ingredients we will use in our
 crucible to build an executable with several files.
@@ -7032,7 +7039,7 @@ the whole puzzle, the executable.
 
 Now, we must create the object code of the other file, simply executing the same
 command, but with \verb!other.c!. Now you will have two files: \verb!main.o! and
-\verb!other.o!. We already have all the pieces, but to assemble them together,
+\verb!other.o!. We already have all the pieces and, to assemble them together,
 you would simply execute:
 \begin{lstlisting}[style=terminalStyle]
 \$ gcc -o main.exe main.o other.o
@@ -7045,10 +7052,10 @@ the compiler cannot tell you if you're using them correctly and they exist.
 If you have experimented with the exercises, you would have seen it is very easy
 to commit errors and use functions with the wrong arguments or misspell the name
 of a function. The compiler is your best ally to find them. Is in solving this
-where the header files and the source code files come in place. As we saw in
+where the header files and the source code files come into place. As we saw in
 section \ref{funciones}, you can declare functions in a place and define them in
 another, and this is where that is very useful. All function can be declared in
-a header file, in such a way that the compile \textbf{knows} the signature of
+a header file, in such a way that the compiler \textbf{knows} the signature of
 the functions and can generate the code checking againt those definitions.
 To do so, we're going to write the header file that goes with \verb!other.c!,
 that is, \verb!other.h!. It's very easy, as we only have one function, the file
@@ -7128,7 +7135,7 @@ because in all of them the directive would be present. If we leave this like
 it is, we couldn't use the function in another files, because the compiler would
 see this as a redefinition. I will include here all the files of an example of
 this.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
@@ -7239,9 +7246,6 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-% Si intentas generar los objetos de todos los archivos de código fuente con
-% estas órdenes (los archivos de cabeceras no se compilan):
-
 If you try to build the object files with these commands (remember, header
 files are not compiled):
 
@@ -7256,24 +7260,25 @@ gcc -o main.exe main.c circle.o point.o -lm
 \end{minipage}
 
 You can see that in the last command we have created the executable indicating
-the name of the source code file for \verb!main.c! instead of creating firtly
-and object, this is a way to save the step of creating the object for the main
+the name of the source code file for \verb!main.c! instead of creating firstly
+an object, this is a way to save the step of creating the object for the main
 file (the one that contains the \verb!main! function) you will see that the last
-step throws error about redefinitions. This is because, if you follow the
+step throws an error about redefinitions. This is because, if you follow the
 ``trail'' of includes, you'd see that \verb!main.c! includes \verb!circle.h! and
 that it includes \verb!point.h!. On the other hand, the very \verb!main.c!
 includes \verb!point.h!, this makes that the content of the later to be
 duplicated. In this example it could be very well solved simply deleting the
 inclusion of the point header in the main file, but we can't do that, because
 deleting the inclusion would make impossible to use the structures defined there
-in the main file unless we include again \verb!point.h!, making mandatory to
+in the main file if we decided we didn't want to use \verb!circle.h! anymore,
+we would need to include again \verb!point.h!, making mandatory to
 keep tracking any change in the includes for consequences. Also, it is
 adviceable that each file includes all it needs even when the headers are
 included in other ones already in use so it is clear what it is related with.
 When a project is very big, tracking this kind of duplicate includes is almost
 impossible, this is when the so called \textbf{include guards} come in.
 
-These are simply the use of directive of the kind \verb!ifndef endif! to make
+These are simply the use of directives of the kind \verb!ifndef endif! to make
 that, if a header file is included more than once, the repetitions of the file
 would be empty files. It is customary that header files in the project have one,
 so when you use several files for your programs I advice your to start using
@@ -7313,7 +7318,6 @@ should have the complete path from the root of the project, for example, if the
 file is in \verb!project/lib/math/geometry/include!, the name of the macro for
 the include guard should be: \verb!LIB_MATH_GEOMETRY_INCLUDE_POINT_H!.
 
-
 \subsection{Linking}
 Linking is the final step to create an executable. In it, what it is done is to
 assemble all the object files and different \textbf{libraries} needed for the
@@ -7322,8 +7326,8 @@ already used several of them to create an executable, now we're going to take a
 deep look into libraries.
 
 A library is, from a conceptual point of view, a set of functionalities that are
-compiled and distributed as a whole in a packet that the programmer that wants
-to use it can incorportate to his programs. The main advantage is that source
+compiled and distributed as a whole in a packet which the programmer who wants
+to use it can incorporate to his programs. The main advantage is that source
 code of a library is practically impossible to recover from the library itself,
 and, specially, in a comprehensible manner. This is an advantage because the
 source code is subject of intellectual property and, if it is common to have
@@ -7332,7 +7336,7 @@ to the code.
 
 Also, libraries move the responsibility of the code inside them to the vendor,
 relieving the user of them of the workload of creating the binary once the code
-there fails. They're an esential tool to distribute software. As a matter of
+there changes. They're an esential tool to distribute software. As a matter of
 fact, you have already used libraries, all the functions you have used up until
 now that came simply from using the include directive (\verb!malloc!,
 \verb!printf!...) are located in different libraries that \textbf{are
@@ -7353,13 +7357,13 @@ changes, the binaries that use it need to be recompiled to update themselves.
 
 The libraries, like the executable, \textbf{are managed by the operating
 system}, that is, the executables that use libraries would ask the operating
-system (without the programmer neded to do anything in the source code) to load
-them when it is needed. Also, it is the one that manages the versions, allowing
-the programmers of a binary to indicate that their executable would only work
-with certain versions of the libraries it uses.
+system (without the programmer required to do anything in the source code) to
+load them when it is needed. Also, it is the one that manages the versions,
+allowing the programmers of a binary to indicate that their executable would
+only work with certain versions of the libraries it uses.
 
 In general, when libraries are involved, either created or used, the programmers
-use certain toold that automate the creation of the object files and the
+use certain tools that automate the creation of the object files and the
 libraries themselves. Nevertheless, I am going to show you how it would be done,
 ``by hand''.
 
@@ -7415,8 +7419,8 @@ To check it is static, delete \verb!libGeometry.a! and you will see that the
 executable keeps working. This is because the library is embeded in the
 executable when you create it. This makes the result similar to use all the
 object files, but it still allows the easy \textbf{distribution} of software.
-Also, this allows us to create conceptual software units that are bigger in
-object files and that are conviniently in a single file, simplifying our
+Also, this allows us to create conceptual software units that are bigger than
+object files and that are conveniently in a single file, simplifying our
 processes of creating and distributing programs.
 
 \section{Standard library functions}
@@ -7481,16 +7485,16 @@ you are either enlarging the zone or shrinking it. The function gives no
 guarantee in any case that the memory region is going to stay in the same place,
 so you must check it hasn't returned \verb!NULL! and save the value again
 because it may have changed. Also, if the pointer that the function receives is
-a null pointer, it simply behaves as \verb"malloc", this is useful then you use
+a null pointer, it simply behaves as \verb"malloc", this is useful when you use
 them in loops without needed to use \verb!malloc! before starting the loop.
-To show the use of this function we will write with it the program
+To show the use of this function we will write with it in the program
 \ref{lst:mallocAndFree} where we showed the fisrt use of dynamic memory.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C, label={lst:reallocExample},
-caption={Utilización de \texttt{realloc}}]
+caption={Use of \texttt{realloc}}]
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7532,7 +7536,7 @@ int main(void)
 \end{minipage}
 
 If you compare both programs, you'd see that in the first version we had to
-declare an array to have a place to save the the data until we knew the real
+declare an array to have a place to save the data until we knew the real
 size. The disadvantage of this is that later we had to copy data to the new zone
 we were going to return and that we allocated with \verb"malloc" before.
 In this case we leave the memory manager of the operating system shrink the
@@ -7560,8 +7564,8 @@ second is the value we are going to write in \textbf{each byte} of the memory
 zone and the last argument is the number of bytes you're going to write. A very
 typical example of this is when putting al bytes in memory to zero, this is
 often done when you reserve memory for some structs whose values you need to
-initialize or that requieres to be initialized with that value. In later
-examples we will see them. The example that I am going to show now is a bit more
+initialize or that requieres to be initialized with that value (that's why
+\verb"calloc" does this). The example that I am going to show now is a bit more
 original. Imagine that you want to show a progress bar like this one:
 \begin{verbatim}
 [#############################.....................]
@@ -7569,7 +7573,7 @@ original. Imagine that you want to show a progress bar like this one:
 
 I think you are guessing where I want to get to. To print this bar with a
 pleasing aesthetic I have to show you a new special character, called carriage
-return, which is introduce in strings with this sequence: \verb!\r!. This
+return, which is introduced in strings with this sequence: \verb!\r!. This
 character takes the printing back to the start of the line, allowing you to
 overwrite it. Also, I am going to use a function called \verb!usleep!, that
 allows us to pause the program for some time, otherwise, the program would make
@@ -7594,7 +7598,7 @@ void print_bar(int progress) {
     char bar[BAR_LENGTH + 3] = { '[' };
     //we leave space at the end for the last null char
     bar[ARRAY_SIZE(bar) - 2] = ']';
-    //we write the punds signs that symbolize the completed part
+    //we write the pound signs that symbolize the completed part
     memset(bar + 1, '#', progress);
     //we write the dots that symbolize the pending part
     memset(bar + 1 + progress, '.', BAR_LENGTH - progress);
@@ -7640,11 +7644,11 @@ void *memcpy(void *dest, const void *src, size_t n);
 \end{minipage}
 
 It receives three arguments, the first one is the memory zone where you want to
-copy the data, the second is the memory zone from which we will copy the data
+copy the data to, the second is the memory zone from which we will copy the data
 and the third argument is the amount of data in bytes you want to copy. To
 remember which arguments goes first (the destiny or the origin) I use the trick
 of saying to myself that it works like an assignment, that is, the destiny goes
-first. Let's see an example, imagine a function that allows u to insert an
+first. Let's see an example, imagine a function that allows you to insert an
 element in the position we want in an array.
 
 \noindent
@@ -7661,7 +7665,7 @@ int *insert_at(int *list,
     int *res = malloc(sizeof(*res) * (list_size + 1));
     memcpy(res, list, sizeof(*res) * position);
     memcpy(res + position, &element, sizeof(*res));
-    memcpy(res + position +1,
+    memcpy(res + position + 1,
                list + position,
                sizeof(*res) * (list_size - position));
     return res;
@@ -7696,14 +7700,14 @@ function.
 In general, variables of basic types are compared with the operator \verb!==!,
 but strings in C are pointers. If you compared with this operator, you'd be
 comparing simply the memory addresses in which both strings are stored, and,
-unless they're the same, they wouldn't be equal. I guess that with that you know
-of the language you could write a function that compares to strings and checks
-if they're equal. Simply write a loop that checks if both strings are equal char
-by char and checks that the length is the same. The function that does this for
-us is \verb!strcmp!.
+unless the strings are the same, they wouldn't be equal. I guess that with what
+you know of the language you could write a function that compares two strings
+and checks if they're equal. Simply write a loop that checks if both strings
+are equal char by char and checks that the length is the same.
+The function that does this for us is \verb!strcmp!.
 
 In general, when you compare things in programming, you invoke an operator or
-a function that return true if the operands are equal or false if they're
+a function that returns true if the operands are equal or false if they're
 different. For example \verb!a == b!. But in this case, \verb!strcmp! returns a
 negative number is the first string goes before in alphabetical order, zero if
 they are equal, and a possitive number if the first chain goes later in
@@ -7714,7 +7718,7 @@ indicates if a set of strings in is alphabetical order.
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Signature of function \texttt{strcmp}},
+caption={Example of use of \texttt{strcmp}},
 label={lst:strcmp}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -7731,7 +7735,7 @@ int main(int argc, char const* argv[])
 
     for (int ii = 1; ii < argc - 1; ++ii) {
         if (0 < strcmp(argv[ii], argv[ii+1])) {
-            printf("The words introduced as argument are not"
+            printf("The words introduced as arguments are not"
                    " in alphabetical order.\n");
             return EXIT_FAILURE;
         }
@@ -7754,7 +7758,7 @@ we check the next position, and there is no next position to the last one.
 
 Next function we're going to look into is \verb!strlen!, which tells us the
 length of a string, \textbf{without counting the null chacracter}. For starters,
-before writting the signatrue of the function, let's make the exercise of
+before writting the signature of the function, let's make the exercise of
 making our own function that does the same as a simple task:
 
 \noindent
@@ -7763,17 +7767,12 @@ making our own function that does the same as a simple task:
 \begin{lstlisting}[style=C,
 caption={Propia versión de \texttt{strlen}},
 label={lst:ownStrlen}]
-size_t my_own_strlen(const char* string)
-{
-    size_t res  = 0;
-    char   iter = string[res];
-
-    while ('\0' != iter) {
-        ++res;
-        iter = string[res];
+size_t my_own_strlen(const char* string) {
+    size_t iter = 0;
+    while ('\0' != string[iter]) {
+        iter++;
     }
-
-    return res;
+    return iter;
 }
 \end{lstlisting}
 \end{minipage}
@@ -7811,7 +7810,7 @@ char *strdup(const char *s);
 \end{minipage}
 
 It is simply a function to which you pass as an argument the pointer to the
-string you want to duplicate and return a pointer to the memory block in which
+string you want to duplicate and returns a pointer to the memory block in which
 it copied the same content. Nevetherless, you must free both zones, if the first
 one was reserved with dynamic allocation, because this function does not move,
 it copies.
@@ -7857,8 +7856,8 @@ it like this (again, remember that Spanish names have two surnames):
 \end{verbatim}
 
 Let's see how this function could be written (remember that it must be added to
-the program I have quoted before) and we will call it \verb!person_to_string!.
-This function would be like this:
+the program I have referenced before) and we will call it
+\verb!person_to_string!. This function would be like this:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -7897,7 +7896,7 @@ detail I want to mention, that is the value returned by the function. Both
 integer that is the \textbf{number of characters printed} (not counting the
 null character at the end of the string). This is very useful when you want to
 print several things in the same string. Let's see an example, imagine a
-program that, in a similar way, would serialize an array, if the array is
+program that, in a similar way, would serialize an array, if the array were
 {1,2,3,4,5} the serialization would be:
 
 \begin{figure}[H]
@@ -7967,22 +7966,22 @@ int main(void)
 \end{lstlisting}
 \end{minipage}
 
-If you see how I have written the function, we use thir return value from
+If you see how I have written the function, we use this return value from
 \verb!sprintf! to concatenate the strings, the mechanism is very simple, if we
 have printed a certain numbers of characters we must add to the pointer the
 number of characters printed. Also, we use a conditional inside the loop to
 avoid printing the last comma in the last element. After the loop, we print the
 closing bracket and, finally, a conditional checks that we haven't printed more
 characters that the ones we provisioned for. Notice that we use \verb!>=!
-because we have to provision for the last null characters.
+because we have to provision for the last null character.
 
 Nonetheless, we have a problem, although we can know when the space has been
 overflown, that is, when we have used more characters than the ones we had, we
 can't \textbf{avoid} this from happening. This has very serious implications,
 because once you write in a memory zone, you do not know what can happen.
 Luckily, there is a variation of the function we're using that will help us to
-avoid such predicament. it is called \verb!sprintf!, and has the same signature
-that the last one, but it adds an argument: the \textbf{maximun} number of
+avoid such predicament. It is called \verb!sprintf!, and has the same signature
+that the last one, but it adds an argument: the \textbf{maximum} number of
 character that you want to print, in this way, it will never overflow our
 memory. Let's see how this could be used in the same program.
 
@@ -8049,14 +8048,14 @@ int main(void)
 
 As you can see, the second argument of the function is the limit of characters
 that we can keep printing. We calculate this substracting from the length of the
-array what we have already printed, in that way, if we have alrady printed
+array what we have already printed, in that way, if we have already printed
 100 characters, we have 65536--100 available. On the other hand, take into
 account that \verb!snprintf! return always the number of characters that
 \textbf{would be} printed regardless of the limit of characters set by the
 second argument of the function. When printing, the null character at the end
 of the string counts, that is, if a call to \verb!snprintf! receives as limit
 three and you tring to print \verb!abc!, it would return 3, but it won't write
-the last letter, because it always write the null character (unless the limit
+the last letter, because it always writes the null character (unless the limit
 is zero).
 
 Be careful, you need to check that the argument for the limit is not negative,
@@ -8066,12 +8065,12 @@ loop condition.
 
 \subsubsection{Positional specifiers}
 In the start of the manual I taught you to print things so you could test your
-programs, but I did so in a very concise way to avoid consufing you.
+programs, but I did so in a very concise way to avoid confusing you.
 Nevertheless; I take this chance of coming back to printing functions to
 develop something I left on the table then. This is positional specifiers,
 we already know what a specifier is, they indicate, inside the format, which
 data type has the argument we're going to print in that operation. The problem
-of this system, which is simple, is that it creates problems when you cant to
+of this system, which is simple, is that it creates problems when you want to
 print something several times in the same printing operation.
 
 If, for instance, we need to print several times the same variable, there is
@@ -8104,9 +8103,9 @@ char *son_name(const person_t *father, const person_t *mother,
     const int STRING_LENGHT = 65536;
     char res[STRING_LENGHT];
     char *format = "===BIRTH CERTIFICATE===\n"
-                   " - Nombre del Padre: %s %s %s\n"
-                   " - Nombre de la madre: %s %s %s\n"
-                   " - Nombre del hijo: %s %s %s\n";
+                   " - Name of the father: %s %s %s\n"
+                   " - Name of the mother: %s %s %s\n"
+                   " - Name of the child: %s %s %s\n";
     snprintf(res, STRING_LENGHT, format, father->name,
              father->last_name_1, father->last_name_2, mother->name,
              mother->last_name_1, mother->last_name_2, first_name,
@@ -8150,9 +8149,9 @@ char *son_name(const person_t *father, const person_t *mother,
     const int STRING_LENGHT = 65536;
     char res[STRING_LENGHT];
     char *format = "===PARTIDA DE NACIMIENTO===\n"
-                   " - Nombre del Padre: %s %s %s\n"
-                   " - Nombre de la madre: %s %s %s\n"
-                   " - Nombre del hijo: %s %2$s %5$s\n";
+                   " - Name of the father: %s %s %s\n"
+                   " - Name of the mother: %s %s %s\n"
+                   " - Name of the child: %s %2$s %5$s\n";
     snprintf(res, STRING_LENGHT, format, father->name,
              father->last_name_1, father->last_name_2, mother->name,
              mother->last_name_1, mother->last_name_2, first_name);
@@ -8171,7 +8170,7 @@ int main(void) {
 \end{minipage}
 
 The first change is that now the two last specifiers are special, a positional
-specifier starts as everyone, with a percentage symbol, the the position, as
+specifier starts as all of them, with a percentage symbol, then the position, as
 a number, a dollar sign and the indicator of the data type, in this case an
 s, because it's a string.
 
@@ -8221,18 +8220,18 @@ As you saw in the program \ref{lst:exampleRemove} I check the return value of
 the function I am calling and, if it's zero (what tends to indicate success)
 I return \verb!EXIT_SUCCESS!, ending the program. Otherwise, if the returned
 value is not zero, we go into a \verb"switch" about a variable we do not know.
-In it, we use a series od values that are not present in the program either.
+In it, we use a series of values that are not present in the program either.
 This is because we have included the header \verb!errno.h!. This allows us to
 use the global variable \verb!errno!.
 
-The variable exists do when we call some function that uses it to notify errors,
+The variable exists so when we call some function that uses it to notify errors,
 its value would be assigned in consequence to some of the values defined in the
 header. For example, here we have prepared for some of the cases. Nevetherless;
 a question arises: how to know which functions use this variable and which don't
 and what values are present. To do this, the \textbf{manual} is used. This is a
 function of Linux operating systems in which you can call the \verb!man! command
-to find information about any function or header. For example, try to write in
-a termina this:
+to find information about any function or header. For example, try to write this
+in a terminal:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -8267,13 +8266,13 @@ DESCRIPTION
 \end{lstlisting}
 \end{minipage}
 
-In manual screens you move the dispaly with the arrow keys and go out of the
-manual hitting q. If you want to know the content of any function (functions,
-variables...) or the signature of any function, just write \verb!man! next to
+In manual screens you move the display with the arrow keys and go out of the
+manual hitting q. If you want to know about anything (functions, variables...)
+or the signature of any function, just write \verb!man! and next to it
 the name of the header or function. If you get results that are not what you
 were looking for, execute \verb!man 3 <name>!. The manual has information about
 other things, like linux commands, but section three is the one that contains
-information about the C functions.
+information about C functions.
 
 \subsection{Exercises of the section}
 \begin{exercises}[resume*]
@@ -8281,10 +8280,10 @@ information about the C functions.
 (Use \verb!realloc! and \verb!strdup!).
 
 \item Write a program that receives an unknown number of words as arguments and
-shorts them alphabetically and, later, prints them.
+sorts them alphabetically and, later, prints them.
 \item Write a program that receives as argument a word and a number. If the
 number is zero, it must turn the word into uppercase, it the number is not
-zero, it must turn it into lowercase.
+zero, it must turn it into lowercase. For example:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -8297,14 +8296,16 @@ usa
 SPQR
 \end{lstlisting}
 \end{minipage}
+
 Clue: Check the ASCII table to know what distance is there between a lowercase
 letter and an uppercase letter.
-\item Make an program that given a number as an argument, prints a pyramid like
+\item Make a program that, given a number as an argument, prints a pyramid like
 this one with as many lines as the number indicates:
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[style=terminalStyle]
+\$ ./main.exe 5
 %%%%%%%%%
  %%%%%%%
   %%%%%
@@ -8312,6 +8313,7 @@ this one with as many lines as the number indicates:
     %
 \end{lstlisting}
 \end{minipage}
+
 Note: Use \verb+memset+.
 
 \item Write a program the receives a series of points and names for each one
@@ -8326,7 +8328,7 @@ furthest. For example:
 2 3 Cincinnati
 4 5 Indianapolis
 \end{lstlisting}
-Note: create an struct called \verb!tagged_point! that manages the strings as
+Note: create a struct called \verb!tagged_point! that manages the strings as
 is seen in the program
 \ref{lst:structConstPointers}, but using \verb!strdup!.
 \end{minipage}
@@ -8362,21 +8364,21 @@ int main(void)
 \end{minipage}
 
 There is not a specifier to print booleans, but if you use the \verb!%d!
-specifier, you'd see that the problem prints ``1''. That is, if we are rigorous
+specifier, you'd see that the program prints ``1''. That is, if we are rigorous
 storing our logic values in the boolean type, we can assume that a true logic
 value is always equal to 1. Nevetherless, we still have a problem, that is the
 use of a whole byte to store a value that could be stores in a bit. This problem
-comes from the fact that computers do not memory blocks smaller than a byte.
+comes from the fact that computers do not address blocks smaller than a byte.
 Nevertheless, that doesn't mean we can't manipulate the concrete bits inside a
 byte, for example, set a bit to zero, invert them... for those tasks we use
 bit-level operators.
 
 \subsection{Bit-level operators}
 I am going to be sincere, I didn't know where to put this section, that is,
-I didn't find a place to put it in the manual. At the start I thought about put
-it after the logic operators, but the utility of these was difficult to explain
-at that moment. So it is better to learn them now. There are several bit-level
-operators, these are:
+I didn't find a place to put it in the manual. At the start I thought about
+putting it after the logic operators, but the utility of these was difficult
+to explain at that moment. So it is better to learn them now.
+There are several bit-level operators, these are:
 \begin{enumerate}
 \item Bit level conjunction, written in math as $\cdot$, it is done with
 \verb!&!.
@@ -8386,7 +8388,7 @@ it is done with \verb!~!.
 \item Bit shifting to the left, binary operator that moves all the bits of
 an integer type to the left as many times as the second operand indicates.
 It is done with the \verb!<<! operator.
-\item Bit shifting to the right, binary operator that moaves all the bits of
+\item Bit shifting to the right, binary operator that moves all the bits of
 an integer type to the right as many positions as the second operand indicates.
 It is done with the \verb!>>! operator.
 \end{enumerate}
@@ -8400,13 +8402,13 @@ operands.
 To understand this correctly you need to understand how the binary numbers are
 represented inside the computer. You already know how the unsigned integers are
 represented, in binary, that is, as we saw it in section \ref{numericSystems}.
-Nevetherless; negative numbers are representes un a special way. There are
+Nevetherless; negative numbers are represented in a special way. There are
 several ways to represent signed numbers in binary, the most naive would be just
 to reserve a bit, the first generally, for the sign, if the bit is zero, it is a
 possitive number, if it's a one, it's a negative number. In this way, number
 7 would be 00000111 and -7 is 10000111, but the problem of this representation
 is that we have 0 and -0. And since we're computer programmers, we don't like to
-waste a valuable number. Because of this, signed numbers are in
+waste a valuable number. Because of this, signed numbers are represented in
 \textbf{two's complement}.
 
 In this system, positive numbers coincide with their natural binary
@@ -8430,13 +8432,13 @@ sign, as in the naive representation we discussed before. Another advantage of
 this system is that there is just one zero representation, which is count as a
 possitive number. This explains why, when we were seeing the range of basic
 types, integer types had always a possitive range that was one unit smaller than
-the negative range, the \verb!char!, for example, comes from -128 to 127.
+the negative range, the \verb!char!, for example, covers from -128 to 127.
 
 Let's come back to the bit-level operators, let a \verb!char! be -7 and another
 be 12, let's see how their bit-level conjuntion would be calculated:
 $$
-a = -7_{\left(10\right.} = 11111001_{\left(\mathrm{CA}2\right.} \;\;
-b = 12_{\left(10\right.} = 00001100_{\left(\mathrm{CA}2\right.}\;\;
+a = -7_{\left(10\right.} = 11111001_{\left(\mathrm{2C}\right.} \;\;
+b = 12_{\left(10\right.} = 00001100_{\left(\mathrm{2C}\right.}\;\;
 a \cdot{} b = \cdot{}\matrix{11111001\cr
         \underline{00001100}\cr
                               00001000}
@@ -8449,18 +8451,6 @@ shifting bits to the left in binary is the same than multiplying the number by
 two. On the other hand, if we shift bits to the right, it would be: 00000001,
 the ones that do not fit, are erased, as you can see. This operation, logically,
 is equivalent to dividing the number by two (in integer division).
-
-% La mayor utilidad para esto es que nos permite establecer algo que los
-% informáticos llamamos \emph{flags}. Es decir, nos permite utilizar los bits de
-% una variable entera para indicar sendas variables lógicas. Por ejemplo, podemos
-% crear una función que serialice un objeto de tipo persona, con estas opciones:
-% \begin{enumerate}
-% \item Serializar con nombres legibles para personas, es decir,
-% <<apellido>> en lugar de, por ejemplo <<last\_name\_1>>.
-% \item Serializar con espacios o no entre caracteres de contro, es decir,
-% \verb!"last_name_1" : "Johnson"! en vez de \verb!"last_name_1":"Johnson"!.
-% \item Serializar en varias líneas.
-% \end{enumerate}
 
 The best use for this is that it allows us to stablish something programmers
 call flags. That is, it allows us to use the individual bits of an integer
@@ -8483,7 +8473,6 @@ and we are going to create an anumerated type where each option has the value
 of an integer with that bit set to one. To pass several options, the user
 can simply perform a bit-level disjunction with the options. Let's see how this
 would be written.
-
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -8570,13 +8559,13 @@ ternary because it takes \textbf{three} operands, its syntax is like it follows:
 \verb!condition ? value1 : value2!, the operator would return \verb!value1! when
 the condition is true, and \verb!value2! when the condition is false. Be
 careful because both values must have the same type. I use it here to define
-the separators of field, line and the names for the serialization.
+the separators of fields, lines and the names for the serialization.
 
 Finally, in function \verb!main! we call the serialization function with the
 options, simply we chain them all together with a bit-level disjunction. Be
-careful not to misspell when you use uptions and use wrongly the logic operator.
+careful not to misspell when you use options and use wrongly the logic operator.
 
-On the other han, there is an operation I'd like to talk you about, that is
+On the other hand, there is an operation I'd like to talk you about, that is
 when we need to pull down a flag inside a flag group. Imagine we wanted to
 serialize a struct with all the options but immediately after one without one of
 them, for example, we want to pull down the multiline flag, we could create the
@@ -8610,10 +8599,10 @@ int main(void) {
 \end{minipage}
 
 This is a bit counterintuitive, let's see it with the values in the example, in
-line 12, \verb!opts! is 00000111, optione \verb!CONTROL_SPACES! is 00000010, if
+line 12, \verb!opts! is 00000111, the flag \verb!CONTROL_SPACES! is 00000010, if
 we invert or negate it, we get 11111101, if you make the conjunction bit by bit
 with that value, you'd see that all of them would remain as they were before,
-but the one corresponding to the flag, that one would be forced to become zero.
+but the one corresponding to the flag would be forced to become zero.
 That's how you pull down a flag in a series of options. Be aware that, for all
 bit-level operation there are the operators that combine them with assignment,
 that is: \verb!|=!, \verb!&=!, \verb!~=!, \verb!<<=! and \verb!>>=!, so we could
@@ -8628,7 +8617,7 @@ concepts about them and, specially, present some that would allow you to
 interiorize some code patterns. Also, in later sections we could use these
 simple algorithms to introduce more complex concepts.
 
-The first thing we're going to do is see how to express an algorithm, an
+The first thing we're going to do is to see how to express an algorithm, an
 algorithm can be explained sometimes in normal language, that is, as humans
 talk, if we already have code that executes it, we are also expressing the
 algorithm, but sometimes it is needed to use middle ground tools, firstly:
@@ -8637,16 +8626,7 @@ about it before and, secondly: because doing this allows us to think about it
 without thinking about the concrete artifacts of the language we are going to
 use, which allows us to leave that work for later on.
 
-% Estas maneras intermedias son variopintas, por ejemplo, los diagramas del flujo
-% que utilicé en su momento son una de ellas. Otra manera es el
-% \textbf{pseudocódigo}, éste es un concepto que permite expresar los algoritmos
-% de modo estructurado, utilizando artefactos básicos de cualquier lenguaje de
-% programación: condicionales, bucles, llamadas a función... pero de una manera más
-% laxa. Veámoslo con un ejemplo: el algoritmo que nos permite eliminar las
-% repeticiones en un array expuesto en el programa \ref{lst:mallocAndFree}:
-% \nameref{lst:mallocAndFree}.
-
-These ways of expressing them are plentyful, for example, flow diagrams
+These ways of expressing them are plentiful, for example, flow diagrams
 as I used them to explain how loops worked are one way. Another is the
 \textbf{pseudocode}, this is a concept that allows us to express algorithms
 in a structured way, using basic artifacts of any programming language but in a
@@ -8677,7 +8657,7 @@ it comes from; we do not have to convert the logic variable to numbers; we
 can assume that adding an element to the array is self-explanatory; we can
 ignore dynamic memory allocation and simply say we return an array. Doing this
 after you already have the code is useless, but think about how useful this
-could have helped.
+could have been.
 
 The problem of pseudocode is that we can ``cheat'', that is, we can always
 ignore some important things that, when trying to write it in real code,
@@ -8697,7 +8677,7 @@ $$
 
 Continuing with the pseudocode, the most evident way to define this is the
 \textbf{iterative}, that is, the one that uses repetitions with loops, iterative
-solutions tend to be opposed to recursive definitions. Let's see the pseudocode
+solutions tend to be opposed to recursive ones. Let's see the pseudocode
 for this way of solving the problem:
 
 \begin{lstlisting}[style=pseudoCode]
@@ -8725,16 +8705,16 @@ if n equals 0:
 return factorial(n - 1) * n
 \end{lstlisting}
 
-If we jump right to the implementation, we will see that is is as easy as the
+If we jump right to the implementation, we will see that it is as easy as the
 function calling itself. As you very well know, a function can call another,
 and so on, but nothing avoids us to call the very function we're executing right
 now. The only problem this presents is that, if it is poorly designed, you can
-make the function to call itself indefinitely, this would make that, since
-each non-finished call adds things to the stack, this would end up filling up
-totally and the program will fail.
+make the function to call itself indefinitely, this would make the stack to
+fill up, since each non-finished call adds things to the it, and the program
+will fail.
 To see this comparison in the programs with both solutions, we will create both
 versions of this function, the iterative one and the recursive, the first one
-would be called \verb!factorial\_interative! and the second is
+would be called \verb!factorial\_iterative! and the second is
 \texttt{factorial\_recursive}.
 
 \noindent
@@ -8767,7 +8747,7 @@ unsigned long factorial_iterative(int n)
 
 This example is classic, and it is so because you can see very well the
 differences between the implementations and, also, the parts of a recursive
-function. A recursive function, in general terms, it must have two components:
+function. A recursive function, in general terms, must have two components:
 the so-called base case and the recursive call (or calls).
 The earlier is here represented by the conditional, a recursive function is
 so because it is defined in a circular way, that is, it calls itself, to be able
@@ -8776,7 +8756,7 @@ evident solution. In this case is when $n$ is equal to zero, case in which the
 answer is 1, because that's the mathematical definition. The recursive call is
 in the next line.
 
-Comparing the two solutions, the first one if what is called ``more elegant'',
+Comparing the two solutions, the first one is what is called ``more elegant'',
 in the sense that it is more legible (so much one could say it is trivial) while
 the iterative is longer and less obvious. Nevetherless; the iterative solutions
 are more efficient than the recursive. This is because the several calls to the
@@ -8788,10 +8768,10 @@ return and this succession of calls will unroll itself.
 On the other hand, the iterative solucion has no need to copy anything,
 nor keep calling the functions again and again, it is a simple loop. Is it
 reasonable, therefore, to think that the first solution will be slower. Let me
-to check it and I will come back with the results so you can see it. The
+check it and I will come back with the results so you can see it. The
 recursive solution is slower than the iterative, being 1.7431 times slower,
-therefore it is noticeable worse.Also, remember the stack, it uses more memory.
-To sum it up: iterative algorithms thend to be faster than their recursive
+therefore it is noticeable worse. Also, remember the stack, it uses more memory.
+To sum it up: iterative algorithms tend to be faster than their recursive
 counterparts, but less elegant.
 
 Another classic example to appreciate the differences between both ways to write
@@ -8805,7 +8785,7 @@ $$
 a_1 = 1, a_2 = 1, \forall_{n=3}^{\infty}\left(a_n = a_{n-1} + a_{n-2}\right)
 $$
 
-I think you understand that, this could be written iteratively with a loop, in
+I think you understand that this could be written iteratively, with a loop, in
 a similar way to the factorial. So we will jump right to the recursive
 definition.
 
@@ -8871,9 +8851,9 @@ These nested lists would represent how the sequence of calls to the recursive
 functions. You can see several things, the firt one being that even for a
 small value of $n$, five, a high number of calls are performed. On the other
 hand, a lot of the calls are done more than once, the call for three is repeated
-three times, the call for two, three times... and this is only when the original
+two times, the call for two, three times... and this is only when the original
 $n$ is five. This gives you an idea that the recursive solution for this is
-very inefficient. More advanced thechniques allow to solve this. To sum it up,
+very inefficient. More advanced techniques allow to solve this. To sum it up,
 this way of writting this is not very good.
 
 And, if this is the case, if recursive algorithms are so inefficient, the
@@ -8893,10 +8873,10 @@ them we will see the following ones:
 \item \textit{Quick sort}.
 \end{enumerate}
 
-This is like the case because this task (sorting a vector or array) is very
+This is the case because this task (sorting a vector or array) is very
 common and allows us to deploy a big amount of innovation, many authors of
-scientifical works are putting sfforts still in improving these algorithms.
-Also, it is an operation very common in computing. The first algorithms are more
+scientifical works are still putting efforts in improving these algorithms.
+The first algorithms are more
 or less simple, so we will speak directly over the C implementation, but the
 last two will need a more thorough explanation.
 
@@ -8928,7 +8908,7 @@ This is the simplest sorting algorithm because, as you can see, it is made out
 of just two nested loops and an a conditional. Quickly: you iterate over the
 array, but since you're checking with the next element, you stop one position
 before the end. If the first element (\verb!list[jj]!) is greater than the one
-that comes after, you swap them. To swap them you simply sabe one in an
+that comes after, you swap them. To swap them you simply save one in an
 auxiliary variable, you assign the second to the first, and the the auxiliary
 variable to the second. This, done only once, would make the greater element to
 float up to the last position. And I have said ``float'' because this is where
@@ -8939,7 +8919,7 @@ You will see how only the last element is the one ordered.
 
 This algorithm has a very clear advantage: it uses very little memory. More so,
 if we ignore the auxiliary variables for the loops, the stack arguments and
-such, the only occupied memory is the auxiliary varuable, that is, the size
+such, the only occupied memory is the auxiliary variable, that is, the size
 of the datatype that you're ordering, in this case: four bytes. In computer
 science there is always a trade-off between memory and speed. Algorithms that
 use much memory to do the same tend to be faster than the ones that use very
@@ -9037,7 +9017,7 @@ array = sorted_list
 \end{lstlisting}
 \end{minipage}
 
-The problem if this pseudocode is that inserting in an ordered list is something
+The problem in this pseudocode is that inserting in an ordered list is something
 complex enough that will need its own definition. Let's define the algorithm to
 insert an element in a list, but that \textbf{is already allocated in memory}.
 
@@ -9140,7 +9120,7 @@ order then you'll see nine and put it after eight. Anyways, if you have thought
 that you'd do selection, yes, it could be possible some people sort things in
 that way too.
 
-The way we have implemente it is very ingenous, we use many more steps than
+The way we have implemented it is very naive, we use many more steps than
 needed. There is a simpler way if we realize that we can do all the operations
 in the same list. To give you an example, imagine the list:
 \begin{tabular}{|c|c|c|c|c|}
@@ -9156,7 +9136,7 @@ position right, leaving the array in this way:
 \textbf{2}&\color{white}2\normalcolor&\textbf{6}&5&7\\\hline
 \end{tabular}.
 With an empty position, as you can see. This cell is used to put in place the
-element that was saved in a variable as we said before, ending the array like
+element that was saved in a variable as we said before, setting the array like
 this:
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -9195,19 +9175,17 @@ iterate over all the array \textbf{from the second position}. We save the
 the next element to the sorted ones in the variable \verb!element!. Aftet that,
 in this inner \verb!for! loop we will move all the elements of the sorted list
 to the right one position, doing this is easier backwards, that's why \verb!jj!
-is decremented instead of incremented as has been usual. When we have found the
+is decremented instead of incremented as has been usual. Once we have found the
 first element that is greater, we stop (\verb!break!). Finally, we put the
 saved element on its place.
 
-Finally, we reach the Quick sort algorithm, whose name, as you can see, is not
+Finally, we reach the Quick Sort algorithm, whose name, as you can see, is not
 descriptive of how it sorts, but of a nice quality it has: it is very fast. If
 you remember what I said a few paragraphs before, in computing, speed and
 memory are fighting metrics, that is, when you favour one, the other gets worse.
 I am very interested that you see this algorithm because it is \textbf{a
 recursive algorithm}. And it is one of those that is purely this way. Also,
-since it's more comple, as you may have guessed, let's see its pseudocode first.
-
-
+since it's more complex, as you may have guessed, let's see its pseudocode first.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -9237,7 +9215,7 @@ has only one element, because a list with only one element is always sorted.
 When we're not in the base case, we create two lists: the elements smaller than
 the pivot will go in one, and the ones equal or bigger will go in the other.
 The pivot is simply any element of the list we want to sort. At this level it is
-not relevant, even when its selection affect very much edge cases, that is,
+not relevant, even when its selection affects very much edge cases, that is,
 with concrete arrays. After making both lists, we will call Quick Sort on both
 lists, and we will save both sorted lists returned by the algorithm. The result
 would be the concatenation of the sorted list of smaller elements, the pivot and
@@ -9311,11 +9289,11 @@ would be very long. Notice that we initialize without checking anything about
 allocate a vector of the same size of the list. There is not danger in calling
 \texttt{malloc} with a size that equals zero, it is safe. After that, as is usual
 in our recursive functions, we check if we're or not in the base case, the base
-case is a list with zero element or a list with one element. Both are sorted by
+case is a list with zero elements or a list with one element. Both are sorted by
 definition.
 
 After this, the recursive case starts, the first thing is to read the value of
-the pivot, we do it now because we're not ensured the list has at least one
+the pivot, we do it now because we're not guaranteed the list has at least one
 element. Now we allocate memory for the lists of the bigger elements and the
 smaller elements. We have already seen this before: we do not know how long
 they would be, but it is obvious that neither of these lists can be longer than
@@ -9326,7 +9304,7 @@ of the list (which is equal to the size of a list) and we increment in one the
 size. Note that this loop starts in one, this is to avoid copying the pivot,
 because if we did evaluate it in the loop, we will be duplicating it.
 Once we have finished that loop, we redimensionate the lists to their real
-size. In the same wat than with \verb!malloc!, if you call \verb!realloc! with a
+size. In the same way than with \verb!malloc!, if you call \verb!realloc! with a
 zero size, there is not problem, the pointer returned is still valid
 to be passed to \verb"free", and you need to do so.
 
@@ -9361,18 +9339,18 @@ but it is striking that Quick Sort is so much ahead of the others. As a thought:
 I wouldn't call any algorithm in such a way if it weren't true. Nevetherless,
 there are some caveats you need to know about these algorithm beyond their
 speed. For example, as we said, Quick Sort uses much more memory than all the
-others. If we used this algorithm in certain machined we may have been limited
+others. If we used this algorithm in certain machines we may have been limited
 by memory. Also, there is a quality of algorithms called \textbf{stability},
 which represents how constant the use of memory, time or both things is when
 the data introduced changes. In the case of these algorithms, the only two that
 are stable are bubble sort and selection. This means that results of the other
-ones can change a lot in certain cases, hence of working in environments where
+ones can change a lot in certain cases, hence if working in environments where
 these cases happen frequently or where stability is more important that average
 speed, maybe you should use one of the slower algorithms.
 
 The most evident example of this is the last algorithm, which behaves poorly
 in the worst case scenario. For Quick Sort, the worse scenario is, ironically,
-an already ordered array (or inversely ordered). Is you come back to its
+an already ordered array (or inversely ordered). If you come back to its
 description or implementation, you'd see why easily. If the array is ordered,
 all the elements would follow consistently in either the bigger elements list or
 the smaller elements list, because we use the first element as our pivot. This
@@ -9383,24 +9361,15 @@ vector with sizes 999, 998, and so on. This is not sustainable with any sizeable
 vector. Let's compare the selection algorithm (which is stable) with Quick Sort,
 with an already sorted vector.
 
-% El primer hecho que te llamará la atención es que no puedo utilizar la misma
-% cantidad de elementos que en la comparación anterior, esto es porque mi
-% ordenador no cuenta con memoria suficiente para que \textit{Quick Sort} termine
-% bajo estas condiciones. He utilizado un vector de 65.536 elementos. El
-% algoritmo de selección tarda 4,58 segundos y \textit{Quick Sort} tarda, ni más
-% ni menos que 21,55. Aquí es donde entra en juego la estabilidad, selección
-% es de media peor, pero nunca tarda mucho más. De hecho, como sí que puedo
-% ejecutar el algoritmo de selección sobre 262.144, vamos a que cuánto tarda y
-% compararlo con el resultado bajo el vector aleatorio.
-
-The first fact that strikes to when reading the table is that I can't use the
-same length of the vector that in the last tests, this is because my computer
-has not enough memory so Quick Sort finish correctly under these circumstances.
-I have used a vector with 65,536 elements. The selection algorithm takes 4.58
-seconds and Quick Sort takes, no more or less than 21.55. Here is where
-stability, selection is en average worse, but is never much slower than that.
-As a matter of fact, since I can execute selection over 262,144, let's see how
-much it takes and compare it with the random vector.
+The first fact that will strike you when reading the table is that I can't use
+the same length of the vector that in the last tests, this is because
+my computer hasn't got enough memory for Quick Sort finishing correctly under
+these circumstances. I have used a vector with 65,536 elements. The selection
+algorithm takes 4.58 seconds and Quick Sort takes, no more or less than 21.55.
+Here is where stability comes into play, selection is en average worse,
+but is never much slower than that. As a matter of fact, since I can execute
+selection over 262,144, let's see how much it takes and compare it with the
+random vector.
 
 Selection takes 72.05 seconds, as you can see, almost exactly the same that
 with the random vector. Also, the memory consumption is always the same, quality
@@ -9408,17 +9377,17 @@ it shares with the algorithms that were explained before it. This shows that
 there are things you must take into account apart from the average execution
 time of an algorithm. All those factors would be object of a book by themselves,
 and of an algorithms course which is not what we're doing here, the reason of
-this section is enunciate the existence of these kinds of problems and show the
-importance of the election and implementation os algorithms for tasks even as
-simple as sorting an array.
+this section is enunciating the existence of these kinds of problems and show
+the importance of the election and implementation of algorithms for tasks even
+as simple as sorting an array.
 
 \subsection{Search}
 Searching is another of the most important things a programmer uses, but search
 depends a lot on where you're searching. Up until now we only know arrays or
 vectors, which regarding searching, are the same. Searching is, given a value,
-finding in the structure you're searching in the same value, or its first
+finding the same value in the structure you're searching in, or its first
 occurrence. It is evident how to solve this problem in general, a loop that
-checks if the concrete element it equal to the element we're searching for. If
+checks if the concrete element is equal to the element we're searching for. If
 this is the case, you can return the index you have found the element in,
 otherwise, a value to indicate it hasn't been found is returned, generally -1
 or any negative value.
@@ -9485,14 +9454,14 @@ int binary_search(int* array, int array_size, int target)
 \end{lstlisting}
 \end{minipage}
 
-Since dividing array in C is complicated, let's play with the positions. We
+Since dividing arrays in C is complicated, let's play with the positions. We
 define a lower and an upper bound, which will be the limits of the part of
 the array we're looking for the element. What we do is to set ourselves in each
 iteration in the middle zone of the array and check is we have found the
 element, if not, we check if it's greater than or less than the target. If the
 target is greater than this point in the array, we know that our element, if
-present, is in the right size, that is, later positions, otherwise, we know
-it is in the left size, in the earlier positions. If we reach the situation in
+present, is in the right zone, that is, later positions, otherwise, we know
+it is in the left zone, in the earlier positions. If we reach the situation in
 which the limits collide (that is, they are the same), we have ruled out all the
 possible positions and, therefore, the element is not present in the array.
 
@@ -9503,7 +9472,7 @@ make $\log_{2}{\left(n\right)}$ checks. In the case of the ``normal'' search,
 on average, we will make $\frac{n}{2}$ checks. This makes this algorithm more
 desirable, although we must take into account that the array must be sorted and,
 if it is not, we must order it, which has a computational cost. Ideally this
-algorithm is used with structures that are always sorted, that meand, where
+algorithm is used with structures that are always sorted, that means, where
 insertions are performed ordered, but this has a cost because you need to move
 elements in the insertion operation (in a similar fashion to what we did in
 the selection sorting algorithm).
@@ -9511,19 +9480,20 @@ the selection sorting algorithm).
 \section{Generic algorithms}
 Now we already know what an algorithm is in its most fundamental terms and that
 we know some of those that are complex to some degree, we can take one step
-further: make those algorithms ``purer'', made them in such a way that they are
-just a succession of steps to calculate something, but they ignore the data type
-they're operating on. This being said, it's a bit confusing, but you're going to
-understand it easily. In the last section we have implemented several algorithms
-that work with arrays and, even when I didn't say it, if you come back now and
-look at the example code, you will see they're all integer vectors, not of any
+further: making those algorithms ``purer'', made them in such a way that they
+are just a succession of steps to calculate something, but they ignore the
+data type they're operating on. This being said, it's a bit confusing,
+but you're going to understand it easily. In the last section we
+have implemented several algorithms that work with arrays and, even when
+I didn't say it, if you come back now and look at the example code, you
+will see they're all integer vectors, none of any
 other type. The problem is that, as you may guess, the process for sorting an
 array of integers and an array is similar, or even equal, to sorting
 any data type that supports to be ordered. For example, floating point numbers.
 
 You may think that we can always copy the code to sort integers and substitute
 \verb!int! for \verb!double!. We could, but this way of proceeding has a very
-big caveat: it duplicated code. Duplicate code is bad becase of two reasons:
+big caveat: it duplicates code. Duplicating code is bad because of two reasons:
 it makes our executables bigger, and our code in general \textbf{less
 maintainable}. Put in a simple way, it is more difficult to send such code to
 anybody so they can understand it easily and, in the case of some error or not
@@ -9533,11 +9503,12 @@ the error. Furthermore, we're programmers, our drive is to do more with less.
 
 To do this we have generic tools, the first one being the pointer to
 \verb!void!. When I presented it \verb!NULL! to you alongside the dynamic memory
-allocation, I told you that \verb!malloc! return a \verb!void! pointer that will
-be converted implicitly to any other pointer type. Also, later I told you about
-\verb!realloc! and \verb!free! they receive \verb!void! pointers that you do not
-need to convert to such type to pass. To sum it up: in C the \verb!void! pointer
-has an implicit conversion to all the types, and all the type to \verb!void!.
+allocation, I told you that \verb!malloc! returns a \verb!void! pointer that
+will be converted implicitly to any other pointer type. Also, later I told you
+about \verb!realloc! and \verb!free! they receive \verb!void! pointers that you
+do not need to convert to such type to pass. To sum it up: in C the \verb!void!
+pointer has an implicit conversion to all the types, and all the type to
+\verb!void!.
 
 This is very powerful, because we can receive a \verb!void! pointer when we do
 not know that to receive. The problem is that a pointer of this type \textbf{
@@ -9566,9 +9537,9 @@ void invert_array(void* array, int array_size, int type_size)
 \end{lstlisting}
 \end{minipage}
 
-As you can see, it is very similar to that you would do if you knew the type,
+As you can see, it is very similar to what you would do if you knew the type,
 but you need to receive as an argument the size of the data type. What we do in
-the loop if to create two pointers that represent the elements we need to swap,
+the loop is to create two pointers that represent the elements we need to swap,
 we can't do it with variables because we do not know the type. These pointers
 are not needed, but being sincere, without them the lines would be very
 difficult to read. After that, we use \verb!memcpy! to being able to move the
@@ -9576,13 +9547,13 @@ element in position \verb!ii! to an auxiliary variable, and the element in the
 opposite position (\verb!ii - 1 - array_size!) to the i\textsuperscript{th}
 position and later the variable to the opposite element.
 
-The first thing to notice is very obvious: a functions that was very simple
-becomes somewhat more difficult to read, because we cannot use operator, but we
+The first thing to notice is very obvious: a function that was very simple
+becomes somewhat more difficult to read, because we cannot use operators, but we
 have to use function calls. You must admit that, now, we can reverse all the
-kind of array without suplicating code. There is also an important matter here,
-while the assignment operator and know the type allow the compiler to map the
+kind of array without duplicating code. There is also an important matter here,
+the assignment operator and knowing the type allow the compiler to map the
 operations you write with operations inside your processor to move bytes
-in packs of four or eight, for example. Doing this like this, with
+in packs of four or eight, for example. Doing this like in the example, with
 \verb!memcpy!, you force the computer to copy byte by byte. This makes generic
 algorithms written in this way a bit slower than their specific counterparts.
 
@@ -9637,15 +9608,15 @@ void print_array_generic(void*       array,
 \end{minipage}
 
 Here I need to know the type, not only the size, for a reason: the specifier
-to print needs the eaxt type. What I do is to declare a \verb!enum! and to be
-able to index the types in an specifier array. Also, in the \verb!switch! I use
-a little trick: every case is in a different code block (remember you can create
+to print needs the exact type. What I do is to declare an \verb!enum! to be
+able to index the types in an array of specifiers. Also, in the \verb!switch!,
+I use a little trick: every case is in a different code block (you can create
 code blocks without them being associated to any control structure), hence in
-all of them the varuable \verb!var! can be of a different type. This is a step
+all of them the variable \verb!var! can be of a different type. This is a step
 forward, but continues being a very bad function. It is like we had stuck
 together all the function for every type and we had put them in the same
-function.  It is a step forward, yes, because, even when we have all the same
-code pieces, they're at least all together.
+function. It is a step forward, nonetheless, because, even when we have all the
+same code pieces, they're at least all together.
 
 Ideally we'd want to receive from outside the way we need to print, it could
 be desirable that the user of the function gave us another one that contained
@@ -9654,13 +9625,13 @@ an algorithm, a function, at the end of the day, in something you can pass,
 move, translate from one place to another. C has a mechanism to make this that
 allows us a lot of versatility: function pointers.
 
-A function pointer is a pointer (that is, a memory address) whtat points to
+A function pointer is a pointer (that is, a memory address) that points to
 instruction that will be executed in said function. These pointers allow us to,
 as I said before, transfer, communicate, specific behaviours to another parts of
-our program. Every type of cuntion that can be declared is a different type of
+our program. Every type of funtion that can be declared is a different type of
 pointer. A function, as we saw before, is defined by its return type and the
-types of the arguments is receives. This means that, for example, these two
-functions are equal in terms in those terms.
+types of the arguments it receives. This means that, for example, these two
+functions are equal on those terms.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -9671,30 +9642,31 @@ int multiply(int x, int y);
 \end{minipage}
 
 If every function is a type, you may be thinking that it must have a name to
-reference is and a way to declare and use it. Yes, but no. Functions cannot
-be initialized like variables, is you wanted to save the pointer to a function,
+reference it, a way to declare variables of such type and so on.
+Yes, but no. Functions cannot
+be initialized like variables, if you wanted to save the pointer to a function,
 you could assign is to a \verb!void! pointer. Nevetherless; it is received
-as argument. To make the function receive a function pointer, this syntax is
+as an argument. To make the function receive a function pointer, this syntax is
 used.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[style=C]
-tipo_de_retorno (nombre) (tipo1, tipo2...)
+return_type (name) (type1, type2...)
 // for example
 int(foo)(int, int)
 \end{lstlisting}
 \end{minipage}
 
 Since everything is clearer with an example, let's see something easy: how to
-make a function that receives another and exeuted it. For example, let's make
+make a function that receives another and executes it. For example, let's make
 a function that receives one with this signature:
 \lstinline[style=C]!void (void)! and executes it ten times.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[style=C, label={lst:argumentFoo},
-caption={Ejemplo primero de puntero a función como argumento}]
+caption={First example of function pointer argument}]
 void execute_10_times(void (foo)()) {
     for (int ii = 0; ii < 10; ++ii) {
         foo();
@@ -9718,12 +9690,12 @@ execute_10_times(print_a);
 \end{minipage}
 
 Once this is done, let's come back to the generic printing function, but this
-time we will make that it receives a function that prints just a single element.
-We hace to choose the signature of this function, since it is a function that
+time we will make it to receive a function that prints just a single element.
+We have to chose the signature of this function, since it is a function that
 prints, it is only logical that it does not return anything and that receives
 just the element that we want to print. If it received the element itself,
 we would have the same problem, we would have to define its type. What we would
-do is a function that receives a pointer to \verb!void! and return nothing.
+do is a function that receives a pointer to \verb!void! and returns nothing.
 Beware, this function will be written by the person that uses our generic array
 printing function, not by us, unless we're the same person, of course. For the
 example, I will show both functions.
@@ -9732,7 +9704,7 @@ example, I will show both functions.
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Definición de función de impresión genérica},
+caption={Generic printing function definition},
 label={lst:printArrayGeneric2}]
 #include <stdio.h>
 #include <stdlib.h>
@@ -9778,28 +9750,29 @@ The generic printing function is very simple, it is simply a loop that iterates
 over the array and passes the pointer to the printing function that receives as
 argument. Logically, I need the pointer to the array, the length of it and,
 since it is a \verb!void! pointer, I need the size of the data type. As you can
-see, to spice it a bit, I have added two functionalities to the function: a
+see, to spice it a bit, I have added two features to the function: a
 separator character, that will be printed after all the elements (but the last
-one), and an ending character, that will print after the array. What we could
-call the specific priting function, that is: \verb!print_int!, it a very simple
-function, it just calls \verb!printf! performing casting from the pointer and
-dereferencing it.
+one), and an ending character, that will print after the array. The specific
+priting function, that is: \verb!print_int!, is a very simple
+function, it just calls \verb!printf! performing casting of the pointer to an
+int and dereferencing it.
 
 It is true that this function model takes us into the same problem, if we want
 to print different types, we had to define new different functions. This is
 true, but think about this: we have reduced the amount of duplicated code to
 its minimum expression, because they're trivial functions of one line. Also,
 once we are out of basic types, that would be more or less ten specifiers, the
-code it not duplicated anymore, because any other struct or type would need a
+code is not duplicated anymore, because any other struct or type would need a
 custom function written by the creator of such new type.
 
 As you may have noticed, the syntax to declare a function that receives another
 as argument is complicated and, also, breaks the pattern of an argument list
-that, up until now, was always a succession of types and names separated by
-commas. With this syntax for pointers, several parenthesis are included. C
-allows to define a type for the function pointers. That is, we are discovering
-yet again another use of \verb!typedef!. Let's see how it would be done and I
-will commen of some example of functions that would belong to that type.
+that, up until now, was always a succession of pair of a type and a name
+separated by commas. With this syntax for pointers, several parenthesis
+are included. C allows to define a type for the function pointers. That is,
+we are discovering yet again another use of \verb!typedef!. Let's see how
+it would be done and I will add in comments some example of functions that would
+belong to that type.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -9812,6 +9785,7 @@ typedef void(*malloc_t)(void); //ej: void* malloc(void);
 typedef int(sum_t)(int, int); // ej: int sum(int a, int b);
 \end{lstlisting}
 \end{minipage}
+
 Pay attention because, if the function returns a pointer, the asterisk goes
 inside the parenthesis, next to the type name, not outside. If we made in the
 program the first definition, we could change our generic function to:
@@ -9830,34 +9804,35 @@ void print_array_generic(void*       array,
                          print_fun_t print_foo);
 \end{lstlisting}
 \end{minipage}
+
 It is must clearer, because the last argument is identified, as any other, by
 a type and a name.
 
 The utlity of this can be very well seen in a kind of functions we have seen
 before, the sorting functions. Right now those functions sort integer vectors
-and, also, always from smallest to biggest. This present several improvements,
-the first one is evident, we have to receive \verb!void! pointers and use them,
-but the other is more interesting. This second one is: we can use only a way to
-sort. That is, we can only sort numbers and from smallest to biggest, we can't
-order structs, we can't comparate strings alphabetically, but we could if we
-used those new tools. To generalize a sorting function we would need the size of
-the data type and a function to compare the elements.
+and, also, always from smallest to biggest. This presents several potential
+improvements, the first one is evident, we have to receive \verb!void! pointers
+and use them, but the other is more interesting. This second one is: we can use
+only a way to sort. That is, we can only sort numbers and from smallest
+to biggest, we can't order structs, we can't comparate strings alphabetically,
+but we could if we used those new tools. To generalize a sorting function we
+would need the size of the data type and a function to compare the elements.
 
 Comparison functions are a very concrete type, they're called predicates, and
-they're functions that return a logic value over a set of arguments. A precidate
+they're functions that return a logic value over a set of arguments. A predicate
 evaluates a proposition (remember the section about logic), but over the
-arguments. In this case, a precidate to sort would be: function that checks if
+arguments. In this case, a predicate to sort would be: function that checks if
 the first element is less than the second one. Hence the signature of this
 funtion would return a logic value and will receive two \verb!void! pointers.
-Again, it receives two pointer to \verb!void! to be compatible with out generic
-function, internally, the comparison functions knows which type is behind the
-\verb!void! pointer.
+Again, it receives two pointer two \verb!void! pointers to be compatible with
+our generic function, internally, the comparison functions knows which type
+is behind the \verb!void! pointer.
 
 We are going to use the simpler algorithm we have, the bubble sort, to
-illustrate this. I am doind this because a generic implementation of, for
+illustrate this. I am doing this because a generic implementation of, for
 example, Quick Sort, would be more complex and longer, and I am more interested
 in the concept of function pointer and \verb!void! pointer. Also, we're going to
-see an application, sorting of text chain alphabetically.
+see an application, sorting of string alphabetically.
 
 \noindent
 \begin{minipage}[H]{\linewidth}
@@ -9902,7 +9877,7 @@ constant pointers, a function that receives no constant pointers will not be
 the same type and hence couldn't be used. Mind this when using function
 pointers.
 
-After that, we have the swap function in its generic function, that is, instead
+After that, we have the swap function in its generic version, that is, instead
 of using the assignment operator, we will use the memory copy operation with the
 size of the type. Later, the generic sorting function. As you can see, we have
 simply substituted the old conditional by one that calls the function we
@@ -9915,13 +9890,13 @@ greater, to sort the vector backwards, or use custom predicates for several
 structs.
 
 Inside the loop we must calculate firstly the pointers to the elements to
-evaluate. Thisis done this way for legibility, we could write the expressions
-in the swap function. Mind that we need to to multiply, again, \verb!ii! by the
+evaluate. This is done this way for legibility, we could write the expressions
+in the swap function. Mind that we need to multiply, again, \verb!ii! by the
 size of the data type. Remember: they're \verb"void" pointers, so pointer
 arithmetic does not count in this case. Once calculated we call the swapping
 function.
 
-We must mind also the comparison function. In the case of a string is it
+We must mind also the comparison function. In the case of strings,it is
 interesting because pointers are added upon pointers. Let's see the comparison
 function.
 
@@ -9929,7 +9904,7 @@ function.
 \begin{minipage}[H]{\linewidth}
 \mbox{}
 \begin{lstlisting}[style=C,
-caption={Función auxiliar de comparación de \textit{strings}},
+caption={Auxiliary function for strings comparison},
 label={lst:strcompare}]
 int compare_strings(const void* one, const void* two) {
     char* const* str1 = one, * const* str2 = two;
@@ -9964,7 +9939,7 @@ the content that address is pointing to. Let's see it with a drawing.
 
 Let's explain it slowly, if you look at the first picture, it is ``what we are
 used to'', each asterisk is a new pointer level, so you can read the declaration
-from left to right and will build the types. Let's start: we find \verb"const",
+from left to right and build the types. Let's start: we find \verb"const",
 what comes first is constant, after that, we know it is a \verb!char!, now it
 comes an asterisk, the asterisk starts a new pointer level, so this pointer will
 not be constant, because there is not \verb!const! to its right and, finally,
@@ -9977,7 +9952,7 @@ level, is has a \verb"const" on the right, so it is constant, and later another
 pointer, without \verb"const". That is, inverting it: non constant pointer to
 constant pointer to non constant \verb"char". In both cases, in the picture, I
 have drawn in red the values you cannot change, as you can see, in the first one
-we cannot change the strings, but we can change the intermediate pointers. In
+we cannot change the chars, but we can change the intermediate pointers. In
 the second case, on the contrary, we can modify the characters, but not the
 pointers of the intermediate array.
 
@@ -9989,14 +9964,14 @@ one place to another, either integers or decimals) are done explicitly and byte
 by byte. I am not going to dive into details of computer architecture, but
 computers know how to copy packs of four of eight bytes fast, because they know
 that's the size of integers and doubles (being able to do so with up to eight
-bytes is one od the advantages of 64 bit computers). When we copy byte by byte,
+bytes is one of the advantages of 64 bit computers). When we copy byte by byte,
 we avoid this optimization and, also, we need to loop several times for copying
 loops, which would be operators in other way. The other reason is that the
 compiler has more information about the code when the functions are called
 ``as they are'', if they're in variables and passed ar arguments, it has less
-information which makes the prgram slower. To make this visible, we are going to
-perform a comparison between the specific version and the generic one, sorting
-and array of 65.536 and 131.072 integers.
+information which makes the program slower. To make this visible, we are going
+to perform a comparison between the specific version and the generic one,
+sorting and array of 65.536 and 131.072 integers.
 
 \begin{table}[H]
 \begin{tabularx}{\linewidth}{|c|R|R|}
@@ -10006,7 +9981,7 @@ Specific&16.21&64.61\\\hline
 Generic&41.20&164.44\\\hline
 \textbf{Ratio}&0.39&0.39\\\hline
 \end{tabularx}
-\caption{Tiempos de ejecución de los distintos algoritmos}
+\caption{Executing times of different algorithms}
 \label{tab:sortingTimes}
 \end{table}
 
@@ -10018,10 +9993,6 @@ computing to say that the problem can be enlarged without the performance
 declining. The conclusion is that, if you can take the performance hit in
 general terms, you can implementing the generic version without the fear that
 big problems are solved very slowly.
-
-% Un ejercicio muy interesante sería que programaras la versión genérica de
-% \textit{Quick Sort} y que, además, hicieras estas mismas mediciones. Para
-% medir el tiempo puedes utilizar este código:
 
 An interesting exercise would be that you wrote the generic version of Quick
 Sort and that you also perform these measurements. To measure times you can use
@@ -10062,13 +10033,13 @@ the struct \verb!timespec! indicates the time elapsed since then as a number
 of seconds plus the corresponding nanoseconds in the respective members. Since
 this is not practical I have created a little function to translate that struct
 to decimal number so you can substract it comfortably. After that, you can
-measure the time before and after and later I substract the strart time from the
+measure the time before and after and later I substract the start time from the
 end time and I print it, as you can see.
 
 \section{Complete example of program}
 This section it at the end because we have seen each part of the language in
 detail and by itself, in this one we're going to assemble all the pieces in a
-big picture. To do so we're going to use and refine an aexample that has been
+big picture. To do so we're going to use and refine an example that has been
 recurrent in the manual: the management of a struct that stores the data of a
 person, but we're going to achieve to separate the user of the functions from
 the internal functionality of the code.
@@ -10076,11 +10047,10 @@ the internal functionality of the code.
 What we will do is to create a file in source code called \verb!person.c! and
 its corresponding header file, \verb!person.h!, in this file we will include
 functionality to create a person struct, change its attributes, read them and
-serialize them. Also, we're going to see and interesting artifact of the
+serialize them. Also, we're going to see an interesting artifact of the
 language to avoid the user to change the internal fields of our structs. For
-example: we assign pointers to memory zone that we do not control from this
+example: we assign pointers to memory zones that we do not control from this
 functions that we're going to provide to manipulate the struct.
-
 
 The first thing I am going to do is to create the header file because we have
 already defined in a very concrete way the functionality of this source code.
@@ -10122,9 +10092,9 @@ char *person_to_string(const person_t *p);
 
 Here you can see one of the interesting things of this final example: we are
 declaring the type \verb!person_t! but not the \verb!struct! it gives a name to,
-this meand that any source code file that includes this header \textbf{wouldn't}
+this means that any source code file that includes this header \textbf{wouldn't}
 know the definition of the struct. This implies that the user of the header
-will not be able to declare variable of this type, but he will be able to
+will not be able to declare variables of this type, but he will be able to
 declare pointers, because all pointers have the same size. If we tried to
 declare a variable of this type, the compiler will throw an error like this one:
 
@@ -10149,10 +10119,10 @@ contains definitions of useful types like those of standard size: \verb!int8_t!,
 \verb!int16_t!, etc.; if we wanted to define some function with an argument of
 these types or a function with a return type of these, it'd be needed to
 include the header. If we needed them in the implementation (in the declaration
-of struct, in the function definitions...), we will include those headers in the
-source code (in the \verb!.c! file).
+of the struct, in the function definitions...), we will include those headers
+in the source code file (in the \verb!.c! file).
 
-The next file is, precidely, this source code file: \verb!person.c!. This is
+The next file is, precisely, this source code file: \verb!person.c!. This is
 long, so I will include it in three sections: type declaration (which will
 contain just one), the struct manipulation functions and, finally, the ones
 to retrieve the information from the struct.
@@ -10211,8 +10181,8 @@ declare anything but pointers, and that pointer will not have space for anything
 if we do not allocate it. After that, we allocate memory for the content the
 members of the struct point to. In the destruction function, simmetrically,
 we free the the contents of the members and later the struct itself. Notice,
-also how we have declared we could as constants, because in this way the user
-will not doubt if we're going to modify the data he provides us with.
+also how we have declared all we could as constants, because in this way the
+user will not doubt if we're going to modify the data he provides us with.
 
 Las siguientes funciones son las que nos permiten sobreescribir los datos:
 
@@ -10323,6 +10293,7 @@ int main(void)
     serialization = person_to_string(person);
     printf("%s\n", serialization);
     free(serialization);
+    destroy_person(person);
 }
 \end{lstlisting}
 \end{minipage}
@@ -10417,10 +10388,9 @@ For the library, we will use these steps:
 
 In this final example we have seen examples of most of the concepts that have
 been explained in the manual: variables, pointers, memory, dynamic allocation,
-structs, macros, linking, compilation, constance and signedness. It is much
-information in a few pages, but allows ut to have a global image of all that
+structs, macros, linking, compilation, constance and signedness. It is plenty of
+information in a few pages, but allows us to have a global image of all that
 has been explained before in detail.
-
 
 \section{Annex A: exercises solutions}
 \begin{exercises}
